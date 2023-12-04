@@ -16,20 +16,8 @@ class Contrato extends Model
         'descripcion',
         'fecha_inicio',
         'fecha_fin',
-        'monto',
-        'idUsuario', // Este campo representa la relación con el modelo Usuario
-        'idCargo',   // Este campo representa la relación con el modelo Cargo
+        'idEmpleado',
+        'idTipoContrato',
         // Agrega aquí los demás campos de tu tabla contrato
     ];
-
-    // Define las relaciones con otras entidades si es necesario
-    public function usuario()
-    {
-        return $this->belongsTo(Usuario::class, 'idUsuario');
-    }
-
-    public function cargo()
-    {
-        return $this->belongsTo(Cargo::class, 'idCargo');
-    }
 }

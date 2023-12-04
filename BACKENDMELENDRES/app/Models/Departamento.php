@@ -15,10 +15,9 @@ class Departamento extends Model
     protected $fillable = [
         'nombre',
         'descripcion',
+        'telefonos',
+        'idUnidad',
     ];
 
-    public function empleados()
-    {
-        return $this->hasMany(Empleado::class, 'idDepartamento', 'idDepartamento');
-    }
+    
 }

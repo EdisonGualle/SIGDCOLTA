@@ -13,9 +13,15 @@ class Residencia extends Model
     protected $primaryKey = 'idResidencia';
 
     protected $fillable = [
-        'direccion',
-        'ciudad',
         'pais',
+        'provincia',
+        'canton',
+        'parroquia',
+        'sector',
+        'calles',
+        'referencia',
+        'telefonoDomicilio',
+        'idEmpleado',
         // Agrega aquí otros campos de la tabla residencia
     ];
 
