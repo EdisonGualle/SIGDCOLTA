@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tipossalidas extends Model
+class DatoBancario extends Model
 {
     use HasFactory;
 }

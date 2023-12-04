@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class EmpleadoHasInstrucionformalController extends Controller
+class EmpleadoHasInstrucionFormalController extends Controller
 {
     //
 }
