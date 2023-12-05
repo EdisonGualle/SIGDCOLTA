@@ -8,4 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class EvaluacionDesempeno extends Model
 {
     use HasFactory;
+
+    protected $table = 'evaluacionDesempeno';
+    protected $primaryKey = 'idEvaluacionDesempeno';
+
+    protected $fillable = [
+        'fecha',
+        'resultado',
+        'observaciones'
+
+        // Agrega aquí los demás campos de tu tabla cargo
+    ];
+
+    // Define las relaciones con otras entidades si es necesario
 }
