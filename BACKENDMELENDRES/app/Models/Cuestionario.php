@@ -9,16 +9,12 @@ class Cuestionario extends Model
 {
     use HasFactory;
 
-    protected $table = 'cuestionarios';
+    protected $table = 'cuestionario';
     protected $primaryKey = 'idCuestionario';
-
+    public $timestamps = false;
     protected $fillable = [
-        'pregunta',
-        'opcion1',
-        'opcion2',
-        'opcion3',
-        'opcion4',
-        'respuesta_correcta',
+        'descripcion',
+        'idEvaluacionDesempeno',
         // Agrega aquí los demás campos de tu tabla cuestionarios
     ];
 

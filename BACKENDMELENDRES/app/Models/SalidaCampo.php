@@ -8,4 +8,23 @@ use Illuminate\Database\Eloquent\Model;
 class SalidaCampo extends Model
 {
     use HasFactory;
+
+    protected $table = 'salidacampo';
+    protected $primaryKey = 'idSalidaCampo ';
+    public $timestamps = false;
+    protected $fillable = [
+        'nombre',
+        'fecha',
+        'horaSalida',
+        'horaLlegada',
+        'aprobacionJefeInmediato',
+        'aprobacionTalentoHumano',
+        'idEmpleado',
+        'idTipoSalida'
+
+
+        // Agrega aquí los demás campos de tu tabla cargo
+    ];
+
+    // Define las relaciones con otras entidades si es necesario
 }
