@@ -56,4 +56,7 @@ class DiscapasidadController extends Controller
         return response()->json(['message' => 'Discapacidad eliminada correctamente'], 200);
     }
 
+
+    
+
 }

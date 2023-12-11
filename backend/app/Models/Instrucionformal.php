@@ -11,7 +11,7 @@ class InstrucionFormal extends Model
 
     protected $table = 'instrucionformal';
     protected $primaryKey = 'idInstrucionFormal';
-
+    public $timestamps = false;
     protected $fillable = [
         'titulo',
         'fechaRegistro',

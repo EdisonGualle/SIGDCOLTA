@@ -11,7 +11,7 @@ class Empleado extends Model
 
     protected $table = 'empleado';
     protected $primaryKey = 'idEmpleado';
-
+    public $timestamps = false;
     protected $fillable = [
         'cedula',
         'nombre',

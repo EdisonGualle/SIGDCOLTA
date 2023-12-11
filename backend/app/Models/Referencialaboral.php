@@ -11,7 +11,7 @@ class Referencialaboral extends Model
 
     protected $table = 'referencialaboral';
     protected $primaryKey = 'idReferenciaLaboral ';
-
+    public $timestamps = false;
     protected $fillable = [
         'nombre',
         'apellido',

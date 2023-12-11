@@ -10,7 +10,7 @@ class ControlDiario extends Model
     use HasFactory;
 
     protected $table = 'controldiario'; // Nombre de la tabla en la base de datos
-
+    public $timestamps = false;
     protected $fillable = [
         'fechaControl',
         'horaEntrada',

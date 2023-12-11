@@ -11,7 +11,7 @@ class Residencia extends Model
 
     protected $table = 'residencia';
     protected $primaryKey = 'idResidencia';
-
+    public $timestamps = false;
     protected $fillable = [
         'pais',
         'provincia',

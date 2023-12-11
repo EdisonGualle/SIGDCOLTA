@@ -11,12 +11,13 @@ class Discapasidad extends Model
 
     protected $table = 'discapasidad';
     protected $primaryKey = 'idDiscapasidad';
+    public $timestamps = false;
 
+    
     protected $fillable = [
-        'nombreBanco',
-        'numeroCuenta',
-        'tipoCuenta',
-        'idEmpleado',
+        'nombre',
+        'tipo',
+        'porcentaje',
         // Agrega aquí los demás campos de tu tabla cuestionarios
     ];
 

@@ -11,7 +11,7 @@ class ExperienciaLaboral extends Model
 
     protected $table = 'experiencialaboral';
     protected $primaryKey = 'idExperienciaLaboral ';
-
+    public $timestamps = false;
     protected $fillable = [
         'institucion',
         'telefonoInstitucion',

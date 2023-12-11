@@ -1,24 +1,20 @@
-# Backend del Proyecto SIGDCOLTA
+Contenido del archivo gitgnore
 
-Este backend está desarrollado con [Laravel](https://laravel.com/), una framework de PHP moderno y potente.
-
-## Instalación
-
-Antes de comenzar, asegúrate de tener instalados los siguientes requisitos en tu máquina:
-
-- [Git](https://git-scm.com/)
-- [Node.js](https://nodejs.org/)
-- [Composer](https://getcomposer.org/)
-
-Sigue estos pasos para configurar y ejecutar el backend:
-
-```bash
-
-# Instala las dependencias de Node.js
-npm install
-
-# Instala las dependencias de PHP
-composer install
-
-# Levantar el servidor para probar APIs
-php artisan serve
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+.env
+.env.backup
+.env.production
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+auth.json
+npm-debug.log
+yarn-error.log
+/.fleet
+/.idea
+/.vscode

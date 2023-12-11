@@ -11,7 +11,7 @@ class TipoSalida extends Model
 
     protected $table = 'tiposalida';
     protected $primaryKey = 'idTipoSalida';
-
+    public $timestamps = false;
     protected $fillable = [
         'nombre',
         'descripcion',

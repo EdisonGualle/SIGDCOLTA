@@ -11,7 +11,7 @@ class Cuestionario extends Model
 
     protected $table = 'cuestionario';
     protected $primaryKey = 'idCuestionario';
-
+    public $timestamps = false;
     protected $fillable = [
         'descripcion',
         'idEvaluacionDesempeno',
@@ -20,4 +20,3 @@ class Cuestionario extends Model
 
     // Puedes definir relaciones con otras entidades si es necesario
 }
-
