@@ -66,11 +66,12 @@ Route::put('/contratos/{id}', [ContratoController::class, 'actualizarContrato'])
 Route::delete('/contratos/{id}', [ContratoController::class, 'eliminarContrato']);
 
 // CONTROL DIARIO routes
-Route::get('/control-diario', [ControlDiarioController::class, 'listarControlDiario']);
-Route::get('/control-diario/{id}', [ControlDiarioController::class, 'mostrarControlDiario']);
-Route::post('/control-diario', [ControlDiarioController::class, 'crearControlDiario']);
-Route::put('/control-diario/{id}', [ControlDiarioController::class, 'actualizarControlDiario']);
-Route::delete('/control-diario/{id}', [ControlDiarioController::class, 'eliminarControlDiario']);
+Route::get('/controlDiario', [ControlDiarioController::class, 'listarControlDiarios']);
+Route::get('/controlDiario/{id}', [ControlDiarioController::class, 'mostrarControlDiario']);
+Route::post('/controlDiario', [ControlDiarioController::class, 'crearControlDiario']);
+Route::put('/controlDiario/{id}', [ControlDiarioController::class, 'actualizarControlDiario']);
+Route::delete('/controlDiario/{id}', [ControlDiarioController::class, 'eliminarControlDiario']);
+
 
 // CUESTIONARIOS routes
 Route::get('/cuestionarios', [CuestionarioController::class, 'listarCuestionarios']);
@@ -114,12 +115,13 @@ Route::post('/estados', [EstadoController::class, 'crearEstado']);
 Route::put('/estados/{id}', [EstadoController::class, 'actualizarEstado']);
 Route::delete('/estados/{id}', [EstadoController::class, 'eliminarEstado']);
 
-// EVALUACION DESEMPEÑO routes
-Route::get('/evaluaciones-desempeno', [EvaluacionDesempenoController::class, 'listarEvaluacionesDesempeno']);
-Route::get('/evaluaciones-desempeno/{id}', [EvaluacionDesempenoController::class, 'mostrarEvaluacionDesempeno']);
-Route::post('/evaluaciones-desempeno', [EvaluacionDesempenoController::class, 'crearEvaluacionDesempeno']);
-Route::put('/evaluaciones-desempeno/{id}', [EvaluacionDesempenoController::class, 'actualizarEvaluacionDesempeno']);
-Route::delete('/evaluaciones-desempeno/{id}', [EvaluacionDesempenoController::class, 'eliminarEvaluacionDesempeno']);
+// EVALUACIONES DESEMPEÑO routes
+Route::get('/evaluacionesDesempeno', [EvaluacionDesempenoController::class, 'listarEvaluacionesDesempeno']);
+Route::get('/evaluacionesDesempeno/{id}', [EvaluacionDesempenoController::class, 'mostrarEvaluacionDesempeno']);
+Route::post('/evaluacionesDesempeno', [EvaluacionDesempenoController::class, 'crearEvaluacionDesempeno']);
+Route::put('/evaluacionesDesempeno/{id}', [EvaluacionDesempenoController::class, 'actualizarEvaluacionDesempeno']);
+Route::delete('/evaluacionesDesempeno/{id}', [EvaluacionDesempenoController::class, 'eliminarEvaluacionDesempeno']);
+
 
 // EXPERIENCIAS LABORALES routes
 Route::get('/experienciasLaborales', [ExperienciaLaboralController::class, 'index']);

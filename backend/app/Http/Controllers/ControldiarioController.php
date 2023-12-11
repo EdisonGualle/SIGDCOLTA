@@ -7,24 +7,24 @@ use App\Models\ControlDiario;
 
 class ControlDiarioController extends Controller
 {
-    public function index()
+    public function listarControlDiarios()
     {
         $controlDiarios = ControlDiario::all();
         return response()->json(['data' => $controlDiarios], 200);
     }
 
-    public function show($id)
+    public function mostrarControlDiario($id)
     {
         $controlDiario = ControlDiario::find($id);
 
         if (!$controlDiario) {
-            return response()->json(['message' => 'Control Diario no encontrado'], 404);
+            return response()->json(['error' => 'Control Diario no encontrado'], 404);
         }
 
         return response()->json(['data' => $controlDiario], 200);
     }
 
-    public function store(Request $request)
+    public function crearControlDiario(Request $request)
     {
         $this->validate($request, [
             'fechaControl' => 'required|date',
@@ -33,7 +33,7 @@ class ControlDiarioController extends Controller
             'horaEntradaReceso' => 'nullable|date_format:H:i:s',
             'horaSalidaReceso' => 'nullable|date_format:H:i:s',
             'totalHoras' => 'nullable|numeric',
-            'idEmpleado' => 'required|exists:empleado,idEmpleado',
+            'idEmpleado' => 'required|exists:empleados,idEmpleado',
         ]);
 
         $controlDiario = ControlDiario::create($request->all());
@@ -41,12 +41,12 @@ class ControlDiarioController extends Controller
         return response()->json(['data' => $controlDiario], 201);
     }
 
-    public function update(Request $request, $id)
+    public function actualizarControlDiario(Request $request, $id)
     {
         $controlDiario = ControlDiario::find($id);
 
         if (!$controlDiario) {
-            return response()->json(['message' => 'Control Diario no encontrado'], 404);
+            return response()->json(['error' => 'Control Diario no encontrado'], 404);
         }
 
         $this->validate($request, [
@@ -56,7 +56,7 @@ class ControlDiarioController extends Controller
             'horaEntradaReceso' => 'nullable|date_format:H:i:s',
             'horaSalidaReceso' => 'nullable|date_format:H:i:s',
             'totalHoras' => 'nullable|numeric',
-            'idEmpleado' => 'required|exists:empleado,idEmpleado',
+            'idEmpleado' => 'required|exists:empleados,idEmpleado',
         ]);
 
         $controlDiario->update($request->all());
@@ -64,12 +64,12 @@ class ControlDiarioController extends Controller
         return response()->json(['data' => $controlDiario], 200);
     }
 
-    public function destroy($id)
+    public function eliminarControlDiario($id)
     {
         $controlDiario = ControlDiario::find($id);
 
         if (!$controlDiario) {
-            return response()->json(['message' => 'Control Diario no encontrado'], 404);
+            return response()->json(['error' => 'Control Diario no encontrado'], 404);
         }
 
         $controlDiario->delete();
