@@ -11,7 +11,7 @@ class Estado extends Model
 
     protected $table = 'estado';
     protected $primaryKey = 'idEstado';
-    public $timestamps = false;
+
     protected $fillable = [
         'tipoEstado',
         

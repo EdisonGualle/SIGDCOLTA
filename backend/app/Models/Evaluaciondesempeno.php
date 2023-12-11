@@ -11,7 +11,7 @@ class EvaluacionDesempeno extends Model
 
     protected $table = 'evaluacionDesempeno';
     protected $primaryKey = 'idEvaluacionDesempeno';
-    public $timestamps = false;
+
     protected $fillable = [
         'fecha',
         'resultado',

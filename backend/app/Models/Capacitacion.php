@@ -11,7 +11,7 @@ class Capacitacion extends Model
 
     protected $table = 'capasitacion';
     protected $primaryKey = 'idCapasitacion';
-    public $timestamps = false;
+
     protected $fillable = [
         'nombre',
         'descripcion',

@@ -11,7 +11,7 @@ class SalidaCampo extends Model
 
     protected $table = 'salidacampo';
     protected $primaryKey = 'idSalidaCampo ';
-    public $timestamps = false;
+
     protected $fillable = [
         'nombre',
         'fecha',

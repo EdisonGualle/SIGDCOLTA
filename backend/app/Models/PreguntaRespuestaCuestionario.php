@@ -11,7 +11,7 @@ class PreguntaRespuestaCuestionario extends Model
 
     protected $table = 'preguntarespuestacuestionario';
     protected $primaryKey = 'idPreguntaRespuestaCuestionario';
-    public $timestamps = false;
+
     protected $fillable = [
         'pregunta',
         'respuesta',
