@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CapacitacionController;
 use App\Http\Controllers\CargoController;
 use App\Http\Controllers\ContratoController;
@@ -28,7 +26,8 @@ use App\Http\Controllers\UnidadController;
 use App\Http\Controllers\UsuarioController;
 use App\Models\SalidaCampo;
 use App\Models\TipoSalida;
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------

@@ -20,4 +20,3 @@ class Cuestionario extends Model
 
     // Puedes definir relaciones con otras entidades si es necesario
 }
-
