@@ -7,13 +7,13 @@ use Illuminate\Http\Request;
 
 class SalidaCampoController extends Controller
 {
-    public function index()
+    public function listarSalidasCampo()
     {
         $salidasCampo = SalidaCampo::all();
         return response()->json($salidasCampo);
     }
 
-    public function show($id)
+    public function mostrarSalidaCampo($id)
     {
         $salidaCampo = SalidaCampo::find($id);
 
@@ -24,13 +24,13 @@ class SalidaCampoController extends Controller
         return response()->json($salidaCampo);
     }
 
-    public function store(Request $request)
+    public function crearSalidaCampo(Request $request)
     {
         $salidaCampo = SalidaCampo::create($request->all());
         return response()->json($salidaCampo, 201);
     }
 
-    public function update(Request $request, $id)
+    public function actualizarSalidaCampo(Request $request, $id)
     {
         $salidaCampo = SalidaCampo::find($id);
 
@@ -43,7 +43,7 @@ class SalidaCampoController extends Controller
         return response()->json($salidaCampo, 200);
     }
 
-    public function destroy($id)
+    public function eliminarSalidaCampo($id)
     {
         $salidaCampo = SalidaCampo::find($id);
 

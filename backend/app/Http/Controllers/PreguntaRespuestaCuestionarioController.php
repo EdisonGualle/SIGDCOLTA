@@ -7,13 +7,13 @@ use Illuminate\Http\Request;
 
 class PreguntaRespuestaCuestionarioController extends Controller
 {
-    public function index()
+    public function listarPreguntasRespuestasCuestionarios()
     {
         $preguntasRespuestasCuestionarios = PreguntaRespuestaCuestionario::all();
         return response()->json($preguntasRespuestasCuestionarios);
     }
 
-    public function show($id)
+    public function mostrarPreguntaRespuestaCuestionario($id)
     {
         $preguntaRespuestaCuestionario = PreguntaRespuestaCuestionario::find($id);
 
@@ -24,13 +24,13 @@ class PreguntaRespuestaCuestionarioController extends Controller
         return response()->json($preguntaRespuestaCuestionario);
     }
 
-    public function store(Request $request)
+    public function crearPreguntaRespuestaCuestionario(Request $request)
     {
         $preguntaRespuestaCuestionario = PreguntaRespuestaCuestionario::create($request->all());
         return response()->json($preguntaRespuestaCuestionario, 201);
     }
 
-    public function update(Request $request, $id)
+    public function actualizarPreguntaRespuestaCuestionario(Request $request, $id)
     {
         $preguntaRespuestaCuestionario = PreguntaRespuestaCuestionario::find($id);
 
@@ -43,7 +43,7 @@ class PreguntaRespuestaCuestionarioController extends Controller
         return response()->json($preguntaRespuestaCuestionario, 200);
     }
 
-    public function destroy($id)
+    public function eliminarPreguntaRespuestaCuestionario($id)
     {
         $preguntaRespuestaCuestionario = PreguntaRespuestaCuestionario::find($id);
 

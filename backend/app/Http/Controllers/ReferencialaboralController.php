@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Referencialaboral;
+use App\Models\ReferenciaLaboral;
 use Illuminate\Http\Request;
 
 class ReferenciaLaboralController extends Controller
 {
-    public function index()
+    public function listarReferenciasLaborales()
     {
         $referenciasLaborales = ReferenciaLaboral::all();
         return response()->json($referenciasLaborales);
     }
 
-    public function show($id)
+    public function mostrarReferenciaLaboral($id)
     {
         $referenciaLaboral = ReferenciaLaboral::find($id);
 
@@ -24,15 +24,15 @@ class ReferenciaLaboralController extends Controller
         return response()->json($referenciaLaboral);
     }
 
-    public function store(Request $request)
+    public function crearReferenciaLaboral(Request $request)
     {
         $referenciaLaboral = ReferenciaLaboral::create($request->all());
         return response()->json($referenciaLaboral, 201);
     }
 
-    public function update(Request $request, $id)
+    public function actualizarReferenciaLaboral(Request $request, $id)
     {
-        $referenciaLaboral = Referencialaboral::find($id);
+        $referenciaLaboral = ReferenciaLaboral::find($id);
 
         if (!$referenciaLaboral) {
             return response()->json(['error' => 'Referencia Laboral no encontrada'], 404);
@@ -43,7 +43,7 @@ class ReferenciaLaboralController extends Controller
         return response()->json($referenciaLaboral, 200);
     }
 
-    public function destroy($id)
+    public function eliminarReferenciaLaboral($id)
     {
         $referenciaLaboral = ReferenciaLaboral::find($id);
 
