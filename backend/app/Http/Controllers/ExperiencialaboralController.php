@@ -7,13 +7,13 @@ use Illuminate\Http\Request;
 
 class ExperienciaLaboralController extends Controller
 {
-    public function index()
+    public function listarExperienciasLaborales()
     {
         $experienciasLaborales = ExperienciaLaboral::all();
         return response()->json($experienciasLaborales);
     }
 
-    public function show($id)
+    public function mostrarExperienciaLaboral($id)
     {
         $experienciaLaboral = ExperienciaLaboral::find($id);
 
@@ -24,13 +24,13 @@ class ExperienciaLaboralController extends Controller
         return response()->json($experienciaLaboral);
     }
 
-    public function store(Request $request)
+    public function crearExperienciaLaboral(Request $request)
     {
         $experienciaLaboral = ExperienciaLaboral::create($request->all());
         return response()->json($experienciaLaboral, 201);
     }
 
-    public function update(Request $request, $id)
+    public function actualizarExperienciaLaboral(Request $request, $id)
     {
         $experienciaLaboral = ExperienciaLaboral::find($id);
 
@@ -43,7 +43,7 @@ class ExperienciaLaboralController extends Controller
         return response()->json($experienciaLaboral, 200);
     }
 
-    public function destroy($id)
+    public function eliminarExperienciaLaboral($id)
     {
         $experienciaLaboral = ExperienciaLaboral::find($id);
 

@@ -28,10 +28,10 @@ class ControlDiarioController extends Controller
     {
         $this->validate($request, [
             'fechaControl' => 'required|date',
-            'horaEntrada' => 'nullable|timestamp',
-            'horaSalida' => 'nullable|timestamp',
-            'horaEntradaReceso' => 'nullable|timestamp',
-            'horaSalidaReceso' => 'nullable|timestamp',
+            'horaEntrada' => 'nullable|date_format:H:i:s',
+            'horaSalida' => 'nullable|date_format:H:i:s',
+            'horaEntradaReceso' => 'nullable|date_format:H:i:s',
+            'horaSalidaReceso' => 'nullable|date_format:H:i:s',
             'totalHoras' => 'nullable|numeric',
             'idEmpleado' => 'required|exists:empleado,idEmpleado',
         ]);
@@ -51,10 +51,10 @@ class ControlDiarioController extends Controller
 
         $this->validate($request, [
             'fechaControl' => 'required|date',
-            'horaEntrada' => 'nullable|timestamp',
-            'horaSalida' => 'nullable|timestamp',
-            'horaEntradaReceso' => 'nullable|timestamp',
-            'horaSalidaReceso' => 'nullable|timestamp',
+            'horaEntrada' => 'nullable|date_format:H:i:s',
+            'horaSalida' => 'nullable|date_format:H:i:s',
+            'horaEntradaReceso' => 'nullable|date_format:H:i:s',
+            'horaSalidaReceso' => 'nullable|date_format:H:i:s',
             'totalHoras' => 'nullable|numeric',
             'idEmpleado' => 'required|exists:empleado,idEmpleado',
         ]);

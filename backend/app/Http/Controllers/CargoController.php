@@ -7,16 +7,16 @@ use App\Models\Cargo;
 
 class CargoController extends Controller
 {
-    public function index()
+    public function listarCargos()
     {
         $cargos = Cargo::all();
         return response()->json($cargos);
     }
 
-    public function show($id)
+    public function mostrarCargo($id)
     {
         $cargo = Cargo::find($id);
-        
+
         if (!$cargo) {
             return response()->json(['error' => 'Cargo no encontrado'], 404);
         }
@@ -24,13 +24,13 @@ class CargoController extends Controller
         return response()->json($cargo);
     }
 
-    public function store(Request $request)
+    public function crearCargo(Request $request)
     {
         $cargo = Cargo::create($request->all());
         return response()->json($cargo, 201);
     }
 
-    public function update(Request $request, $id)
+    public function actualizarCargo(Request $request, $id)
     {
         $cargo = Cargo::find($id);
 
@@ -43,7 +43,7 @@ class CargoController extends Controller
         return response()->json($cargo, 200);
     }
 
-    public function destroy($id)
+    public function eliminarCargo($id)
     {
         $cargo = Cargo::find($id);
 
