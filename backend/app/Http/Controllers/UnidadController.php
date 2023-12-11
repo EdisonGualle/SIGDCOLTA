@@ -7,13 +7,13 @@ use Illuminate\Http\Request;
 
 class UnidadController extends Controller
 {
-    public function index()
+    public function listarUnidades()
     {
         $unidades = Unidad::all();
         return response()->json($unidades);
     }
 
-    public function show($id)
+    public function mostrarUnidad($id)
     {
         $unidad = Unidad::find($id);
 
@@ -24,13 +24,13 @@ class UnidadController extends Controller
         return response()->json($unidad);
     }
 
-    public function store(Request $request)
+    public function crearUnidad(Request $request)
     {
         $unidad = Unidad::create($request->all());
         return response()->json($unidad, 201);
     }
 
-    public function update(Request $request, $id)
+    public function actualizarUnidad(Request $request, $id)
     {
         $unidad = Unidad::find($id);
 
@@ -43,7 +43,7 @@ class UnidadController extends Controller
         return response()->json($unidad, 200);
     }
 
-    public function destroy($id)
+    public function eliminarUnidad($id)
     {
         $unidad = Unidad::find($id);
 
