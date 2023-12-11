@@ -7,13 +7,13 @@ use App\Models\Residencia;
 
 class ResidenciaController extends Controller
 {
-    public function index()
+    public function listarResidencias()
     {
         $residencias = Residencia::all();
         return response()->json($residencias);
     }
 
-    public function show($id)
+    public function mostrarResidencia($id)
     {
         $residencia = Residencia::find($id);
 
@@ -24,13 +24,13 @@ class ResidenciaController extends Controller
         return response()->json($residencia);
     }
 
-    public function store(Request $request)
+    public function crearResidencia(Request $request)
     {
         $residencia = Residencia::create($request->all());
         return response()->json($residencia, 201);
     }
 
-    public function update(Request $request, $id)
+    public function actualizarResidencia(Request $request, $id)
     {
         $residencia = Residencia::find($id);
 
@@ -43,7 +43,7 @@ class ResidenciaController extends Controller
         return response()->json($residencia, 200);
     }
 
-    public function destroy($id)
+    public function eliminarResidencia($id)
     {
         $residencia = Residencia::find($id);
 

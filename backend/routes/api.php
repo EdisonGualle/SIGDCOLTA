@@ -167,85 +167,92 @@ Route::delete('/permisos/{id}', [PermisoController::class, 'destroy']);
 
 
 // PREGUNTAS Y RESPUESTAS routes
-Route::get('/preguntasrespuestas', [PreguntaRespuestaCuestionarioController::class, 'index']);
-Route::get('/preguntasrespuestas/{id}', [PreguntaRespuestaCuestionarioController::class, 'show']);
-Route::post('/preguntasrespuestas', [PreguntaRespuestaCuestionarioController::class, 'store']);
-Route::put('/preguntasrespuestas/{id}', [PreguntaRespuestaCuestionarioController::class, 'update']);
-Route::delete('/preguntasrespuestas/{id}', [PreguntaRespuestaCuestionarioController::class, 'destroy']);
+Route::get('/preguntasrespuestas', [PreguntaRespuestaCuestionarioController::class, 'listarPreguntasRespuestasCuestionarios']);
+Route::get('/preguntasrespuestas/{id}', [PreguntaRespuestaCuestionarioController::class, 'mostrarPreguntaRespuestaCuestionario']);
+Route::post('/preguntasrespuestas', [PreguntaRespuestaCuestionarioController::class, 'crearPreguntaRespuestaCuestionario']);
+Route::put('/preguntasrespuestas/{id}', [PreguntaRespuestaCuestionarioController::class, 'actualizarPreguntaRespuestaCuestionario']);
+Route::delete('/preguntasrespuestas/{id}', [PreguntaRespuestaCuestionarioController::class, 'eliminarPreguntaRespuestaCuestionario']);
+
 
 
 // REFERENCIAS LABORALES routes
-Route::get('/referenciasLaborales', [ReferenciaLaboralController::class, 'index']);
-Route::get('/referenciasLaborales/{id}', [ReferenciaLaboralController::class, 'show']);
-Route::post('/referenciasLaborales', [ReferenciaLaboralController::class, 'store']);
-Route::put('/referenciasLaborales/{id}', [ReferenciaLaboralController::class, 'update']);
-Route::delete('/referenciasLaborales/{id}', [ReferenciaLaboralController::class, 'destroy']);
+Route::get('/referenciasLaborales', [ReferenciaLaboralController::class, 'listarReferenciasLaborales']);
+Route::get('/referenciasLaborales/{id}', [ReferenciaLaboralController::class, 'mostrarReferenciaLaboral']);
+Route::post('/referenciasLaborales', [ReferenciaLaboralController::class, 'crearReferenciaLaboral']);
+Route::put('/referenciasLaborales/{id}', [ReferenciaLaboralController::class, 'actualizarReferenciaLaboral']);
+Route::delete('/referenciasLaborales/{id}', [ReferenciaLaboralController::class, 'eliminarReferenciaLaboral']);
+
 
 
 
 // RESIDENCIAS routes
-Route::get('/residencias', [ResidenciaController::class, 'index']);
-Route::get('/residencias/{id}', [ResidenciaController::class, 'show']);
-Route::post('/residencias', [ResidenciaController::class, 'store']);
-Route::put('/residencias/{id}', [ResidenciaController::class, 'update']);
-Route::delete('/residencias/{id}', [ResidenciaController::class, 'destroy']);
+Route::get('/residencias', [ResidenciaController::class, 'listarResidencias']);
+Route::get('/residencias/{id}', [ResidenciaController::class, 'mostrarResidencia']);
+Route::post('/residencias', [ResidenciaController::class, 'crearResidencia']);
+Route::put('/residencias/{id}', [ResidenciaController::class, 'actualizarResidencia']);
+Route::delete('/residencias/{id}', [ResidenciaController::class, 'eliminarResidencia']);
+
 
 
 // ROLES routes
-Route::get('/roles', [RolController::class, 'index']);
-Route::get('/roles/{id}', [RolController::class, 'show']);
-Route::post('/roles', [RolController::class, 'store']);
-Route::put('/roles/{id}', [RolController::class, 'update']);
-Route::delete('/roles/{id}', [RolController::class, 'destroy']);
+Route::get('/roles', [RolController::class, 'listarRoles']);
+Route::get('/roles/{id}', [RolController::class, 'mostrarRol']);
+Route::post('/roles', [RolController::class, 'crearRol']);
+Route::put('/roles/{id}', [RolController::class, 'actualizarRol']);
+Route::delete('/roles/{id}', [RolController::class, 'eliminarRol']);
 
 
 
 // SALIDAS CAMPO routes
-Route::get('/salidasCampo', [SalidaCampoController::class, 'index']);
-Route::get('/salidasCampo/{id}', [SalidaCampoController::class, 'show']);
-Route::post('/salidasCampo', [SalidaCampoController::class, 'store']);
-Route::put('/salidasCampo/{id}', [SalidaCampoController::class, 'update']);
-Route::delete('/salidasCampo/{id}', [SalidaCampoController::class, 'destroy']);
+Route::get('/salidasCampo', [SalidaCampoController::class, 'listarSalidasCampo']);
+Route::get('/salidasCampo/{id}', [SalidaCampoController::class, 'mostrarSalidaCampo']);
+Route::post('/salidasCampo', [SalidaCampoController::class, 'crearSalidaCampo']);
+Route::put('/salidasCampo/{id}', [SalidaCampoController::class, 'actualizarSalidaCampo']);
+Route::delete('/salidasCampo/{id}', [SalidaCampoController::class, 'eliminarSalidaCampo']);
 
 
-// TIPO SCONTRATOS routes
-Route::get('/tiposContratos', [TipoContratoController::class, 'index']);
-Route::get('/tiposContratos/{id}', [TipoContratoController::class, 'show']);
-Route::post('/tiposContratos', [TipoContratoController::class, 'store']);
-Route::put('/tiposContratos/{id}', [TipoContratoController::class, 'update']);
-Route::delete('/tiposContratos/{id}', [TipoContratoController::class, 'destroy']);
+
+// TIPOS CONTRATOS routes
+Route::get('/tiposContratos', [TipoContratoController::class, 'listarTiposContrato']);
+Route::get('/tiposContratos/{id}', [TipoContratoController::class, 'mostrarTipoContrato']);
+Route::post('/tiposContratos', [TipoContratoController::class, 'crearTipoContrato']);
+Route::put('/tiposContratos/{id}', [TipoContratoController::class, 'actualizarTipoContrato']);
+Route::delete('/tiposContratos/{id}', [TipoContratoController::class, 'eliminarTipoContrato']);
 
 
-// TIPOS Salida routes
-Route::get('/tiposSalida', [TipoSalidaController::class, 'index']);
-Route::get('/tiposSalida/{id}', [TipoSalidaController::class, 'show']);
-Route::post('/tiposSalida', [TipoSalidaController::class, 'store']);
-Route::put('/tiposSalida/{id}', [TipoSalidaController::class, 'update']);
-Route::delete('/tiposSalida/{id}', [TipoSalidaController::class, 'destroy']);
+// TIPOS SALIDA routes
+Route::get('/tiposSalida', [TipoSalidaController::class, 'listarTiposSalida']);
+Route::get('/tiposSalida/{id}', [TipoSalidaController::class, 'mostrarTipoSalida']);
+Route::post('/tiposSalida', [TipoSalidaController::class, 'crearTipoSalida']);
+Route::put('/tiposSalida/{id}', [TipoSalidaController::class, 'actualizarTipoSalida']);
+Route::delete('/tiposSalida/{id}', [TipoSalidaController::class, 'eliminarTipoSalida']);
+
 
 
 // TIPOS PERMISO routes
-Route::get('/tiposPermiso', [TipoPermisoController::class, 'index']);
-Route::get('/tiposPermiso/{id}', [TipoPermisoController::class, 'show']);
-Route::post('/tiposPermiso', [TipoPermisoController::class, 'store']);
-Route::put('/tiposPermiso/{id}', [TipoPermisoController::class, 'update']);
-Route::delete('/tiposPermiso/{id}', [TipoPermisoController::class, 'destroy']);
+Route::get('/tiposPermiso', [TipoPermisoController::class, 'listarTiposPermiso']);
+Route::get('/tiposPermiso/{id}', [TipoPermisoController::class, 'mostrarTipoPermiso']);
+Route::post('/tiposPermiso', [TipoPermisoController::class, 'crearTipoPermiso']);
+Route::put('/tiposPermiso/{id}', [TipoPermisoController::class, 'actualizarTipoPermiso']);
+Route::delete('/tiposPermiso/{id}', [TipoPermisoController::class, 'eliminarTipoPermiso']);
+
 
 
 
 // UNIDADES routes
-Route::get('/unidades', [UnidadController::class, 'index']);
-Route::get('/unidades/{id}', [UnidadController::class, 'show']);
-Route::post('/unidades', [UnidadController::class, 'store']);
-Route::put('/unidades/{id}', [UnidadController::class, 'update']);
-Route::delete('/unidades/{id}', [UnidadController::class, 'destroy']);
+Route::get('/unidades', [UnidadController::class, 'listarUnidades']);
+Route::get('/unidades/{id}', [UnidadController::class, 'mostrarUnidad']);
+Route::post('/unidades', [UnidadController::class, 'crearUnidad']);
+Route::put('/unidades/{id}', [UnidadController::class, 'actualizarUnidad']);
+Route::delete('/unidades/{id}', [UnidadController::class, 'eliminarUnidad']);
+
 
 
 
 
 // USUARIOS routes
-Route::get('/usuarios', [UsuarioController::class, 'index']);
-Route::get('/usuarios/{id}', [UsuarioController::class, 'show']);
-Route::post('/usuarios', [UsuarioController::class, 'store']);
-Route::put('/usuarios/{id}', [UsuarioController::class, 'update']);
-Route::delete('/usuarios/{id}', [UsuarioController::class, 'destroy']);
+Route::get('/usuarios', [UsuarioController::class, 'listarUsuarios']);
+Route::get('/usuarios/{id}', [UsuarioController::class, 'mostrarUsuario']);
+Route::post('/usuarios', [UsuarioController::class, 'crearUsuario']);
+Route::put('/usuarios/{id}', [UsuarioController::class, 'actualizarUsuario']);
+Route::delete('/usuarios/{id}', [UsuarioController::class, 'eliminarUsuario']);
