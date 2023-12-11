@@ -7,16 +7,16 @@ use App\Models\Capacitacion;
 
 class CapacitacionController extends Controller
 {
-    public function index()
+    public function listarCapacitaciones()
     {
         $capacitaciones = Capacitacion::all();
         return response()->json($capacitaciones);
     }
 
-    public function show($id)
+    public function mostrarCapacitacion($id)
     {
         $capacitacion = Capacitacion::find($id);
-        
+
         if (!$capacitacion) {
             return response()->json(['error' => 'Capacitación no encontrada'], 404);
         }
@@ -24,13 +24,13 @@ class CapacitacionController extends Controller
         return response()->json($capacitacion);
     }
 
-    public function store(Request $request)
+    public function crearCapacitacion(Request $request)
     {
         $capacitacion = Capacitacion::create($request->all());
         return response()->json($capacitacion, 201);
     }
 
-    public function update(Request $request, $id)
+    public function actualizarCapacitacion(Request $request, $id)
     {
         $capacitacion = Capacitacion::find($id);
 
@@ -43,7 +43,7 @@ class CapacitacionController extends Controller
         return response()->json($capacitacion, 200);
     }
 
-    public function destroy($id)
+    public function eliminarCapacitacion($id)
     {
         $capacitacion = Capacitacion::find($id);
 

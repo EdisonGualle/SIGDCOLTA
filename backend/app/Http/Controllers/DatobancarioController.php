@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DatoBancario;
 use Illuminate\Http\Request;
+use App\Models\DatoBancario;
 
 class DatoBancarioController extends Controller
 {
-    public function index()
+    public function listarDatosBancarios()
     {
         $datosBancarios = DatoBancario::all();
         return response()->json($datosBancarios);
     }
 
-    public function show($id)
+    public function mostrarDatoBancario($id)
     {
         $datoBancario = DatoBancario::find($id);
 
@@ -24,13 +24,13 @@ class DatoBancarioController extends Controller
         return response()->json($datoBancario);
     }
 
-    public function store(Request $request)
+    public function crearDatoBancario(Request $request)
     {
         $datoBancario = DatoBancario::create($request->all());
         return response()->json($datoBancario, 201);
     }
 
-    public function update(Request $request, $id)
+    public function actualizarDatoBancario(Request $request, $id)
     {
         $datoBancario = DatoBancario::find($id);
 
@@ -43,7 +43,7 @@ class DatoBancarioController extends Controller
         return response()->json($datoBancario, 200);
     }
 
-    public function destroy($id)
+    public function eliminarDatoBancario($id)
     {
         $datoBancario = DatoBancario::find($id);
 
