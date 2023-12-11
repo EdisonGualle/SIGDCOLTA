@@ -7,13 +7,13 @@ use Illuminate\Http\Request;
 
 class EstadoController extends Controller
 {
-    public function index()
+    public function listarEstados()
     {
         $estados = Estado::all();
         return response()->json($estados);
     }
 
-    public function show($id)
+    public function mostrarEstado($id)
     {
         $estado = Estado::find($id);
 
@@ -24,18 +24,18 @@ class EstadoController extends Controller
         return response()->json($estado);
     }
 
-    public function store(Request $request)
+    public function crearEstado(Request $request)
     {
         $estado = Estado::create($request->all());
         return response()->json($estado, 201);
     }
 
-    public function update(Request $request, $id)
+    public function actualizarEstado(Request $request, $id)
     {
         $estado = Estado::find($id);
 
         if (!$estado) {
-            return response()->json(['error' => 'estado no encontrado'], 404);
+            return response()->json(['error' => 'Estado no encontrado'], 404);
         }
 
         $estado->update($request->all());
@@ -43,7 +43,7 @@ class EstadoController extends Controller
         return response()->json($estado, 200);
     }
 
-    public function destroy($id)
+    public function eliminarEstado($id)
     {
         $estado = Estado::find($id);
 

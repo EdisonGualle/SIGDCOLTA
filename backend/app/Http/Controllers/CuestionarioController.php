@@ -7,16 +7,16 @@ use App\Models\Cuestionario;
 
 class CuestionarioController extends Controller
 {
-    public function index()
+    public function listarCuestionarios()
     {
         $cuestionarios = Cuestionario::all();
         return response()->json($cuestionarios);
     }
 
-    public function show($id)
+    public function mostrarCuestionario($id)
     {
         $cuestionario = Cuestionario::find($id);
-        
+
         if (!$cuestionario) {
             return response()->json(['error' => 'Cuestionario no encontrado'], 404);
         }
@@ -24,13 +24,13 @@ class CuestionarioController extends Controller
         return response()->json($cuestionario);
     }
 
-    public function store(Request $request)
+    public function crearCuestionario(Request $request)
     {
         $cuestionario = Cuestionario::create($request->all());
         return response()->json($cuestionario, 201);
     }
 
-    public function update(Request $request, $id)
+    public function actualizarCuestionario(Request $request, $id)
     {
         $cuestionario = Cuestionario::find($id);
 
@@ -43,7 +43,7 @@ class CuestionarioController extends Controller
         return response()->json($cuestionario, 200);
     }
 
-    public function destroy($id)
+    public function eliminarCuestionario($id)
     {
         $cuestionario = Cuestionario::find($id);
 

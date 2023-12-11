@@ -7,13 +7,13 @@ use Illuminate\Http\Request;
 
 class DiscapasidadController extends Controller
 {
-    public function index()
+    public function listarDiscapacidades()
     {
         $discapacidades = Discapasidad::all();
         return response()->json($discapacidades);
     }
 
-    public function show($id)
+    public function mostrarDiscapacidad($id)
     {
         $discapacidad = Discapasidad::find($id);
 
@@ -24,13 +24,13 @@ class DiscapasidadController extends Controller
         return response()->json($discapacidad);
     }
 
-    public function store(Request $request)
+    public function crearDiscapacidad(Request $request)
     {
         $discapacidad = Discapasidad::create($request->all());
         return response()->json($discapacidad, 201);
     }
 
-    public function update(Request $request, $id)
+    public function actualizarDiscapacidad(Request $request, $id)
     {
         $discapacidad = Discapasidad::find($id);
 
@@ -43,7 +43,7 @@ class DiscapasidadController extends Controller
         return response()->json($discapacidad, 200);
     }
 
-    public function destroy($id)
+    public function eliminarDiscapacidad($id)
     {
         $discapacidad = Discapasidad::find($id);
 
@@ -55,8 +55,4 @@ class DiscapasidadController extends Controller
 
         return response()->json(['message' => 'Discapacidad eliminada correctamente'], 200);
     }
-
-
-    
-
 }

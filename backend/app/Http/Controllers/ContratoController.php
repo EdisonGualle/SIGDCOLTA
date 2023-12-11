@@ -7,16 +7,16 @@ use App\Models\Contrato;
 
 class ContratoController extends Controller
 {
-    public function index()
+    public function listarContratos()
     {
         $contratos = Contrato::with('usuario', 'cargo')->get();
         return response()->json($contratos);
     }
 
-    public function show($id)
+    public function mostrarContrato($id)
     {
         $contrato = Contrato::with('usuario', 'cargo')->find($id);
-        
+
         if (!$contrato) {
             return response()->json(['error' => 'Contrato no encontrado'], 404);
         }
@@ -24,13 +24,13 @@ class ContratoController extends Controller
         return response()->json($contrato);
     }
 
-    public function store(Request $request)
+    public function crearContrato(Request $request)
     {
         $contrato = Contrato::create($request->all());
         return response()->json($contrato, 201);
     }
 
-    public function update(Request $request, $id)
+    public function actualizarContrato(Request $request, $id)
     {
         $contrato = Contrato::find($id);
 
@@ -43,7 +43,7 @@ class ContratoController extends Controller
         return response()->json($contrato, 200);
     }
 
-    public function destroy($id)
+    public function eliminarContrato($id)
     {
         $contrato = Contrato::find($id);
 

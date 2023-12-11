@@ -7,13 +7,13 @@ use App\Models\Departamento;
 
 class DepartamentoController extends Controller
 {
-    public function index()
+    public function listarDepartamentos()
     {
         $departamentos = Departamento::all();
         return response()->json($departamentos);
     }
 
-    public function show($id)
+    public function mostrarDepartamento($id)
     {
         $departamento = Departamento::find($id);
 
@@ -24,13 +24,13 @@ class DepartamentoController extends Controller
         return response()->json($departamento);
     }
 
-    public function store(Request $request)
+    public function crearDepartamento(Request $request)
     {
         $departamento = Departamento::create($request->all());
         return response()->json($departamento, 201);
     }
 
-    public function update(Request $request, $id)
+    public function actualizarDepartamento(Request $request, $id)
     {
         $departamento = Departamento::find($id);
 
@@ -43,7 +43,7 @@ class DepartamentoController extends Controller
         return response()->json($departamento, 200);
     }
 
-    public function destroy($id)
+    public function eliminarDepartamento($id)
     {
         $departamento = Departamento::find($id);
 

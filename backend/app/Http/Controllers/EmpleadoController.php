@@ -7,13 +7,13 @@ use App\Models\Empleado;
 
 class EmpleadoController extends Controller
 {
-    public function index()
+    public function listarEmpleados()
     {
         $empleados = Empleado::all();
         return response()->json($empleados);
     }
 
-    public function show($id)
+    public function mostrarEmpleado($id)
     {
         $empleado = Empleado::find($id);
 
@@ -24,13 +24,13 @@ class EmpleadoController extends Controller
         return response()->json($empleado);
     }
 
-    public function store(Request $request)
+    public function crearEmpleado(Request $request)
     {
         $empleado = Empleado::create($request->all());
         return response()->json($empleado, 201);
     }
 
-    public function update(Request $request, $id)
+    public function actualizarEmpleado(Request $request, $id)
     {
         $empleado = Empleado::find($id);
 
@@ -43,7 +43,7 @@ class EmpleadoController extends Controller
         return response()->json($empleado, 200);
     }
 
-    public function destroy($id)
+    public function eliminarEmpleado($id)
     {
         $empleado = Empleado::find($id);
 
@@ -56,7 +56,7 @@ class EmpleadoController extends Controller
         return response()->json(['message' => 'Empleado eliminado correctamente'], 200);
     }
 
-    public function usuarios($id)
+    public function mostrarUsuarios($id)
     {
         $empleado = Empleado::find($id);
 
