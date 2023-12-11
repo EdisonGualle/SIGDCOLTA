@@ -7,13 +7,13 @@ use Illuminate\Http\Request;
 
 class TipoPermisoController extends Controller
 {
-    public function index()
+    public function listarTiposPermiso()
     {
         $tiposPermiso = TipoPermiso::all();
         return response()->json($tiposPermiso);
     }
 
-    public function show($id)
+    public function mostrarTipoPermiso($id)
     {
         $tipoPermiso = TipoPermiso::find($id);
 
@@ -24,13 +24,13 @@ class TipoPermisoController extends Controller
         return response()->json($tipoPermiso);
     }
 
-    public function store(Request $request)
+    public function crearTipoPermiso(Request $request)
     {
         $tipoPermiso = TipoPermiso::create($request->all());
         return response()->json($tipoPermiso, 201);
     }
 
-    public function update(Request $request, $id)
+    public function actualizarTipoPermiso(Request $request, $id)
     {
         $tipoPermiso = TipoPermiso::find($id);
 
@@ -43,7 +43,7 @@ class TipoPermisoController extends Controller
         return response()->json($tipoPermiso, 200);
     }
 
-    public function destroy($id)
+    public function eliminarTipoPermiso($id)
     {
         $tipoPermiso = TipoPermiso::find($id);
 

@@ -7,13 +7,13 @@ use Illuminate\Http\Request;
 
 class TipoSalidaController extends Controller
 {
-    public function index()
+    public function listarTiposSalida()
     {
         $tiposSalida = TipoSalida::all();
         return response()->json($tiposSalida);
     }
 
-    public function show($id)
+    public function mostrarTipoSalida($id)
     {
         $tipoSalida = TipoSalida::find($id);
 
@@ -24,13 +24,13 @@ class TipoSalidaController extends Controller
         return response()->json($tipoSalida);
     }
 
-    public function store(Request $request)
+    public function crearTipoSalida(Request $request)
     {
         $tipoSalida = TipoSalida::create($request->all());
         return response()->json($tipoSalida, 201);
     }
 
-    public function update(Request $request, $id)
+    public function actualizarTipoSalida(Request $request, $id)
     {
         $tipoSalida = TipoSalida::find($id);
 
@@ -43,7 +43,7 @@ class TipoSalidaController extends Controller
         return response()->json($tipoSalida, 200);
     }
 
-    public function destroy($id)
+    public function eliminarTipoSalida($id)
     {
         $tipoSalida = TipoSalida::find($id);
 
