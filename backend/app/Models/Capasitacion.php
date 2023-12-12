@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Capacitacion extends Model
+class Capasitacion extends Model
 {
     use HasFactory;
 
@@ -17,7 +17,6 @@ class Capacitacion extends Model
         'descripcion',
         'fecha',
         'tipoEvento',
-        'lugar',
         'institucion',
         'cantidadHoras',
         'archivo',

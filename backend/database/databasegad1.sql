@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-12-2023 a las 05:18:39
+-- Tiempo de generación: 12-12-2023 a las 14:35:32
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.0.28
 
@@ -35,7 +35,9 @@ CREATE TABLE `capasitacion` (
   `institucion` varchar(145) DEFAULT NULL,
   `cantidadHoras` int(11) DEFAULT NULL,
   `fecha` date DEFAULT NULL,
-  `archivo` varchar(145) DEFAULT NULL
+  `archivo` varchar(145) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -47,7 +49,9 @@ CREATE TABLE `capasitacion` (
 CREATE TABLE `cargo` (
   `idCargo` int(11) NOT NULL,
   `nombre` varchar(145) DEFAULT NULL,
-  `descripcion` varchar(145) DEFAULT NULL
+  `descripcion` varchar(145) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -61,7 +65,9 @@ CREATE TABLE `contrato` (
   `fechaInicio` date DEFAULT NULL,
   `fechaFin` date DEFAULT NULL,
   `idTipoContrato` int(11) NOT NULL,
-  `idEmpleado` int(11) NOT NULL
+  `idEmpleado` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -73,12 +79,14 @@ CREATE TABLE `contrato` (
 CREATE TABLE `controldiario` (
   `idControlDiario` int(11) NOT NULL,
   `fechaControl` date DEFAULT NULL,
-  `horaEntrada` timestamp NULL DEFAULT NULL,
-  `horaSalida` timestamp NULL DEFAULT NULL,
-  `horaEntradaReceso` timestamp NULL DEFAULT NULL,
-  `horaSalidaReceso` timestamp NULL DEFAULT NULL,
+  `horaEntrada` time DEFAULT NULL,
+  `horaSalida` time DEFAULT NULL,
+  `horaEntradaReceso` time DEFAULT NULL,
+  `horaSalidaReceso` time DEFAULT NULL,
   `totalHoras` float DEFAULT NULL,
-  `idEmpleado` int(11) NOT NULL
+  `idEmpleado` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -90,7 +98,9 @@ CREATE TABLE `controldiario` (
 CREATE TABLE `cuestionario` (
   `idCuestionario` int(11) NOT NULL,
   `descripcion` varchar(145) DEFAULT NULL,
-  `idEvaluacionDesempeno` int(11) NOT NULL
+  `idEvaluacionDesempeno` int(11) NOT NULL,
+  `updated_at` date NOT NULL,
+  `created_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -104,7 +114,9 @@ CREATE TABLE `datobancario` (
   `nombreBanco` varchar(145) DEFAULT NULL,
   `numeroCuenta` varchar(45) DEFAULT NULL,
   `tipoCuenta` varchar(45) DEFAULT NULL,
-  `idEmpleado` int(11) NOT NULL
+  `idEmpleado` int(11) NOT NULL,
+  `updated_at` date NOT NULL,
+  `created_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -116,7 +128,10 @@ CREATE TABLE `datobancario` (
 CREATE TABLE `departamento` (
   `idDepartamento` int(11) NOT NULL,
   `nombre` varchar(145) DEFAULT NULL,
-  `telefonos` varchar(11) DEFAULT NULL
+  `telefonos` varchar(20) DEFAULT NULL,
+  `idUnidad` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -129,7 +144,9 @@ CREATE TABLE `discapasidad` (
   `idDiscapasidad` int(11) NOT NULL,
   `nombre` varchar(145) DEFAULT NULL,
   `tipo` varchar(145) DEFAULT NULL,
-  `porcentaje` int(11) DEFAULT NULL
+  `porcentaje` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -145,8 +162,8 @@ CREATE TABLE `empleado` (
   `apellido` varchar(145) DEFAULT NULL,
   `fechaNacimiento` date DEFAULT NULL,
   `Genero` varchar(45) DEFAULT NULL,
-  `telefonoPersonal` varchar(11) DEFAULT NULL,
-  `telefonoTrabajo` varchar(11) DEFAULT NULL,
+  `telefonoPersonal` varchar(20) DEFAULT NULL,
+  `telefonoTrabajo` varchar(20) DEFAULT NULL,
   `correo` varchar(45) DEFAULT NULL,
   `etnia` varchar(45) DEFAULT NULL,
   `estadoCivil` varchar(45) DEFAULT NULL,
@@ -157,7 +174,9 @@ CREATE TABLE `empleado` (
   `cantonNacimiento` varchar(45) DEFAULT NULL,
   `idDepartamento` int(11) NOT NULL,
   `idCargo` int(11) NOT NULL,
-  `idEstado` int(11) NOT NULL
+  `idEstado` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -168,7 +187,9 @@ CREATE TABLE `empleado` (
 
 CREATE TABLE `empleado_has_capasitacion` (
   `idEmpleado` int(11) NOT NULL,
-  `idCapasitacion` int(11) NOT NULL
+  `idCapasitacion` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -179,7 +200,9 @@ CREATE TABLE `empleado_has_capasitacion` (
 
 CREATE TABLE `empleado_has_discapasidad` (
   `idEmpleado` int(11) NOT NULL,
-  `idDiscapasidad` int(11) NOT NULL
+  `idDiscapasidad` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -190,7 +213,9 @@ CREATE TABLE `empleado_has_discapasidad` (
 
 CREATE TABLE `empleado_has_evaluaciondesempeno` (
   `idEmpleado` int(11) NOT NULL,
-  `idEvaluacionDesempeno` int(11) NOT NULL
+  `idEvaluacionDesempeno` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -201,7 +226,9 @@ CREATE TABLE `empleado_has_evaluaciondesempeno` (
 
 CREATE TABLE `empleado_has_instrucionformal` (
   `idEmpleado` int(11) NOT NULL,
-  `idInstrucionFormal` int(11) NOT NULL
+  `idInstrucionFormal` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -212,7 +239,9 @@ CREATE TABLE `empleado_has_instrucionformal` (
 
 CREATE TABLE `estado` (
   `idEstado` int(11) NOT NULL,
-  `tipoEstado` varchar(45) DEFAULT NULL
+  `tipoEstado` varchar(45) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -225,7 +254,9 @@ CREATE TABLE `evaluaciondesempeno` (
   `idEvaluacionDesempeno` int(11) NOT NULL,
   `fecha` timestamp NULL DEFAULT NULL,
   `resultado` varchar(45) DEFAULT NULL,
-  `observaciones` varchar(240) DEFAULT NULL
+  `observaciones` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -237,14 +268,16 @@ CREATE TABLE `evaluaciondesempeno` (
 CREATE TABLE `experiencialaboral` (
   `idExperienciaLaboral` int(11) NOT NULL,
   `institucion` varchar(145) DEFAULT NULL,
-  `telefonoInstitucion` varchar(11) DEFAULT NULL,
+  `telefonoInstitucion` varchar(20) DEFAULT NULL,
   `areaTrabajo` varchar(45) DEFAULT NULL,
   `puesto` varchar(45) DEFAULT NULL,
   `fechaDesde` date DEFAULT NULL,
   `fechaHasta` date DEFAULT NULL,
-  `actividades` varchar(145) DEFAULT NULL,
+  `actividades` text DEFAULT NULL,
   `archivo` varchar(145) DEFAULT NULL,
-  `idEmpleado` int(11) NOT NULL
+  `idEmpleado` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -258,7 +291,9 @@ CREATE TABLE `instrucionformal` (
   `titulo` varchar(145) DEFAULT NULL,
   `fechaRegistro` date DEFAULT NULL,
   `nivelAcademico` varchar(45) DEFAULT NULL,
-  `archivo` varchar(145) DEFAULT NULL
+  `archivo` varchar(145) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -268,7 +303,7 @@ CREATE TABLE `instrucionformal` (
 --
 
 CREATE TABLE `permiso` (
-  `idPermisos` int(11) NOT NULL,
+  `idPermiso` int(11) NOT NULL,
   `fechaSolicitud` date DEFAULT NULL,
   `fechaInicio` varchar(45) DEFAULT NULL,
   `fechaFinaliza` date DEFAULT NULL,
@@ -276,7 +311,9 @@ CREATE TABLE `permiso` (
   `aprobacionJefeInmediato` varchar(45) DEFAULT NULL,
   `aprobacionTalentoHumano` varchar(45) DEFAULT NULL,
   `idTipoPermiso` int(11) NOT NULL,
-  `idEmpleado` int(11) NOT NULL
+  `idEmpleado` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -289,7 +326,9 @@ CREATE TABLE `preguntarespuestacuestionario` (
   `idPreguntaRespuestaCuestionario` int(11) NOT NULL,
   `pregunta` varchar(240) DEFAULT NULL,
   `respuesta` varchar(240) DEFAULT NULL,
-  `idCuestionario` int(11) NOT NULL
+  `idCuestionario` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -303,9 +342,11 @@ CREATE TABLE `referencialaboral` (
   `nombre` varchar(145) DEFAULT NULL,
   `apellido` varchar(145) DEFAULT NULL,
   `cedula` varchar(11) DEFAULT NULL,
-  `telefono` varchar(11) DEFAULT NULL,
+  `telefono` varchar(20) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
-  `idExperienciaLaboral` int(11) NOT NULL
+  `idExperienciaLaboral` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -316,15 +357,17 @@ CREATE TABLE `referencialaboral` (
 
 CREATE TABLE `residencia` (
   `idResidencia` int(11) NOT NULL,
-  `pais` varchar(45) DEFAULT NULL,
-  `provincia` varchar(45) DEFAULT NULL,
-  `canton` varchar(45) DEFAULT NULL,
-  `parroquia` varchar(45) DEFAULT NULL,
-  `sector` varchar(45) DEFAULT NULL,
+  `pais` varchar(100) DEFAULT NULL,
+  `provincia` varchar(100) DEFAULT NULL,
+  `canton` varchar(100) DEFAULT NULL,
+  `parroquia` varchar(100) DEFAULT NULL,
+  `sector` varchar(100) DEFAULT NULL,
   `calles` varchar(240) DEFAULT NULL,
   `referencia` varchar(240) DEFAULT NULL,
-  `telefonoDomicilio` varchar(11) DEFAULT NULL,
-  `idEmpleado` int(11) NOT NULL
+  `telefonoDomicilio` varchar(20) DEFAULT NULL,
+  `idEmpleado` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -335,7 +378,9 @@ CREATE TABLE `residencia` (
 
 CREATE TABLE `rol` (
   `idRol` int(11) NOT NULL,
-  `nombre` varchar(45) DEFAULT NULL
+  `nombre` varchar(45) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -347,12 +392,14 @@ CREATE TABLE `rol` (
 CREATE TABLE `salidacampo` (
   `idSalidaCampo` int(11) NOT NULL,
   `fecha` date DEFAULT NULL,
-  `horaSalida` timestamp NULL DEFAULT NULL,
-  `horaLlegada` timestamp NULL DEFAULT NULL,
+  `horaSalida` time DEFAULT NULL,
+  `horaLlegada` time DEFAULT NULL,
   `aprobacionJefeInmediato` varchar(45) DEFAULT NULL,
   `aprobacionTalentoHumano` varchar(45) DEFAULT NULL,
   `idEmpleado` int(11) NOT NULL,
-  `idTipoSalida` int(11) NOT NULL
+  `idTipoSalida` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -364,8 +411,10 @@ CREATE TABLE `salidacampo` (
 CREATE TABLE `tipocontrato` (
   `idTipoContrato` int(11) NOT NULL,
   `nombre` varchar(45) DEFAULT NULL,
-  `descripcion` varchar(45) DEFAULT NULL,
-  `clausulas` text DEFAULT NULL
+  `descripcion` varchar(145) DEFAULT NULL,
+  `clausulas` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -377,7 +426,9 @@ CREATE TABLE `tipocontrato` (
 CREATE TABLE `tipopermiso` (
   `idTipoPermiso` int(11) NOT NULL,
   `nombre` varchar(45) DEFAULT NULL,
-  `descripcion` varchar(145) DEFAULT NULL
+  `descripcion` varchar(145) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -389,7 +440,23 @@ CREATE TABLE `tipopermiso` (
 CREATE TABLE `tiposalida` (
   `idTipoSalida` int(11) NOT NULL,
   `nombre` varchar(45) DEFAULT NULL,
-  `descripcion` varchar(145) DEFAULT NULL
+  `descripcion` varchar(145) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `unidad`
+--
+
+CREATE TABLE `unidad` (
+  `idUnidad` int(11) NOT NULL,
+  `nombre` varchar(145) NOT NULL,
+  `descripcion` varchar(145) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -403,7 +470,9 @@ CREATE TABLE `usuario` (
   `nombre` varchar(45) DEFAULT NULL,
   `password` varchar(145) DEFAULT NULL,
   `idRol` int(11) NOT NULL,
-  `idEmpleado` int(11) NOT NULL
+  `idEmpleado` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
@@ -455,7 +524,8 @@ ALTER TABLE `datobancario`
 -- Indices de la tabla `departamento`
 --
 ALTER TABLE `departamento`
-  ADD PRIMARY KEY (`idDepartamento`);
+  ADD PRIMARY KEY (`idDepartamento`),
+  ADD KEY `fk_Departamento_Unidad1` (`idUnidad`);
 
 --
 -- Indices de la tabla `discapasidad`
@@ -468,8 +538,8 @@ ALTER TABLE `discapasidad`
 --
 ALTER TABLE `empleado`
   ADD PRIMARY KEY (`idEmpleado`),
-  ADD KEY `fk_Empleado_Departamento1` (`idDepartamento`),
   ADD KEY `fk_Empleado_Cargo1` (`idCargo`),
+  ADD KEY `fk_Empleado_Departamento1` (`idDepartamento`),
   ADD KEY `fk_Empleado_Estado1` (`idEstado`);
 
 --
@@ -484,7 +554,7 @@ ALTER TABLE `empleado_has_capasitacion`
 --
 ALTER TABLE `empleado_has_discapasidad`
   ADD PRIMARY KEY (`idEmpleado`,`idDiscapasidad`),
-  ADD KEY `fk_Empleado_has_discapasidad_discapasidad1` (`idDiscapasidad`);
+  ADD KEY `fk_Empleado_has_discapasidad_discapasidad1` (`idDiscapasidad`,`idEmpleado`) USING BTREE;
 
 --
 -- Indices de la tabla `empleado_has_evaluaciondesempeno`
@@ -504,7 +574,8 @@ ALTER TABLE `empleado_has_instrucionformal`
 -- Indices de la tabla `estado`
 --
 ALTER TABLE `estado`
-  ADD PRIMARY KEY (`idEstado`);
+  ADD PRIMARY KEY (`idEstado`),
+  ADD UNIQUE KEY `tipoEstado` (`tipoEstado`);
 
 --
 -- Indices de la tabla `evaluaciondesempeno`
@@ -529,7 +600,7 @@ ALTER TABLE `instrucionformal`
 -- Indices de la tabla `permiso`
 --
 ALTER TABLE `permiso`
-  ADD PRIMARY KEY (`idPermisos`),
+  ADD PRIMARY KEY (`idPermiso`),
   ADD KEY `fk_Permisos_TiposPermisos1` (`idTipoPermiso`),
   ADD KEY `fk_Permisos_Empleado1` (`idEmpleado`);
 
@@ -587,12 +658,18 @@ ALTER TABLE `tiposalida`
   ADD PRIMARY KEY (`idTipoSalida`);
 
 --
+-- Indices de la tabla `unidad`
+--
+ALTER TABLE `unidad`
+  ADD PRIMARY KEY (`idUnidad`);
+
+--
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`idUsuario`),
-  ADD KEY `fk_Usuario_Rol1` (`idRol`),
-  ADD KEY `fk_Usuario_Empleado1` (`idEmpleado`);
+  ADD KEY `fk_Usuario_Empleado1` (`idEmpleado`),
+  ADD KEY `fk_Usuario_Rol1` (`idRol`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -680,7 +757,7 @@ ALTER TABLE `instrucionformal`
 -- AUTO_INCREMENT de la tabla `permiso`
 --
 ALTER TABLE `permiso`
-  MODIFY `idPermisos` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPermiso` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `preguntarespuestacuestionario`
@@ -731,6 +808,12 @@ ALTER TABLE `tiposalida`
   MODIFY `idTipoSalida` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `unidad`
+--
+ALTER TABLE `unidad`
+  MODIFY `idUnidad` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
@@ -744,107 +827,113 @@ ALTER TABLE `usuario`
 -- Filtros para la tabla `contrato`
 --
 ALTER TABLE `contrato`
-  ADD CONSTRAINT `fk_Contrato_Empleado1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Contrato_TipoContrato1` FOREIGN KEY (`idTipoContrato`) REFERENCES `tipocontrato` (`idTipoContrato`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Contrato_Empleado1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_Contrato_TipoContrato1` FOREIGN KEY (`idTipoContrato`) REFERENCES `tipocontrato` (`idTipoContrato`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `controldiario`
 --
 ALTER TABLE `controldiario`
-  ADD CONSTRAINT `fk_ControlDiario_Empleado1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_ControlDiario_Empleado1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `cuestionario`
 --
 ALTER TABLE `cuestionario`
-  ADD CONSTRAINT `fk_Cuestionario_EvaluacionDesempeno1` FOREIGN KEY (`idEvaluacionDesempeno`) REFERENCES `evaluaciondesempeno` (`idEvaluacionDesempeno`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Cuestionario_EvaluacionDesempeno1` FOREIGN KEY (`idEvaluacionDesempeno`) REFERENCES `evaluaciondesempeno` (`idEvaluacionDesempeno`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `datobancario`
 --
 ALTER TABLE `datobancario`
-  ADD CONSTRAINT `fk_DatosBancarios_Empleado1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_DatosBancarios_Empleado1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `departamento`
+--
+ALTER TABLE `departamento`
+  ADD CONSTRAINT `fk_Departamento_Unidad1` FOREIGN KEY (`idUnidad`) REFERENCES `unidad` (`idUnidad`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `empleado`
 --
 ALTER TABLE `empleado`
-  ADD CONSTRAINT `fk_Empleado_Cargo1` FOREIGN KEY (`idCargo`) REFERENCES `cargo` (`idCargo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Empleado_Departamento1` FOREIGN KEY (`idDepartamento`) REFERENCES `departamento` (`idDepartamento`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Empleado_Estado1` FOREIGN KEY (`idEstado`) REFERENCES `estado` (`idEstado`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Empleado_Cargo1` FOREIGN KEY (`idCargo`) REFERENCES `cargo` (`idCargo`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_Empleado_Departamento1` FOREIGN KEY (`idDepartamento`) REFERENCES `departamento` (`idDepartamento`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_Empleado_Estado1` FOREIGN KEY (`idEstado`) REFERENCES `estado` (`idEstado`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `empleado_has_capasitacion`
 --
 ALTER TABLE `empleado_has_capasitacion`
-  ADD CONSTRAINT `fk_Empleado_has_Capasitacion_Capasitacion1` FOREIGN KEY (`idCapasitacion`) REFERENCES `capasitacion` (`idCapasitacion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Empleado_has_Capasitacion_Empleado1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Empleado_has_Capasitacion_Capasitacion1` FOREIGN KEY (`idCapasitacion`) REFERENCES `capasitacion` (`idCapasitacion`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_Empleado_has_Capasitacion_Empleado1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `empleado_has_discapasidad`
 --
 ALTER TABLE `empleado_has_discapasidad`
-  ADD CONSTRAINT `fk_Empleado_has_discapasidad_Empleado1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Empleado_has_discapasidad_discapasidad1` FOREIGN KEY (`idDiscapasidad`) REFERENCES `discapasidad` (`idDiscapasidad`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Empleado_has_discapasidad_Empleado1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_Empleado_has_discapasidad_discapasidad1` FOREIGN KEY (`idDiscapasidad`) REFERENCES `discapasidad` (`idDiscapasidad`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `empleado_has_evaluaciondesempeno`
 --
 ALTER TABLE `empleado_has_evaluaciondesempeno`
-  ADD CONSTRAINT `fk_Empleado_has_EvaluacionDesempeno_Empleado1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Empleado_has_EvaluacionDesempeno_EvaluacionDesempeno1` FOREIGN KEY (`idEvaluacionDesempeno`) REFERENCES `evaluaciondesempeno` (`idEvaluacionDesempeno`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Empleado_has_EvaluacionDesempeno_Empleado1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_Empleado_has_EvaluacionDesempeno_EvaluacionDesempeno1` FOREIGN KEY (`idEvaluacionDesempeno`) REFERENCES `evaluaciondesempeno` (`idEvaluacionDesempeno`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `empleado_has_instrucionformal`
 --
 ALTER TABLE `empleado_has_instrucionformal`
-  ADD CONSTRAINT `fk_Empleado_has_InstrucionFormal_Empleado1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Empleado_has_InstrucionFormal_InstrucionFormal1` FOREIGN KEY (`idInstrucionFormal`) REFERENCES `instrucionformal` (`idInstrucionFormal`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Empleado_has_InstrucionFormal_Empleado1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_Empleado_has_InstrucionFormal_InstrucionFormal1` FOREIGN KEY (`idInstrucionFormal`) REFERENCES `instrucionformal` (`idInstrucionFormal`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `experiencialaboral`
 --
 ALTER TABLE `experiencialaboral`
-  ADD CONSTRAINT `fk_ExperienciaLaboral_Empleado1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_ExperienciaLaboral_Empleado1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `permiso`
 --
 ALTER TABLE `permiso`
-  ADD CONSTRAINT `fk_Permisos_Empleado1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Permisos_TiposPermisos1` FOREIGN KEY (`idTipoPermiso`) REFERENCES `tipopermiso` (`idTipoPermiso`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Permisos_Empleado1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_Permisos_TiposPermisos1` FOREIGN KEY (`idTipoPermiso`) REFERENCES `tipopermiso` (`idTipoPermiso`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `preguntarespuestacuestionario`
 --
 ALTER TABLE `preguntarespuestacuestionario`
-  ADD CONSTRAINT `fk_PreguntasRespuestasCuestionario_Cuestionario1` FOREIGN KEY (`idCuestionario`) REFERENCES `cuestionario` (`idCuestionario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_PreguntasRespuestasCuestionario_Cuestionario1` FOREIGN KEY (`idCuestionario`) REFERENCES `cuestionario` (`idCuestionario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `referencialaboral`
 --
 ALTER TABLE `referencialaboral`
-  ADD CONSTRAINT `fk_ReferenciaLaboral_ExperienciaLaboral1` FOREIGN KEY (`idExperienciaLaboral`) REFERENCES `experiencialaboral` (`idExperienciaLaboral`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_ReferenciaLaboral_ExperienciaLaboral1` FOREIGN KEY (`idExperienciaLaboral`) REFERENCES `experiencialaboral` (`idExperienciaLaboral`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `residencia`
 --
 ALTER TABLE `residencia`
-  ADD CONSTRAINT `fk_Residencia_Empleado1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Residencia_Empleado1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `salidacampo`
 --
 ALTER TABLE `salidacampo`
-  ADD CONSTRAINT `fk_SalidasCampo_Empleado1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_SalidasCampo_TiposSalidas1` FOREIGN KEY (`idTipoSalida`) REFERENCES `tiposalida` (`idTipoSalida`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_SalidasCampo_Empleado1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_SalidasCampo_TiposSalidas1` FOREIGN KEY (`idTipoSalida`) REFERENCES `tiposalida` (`idTipoSalida`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD CONSTRAINT `fk_Usuario_Empleado1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Usuario_Rol1` FOREIGN KEY (`idRol`) REFERENCES `rol` (`idRol`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Usuario_Empleado1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_Usuario_Rol1` FOREIGN KEY (`idRol`) REFERENCES `rol` (`idRol`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
