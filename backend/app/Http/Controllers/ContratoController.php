@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Contrato;
+use Illuminate\Support\Facades\DB;
 
 class ContratoController extends Controller
 {
     public function listarContratos()
     {
-        $contratos = Contrato::with('usuario', 'cargo')->get();
+        $contratos = Contrato::all();
         return response()->json($contratos);
     }
 
@@ -55,4 +56,27 @@ class ContratoController extends Controller
 
         return response()->json(['message' => 'Contrato eliminado correctamente'], 200);
     }
+
+
+
+    //funciones a consultas complejas
+    public function contratosActivos()
+    {
+        $contratosActivos = DB::table('contrato')
+            ->select('contrato.idContrato', 'empleado.nombre AS empleado', 'contrato.fechaInicio', 'contrato.fechaFin', 'tipocontrato.nombre AS tipoContrato')
+            ->join('empleado', 'contrato.idEmpleado', '=', 'empleado.idEmpleado')
+            ->join('tipocontrato', 'contrato.idTipoContrato', '=', 'tipocontrato.idTipoContrato')
+            ->where('contrato.fechaFin', '>', now()) // now() obtiene la fecha actual
+            ->get();
+
+        return response()->json($contratosActivos);
+    }
+
+    //funciones que pueden venir del modelo
+    public function contratosActivoss(){
+        $contrato= new Contrato();
+        $contratosActivos = $contrato->contratosActivos();
+        return response()->json($contratosActivos);
+    }
+
 }

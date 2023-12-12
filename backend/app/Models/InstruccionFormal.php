@@ -9,8 +9,8 @@ class InstruccionFormal extends Model
 {
     use HasFactory;
 
-    protected $table = 'instrucionformal';
-    protected $primaryKey = 'idInstrucionFormal';
+    protected $table = 'instruccionformal';
+    protected $primaryKey = 'idInstruccionFormal';
 
     protected $fillable = [
         'titulo',

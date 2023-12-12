@@ -13,7 +13,7 @@ class EmpleadoHasInstruccionformal extends Model
   /*   protected $primaryKey = []; */
 
     protected $fillable = [
-        'idEmpleado','idInstrucionFormal '
+        'idEmpleado','idInstruccionFormal '
     ];
 
     // Puedes definir relaciones con otras entidades si es necesario

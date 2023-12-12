@@ -5,7 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Http\Controllers\EmpleadoHasCapasitacionController;
-use App\Models\Capasitacion;
+use App\Models\Capacitacion;
 use App\Models\Cargo;
 use App\Models\Contrato;
 use App\Models\ControlDiario;
@@ -23,7 +23,7 @@ use App\Models\TipoPermiso;
 use App\Models\TipoSalida;
 use App\Models\Unidad;
 use App\Models\Empleado;
-use App\Models\EmpleadoHasCapasitacion;
+use App\Models\EmpleadoHasCapacitacion;
 use App\Models\EmpleadoHasDiscapacidad;
 use App\Models\EmpleadoHasEvaluacionDesempeno;
 use App\Models\EmpleadoHasInstruccionformal;
@@ -47,7 +47,7 @@ class DatabaseSeeder extends Seeder
     {
         ///BORAR PRIMERO
 
-        Capasitacion::query()->delete();
+        Capacitacion::query()->delete();
         Cargo::query()->delete();
         Departamento::query()->delete();
         Discapacidad::query()->delete();
@@ -67,7 +67,7 @@ class DatabaseSeeder extends Seeder
 
 
         //CREAR LUEGO
-        Capasitacion::factory(10)->create();
+        Capacitacion::factory(10)->create();
         Cargo::factory(10)->create();
         Discapacidad::factory(10)->create();
         Estado::factory(1)->create();
@@ -97,7 +97,7 @@ class DatabaseSeeder extends Seeder
 
 
         EmpleadoHasDiscapacidad::factory(2)->create();
-        EmpleadoHasCapasitacion::factory(10)->create();
+        EmpleadoHasCapacitacion::factory(10)->create();
         EmpleadoHasEvaluacionDesempeno::factory(10)->create();
         /* EmpleadoHasInstruccionformal::factory(10)->create();
         EmpleadoHasDiscapacidad::factory(10)->create();
