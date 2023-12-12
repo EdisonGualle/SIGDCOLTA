@@ -5,16 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class EmpleadoHasCapasitacion extends Model
+class EmpleadoHasInstruccionformal extends Model
 {
     use HasFactory;
 
-    protected $table = 'empleado_has_capasitacion';
+    protected $table = 'empleado_has_instrucionformal';
+  /*   protected $primaryKey = []; */
 
     protected $fillable = [
-        'idEmpleado', 
-        'idCapasitacion',
-        // Agrega aquí los demás campos de tu tabla cuestionarios
+        'idEmpleado','idInstrucionFormal '
     ];
 
     // Puedes definir relaciones con otras entidades si es necesario

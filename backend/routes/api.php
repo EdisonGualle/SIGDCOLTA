@@ -131,7 +131,7 @@ Route::put('/experienciasLaborales/{id}', [ExperienciaLaboralController::class, 
 Route::delete('/experienciasLaborales/{id}', [ExperienciaLaboralController::class, 'destroy']);
 
 // INSTRUCCIONES FORMALES routes
-Route::get('/instrucciones-formales', [ InstruccionFormalController::class, 'listarInstruccionesFormales']);
+Route::get('/instrucciones-formales', [InstruccionFormalController::class, 'listarInstruccionesFormales']);
 Route::get('/instrucciones-formales/{id}', [InstruccionFormalController::class, 'mostrarInstruccionFormal']);
 Route::post('/instrucciones-formales', [InstruccionFormalController::class, 'crearInstruccionFormal']);
 Route::put('/instrucciones-formales/{id}', [InstruccionFormalController::class, 'actualizarInstruccionFormal']);
