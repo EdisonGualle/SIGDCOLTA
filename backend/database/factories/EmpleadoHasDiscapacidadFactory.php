@@ -18,7 +18,7 @@ class EmpleadoHasDiscapacidadFactory extends Factory
     {
         return [
             'idEmpleado' => \App\Models\Empleado::inRandomOrder()->first()->idEmpleado,
-            'idDiscapasidad' => \App\Models\Discapacidad::inRandomOrder()->first()->idDiscapasidad,
+            'idDiscapacidad' => \App\Models\Discapacidad::inRandomOrder()->first()->idDiscapacidad,
             'created_at' => now(),
             'updated_at' => now(),
         ];

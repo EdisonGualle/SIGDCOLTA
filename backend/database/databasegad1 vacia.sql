@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-12-2023 a las 14:35:32
+-- Tiempo de generación: 12-12-2023 a las 17:30:39
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.0.28
 
@@ -24,11 +24,11 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `capasitacion`
+-- Estructura de tabla para la tabla `capacitacion`
 --
 
-CREATE TABLE `capasitacion` (
-  `idCapasitacion` int(11) NOT NULL,
+CREATE TABLE `capacitacion` (
+  `idCapacitacion` int(11) NOT NULL,
   `nombre` varchar(145) DEFAULT NULL,
   `descripcion` varchar(145) DEFAULT NULL,
   `tipoEvento` varchar(45) DEFAULT NULL,
@@ -137,11 +137,11 @@ CREATE TABLE `departamento` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `discapasidad`
+-- Estructura de tabla para la tabla `discapacidad`
 --
 
-CREATE TABLE `discapasidad` (
-  `idDiscapasidad` int(11) NOT NULL,
+CREATE TABLE `discapacidad` (
+  `idDiscapacidad` int(11) NOT NULL,
   `nombre` varchar(145) DEFAULT NULL,
   `tipo` varchar(145) DEFAULT NULL,
   `porcentaje` int(11) DEFAULT NULL,
@@ -182,12 +182,12 @@ CREATE TABLE `empleado` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `empleado_has_capasitacion`
+-- Estructura de tabla para la tabla `empleado_has_capacitacion`
 --
 
-CREATE TABLE `empleado_has_capasitacion` (
+CREATE TABLE `empleado_has_capacitacion` (
   `idEmpleado` int(11) NOT NULL,
-  `idCapasitacion` int(11) NOT NULL,
+  `idCapacitacion` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -195,12 +195,12 @@ CREATE TABLE `empleado_has_capasitacion` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `empleado_has_discapasidad`
+-- Estructura de tabla para la tabla `empleado_has_discapacidad`
 --
 
-CREATE TABLE `empleado_has_discapasidad` (
+CREATE TABLE `empleado_has_discapacidad` (
   `idEmpleado` int(11) NOT NULL,
-  `idDiscapasidad` int(11) NOT NULL,
+  `idDiscapacidad` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -221,12 +221,12 @@ CREATE TABLE `empleado_has_evaluaciondesempeno` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `empleado_has_instrucionformal`
+-- Estructura de tabla para la tabla `empleado_has_instruccionformal`
 --
 
-CREATE TABLE `empleado_has_instrucionformal` (
+CREATE TABLE `empleado_has_instruccionformal` (
   `idEmpleado` int(11) NOT NULL,
-  `idInstrucionFormal` int(11) NOT NULL,
+  `idInstruccionFormal` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -283,11 +283,11 @@ CREATE TABLE `experiencialaboral` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `instrucionformal`
+-- Estructura de tabla para la tabla `instruccionformal`
 --
 
-CREATE TABLE `instrucionformal` (
-  `idInstrucionFormal` int(11) NOT NULL,
+CREATE TABLE `instruccionformal` (
+  `idInstruccionFormal` int(11) NOT NULL,
   `titulo` varchar(145) DEFAULT NULL,
   `fechaRegistro` date DEFAULT NULL,
   `nivelAcademico` varchar(45) DEFAULT NULL,
@@ -480,10 +480,10 @@ CREATE TABLE `usuario` (
 --
 
 --
--- Indices de la tabla `capasitacion`
+-- Indices de la tabla `capacitacion`
 --
-ALTER TABLE `capasitacion`
-  ADD PRIMARY KEY (`idCapasitacion`);
+ALTER TABLE `capacitacion`
+  ADD PRIMARY KEY (`idCapacitacion`);
 
 --
 -- Indices de la tabla `cargo`
@@ -528,10 +528,10 @@ ALTER TABLE `departamento`
   ADD KEY `fk_Departamento_Unidad1` (`idUnidad`);
 
 --
--- Indices de la tabla `discapasidad`
+-- Indices de la tabla `discapacidad`
 --
-ALTER TABLE `discapasidad`
-  ADD PRIMARY KEY (`idDiscapasidad`);
+ALTER TABLE `discapacidad`
+  ADD PRIMARY KEY (`idDiscapacidad`);
 
 --
 -- Indices de la tabla `empleado`
@@ -543,18 +543,18 @@ ALTER TABLE `empleado`
   ADD KEY `fk_Empleado_Estado1` (`idEstado`);
 
 --
--- Indices de la tabla `empleado_has_capasitacion`
+-- Indices de la tabla `empleado_has_capacitacion`
 --
-ALTER TABLE `empleado_has_capasitacion`
-  ADD PRIMARY KEY (`idEmpleado`,`idCapasitacion`),
-  ADD KEY `fk_Empleado_has_Capasitacion_Capasitacion1` (`idCapasitacion`);
+ALTER TABLE `empleado_has_capacitacion`
+  ADD PRIMARY KEY (`idEmpleado`,`idCapacitacion`),
+  ADD KEY `fk_Empleado_has_capacitacion_capacitacion1` (`idCapacitacion`);
 
 --
--- Indices de la tabla `empleado_has_discapasidad`
+-- Indices de la tabla `empleado_has_discapacidad`
 --
-ALTER TABLE `empleado_has_discapasidad`
-  ADD PRIMARY KEY (`idEmpleado`,`idDiscapasidad`),
-  ADD KEY `fk_Empleado_has_discapasidad_discapasidad1` (`idDiscapasidad`,`idEmpleado`) USING BTREE;
+ALTER TABLE `empleado_has_discapacidad`
+  ADD PRIMARY KEY (`idEmpleado`,`idDiscapacidad`),
+  ADD KEY `fk_Empleado_has_discapacidad_discapacidad1` (`idDiscapacidad`,`idEmpleado`) USING BTREE;
 
 --
 -- Indices de la tabla `empleado_has_evaluaciondesempeno`
@@ -564,11 +564,11 @@ ALTER TABLE `empleado_has_evaluaciondesempeno`
   ADD KEY `fk_Empleado_has_EvaluacionDesempeno_EvaluacionDesempeno1` (`idEvaluacionDesempeno`);
 
 --
--- Indices de la tabla `empleado_has_instrucionformal`
+-- Indices de la tabla `empleado_has_instruccionformal`
 --
-ALTER TABLE `empleado_has_instrucionformal`
-  ADD PRIMARY KEY (`idEmpleado`,`idInstrucionFormal`),
-  ADD KEY `fk_Empleado_has_InstrucionFormal_InstrucionFormal1` (`idInstrucionFormal`);
+ALTER TABLE `empleado_has_instruccionformal`
+  ADD PRIMARY KEY (`idEmpleado`,`idInstruccionFormal`),
+  ADD KEY `fk_Empleado_has_instruccionFormal_instruccionFormal1` (`idInstruccionFormal`);
 
 --
 -- Indices de la tabla `estado`
@@ -591,10 +591,10 @@ ALTER TABLE `experiencialaboral`
   ADD KEY `fk_ExperienciaLaboral_Empleado1` (`idEmpleado`);
 
 --
--- Indices de la tabla `instrucionformal`
+-- Indices de la tabla `instruccionformal`
 --
-ALTER TABLE `instrucionformal`
-  ADD PRIMARY KEY (`idInstrucionFormal`);
+ALTER TABLE `instruccionformal`
+  ADD PRIMARY KEY (`idInstruccionFormal`);
 
 --
 -- Indices de la tabla `permiso`
@@ -676,10 +676,10 @@ ALTER TABLE `usuario`
 --
 
 --
--- AUTO_INCREMENT de la tabla `capasitacion`
+-- AUTO_INCREMENT de la tabla `capacitacion`
 --
-ALTER TABLE `capasitacion`
-  MODIFY `idCapasitacion` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `capacitacion`
+  MODIFY `idCapacitacion` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `cargo`
@@ -718,10 +718,10 @@ ALTER TABLE `departamento`
   MODIFY `idDepartamento` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `discapasidad`
+-- AUTO_INCREMENT de la tabla `discapacidad`
 --
-ALTER TABLE `discapasidad`
-  MODIFY `idDiscapasidad` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `discapacidad`
+  MODIFY `idDiscapacidad` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `empleado`
@@ -748,10 +748,10 @@ ALTER TABLE `experiencialaboral`
   MODIFY `idExperienciaLaboral` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `instrucionformal`
+-- AUTO_INCREMENT de la tabla `instruccionformal`
 --
-ALTER TABLE `instrucionformal`
-  MODIFY `idInstrucionFormal` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `instruccionformal`
+  MODIFY `idInstruccionFormal` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `permiso`
@@ -863,18 +863,18 @@ ALTER TABLE `empleado`
   ADD CONSTRAINT `fk_Empleado_Estado1` FOREIGN KEY (`idEstado`) REFERENCES `estado` (`idEstado`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `empleado_has_capasitacion`
+-- Filtros para la tabla `empleado_has_capacitacion`
 --
-ALTER TABLE `empleado_has_capasitacion`
-  ADD CONSTRAINT `fk_Empleado_has_Capasitacion_Capasitacion1` FOREIGN KEY (`idCapasitacion`) REFERENCES `capasitacion` (`idCapasitacion`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_Empleado_has_Capasitacion_Empleado1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `empleado_has_capacitacion`
+  ADD CONSTRAINT `fk_Empleado_has_capacitacion_Empleado1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_Empleado_has_capacitacion_capacitacion1` FOREIGN KEY (`idCapacitacion`) REFERENCES `capacitacion` (`idCapacitacion`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `empleado_has_discapasidad`
+-- Filtros para la tabla `empleado_has_discapacidad`
 --
-ALTER TABLE `empleado_has_discapasidad`
-  ADD CONSTRAINT `fk_Empleado_has_discapasidad_Empleado1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_Empleado_has_discapasidad_discapasidad1` FOREIGN KEY (`idDiscapasidad`) REFERENCES `discapasidad` (`idDiscapasidad`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `empleado_has_discapacidad`
+  ADD CONSTRAINT `fk_Empleado_has_discapacidad_Empleado1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_Empleado_has_discapacidad_discapacidad1` FOREIGN KEY (`idDiscapacidad`) REFERENCES `discapacidad` (`idDiscapacidad`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `empleado_has_evaluaciondesempeno`
@@ -884,11 +884,11 @@ ALTER TABLE `empleado_has_evaluaciondesempeno`
   ADD CONSTRAINT `fk_Empleado_has_EvaluacionDesempeno_EvaluacionDesempeno1` FOREIGN KEY (`idEvaluacionDesempeno`) REFERENCES `evaluaciondesempeno` (`idEvaluacionDesempeno`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `empleado_has_instrucionformal`
+-- Filtros para la tabla `empleado_has_instruccionformal`
 --
-ALTER TABLE `empleado_has_instrucionformal`
-  ADD CONSTRAINT `fk_Empleado_has_InstrucionFormal_Empleado1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_Empleado_has_InstrucionFormal_InstrucionFormal1` FOREIGN KEY (`idInstrucionFormal`) REFERENCES `instrucionformal` (`idInstrucionFormal`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `empleado_has_instruccionformal`
+  ADD CONSTRAINT `fk_Empleado_has_instruccionFormal_Empleado1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_Empleado_has_instruccionFormal_instruccionFormal1` FOREIGN KEY (`idInstruccionFormal`) REFERENCES `instruccionformal` (`idInstruccionFormal`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `experiencialaboral`

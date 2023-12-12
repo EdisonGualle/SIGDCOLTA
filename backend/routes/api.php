@@ -10,7 +10,7 @@ use App\Http\Controllers\ControlDiarioController;
 use App\Http\Controllers\CuestionarioController;
 use App\Http\Controllers\DatoBancarioController;
 use App\Http\Controllers\DepartamentoController;
-use App\Http\Controllers\DiscapasidadController;
+use App\Http\Controllers\DiscapacidadController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\EstadoController;
 use App\Http\Controllers\EvaluacionDesempenoController;
@@ -64,6 +64,9 @@ Route::get('/contratos/{id}', [ContratoController::class, 'mostrarContrato']);
 Route::post('/contratos', [ContratoController::class, 'crearContrato']);
 Route::put('/contratos/{id}', [ContratoController::class, 'actualizarContrato']);
 Route::delete('/contratos/{id}', [ContratoController::class, 'eliminarContrato']);
+Route::delete('/contratos/{id}', [ContratoController::class, 'eliminarContrato']);
+Route::get('/contratosActivos', [ContratoController::class, 'contratosActivos']);
+
 
 // CONTROL DIARIO routes
 Route::get('/controlDiario', [ControlDiarioController::class, 'listarControlDiarios']);
@@ -95,11 +98,11 @@ Route::put('/departamentos/{id}', [DepartamentoController::class, 'actualizarDep
 Route::delete('/departamentos/{id}', [DepartamentoController::class, 'eliminarDepartamento']);
 
 // DISCAPACIDADES routes
-Route::get('/discapacidades', [DiscapasidadController::class, 'listarDiscapacidades']);
-Route::get('/discapacidades/{id}', [DiscapasidadController::class, 'mostrarDiscapacidad']);
-Route::post('/discapacidades', [DiscapasidadController::class, 'crearDiscapacidad']);
-Route::put('/discapacidades/{id}', [DiscapasidadController::class, 'actualizarDiscapacidad']);
-Route::delete('/discapacidades/{id}', [DiscapasidadController::class, 'eliminarDiscapacidad']);
+Route::get('/discapacidades', [DiscapacidadController::class, 'listarDiscapacidades']);
+Route::get('/discapacidades/{id}', [DiscapacidadController::class, 'mostrarDiscapacidad']);
+Route::post('/discapacidades', [DiscapacidadController::class, 'crearDiscapacidad']);
+Route::put('/discapacidades/{id}', [DiscapacidadController::class, 'actualizarDiscapacidad']);
+Route::delete('/discapacidades/{id}', [DiscapacidadController::class, 'eliminarDiscapacidad']);
 
 // EMPLEADOS routes
 Route::get('/empleados', [EmpleadoController::class, 'listarEmpleados']);
@@ -124,11 +127,11 @@ Route::delete('/evaluacionesDesempeno/{id}', [EvaluacionDesempenoController::cla
 
 
 // EXPERIENCIAS LABORALES routes
-Route::get('/experienciasLaborales', [ExperienciaLaboralController::class, 'index']);
-Route::get('/experienciasLaborales/{id}', [ExperienciaLaboralController::class, 'show']);
-Route::post('/experienciasLaborales', [ExperienciaLaboralController::class, 'store']);
-Route::put('/experienciasLaborales/{id}', [ExperienciaLaboralController::class, 'update']);
-Route::delete('/experienciasLaborales/{id}', [ExperienciaLaboralController::class, 'destroy']);
+Route::get('/experienciasLaborales', [ExperienciaLaboralController::class, 'listarExperienciasLaborales']);
+Route::get('/experienciasLaborales/{id}', [ExperienciaLaboralController::class, 'mostrarExperienciasLaborales']);
+Route::post('/experienciasLaborales', [ExperienciaLaboralController::class, 'crearExperienciasLaborales']);
+Route::put('/experienciasLaborales/{id}', [ExperienciaLaboralController::class, 'actualizarExperienciasLaborales']);
+Route::delete('/experienciasLaborales/{id}', [ExperienciaLaboralController::class, 'eliminarExperienciasLaborales']);
 
 // INSTRUCCIONES FORMALES routes
 Route::get('/instrucciones-formales', [InstruccionFormalController::class, 'listarInstruccionesFormales']);

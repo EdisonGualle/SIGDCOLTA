@@ -9,11 +9,11 @@ class EmpleadoHasDiscapacidad extends Model
 {
     use HasFactory;
 
-    protected $table = 'empleado_has_discapasidad';
+    protected $table = 'empleado_has_discapacidad';
 
     protected $fillable = [
         'idEmpleado',
-        'idDiscapasidad'
+        'idDiscapacidad'
     ];
 
     // Puedes definir relaciones con otras entidades si es necesario

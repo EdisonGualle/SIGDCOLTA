@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\EmpleadoHasCapasitacion>
  */
-class EmpleadoHasCapasitacionFactory extends Factory
+class EmpleadoHasCapacitacionFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,7 +18,7 @@ class EmpleadoHasCapasitacionFactory extends Factory
     {
         return [
             'idEmpleado' => \App\Models\Empleado::inRandomOrder()->first()->idEmpleado,
-            'idCapasitacion' => \App\Models\Capasitacion::inRandomOrder()->first()->idCapasitacion,
+            'idCapacitacion' => \App\Models\Capacitacion::inRandomOrder()->first()->idCapacitacion,
             'created_at' => now(),
             'updated_at' => now(),
         ];

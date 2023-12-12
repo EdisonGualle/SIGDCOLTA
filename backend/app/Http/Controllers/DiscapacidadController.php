@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Discapasidad;
+use App\Models\Discapacidad;
 use Illuminate\Http\Request;
 
-class DiscapasidadController extends Controller
+class DiscapacidadController extends Controller
 {
     public function listarDiscapacidades()
     {
-        $discapacidades = Discapasidad::all();
+        $discapacidades = Discapacidad::all();
         return response()->json($discapacidades);
     }
 
     public function mostrarDiscapacidad($id)
     {
-        $discapacidad = Discapasidad::find($id);
+        $discapacidad = Discapacidad::find($id);
 
         if (!$discapacidad) {
             return response()->json(['error' => 'Discapacidad no encontrada'], 404);
@@ -26,13 +26,13 @@ class DiscapasidadController extends Controller
 
     public function crearDiscapacidad(Request $request)
     {
-        $discapacidad = Discapasidad::create($request->all());
+        $discapacidad = Discapacidad::create($request->all());
         return response()->json($discapacidad, 201);
     }
 
     public function actualizarDiscapacidad(Request $request, $id)
     {
-        $discapacidad = Discapasidad::find($id);
+        $discapacidad = Discapacidad::find($id);
 
         if (!$discapacidad) {
             return response()->json(['error' => 'Discapacidad no encontrada'], 404);
@@ -45,7 +45,7 @@ class DiscapasidadController extends Controller
 
     public function eliminarDiscapacidad($id)
     {
-        $discapacidad = Discapasidad::find($id);
+        $discapacidad = Discapacidad::find($id);
 
         if (!$discapacidad) {
             return response()->json(['error' => 'Discapacidad no encontrada'], 404);

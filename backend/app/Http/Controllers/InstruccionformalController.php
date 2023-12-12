@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\InstrucionFormal;
+use App\Models\InstruccionFormal;
 use Illuminate\Http\Request;
 
 class InstruccionFormalController extends Controller
 {
     public function listarInstruccionesFormales()
     {
-        $instruccionesFormales = InstrucionFormal::all();
+        $instruccionesFormales = InstruccionFormal::all();
         return response()->json($instruccionesFormales);
     }
 
     public function mostrarInstruccionFormal($id)
     {
-        $instruccionFormal = InstrucionFormal::find($id);
+        $instruccionFormal = InstruccionFormal::find($id);
 
         if (!$instruccionFormal) {
             return response()->json(['error' => 'Instrucción Formal no encontrada'], 404);
@@ -26,13 +26,13 @@ class InstruccionFormalController extends Controller
 
     public function crearInstruccionFormal(Request $request)
     {
-        $instruccionFormal = InstrucionFormal::create($request->all());
+        $instruccionFormal = InstruccionFormal::create($request->all());
         return response()->json($instruccionFormal, 201);
     }
 
     public function actualizarInstruccionFormal(Request $request, $id)
     {
-        $instruccionFormal = InstrucionFormal::find($id);
+        $instruccionFormal = InstruccionFormal::find($id);
 
         if (!$instruccionFormal) {
             return response()->json(['error' => 'Instrucción Formal no encontrada'], 404);
@@ -45,7 +45,7 @@ class InstruccionFormalController extends Controller
 
     public function eliminarInstruccionFormal($id)
     {
-        $instruccionFormal = InstrucionFormal::find($id);
+        $instruccionFormal = InstruccionFormal::find($id);
 
         if (!$instruccionFormal) {
             return response()->json(['error' => 'Instrucción Formal no encontrada'], 404);

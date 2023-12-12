@@ -9,8 +9,8 @@ class Discapacidad extends Model
 {
     use HasFactory;
 
-    protected $table = 'discapasidad';
-    protected $primaryKey = 'idDiscapasidad';
+    protected $table = 'discapacidad';
+    protected $primaryKey = 'idDiscapacidad';
 
     protected $fillable = [
         'nombreBanco',
