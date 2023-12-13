@@ -71,7 +71,6 @@ class DatabaseSeeder extends Seeder
         Cargo::factory(10)->create();
         Discapacidad::factory(10)->create();
         Estado::factory(1)->create();
-        EvaluacionDesempeno::factory(10)->create();
         InstruccionFormal::factory(10)->create();
         Rol::factory(10)->create();
         TipoContrato::factory(10)->create();
@@ -81,16 +80,16 @@ class DatabaseSeeder extends Seeder
         Unidad::factory(10)->create();
         Departamento::factory(10)->create();
         Empleado::factory(10)->create();
+        EvaluacionDesempeno::factory(10)->create();
+
         Usuario::factory(10)->create();
 
 
         Contrato::factory(10)->create();
         ControlDiario::factory(10)->create();
-        Cuestionario::factory(10)->create();
         DatoBancario::factory(10)->create();
         ExperienciaLaboral::factory(10)->create();
         Permiso::factory(10)->create();
-        PreguntaRespuestaCuestionario::factory(10)->create();
         Referencialaboral::factory(10)->create();
         Residencia::factory(10)->create();
         SalidaCampo::factory(10)->create();
@@ -98,7 +97,6 @@ class DatabaseSeeder extends Seeder
 
         EmpleadoHasDiscapacidad::factory(2)->create();
         EmpleadoHasCapacitacion::factory(10)->create();
-        EmpleadoHasEvaluacionDesempeno::factory(10)->create();
         /* EmpleadoHasInstruccionformal::factory(10)->create();
         EmpleadoHasDiscapacidad::factory(10)->create();
         EmpleadoHasCapasitacion::factory(10)->create();

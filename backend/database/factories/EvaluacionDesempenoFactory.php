@@ -16,12 +16,26 @@ class EvaluacionDesempenoFactory extends Factory
      */
     public function definition()
     {
+
         return [
-            'fecha' => $this->faker->date,
-            'resultado' => $this->faker->word,
-            'observaciones' => $this->faker->paragraph,
-            'created_at' => now(),
-            'updated_at' => now(),
+            'idEmpleado' => function () {
+                // Puedes personalizar la lógica para obtener un idEmpleado válido
+                return \App\Models\Empleado::inRandomOrder()->first()->idEmpleado;
+            },
+            'idEvaluador' => function () {
+                return \App\Models\Empleado::inRandomOrder()->first()->idEmpleado;
+            },
+            'fechaEvaluacion' => $this->faker->date(),
+            'ObjetivosMetas' => $this->faker->text,
+            'cumplimientoObjetivos' => $this->faker->randomFloat(2, 0, 100),
+            'competencias' => $this->faker->text,
+            'calificacionGeneral' => $this->faker->randomFloat(2, 0, 100),
+            'comentarios' => $this->faker->text,
+            'areasMejora' => $this->faker->text,
+            'reconocimientosLogros' => $this->faker->text,
+            'desarrolloProfesional' => $this->faker->text,
+            'feedbackEmpleado' => $this->faker->text,
+            'estadoEvaluacion' => $this->faker->randomElement(['Pendiente', 'Aprobada', 'Rechazada']),
         ];
     }
 }
