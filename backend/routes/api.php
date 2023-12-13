@@ -64,7 +64,6 @@ Route::get('/contratos/{id}', [ContratoController::class, 'mostrarContrato']);
 Route::post('/contratos', [ContratoController::class, 'crearContrato']);
 Route::put('/contratos/{id}', [ContratoController::class, 'actualizarContrato']);
 Route::delete('/contratos/{id}', [ContratoController::class, 'eliminarContrato']);
-Route::delete('/contratos/{id}', [ContratoController::class, 'eliminarContrato']);
 Route::get('/contratosActivos', [ContratoController::class, 'contratosActivos']);
 
 
@@ -74,6 +73,10 @@ Route::get('/controlDiario/{id}', [ControlDiarioController::class, 'mostrarContr
 Route::post('/controlDiario', [ControlDiarioController::class, 'crearControlDiario']);
 Route::put('/controlDiario/{id}', [ControlDiarioController::class, 'actualizarControlDiario']);
 Route::delete('/controlDiario/{id}', [ControlDiarioController::class, 'eliminarControlDiario']);
+
+Route::get('/controlDiario/empleado/{idEmpleado}', [ControlDiarioController::class, 'controlesDiariosEmpleado']);
+Route::get('/controlDiario/fecha/{fecha}', [ControlDiarioController::class, 'controlesDiariosFecha']);
+Route::get('/controlDiario/rangoFechas/{fechaInicio}/{fechaFin}', [ControlDiarioController::class, 'controlesDiariosRangoFechas']);
 
 
 // CUESTIONARIOS routes
