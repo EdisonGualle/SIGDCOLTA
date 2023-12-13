@@ -15,10 +15,10 @@ class Capacitacion extends Model
     protected $fillable = [
         'nombre',
         'descripcion',
-        'fecha',
         'tipoEvento',
         'institucion',
         'cantidadHoras',
+        'fecha',
         'archivo',
         // Agrega aquí los demás campos de tu tabla capacitacion
     ];
