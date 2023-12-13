@@ -77,14 +77,11 @@ Route::delete('/controlDiario/{id}', [ControlDiarioController::class, 'eliminarC
 Route::get('/controlDiario/empleado/{idEmpleado}', [ControlDiarioController::class, 'controlesDiariosEmpleado']);
 Route::get('/controlDiario/fecha/{fecha}', [ControlDiarioController::class, 'controlesDiariosFecha']);
 Route::get('/controlDiario/rangoFechas/{fechaInicio}/{fechaFin}', [ControlDiarioController::class, 'controlesDiariosRangoFechas']);
+Route::get('/controlDiario/totalHoras/{idEmpleado}/{fechaInicio}/{fechaFin}', [ControlDiarioController::class, 'totalHorasTrabajadas']);
+Route::get('/controlDiario/ultimoControlDiario/{idEmpleado}', [ControlDiarioController::class, 'ultimoControlDiario']);
+Route::get('/controlDiario/promedioHoras/{idEmpleado}/{fechaInicio}/{fechaFin}', [ControlDiarioController::class, 'promedioHorasTrabajadas']);
 
 
-// CUESTIONARIOS routes
-Route::get('/cuestionarios', [CuestionarioController::class, 'listarCuestionarios']);
-Route::get('/cuestionarios/{id}', [CuestionarioController::class, 'mostrarCuestionario']);
-Route::post('/cuestionarios', [CuestionarioController::class, 'crearCuestionario']);
-Route::put('/cuestionarios/{id}', [CuestionarioController::class, 'actualizarCuestionario']);
-Route::delete('/cuestionarios/{id}', [CuestionarioController::class, 'eliminarCuestionario']);
 
 // DATOS BANCARIOS routes
 Route::get('/datos-bancarios', [DatoBancarioController::class, 'listarDatosBancarios']);
@@ -150,12 +147,6 @@ Route::post('/permisos', [PermisoController::class, 'crearPermiso']);
 Route::put('/permisos/{id}', [PermisoController::class, 'actualizarPermiso']);
 Route::delete('/permisos/{id}', [PermisoController::class, 'eliminarPermiso']);
 
-// PREGUNTAS Y RESPUESTAS routes
-Route::get('/preguntasrespuestas', [PreguntaRespuestaCuestionarioController::class, 'listarPreguntasRespuestasCuestionarios']);
-Route::get('/preguntasrespuestas/{id}', [PreguntaRespuestaCuestionarioController::class, 'mostrarPreguntaRespuestaCuestionario']);
-Route::post('/preguntasrespuestas', [PreguntaRespuestaCuestionarioController::class, 'crearPreguntaRespuestaCuestionario']);
-Route::put('/preguntasrespuestas/{id}', [PreguntaRespuestaCuestionarioController::class, 'actualizarPreguntaRespuestaCuestionario']);
-Route::delete('/preguntasrespuestas/{id}', [PreguntaRespuestaCuestionarioController::class, 'eliminarPreguntaRespuestaCuestionario']);
 
 // REFERENCIAS LABORALES routes
 Route::get('/referenciasLaborales', [ReferenciaLaboralController::class, 'listarReferenciasLaborales']);

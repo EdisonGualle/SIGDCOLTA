@@ -20,7 +20,7 @@ class ControlDiarioController extends Controller
     public function listarControlDiarios()
     {
         $controlDiarios = ControlDiario::all();
-        return response()->json(['data' => $controlDiarios], 200);
+        return response()->json(['successful' => true, 'data' => $controlDiarios], 200);
     }
 
     /**
@@ -40,10 +40,10 @@ class ControlDiarioController extends Controller
         $controlDiario = ControlDiario::find($id);
 
         if (!$controlDiario) {
-            return response()->json(['error' => 'Control Diario no encontrado'], 404);
+            return response()->json(['successful' => false, 'error' => 'Control Diario no encontrado'], 404);
         }
 
-        return response()->json(['data' => $controlDiario], 200);
+        return response()->json(['successful' => true, 'data' => $controlDiario], 200);
     }
 
     /**
@@ -78,7 +78,7 @@ class ControlDiarioController extends Controller
 
         // Si la validación falla, retornar errores
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
+            return response()->json(['successful' => false, 'errors' => $validator->errors()], 422);
         }
 
         // Verificar si ya existe un control diario para el mismo usuario en la misma fecha
@@ -87,7 +87,7 @@ class ControlDiarioController extends Controller
             ->first();
 
         if ($existingControl) {
-            return response()->json(['error' => 'Ya existe un control diario para este usuario en la misma fecha'], 422);
+            return response()->json(['successful' => false, 'error' => 'Ya existe un control diario para este usuario en la misma fecha'], 422);
         }
 
         // Calcular el total de horas (ejemplo: sumar todas las horas proporcionadas)
@@ -100,7 +100,7 @@ class ControlDiarioController extends Controller
         // Crear el registro de control diario
         $controlDiario = ControlDiario::create($requestData);
 
-        return response()->json(['data' => $controlDiario], 201);
+        return response()->json(['successful' => true, 'data' => $controlDiario], 201);
     }
 
     /**
@@ -131,7 +131,7 @@ class ControlDiarioController extends Controller
 
         // Verificar si el control diario existe
         if (!$controlDiario) {
-            return response()->json(['error' => 'Control Diario no encontrado'], 404);
+            return response()->json(['successful' => false, 'error' => 'Control Diario no encontrado'], 404);
         }
 
         // Validar los datos de entrada
@@ -146,7 +146,7 @@ class ControlDiarioController extends Controller
 
         // Si la validación falla, retornar errores
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
+            return response()->json(['successful' => false, 'errors' => $validator->errors()], 422);
         }
 
         // Calcular el total de horas
@@ -159,7 +159,7 @@ class ControlDiarioController extends Controller
         // Actualizar el registro de control diario
         $controlDiario->update($requestData);
 
-        return response()->json(['data' => $controlDiario], 200);
+        return response()->json(['successful' => true, 'data' => $controlDiario], 200);
     }
 
 
@@ -182,13 +182,13 @@ class ControlDiarioController extends Controller
 
         // Si el registro no existe, retornar un mensaje de error
         if (!$controlDiario) {
-            return response()->json(['error' => 'Control Diario no encontrado'], 404);
+            return response()->json(['successful' => false, 'error' => 'Control Diario no encontrado'], 404);
         }
 
         // Eliminar el registro de control diario
         $controlDiario->delete();
 
-        return response()->json(['message' => 'Control Diario eliminado correctamente'], 200);
+        return response()->json(['successful' => true, 'message' => 'Control Diario eliminado correctamente'], 200);
     }
 
 
@@ -282,14 +282,118 @@ class ControlDiarioController extends Controller
 
 
 
+    /**
+     * Obtiene el total de horas trabajadas por un empleado en un rango de fechas.
+     *
+     * @param  int     $idEmpleado
+     *         ID del empleado (numérico, obligatorio).
+     * @param  string  $fechaInicio
+     *         Fecha de inicio del rango (formato de fecha, obligatorio).
+     * @param  string  $fechaFin
+     *         Fecha de fin del rango (formato de fecha, obligatorio).
+     *
+     * @return \Illuminate\Http\JsonResponse
+     *         Parámetros de salida:
+     *         - 'successful': Indica si la operación fue exitosa (booleano).
+     *         - 'data': Datos del total de horas trabajadas (array) si la operación fue exitosa.
+     */
+    public function totalHorasTrabajadas($idEmpleado, $fechaInicio, $fechaFin)
+    {
+        // Validar los datos de entrada
+        $validator = Validator::make(compact('idEmpleado', 'fechaInicio', 'fechaFin'), [
+            'idEmpleado' => 'required|numeric|exists:empleado,idEmpleado',
+            'fechaInicio' => 'required|date',
+            'fechaFin' => 'required|date|after_or_equal:fechaInicio',
+        ]);
+
+        // Si la validación falla, retornar errores
+        if ($validator->fails()) {
+            return response()->json(['successful' => false, 'errors' => $validator->errors()], 422);
+        }
+
+        // Calcular el total de horas trabajadas
+        $totalHoras = ControlDiario::where('idEmpleado', $idEmpleado)
+            ->whereBetween('fechaControl', [$fechaInicio, $fechaFin])
+            ->sum('totalHoras');
+
+        return response()->json(['successful' => true, 'data' => ['totalHoras' => $totalHoras]], 200);
+    }
 
 
+    /**
+     * Obtiene el último registro de control diario por empleado.
+     *
+     * @param  int  $idEmpleado
+     *         ID del empleado (numérico, obligatorio).
+     *
+     * @return \Illuminate\Http\JsonResponse
+     *         Parámetros de salida:
+     *         - 'successful': Indica si la operación fue exitosa (booleano).
+     *         - 'data': Datos del último registro de control diario (array) si la operación fue exitosa.
+     */
+    public function ultimoControlDiario($idEmpleado)
+    {
+        // Validar los datos de entrada
+        $validator = Validator::make(compact('idEmpleado'), [
+            'idEmpleado' => 'required|numeric|exists:empleado,idEmpleado',
+        ]);
+
+        // Si la validación falla, retornar errores
+        if ($validator->fails()) {
+            return response()->json(['successful' => false, 'errors' => $validator->errors()], 422);
+        }
+
+        // Obtener el último registro de control diario
+        $ultimoControlDiario = ControlDiario::where('idEmpleado', $idEmpleado)
+            ->latest('fechaControl')
+            ->first();
+
+        return response()->json(['successful' => true, 'data' => $ultimoControlDiario], 200);
+    }
+
+
+    /**
+     * Obtiene el promedio de horas trabajadas por un empleado en un rango de fechas.
+     *
+     * @param  int     $idEmpleado
+     *         ID del empleado (numérico, obligatorio).
+     * @param  string  $fechaInicio
+     *         Fecha de inicio del rango (formato de fecha, obligatorio).
+     * @param  string  $fechaFin
+     *         Fecha de fin del rango (formato de fecha, obligatorio).
+     *
+     * @return \Illuminate\Http\JsonResponse
+     *         Parámetros de salida:
+     *         - 'successful': Indica si la operación fue exitosa (booleano).
+     *         - 'data': Datos del promedio de horas trabajadas (array) si la operación fue exitosa.
+     */
+    public function promedioHorasTrabajadas($idEmpleado, $fechaInicio, $fechaFin)
+    {
+        // Validar los datos de entrada
+        $validator = Validator::make(compact('idEmpleado', 'fechaInicio', 'fechaFin'), [
+            'idEmpleado' => 'required|numeric|exists:empleado,idEmpleado',
+            'fechaInicio' => 'required|date',
+            'fechaFin' => 'required|date|after_or_equal:fechaInicio',
+        ]);
+
+        // Si la validación falla, retornar errores
+        if ($validator->fails()) {
+            return response()->json(['successful' => false, 'errors' => $validator->errors()], 422);
+        }
+
+        // Calcular el promedio de horas trabajadas
+        $promedioHoras = ControlDiario::where('idEmpleado', $idEmpleado)
+            ->whereBetween('fechaControl', [$fechaInicio, $fechaFin])
+            ->avg('totalHoras');
+
+        return response()->json(['successful' => true, 'data' => ['promedioHoras' => $promedioHoras]], 200);
+    }
 
 
 
     //----------------------------------------------------------------
     //----------------------------------------------------------------
-    //-------------FUNCIONES LOGICA DEL NEGOCIO----------------------
+    //-------------FUNCIONES CALCULOS----------------------
     //----------------------------------------------------------------
     //----------------------------------------------------------------
 
