@@ -19,7 +19,7 @@ class DiscapacidadFactory extends Factory
         return [
             'nombre' => $this->faker->word,
             'tipo' => $this->faker->word,
-            'porcentaje' => $this->faker->randomFloat(2, 0, 100), // Genera un porcentaje aleatorio entre 0 y 100
+            'descripcion' => $this->faker->sentence, // Genera un porcentaje aleatorio entre 0 y 100
             'created_at' => now(),
             'updated_at' => now(),
         ];

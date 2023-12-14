@@ -13,10 +13,9 @@ class Discapacidad extends Model
     protected $primaryKey = 'idDiscapacidad';
 
     protected $fillable = [
-        'nombreBanco',
-        'numeroCuenta',
-        'tipoCuenta',
-        'idEmpleado',
+        'nombre',
+        'tipo',
+        'descripcion',
         // Agrega aquí los demás campos de tu tabla cuestionarios
     ];
 
