@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('usuario', function (Blueprint $table) {
             $table->integer('idUsuario', true);
-            $table->string('nombre', 45)->nullable();
-            $table->string('password', 145)->nullable();
+            $table->string('usuario', 45)->nullable();
+            $table->string('password', 300)->nullable();
             $table->integer('idRol')->index('fk_Usuario_Rol1');
             $table->integer('idEmpleado')->index('fk_Usuario_Empleado1');
             $table->timestamp('created_at')->useCurrent();
