@@ -107,6 +107,7 @@ class CapacitacionController extends Controller
     }
 
 
+
     /**
      * Actualiza los detalles de una capacitación existente.
      *
@@ -132,12 +133,12 @@ class CapacitacionController extends Controller
     {
         // Validar los datos de entrada
         $validator = Validator::make($request->all(), [
-            'nombre' => 'required|string|max:255',
-            'descripcion' => 'required|string',
-            'tipoEvento' => 'required|string|max:255',
-            'institucion' => 'required|string|max:255',
-            'cantidadHoras' => 'required|numeric',
-            'fecha' => 'required|date',
+            'nombre' => 'string|max:255',
+            'descripcion' => 'string',
+            'tipoEvento' => 'string|max:255',
+            'institucion' => 'string|max:255',
+            'cantidadHoras' => 'numeric',
+            'fecha' => 'date',
             'archivo' => 'nullable|mimes:pdf,doc,docx',
         ]);
 
@@ -159,19 +160,24 @@ class CapacitacionController extends Controller
             $capacitacion->update(['archivo' => $archivoRuta]);
         }
 
-        // Actualizar otros campos
-        $capacitacion->update([
-            'nombre' => $request->input('nombre'),
-            'descripcion' => $request->input('descripcion'),
-            'tipoEvento' => $request->input('tipoEvento'),
-            'institucion' => $request->input('institucion'),
-            'cantidadHoras' => $request->input('cantidadHoras'),
-            'fecha' => $request->input('fecha'),
-        ]);
+        // Actualizar otros campos solo si se proporcionan en la solicitud
+        $camposActualizar = [
+            'nombre',
+            'descripcion',
+            'tipoEvento',
+            'institucion',
+            'cantidadHoras',
+            'fecha',
+        ];
+
+        foreach ($camposActualizar as $campo) {
+            if ($request->has($campo)) {
+                $capacitacion->update([$campo => $request->input($campo)]);
+            }
+        }
 
         return response()->json(['successful' => true, 'data' => $capacitacion], 200);
     }
-
 
     /**
      * Elimina una capacitación existente.
