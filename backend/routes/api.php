@@ -10,7 +10,7 @@ use App\Http\Controllers\ControlDiarioController;
 use App\Http\Controllers\CuestionarioController;
 use App\Http\Controllers\DatoBancarioController;
 use App\Http\Controllers\DepartamentoController;
-use App\Http\Controllers\DiscapasidadController;
+use App\Http\Controllers\DiscapacidadController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\EstadoController;
 use App\Http\Controllers\EvaluacionDesempenoController;
@@ -64,6 +64,8 @@ Route::get('/contratos/{id}', [ContratoController::class, 'mostrarContrato']);
 Route::post('/contratos', [ContratoController::class, 'crearContrato']);
 Route::put('/contratos/{id}', [ContratoController::class, 'actualizarContrato']);
 Route::delete('/contratos/{id}', [ContratoController::class, 'eliminarContrato']);
+Route::get('/contratosActivos', [ContratoController::class, 'contratosActivos']);
+
 
 // CONTROL DIARIO routes
 Route::get('/controlDiario', [ControlDiarioController::class, 'listarControlDiarios']);
@@ -72,13 +74,14 @@ Route::post('/controlDiario', [ControlDiarioController::class, 'crearControlDiar
 Route::put('/controlDiario/{id}', [ControlDiarioController::class, 'actualizarControlDiario']);
 Route::delete('/controlDiario/{id}', [ControlDiarioController::class, 'eliminarControlDiario']);
 
+Route::get('/controlDiario/empleado/{idEmpleado}', [ControlDiarioController::class, 'controlesDiariosEmpleado']);
+Route::get('/controlDiario/fecha/{fecha}', [ControlDiarioController::class, 'controlesDiariosFecha']);
+Route::get('/controlDiario/rangoFechas/{fechaInicio}/{fechaFin}', [ControlDiarioController::class, 'controlesDiariosRangoFechas']);
+Route::get('/controlDiario/totalHoras/{idEmpleado}/{fechaInicio}/{fechaFin}', [ControlDiarioController::class, 'totalHorasTrabajadas']);
+Route::get('/controlDiario/ultimoControlDiario/{idEmpleado}', [ControlDiarioController::class, 'ultimoControlDiario']);
+Route::get('/controlDiario/promedioHoras/{idEmpleado}/{fechaInicio}/{fechaFin}', [ControlDiarioController::class, 'promedioHorasTrabajadas']);
 
-// CUESTIONARIOS routes
-Route::get('/cuestionarios', [CuestionarioController::class, 'listarCuestionarios']);
-Route::get('/cuestionarios/{id}', [CuestionarioController::class, 'mostrarCuestionario']);
-Route::post('/cuestionarios', [CuestionarioController::class, 'crearCuestionario']);
-Route::put('/cuestionarios/{id}', [CuestionarioController::class, 'actualizarCuestionario']);
-Route::delete('/cuestionarios/{id}', [CuestionarioController::class, 'eliminarCuestionario']);
+
 
 // DATOS BANCARIOS routes
 Route::get('/datos-bancarios', [DatoBancarioController::class, 'listarDatosBancarios']);
@@ -95,11 +98,11 @@ Route::put('/departamentos/{id}', [DepartamentoController::class, 'actualizarDep
 Route::delete('/departamentos/{id}', [DepartamentoController::class, 'eliminarDepartamento']);
 
 // DISCAPACIDADES routes
-Route::get('/discapacidades', [DiscapasidadController::class, 'listarDiscapacidades']);
-Route::get('/discapacidades/{id}', [DiscapasidadController::class, 'mostrarDiscapacidad']);
-Route::post('/discapacidades', [DiscapasidadController::class, 'crearDiscapacidad']);
-Route::put('/discapacidades/{id}', [DiscapasidadController::class, 'actualizarDiscapacidad']);
-Route::delete('/discapacidades/{id}', [DiscapasidadController::class, 'eliminarDiscapacidad']);
+Route::get('/discapacidades', [DiscapacidadController::class, 'listarDiscapacidades']);
+Route::get('/discapacidades/{id}', [DiscapacidadController::class, 'mostrarDiscapacidad']);
+Route::post('/discapacidades', [DiscapacidadController::class, 'crearDiscapacidad']);
+Route::put('/discapacidades/{id}', [DiscapacidadController::class, 'actualizarDiscapacidad']);
+Route::delete('/discapacidades/{id}', [DiscapacidadController::class, 'eliminarDiscapacidad']);
 
 // EMPLEADOS routes
 Route::get('/empleados', [EmpleadoController::class, 'listarEmpleados']);
@@ -124,14 +127,14 @@ Route::delete('/evaluacionesDesempeno/{id}', [EvaluacionDesempenoController::cla
 
 
 // EXPERIENCIAS LABORALES routes
-Route::get('/experienciasLaborales', [ExperienciaLaboralController::class, 'index']);
-Route::get('/experienciasLaborales/{id}', [ExperienciaLaboralController::class, 'show']);
-Route::post('/experienciasLaborales', [ExperienciaLaboralController::class, 'store']);
-Route::put('/experienciasLaborales/{id}', [ExperienciaLaboralController::class, 'update']);
-Route::delete('/experienciasLaborales/{id}', [ExperienciaLaboralController::class, 'destroy']);
+Route::get('/experienciasLaborales', [ExperienciaLaboralController::class, 'listarExperienciasLaborales']);
+Route::get('/experienciasLaborales/{id}', [ExperienciaLaboralController::class, 'mostrarExperienciasLaborales']);
+Route::post('/experienciasLaborales', [ExperienciaLaboralController::class, 'crearExperienciasLaborales']);
+Route::put('/experienciasLaborales/{id}', [ExperienciaLaboralController::class, 'actualizarExperienciasLaborales']);
+Route::delete('/experienciasLaborales/{id}', [ExperienciaLaboralController::class, 'eliminarExperienciasLaborales']);
 
 // INSTRUCCIONES FORMALES routes
-Route::get('/instrucciones-formales', [ InstruccionFormalController::class, 'listarInstruccionesFormales']);
+Route::get('/instrucciones-formales', [InstruccionFormalController::class, 'listarInstruccionesFormales']);
 Route::get('/instrucciones-formales/{id}', [InstruccionFormalController::class, 'mostrarInstruccionFormal']);
 Route::post('/instrucciones-formales', [InstruccionFormalController::class, 'crearInstruccionFormal']);
 Route::put('/instrucciones-formales/{id}', [InstruccionFormalController::class, 'actualizarInstruccionFormal']);
@@ -144,12 +147,6 @@ Route::post('/permisos', [PermisoController::class, 'crearPermiso']);
 Route::put('/permisos/{id}', [PermisoController::class, 'actualizarPermiso']);
 Route::delete('/permisos/{id}', [PermisoController::class, 'eliminarPermiso']);
 
-// PREGUNTAS Y RESPUESTAS routes
-Route::get('/preguntasrespuestas', [PreguntaRespuestaCuestionarioController::class, 'listarPreguntasRespuestasCuestionarios']);
-Route::get('/preguntasrespuestas/{id}', [PreguntaRespuestaCuestionarioController::class, 'mostrarPreguntaRespuestaCuestionario']);
-Route::post('/preguntasrespuestas', [PreguntaRespuestaCuestionarioController::class, 'crearPreguntaRespuestaCuestionario']);
-Route::put('/preguntasrespuestas/{id}', [PreguntaRespuestaCuestionarioController::class, 'actualizarPreguntaRespuestaCuestionario']);
-Route::delete('/preguntasrespuestas/{id}', [PreguntaRespuestaCuestionarioController::class, 'eliminarPreguntaRespuestaCuestionario']);
 
 // REFERENCIAS LABORALES routes
 Route::get('/referenciasLaborales', [ReferenciaLaboralController::class, 'listarReferenciasLaborales']);

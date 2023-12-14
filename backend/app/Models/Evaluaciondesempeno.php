@@ -13,12 +13,22 @@ class EvaluacionDesempeno extends Model
     protected $primaryKey = 'idEvaluacionDesempeno';
 
     protected $fillable = [
-        'fecha',
-        'resultado',
-        'observaciones'
-
-        // Agrega aquí los demás campos de tu tabla cargo
+        'idEmpleado',
+        'idEvaluador',
+        'fechaEvaluacion',
+        'ObjetivosMetas',
+        'cumplimientoObjetivos',
+        'competencias',
+        'calificacionGeneral',
+        'comentarios',
+        'areasMejora',
+        'reconocimientosLogros',
+        'desarrolloProfesional',
+        'feedbackEmpleado',
+        'estadoEvaluacion',
     ];
 
-    // Define las relaciones con otras entidades si es necesario
+    // Puedes definir relaciones con otras entidades aquí si es necesario
+
+    // También puedes definir accesores, mutadores u otros métodos según sea necesario
 }

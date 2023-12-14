@@ -9,17 +9,16 @@ class Capacitacion extends Model
 {
     use HasFactory;
 
-    protected $table = 'capasitacion';
-    protected $primaryKey = 'idCapasitacion';
+    protected $table = 'capacitacion';
+    protected $primaryKey = 'idCapacitacion';
 
     protected $fillable = [
         'nombre',
         'descripcion',
-        'fecha',
         'tipoEvento',
-        'lugar',
         'institucion',
         'cantidadHoras',
+        'fecha',
         'archivo',
         // Agrega aquí los demás campos de tu tabla capacitacion
     ];

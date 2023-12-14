@@ -10,6 +10,7 @@ class ControlDiario extends Model
     use HasFactory;
 
     protected $table = 'controldiario'; // Nombre de la tabla en la base de datos
+    protected $primaryKey = 'idControlDiario';
 
     protected $fillable = [
         'fechaControl',
