@@ -100,9 +100,10 @@ class CargoController extends Controller
     public function actualizarCargo(Request $request, $id)
     {
         // Validar los datos de entrada
+        // Validar los datos de entrada
         $validator = Validator::make($request->all(), [
-            'nombre' => 'required|string|max:255|unique:cargo',
-            'descripcion' => 'required|string',
+            'nombre' => 'string|max:255|unique:cargo,nombre,' . $id . ',idCargo',
+            'descripcion' => 'string',
         ], [
             'nombre.unique' => 'Ya existe un cargo con este nombre.',
         ]);
@@ -123,7 +124,6 @@ class CargoController extends Controller
 
         return response()->json(['successful' => true, 'data' => $cargo]);
     }
-
 
     /**
      * Elimina un cargo existente.
