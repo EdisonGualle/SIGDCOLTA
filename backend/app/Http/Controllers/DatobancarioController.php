@@ -123,10 +123,10 @@ class DatoBancarioController extends Controller
 
         // Validar los datos de entrada
         $validator = Validator::make($request->all(), [
-            'nombreBanco' => 'required|string|max:255',
-            'numeroCuenta' => 'required|string',
-            'tipoCuenta' => 'required|string|max:255',
-            'idEmpleado' => 'required|numeric|exists:empleado,idEmpleado',
+            'nombreBanco' => 'string|max:255',
+            'numeroCuenta' => 'string',
+            'tipoCuenta' => 'string|max:255',
+            'idEmpleado' => 'numeric|exists:empleado,idEmpleado',
         ], [
             'idEmpleado.exists' => 'No existe el empleado edpecificado'
         ]);
