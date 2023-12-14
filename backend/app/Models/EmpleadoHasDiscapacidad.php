@@ -13,7 +13,11 @@ class EmpleadoHasDiscapacidad extends Model
 
     protected $fillable = [
         'idEmpleado',
-        'idDiscapacidad'
+        'idDiscapacidad',
+        'porcentaje',
+        'nivel',
+        'adaptaciones',
+        'notas',
     ];
 
     // Puedes definir relaciones con otras entidades si es necesario

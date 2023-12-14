@@ -89,6 +89,10 @@ Route::get('/datos-bancarios/{id}', [DatoBancarioController::class, 'mostrarDato
 Route::post('/datos-bancarios', [DatoBancarioController::class, 'crearDatoBancario']);
 Route::put('/datos-bancarios/{id}', [DatoBancarioController::class, 'actualizarDatoBancario']);
 Route::delete('/datos-bancarios/{id}', [DatoBancarioController::class, 'eliminarDatoBancario']);
+Route::get('/datos-bancarios/numerosCuentaEmpleado/{idEmpleado}', [DatoBancarioController::class, 'numerosCuentaEmpleado']);
+Route::get('/datos-bancarios/datosBancariosPorBanco/{nombreBanco}', [DatoBancarioController::class, 'datosBancariosPorBanco']);
+Route::get('/datos-bancarios/datosBancariosPorTipoCuenta/{tipoCuenta}', [DatoBancarioController::class, 'datosBancariosPorTipoCuenta']);
+
 
 // DEPARTAMENTOS routes
 Route::get('/departamentos', [DepartamentoController::class, 'listarDepartamentos']);
@@ -96,6 +100,10 @@ Route::get('/departamentos/{id}', [DepartamentoController::class, 'mostrarDepart
 Route::post('/departamentos', [DepartamentoController::class, 'crearDepartamento']);
 Route::put('/departamentos/{id}', [DepartamentoController::class, 'actualizarDepartamento']);
 Route::delete('/departamentos/{id}', [DepartamentoController::class, 'eliminarDepartamento']);
+Route::get('/departamentos/departamentosPorUnidad/{idUnidad}', [DepartamentoController::class, 'departamentosPorUnidad']);
+
+
+
 
 // DISCAPACIDADES routes
 Route::get('/discapacidades', [DiscapacidadController::class, 'listarDiscapacidades']);
@@ -103,6 +111,9 @@ Route::get('/discapacidades/{id}', [DiscapacidadController::class, 'mostrarDisca
 Route::post('/discapacidades', [DiscapacidadController::class, 'crearDiscapacidad']);
 Route::put('/discapacidades/{id}', [DiscapacidadController::class, 'actualizarDiscapacidad']);
 Route::delete('/discapacidades/{id}', [DiscapacidadController::class, 'eliminarDiscapacidad']);
+Route::get('/discapacidades/tipo/{tipo}', [DiscapacidadController::class, 'obtenerDiscapacidadesPorTipo']);
+
+
 
 // EMPLEADOS routes
 Route::get('/empleados', [EmpleadoController::class, 'listarEmpleados']);
