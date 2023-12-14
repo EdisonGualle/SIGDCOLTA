@@ -46,13 +46,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         ///BORAR PRIMERO
-
-        Capacitacion::query()->delete();
-        Cargo::query()->delete();
-        Departamento::query()->delete();
         Discapacidad::query()->delete();
         Estado::query()->delete();
-        EvaluacionDesempeno::query()->delete();
         InstruccionFormal::query()->delete();
         Residencia::query()->delete();
         Rol::query()->delete();
@@ -61,7 +56,11 @@ class DatabaseSeeder extends Seeder
         TipoSalida::query()->delete();
         Unidad::query()->delete();
         Empleado::query()->delete();
+        EvaluacionDesempeno::query()->delete();
         Usuario::query()->delete();
+        Capacitacion::query()->delete();
+        Cargo::query()->delete();
+        Departamento::query()->delete();
 
 
 
