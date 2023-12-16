@@ -42,36 +42,16 @@ use App\Http\Controllers\UsuarioController;
 |
 */
 
- */ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-})
-  
- */   
-   // Rutas AUTH
-Route::post('/registro', [ AuthController::class, 'registro']);
-Route::post('/login', [ AuthController::class, 'login']);
+include('roles.php');
 
-// Rutas de prueba ---- Cuando el usuario este loguiado permite ciertas rutas 
-Route::middleware('auth:sanctum')->group(function(){
-    // CARGOS routes ---- basicas de un administrador
-    Route::post('/cargos', [CargoController::class, 'crearCargo']);
-    Route::put('/cargos/{id}', [CargoController::class, 'actualizarCargo']);
-    Route::delete('/cargos/{id}', [CargoController::class, 'eliminarCargo']); 
-    
-    //Cerrar sesion
-    Route::post('logout', [AuthController::class, "logout"]); 
-});
 
- */
+
 // CAPACITACIONES routes
 Route::get('/capacitaciones', [CapacitacionController::class, 'listarCapacitaciones']);
 Route::get('/capacitaciones/{id}', [CapacitacionController::class, 'mostrarCapacitacion']);
 Route::post('/capacitaciones', [CapacitacionController::class, 'crearCapacitacion']);
 Route::put('/capacitaciones/{id}', [CapacitacionController::class, 'actualizarCapacitacion']);
 Route::delete('/capacitaciones/{id}', [CapacitacionController::class, 'eliminarCapacitacion']);
-
-
-
 
 // CAPACITACIONES HAS EMPLEADOS routes
 Route::get('/capacitaciones-empleados', [EmpleadoHasCapacitacionController::class, 'listarCapacitacionesDeEmpleados']);
@@ -88,8 +68,8 @@ Route::get('/capacitaciones-empleados/empleados-capacitaciones-rangoFechas/{fech
 
 
 // CARGOS routes
-Route::get('/cargos', [CargoController::class, 'listarCargos']);
-Route::get('/cargos/{id}', [CargoController::class, 'mostrarCargo']);
+// Route::get('/cargos', [CargoController::class, 'listarCargos']);
+// Route::get('/cargos/{id}', [CargoController::class, 'mostrarCargo']);
 // Route::post('/cargos', [CargoController::class, 'crearCargo']);
 // Route::put('/cargos/{id}', [CargoController::class, 'actualizarCargo']);
 // Route::delete('/cargos/{id}', [CargoController::class, 'eliminarCargo']);

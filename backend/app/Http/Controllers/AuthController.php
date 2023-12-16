@@ -14,7 +14,7 @@ class AuthController extends Controller
         // Validar la solicitud
         $request->validate([
             'usuario' => 'required|unique:usuario',
-            'password' => 'required|confirmed',
+            'password' => 'required',
             'idRol' => 'required',
             'idEmpleado' => 'required'
         ]);
@@ -29,6 +29,8 @@ class AuthController extends Controller
 
         // Guardar el usuario en la base de datos
         $user->save();
+
+        $user->assignRole('Empleado');
 
         // Iniciar sesión y generar token de acceso
         $token = $user->createToken('auth_token')->plainTextToken;
