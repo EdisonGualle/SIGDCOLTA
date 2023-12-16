@@ -569,12 +569,15 @@ class ComposerStaticInitfe33f98a750b8c5a51b30c78bd3fab21
         'App\\Http\\Controllers\\CapacitacionController' => __DIR__ . '/../..' . '/app/Http/Controllers/CapacitacionController.php',
         'App\\Http\\Controllers\\CargoController' => __DIR__ . '/../..' . '/app/Http/Controllers/CargoController.php',
         'App\\Http\\Controllers\\ContratoController' => __DIR__ . '/../..' . '/app/Http/Controllers/ContratoController.php',
+        'App\\Http\\Controllers\\ControlDiarioController' => __DIR__ . '/../..' . '/app/Http/Controllers/ControlDiarioController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\DepartamentoController' => __DIR__ . '/../..' . '/app/Http/Controllers/DepartamentoController.php',
         'App\\Http\\Controllers\\DiscapacidadController' => __DIR__ . '/../..' . '/app/Http/Controllers/DiscapacidadController.php',
         'App\\Http\\Controllers\\EmpleadoController' => __DIR__ . '/../..' . '/app/Http/Controllers/EmpleadoController.php',
-        'App\\Http\\Controllers\\EmpleadoHasCapasitacionController' => __DIR__ . '/../..' . '/app/Http/Controllers/EmpleadoHasCapasitacionController.php',
         'App\\Http\\Controllers\\EmpleadoHasDiscapasidadController' => __DIR__ . '/../..' . '/app/Http/Controllers/EmpleadoHasDiscapasidadController.php',
+
+        'App\\Http\\Controllers\\EmpleadoHasInstrucionFormalController' => __DIR__ . '/../..' . '/app/Http/Controllers/EmpleadoHasInstrucionFormalController.php',
+
         'App\\Http\\Controllers\\EstadoController' => __DIR__ . '/../..' . '/app/Http/Controllers/EstadoController.php',
         'App\\Http\\Controllers\\PermisoController' => __DIR__ . '/../..' . '/app/Http/Controllers/PermisoController.php',
         'App\\Http\\Controllers\\ResidenciaController' => __DIR__ . '/../..' . '/app/Http/Controllers/ResidenciaController.php',
@@ -599,6 +602,9 @@ class ComposerStaticInitfe33f98a750b8c5a51b30c78bd3fab21
         'App\\Models\\Capacitacion' => __DIR__ . '/../..' . '/app/Models/Capacitacion.php',
         'App\\Models\\Cargo' => __DIR__ . '/../..' . '/app/Models/Cargo.php',
         'App\\Models\\Contrato' => __DIR__ . '/../..' . '/app/Models/Contrato.php',
+
+        'App\\Models\\ControlDiario' => __DIR__ . '/../..' . '/app/Models/ControlDiario.php',
+
         'App\\Models\\DatoBancario' => __DIR__ . '/../..' . '/app/Models/DatoBancario.php',
         'App\\Models\\Departamento' => __DIR__ . '/../..' . '/app/Models/Departamento.php',
         'App\\Models\\Discapacidad' => __DIR__ . '/../..' . '/app/Models/Discapacidad.php',
@@ -606,10 +612,18 @@ class ComposerStaticInitfe33f98a750b8c5a51b30c78bd3fab21
         'App\\Models\\EmpleadoHasCapacitacion' => __DIR__ . '/../..' . '/app/Models/EmpleadoHasCapacitacion.php',
         'App\\Models\\EmpleadoHasDiscapacidad' => __DIR__ . '/../..' . '/app/Models/EmpleadoHasDiscapacidad.php',
         'App\\Models\\Estado' => __DIR__ . '/../..' . '/app/Models/Estado.php',
+
+        'App\\Models\\EvaluacionDesempeno' => __DIR__ . '/../..' . '/app/Models/EvaluacionDesempeno.php',
+        'App\\Models\\ExperienciaLaboral' => __DIR__ . '/../..' . '/app/Models/ExperienciaLaboral.php',
+        'App\\Models\\InstruccionFormal' => __DIR__ . '/../..' . '/app/Models/InstruccionFormal.php',
+        'App\\Models\\Invoice' => __DIR__ . '/../..' . '/app/Models/Invoice.php',
+        'App\\Models\\Permiso' => __DIR__ . '/../..' . '/app/Models/Permiso.php',
+
         'App\\Models\\InstruccionFormal' => __DIR__ . '/../..' . '/app/Models/InstruccionFormal.php',
         'App\\Models\\Invoice' => __DIR__ . '/../..' . '/app/Models/Invoice.php',
         'App\\Models\\Permiso' => __DIR__ . '/../..' . '/app/Models/Permiso.php',
         'App\\Models\\Referencialaboral' => __DIR__ . '/../..' . '/app/Models/Referencialaboral.php',
+
         'App\\Models\\Residencia' => __DIR__ . '/../..' . '/app/Models/Residencia.php',
         'App\\Models\\Rol' => __DIR__ . '/../..' . '/app/Models/Rol.php',
         'App\\Models\\SalidaCampo' => __DIR__ . '/../..' . '/app/Models/SalidaCampo.php',
@@ -6338,6 +6352,7 @@ class ComposerStaticInitfe33f98a750b8c5a51b30c78bd3fab21
         'Termwind\\ValueObjects\\Styles' => __DIR__ . '/..' . '/nunomaduro/termwind/src/ValueObjects/Styles.php',
         'Tests\\CreatesApplication' => __DIR__ . '/../..' . '/tests/CreatesApplication.php',
         'Tests\\Feature\\ExampleTest' => __DIR__ . '/../..' . '/tests/Feature/ExampleTest.php',
+        'Tests\\Feature\\NombreDelModeloTest' => __DIR__ . '/../..' . '/tests/Feature/NombreDelModeloTest.php',
         'Tests\\TestCase' => __DIR__ . '/../..' . '/tests/TestCase.php',
         'Tests\\Unit\\ExampleTest' => __DIR__ . '/../..' . '/tests/Unit/ExampleTest.php',
         'TheSeer\\Tokenizer\\Exception' => __DIR__ . '/..' . '/theseer/tokenizer/src/Exception.php',

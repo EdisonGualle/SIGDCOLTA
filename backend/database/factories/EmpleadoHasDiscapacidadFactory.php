@@ -19,6 +19,10 @@ class EmpleadoHasDiscapacidadFactory extends Factory
         return [
             'idEmpleado' => \App\Models\Empleado::inRandomOrder()->first()->idEmpleado,
             'idDiscapacidad' => \App\Models\Discapacidad::inRandomOrder()->first()->idDiscapacidad,
+            'porcentaje' => $this->faker->randomFloat(2, 0, 100), // Adjust as needed
+            'nivel' => $this->faker->randomElement(['Bajo', 'Medio', 'Alto']), // Adjust as needed
+            'adaptaciones' => $this->faker->paragraph,
+            'notas' => $this->faker->paragraph,
             'created_at' => now(),
             'updated_at' => now(),
         ];

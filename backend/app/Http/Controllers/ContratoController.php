@@ -113,10 +113,10 @@ class ContratoController extends Controller
         // Validar los datos de entrada
         // Validar los datos de entrada
         $validator = Validator::make($request->all(), [
-            'fechaInicio' => 'required|date',
-            'fechaFin' => 'required|date',
-            'idEmpleado' => 'required|numeric|exists:empleado,idEmpleado',
-            'idTipoContrato' => 'required|numeric|exists:tipocontrato,idTipoContrato',
+            'fechaInicio' => 'date',
+            'fechaFin' => 'date',
+            'idEmpleado' => 'numeric|exists:empleado,idEmpleado',
+            'idTipoContrato' => 'numeric|exists:tipocontrato,idTipoContrato',
         ], [
             'idEmpleado.exists' => 'El empleado especificado no existe.',
             'idTipoContrato.exists' => 'El tipo de contrato especificado no existe.'

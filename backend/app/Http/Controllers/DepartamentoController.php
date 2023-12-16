@@ -112,7 +112,7 @@ class DepartamentoController extends Controller
     {
         // Validar los datos de entrada
         $validator = Validator::make($request->all(), [
-            'nombre' => 'required|string|max:255|unique:departamento,nombre',
+            'nombre' => 'string|max:255|unique:departamento,nombre',
             'descripcion' => 'required|string',
             'telefonos' => 'nullable|string',
             'idUnidad' => 'required|numeric|exists:unidad,idUnidad', // Asegura que idUnidad exista en la tabla 'unidades'
@@ -160,5 +160,33 @@ class DepartamentoController extends Controller
         $departamento->delete();
 
         return response()->json(['successful' => true, 'message' => 'Departamento eliminado correctamente']);
+    }
+
+    /**
+     * Obtiene todos los departamentos asociados a una unidad específica.
+     *
+     * @param  int  $idUnidad
+     *         Parámetros de entrada:
+     *         - 'idUnidad': ID de la unidad (numérico, obligatorio, debe existir en la tabla 'unidades').
+     *
+     * @return \Illuminate\Http\JsonResponse
+     *         Parámetros de salida:
+     *         - 'successful': Indica si la operación fue exitosa (booleano).
+     *         - 'data': Datos de todos los departamentos de la unidad especificada (array) si la operación fue exitosa.
+     *         - 'error': Mensaje de error (cadena) si la unidad no fue encontrada.
+     */
+    public function departamentosPorUnidad($idUnidad)
+    {
+        // Verificar si la unidad existe
+        $unidadExistente = Unidad::where('idUnidad', $idUnidad)->exists();
+
+        if (!$unidadExistente) {
+            return response()->json(['successful' => false, 'error' => 'La unidad especificada no existe.'], 404);
+        }
+
+        // Obtener todos los departamentos de la unidad especificada
+        $departamentos = Departamento::where('idUnidad', $idUnidad)->get();
+
+        return response()->json(['successful' => true, 'data' => $departamentos]);
     }
 }

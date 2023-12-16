@@ -11,12 +11,15 @@ return array(
     'App\\Http\\Controllers\\CapacitacionController' => $baseDir . '/app/Http/Controllers/CapacitacionController.php',
     'App\\Http\\Controllers\\CargoController' => $baseDir . '/app/Http/Controllers/CargoController.php',
     'App\\Http\\Controllers\\ContratoController' => $baseDir . '/app/Http/Controllers/ContratoController.php',
+    'App\\Http\\Controllers\\ControlDiarioController' => $baseDir . '/app/Http/Controllers/ControlDiarioController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\DepartamentoController' => $baseDir . '/app/Http/Controllers/DepartamentoController.php',
     'App\\Http\\Controllers\\DiscapacidadController' => $baseDir . '/app/Http/Controllers/DiscapacidadController.php',
     'App\\Http\\Controllers\\EmpleadoController' => $baseDir . '/app/Http/Controllers/EmpleadoController.php',
-    'App\\Http\\Controllers\\EmpleadoHasCapasitacionController' => $baseDir . '/app/Http/Controllers/EmpleadoHasCapasitacionController.php',
     'App\\Http\\Controllers\\EmpleadoHasDiscapasidadController' => $baseDir . '/app/Http/Controllers/EmpleadoHasDiscapasidadController.php',
+
+    'App\\Http\\Controllers\\EmpleadoHasInstrucionFormalController' => $baseDir . '/app/Http/Controllers/EmpleadoHasInstrucionFormalController.php',
+
     'App\\Http\\Controllers\\EstadoController' => $baseDir . '/app/Http/Controllers/EstadoController.php',
     'App\\Http\\Controllers\\PermisoController' => $baseDir . '/app/Http/Controllers/PermisoController.php',
     'App\\Http\\Controllers\\ResidenciaController' => $baseDir . '/app/Http/Controllers/ResidenciaController.php',
@@ -41,6 +44,9 @@ return array(
     'App\\Models\\Capacitacion' => $baseDir . '/app/Models/Capacitacion.php',
     'App\\Models\\Cargo' => $baseDir . '/app/Models/Cargo.php',
     'App\\Models\\Contrato' => $baseDir . '/app/Models/Contrato.php',
+
+    'App\\Models\\ControlDiario' => $baseDir . '/app/Models/ControlDiario.php',
+
     'App\\Models\\DatoBancario' => $baseDir . '/app/Models/DatoBancario.php',
     'App\\Models\\Departamento' => $baseDir . '/app/Models/Departamento.php',
     'App\\Models\\Discapacidad' => $baseDir . '/app/Models/Discapacidad.php',
@@ -48,10 +54,18 @@ return array(
     'App\\Models\\EmpleadoHasCapacitacion' => $baseDir . '/app/Models/EmpleadoHasCapacitacion.php',
     'App\\Models\\EmpleadoHasDiscapacidad' => $baseDir . '/app/Models/EmpleadoHasDiscapacidad.php',
     'App\\Models\\Estado' => $baseDir . '/app/Models/Estado.php',
+
+    'App\\Models\\EvaluacionDesempeno' => $baseDir . '/app/Models/EvaluacionDesempeno.php',
+    'App\\Models\\ExperienciaLaboral' => $baseDir . '/app/Models/ExperienciaLaboral.php',
+    'App\\Models\\InstruccionFormal' => $baseDir . '/app/Models/InstruccionFormal.php',
+    'App\\Models\\Invoice' => $baseDir . '/app/Models/Invoice.php',
+    'App\\Models\\Permiso' => $baseDir . '/app/Models/Permiso.php',
+
     'App\\Models\\InstruccionFormal' => $baseDir . '/app/Models/InstruccionFormal.php',
     'App\\Models\\Invoice' => $baseDir . '/app/Models/Invoice.php',
     'App\\Models\\Permiso' => $baseDir . '/app/Models/Permiso.php',
     'App\\Models\\Referencialaboral' => $baseDir . '/app/Models/Referencialaboral.php',
+
     'App\\Models\\Residencia' => $baseDir . '/app/Models/Residencia.php',
     'App\\Models\\Rol' => $baseDir . '/app/Models/Rol.php',
     'App\\Models\\SalidaCampo' => $baseDir . '/app/Models/SalidaCampo.php',
@@ -5780,6 +5794,7 @@ return array(
     'Termwind\\ValueObjects\\Styles' => $vendorDir . '/nunomaduro/termwind/src/ValueObjects/Styles.php',
     'Tests\\CreatesApplication' => $baseDir . '/tests/CreatesApplication.php',
     'Tests\\Feature\\ExampleTest' => $baseDir . '/tests/Feature/ExampleTest.php',
+    'Tests\\Feature\\NombreDelModeloTest' => $baseDir . '/tests/Feature/NombreDelModeloTest.php',
     'Tests\\TestCase' => $baseDir . '/tests/TestCase.php',
     'Tests\\Unit\\ExampleTest' => $baseDir . '/tests/Unit/ExampleTest.php',
     'TheSeer\\Tokenizer\\Exception' => $vendorDir . '/theseer/tokenizer/src/Exception.php',

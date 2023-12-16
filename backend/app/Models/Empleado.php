@@ -17,7 +17,7 @@ class Empleado extends Model
         'nombre',
         'apellido',
         'fechaNacimiento',
-        'Genero',
+        'genero',
         'telefonoPersonal',
         'telefonoTrabajo',
         'correo',
@@ -34,25 +34,15 @@ class Empleado extends Model
         // Otros campos necesarios
     ];
 
-    public function departamento()
+    public function capacitacionesDeEmpleado()
     {
-        return $this->belongsTo(Departamento::class, 'idDepartamento', 'idDepartamento');
+        return $this->hasMany(EmpleadoHasCapacitacion::class, 'idEmpleado');
     }
 
-    public function cargo()
-    {
-        return $this->belongsTo(Cargo::class, 'idCargo', 'idCargo');
-    }
 
-    public function estado()
+    public function capacitaciones()
     {
-        return $this->belongsTo(Estado::class, 'idEstado', 'idEstado');
+        return $this->belongsToMany(Capacitacion::class, 'empleado_has_capacitacion', 'idEmpleado', 'idCapacitacion')
+            ->withTimestamps();
     }
-
-    public function usuarios()
-    {
-        return $this->hasMany(Usuario::class, 'idEmpleado', 'idEmpleado');
-    }
-
-    // Puedes agregar relaciones con otras tablas según sea necesario
 }

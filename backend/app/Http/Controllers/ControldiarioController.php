@@ -136,12 +136,12 @@ class ControlDiarioController extends Controller
 
         // Validar los datos de entrada
         $validator = Validator::make($request->all(), [
-            'fechaControl' => 'required|date',
+            'fechaControl' => 'date',
             'horaEntrada' => 'nullable|date_format:H:i:s',
             'horaSalida' => 'nullable|date_format:H:i:s',
             'horaEntradaReceso' => 'nullable|date_format:H:i:s',
             'horaSalidaReceso' => 'nullable|date_format:H:i:s',
-            'idEmpleado' => 'required|exists:empleado,idEmpleado',
+            'idEmpleado' => 'exists:empleado,idEmpleado',
         ]);
 
         // Si la validación falla, retornar errores

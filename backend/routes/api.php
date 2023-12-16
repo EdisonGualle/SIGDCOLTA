@@ -11,17 +11,16 @@ use App\Http\Controllers\CapacitacionController;
 use App\Http\Controllers\CargoController;
 use App\Http\Controllers\ContratoController;
 use App\Http\Controllers\ControlDiarioController;
-use App\Http\Controllers\CuestionarioController;
 use App\Http\Controllers\DatoBancarioController;
 use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\DiscapacidadController;
 use App\Http\Controllers\EmpleadoController;
+use App\Http\Controllers\EmpleadoHasCapacitacionController;
 use App\Http\Controllers\EstadoController;
 use App\Http\Controllers\EvaluacionDesempenoController;
 use App\Http\Controllers\ExperienciaLaboralController;
 use App\Http\Controllers\InstruccionFormalController;
 use App\Http\Controllers\PermisoController;
-use App\Http\Controllers\PreguntaRespuestaCuestionarioController;
 use App\Http\Controllers\ReferenciaLaboralController;
 use App\Http\Controllers\ResidenciaController;
 use App\Http\Controllers\RolController;
@@ -43,11 +42,12 @@ use App\Http\Controllers\UsuarioController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+ */ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-});
-
-// Rutas AUTH
+})
+  
+ */   
+   // Rutas AUTH
 Route::post('/registro', [ AuthController::class, 'registro']);
 Route::post('/login', [ AuthController::class, 'login']);
 
@@ -62,17 +62,30 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('logout', [AuthController::class, "logout"]); 
 });
 
-
-
-
-
-
+ */
 // CAPACITACIONES routes
 Route::get('/capacitaciones', [CapacitacionController::class, 'listarCapacitaciones']);
 Route::get('/capacitaciones/{id}', [CapacitacionController::class, 'mostrarCapacitacion']);
 Route::post('/capacitaciones', [CapacitacionController::class, 'crearCapacitacion']);
 Route::put('/capacitaciones/{id}', [CapacitacionController::class, 'actualizarCapacitacion']);
 Route::delete('/capacitaciones/{id}', [CapacitacionController::class, 'eliminarCapacitacion']);
+
+
+
+
+// CAPACITACIONES HAS EMPLEADOS routes
+Route::get('/capacitaciones-empleados', [EmpleadoHasCapacitacionController::class, 'listarCapacitacionesDeEmpleados']);
+Route::post('/capacitaciones-empleados', [EmpleadoHasCapacitacionController::class, 'crearAsignacionCapacitacion']);
+Route::put('/capacitaciones-empleados', [EmpleadoHasCapacitacionController::class, 'actualizarAsignacionCapacitacion']);
+Route::delete('/capacitaciones-empleados', [EmpleadoHasCapacitacionController::class, 'eliminarAsignacionCapacitacion']);
+Route::get('/capacitaciones-empleados/capacitaciones-por-empleado/{idEmpleado}', [EmpleadoHasCapacitacionController::class, 'listarCapacitacionesPorEmpleado']);
+Route::get('/capacitaciones-empleados/total-capacitaciones-por-empleado', [EmpleadoHasCapacitacionController::class, 'obtenerTotalCapacitacionesPorEmpleado']);
+Route::get('/capacitaciones-empleados/capacitaciones-no-realizadas/{idEmpleado}', [EmpleadoHasCapacitacionController::class, 'capacitacionesNoRealizadasPorEmpleado']);
+Route::get('/capacitaciones-empleados/empleados-por-capacitacion/{idCapacitacion}', [EmpleadoHasCapacitacionController::class, 'listarEmpleadosPorCapacitacion']);
+Route::get('/capacitaciones-empleados/capacitaciones-ordenadas-por-fecha', [EmpleadoHasCapacitacionController::class, 'listarCapacitacionesOrdenadasPorFecha']);
+Route::get('/capacitaciones-empleados/empleados-capacitaciones-rangoFechas/{fechaInicio}/{fechaFin}', [EmpleadoHasCapacitacionController::class, 'empleadosEnCapacitacionesEnRangoDeFechas']);
+
+
 
 // CARGOS routes
 Route::get('/cargos', [CargoController::class, 'listarCargos']);
@@ -112,6 +125,10 @@ Route::get('/datos-bancarios/{id}', [DatoBancarioController::class, 'mostrarDato
 Route::post('/datos-bancarios', [DatoBancarioController::class, 'crearDatoBancario']);
 Route::put('/datos-bancarios/{id}', [DatoBancarioController::class, 'actualizarDatoBancario']);
 Route::delete('/datos-bancarios/{id}', [DatoBancarioController::class, 'eliminarDatoBancario']);
+Route::get('/datos-bancarios/numerosCuentaEmpleado/{idEmpleado}', [DatoBancarioController::class, 'numerosCuentaEmpleado']);
+Route::get('/datos-bancarios/datosBancariosPorBanco/{nombreBanco}', [DatoBancarioController::class, 'datosBancariosPorBanco']);
+Route::get('/datos-bancarios/datosBancariosPorTipoCuenta/{tipoCuenta}', [DatoBancarioController::class, 'datosBancariosPorTipoCuenta']);
+
 
 // DEPARTAMENTOS routes
 Route::get('/departamentos', [DepartamentoController::class, 'listarDepartamentos']);
@@ -119,6 +136,10 @@ Route::get('/departamentos/{id}', [DepartamentoController::class, 'mostrarDepart
 Route::post('/departamentos', [DepartamentoController::class, 'crearDepartamento']);
 Route::put('/departamentos/{id}', [DepartamentoController::class, 'actualizarDepartamento']);
 Route::delete('/departamentos/{id}', [DepartamentoController::class, 'eliminarDepartamento']);
+Route::get('/departamentos/departamentosPorUnidad/{idUnidad}', [DepartamentoController::class, 'departamentosPorUnidad']);
+
+
+
 
 // DISCAPACIDADES routes
 Route::get('/discapacidades', [DiscapacidadController::class, 'listarDiscapacidades']);
@@ -126,6 +147,9 @@ Route::get('/discapacidades/{id}', [DiscapacidadController::class, 'mostrarDisca
 Route::post('/discapacidades', [DiscapacidadController::class, 'crearDiscapacidad']);
 Route::put('/discapacidades/{id}', [DiscapacidadController::class, 'actualizarDiscapacidad']);
 Route::delete('/discapacidades/{id}', [DiscapacidadController::class, 'eliminarDiscapacidad']);
+Route::get('/discapacidades/tipo/{tipo}', [DiscapacidadController::class, 'obtenerDiscapacidadesPorTipo']);
+
+
 
 // EMPLEADOS routes
 Route::get('/empleados', [EmpleadoController::class, 'listarEmpleados']);
@@ -133,6 +157,10 @@ Route::get('/empleados/{id}', [EmpleadoController::class, 'mostrarEmpleado']);
 Route::post('/empleados', [EmpleadoController::class, 'crearEmpleado']);
 Route::put('/empleados/{id}', [EmpleadoController::class, 'actualizarEmpleado']);
 Route::delete('/empleados/{id}', [EmpleadoController::class, 'eliminarEmpleado']);
+Route::get('/empleados/departamento/{idDepartamento}', [EmpleadoController::class, 'obtenerEmpleadosPorDepartamento']);
+Route::get('/empleados/estado/{idEstado}', [EmpleadoController::class, 'obtenerEmpleadosPorEstado']);
+Route::get('/empleados/nacionalidad/{nacionalidad}', [EmpleadoController::class, 'obtenerEmpleadosPorNacionalidad']);
+Route::get('/empleados/genero/{genero}', [EmpleadoController::class, 'obtenerEmpleadosPorGenero']);
 
 // ESTADOS routes
 Route::get('/estados', [EstadoController::class, 'listarEstados']);
