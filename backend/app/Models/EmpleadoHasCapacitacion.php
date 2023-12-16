@@ -17,5 +17,18 @@ class EmpleadoHasCapacitacion extends Model
         // Agrega aquí los demás campos de tu tabla cuestionarios
     ];
 
-    // Puedes definir relaciones con otras entidades si es necesario
+    // Definir la relación con la tabla Empleado
+    public function empleado()
+    {
+        return $this->belongsTo(Empleado::class, 'idEmpleado', 'idEmpleado');
+    }
+
+    // Definir la relación con la tabla Capacitacion
+    public function capacitacion()
+    {
+        return $this->belongsTo(Capacitacion::class, 'idCapacitacion', 'idCapacitacion');
+    }
+
+    // Puedes definir otras relaciones si es necesario
+
 }

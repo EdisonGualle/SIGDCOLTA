@@ -26,6 +26,7 @@ class EvaluacionDesempeno extends Model
         'desarrolloProfesional',
         'feedbackEmpleado',
         'estadoEvaluacion',
+        'archivo'
     ];
 
     // Puedes definir relaciones con otras entidades aquí si es necesario

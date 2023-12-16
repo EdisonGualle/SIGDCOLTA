@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-12-2023 a las 06:40:22
+-- Tiempo de generación: 16-12-2023 a las 17:46:38
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -148,7 +148,7 @@ CREATE TABLE `empleado` (
   `nombre` varchar(11) DEFAULT NULL,
   `apellido` varchar(145) DEFAULT NULL,
   `fechaNacimiento` date DEFAULT NULL,
-  `Genero` varchar(45) DEFAULT NULL,
+  `genero` varchar(45) DEFAULT NULL,
   `telefonoPersonal` varchar(20) DEFAULT NULL,
   `telefonoTrabajo` varchar(20) DEFAULT NULL,
   `correo` varchar(45) DEFAULT NULL,
@@ -243,6 +243,7 @@ CREATE TABLE `evaluaciondesempeno` (
   `desarrolloProfesional` text DEFAULT NULL,
   `feedbackEmpleado` text DEFAULT NULL,
   `estadoEvaluacion` varchar(50) DEFAULT NULL,
+  `archivo` varchar(150) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

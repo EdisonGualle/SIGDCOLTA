@@ -112,7 +112,7 @@ class DepartamentoController extends Controller
     {
         // Validar los datos de entrada
         $validator = Validator::make($request->all(), [
-            'nombre' => 'required|string|max:255|unique:departamento,nombre',
+            'nombre' => 'string|max:255|unique:departamento,nombre',
             'descripcion' => 'required|string',
             'telefonos' => 'nullable|string',
             'idUnidad' => 'required|numeric|exists:unidad,idUnidad', // Asegura que idUnidad exista en la tabla 'unidades'
