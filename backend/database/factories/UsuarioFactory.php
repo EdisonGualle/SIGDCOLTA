@@ -18,7 +18,7 @@ class UsuarioFactory extends Factory
     public function definition()
     {
         return [
-            'nombre' => $this->faker->userName,
+            'usuario' => $this->faker->userName,
             'password' => Str::random(10),// Asegúrate de cambiar esto con la lógica adecuada para tu aplicación
             'idRol' => function () {
                 return \App\Models\Rol::inRandomOrder()->first()->idRol;

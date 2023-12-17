@@ -42,11 +42,11 @@ use App\Http\Controllers\UsuarioController;
 |
 */
 
- */ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+/* Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-})
+}) */
   
- */   
+/*   
    // Rutas AUTH
 Route::post('/registro', [ AuthController::class, 'registro']);
 Route::post('/login', [ AuthController::class, 'login']);
@@ -61,8 +61,8 @@ Route::middleware('auth:sanctum')->group(function(){
     //Cerrar sesion
     Route::post('logout', [AuthController::class, "logout"]); 
 });
-
  */
+ 
 // CAPACITACIONES routes
 Route::get('/capacitaciones', [CapacitacionController::class, 'listarCapacitaciones']);
 Route::get('/capacitaciones/{id}', [CapacitacionController::class, 'mostrarCapacitacion']);
