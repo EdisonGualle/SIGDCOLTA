@@ -42,6 +42,7 @@ use App\Http\Controllers\UsuarioController;
 |
 */
 
+<<<<<<< HEAD
 /* Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 }) */
@@ -63,15 +64,18 @@ Route::middleware('auth:sanctum')->group(function(){
 });
  */
  
+=======
+include('roles.php');
+
+
+
+>>>>>>> 96be14c6e64a463b3dd603cef11dab79bcbb9ec3
 // CAPACITACIONES routes
 Route::get('/capacitaciones', [CapacitacionController::class, 'listarCapacitaciones']);
 Route::get('/capacitaciones/{id}', [CapacitacionController::class, 'mostrarCapacitacion']);
 Route::post('/capacitaciones', [CapacitacionController::class, 'crearCapacitacion']);
 Route::put('/capacitaciones/{id}', [CapacitacionController::class, 'actualizarCapacitacion']);
 Route::delete('/capacitaciones/{id}', [CapacitacionController::class, 'eliminarCapacitacion']);
-
-
-
 
 // CAPACITACIONES HAS EMPLEADOS routes
 Route::get('/capacitaciones-empleados', [EmpleadoHasCapacitacionController::class, 'listarCapacitacionesDeEmpleados']);
@@ -88,8 +92,8 @@ Route::get('/capacitaciones-empleados/empleados-capacitaciones-rangoFechas/{fech
 
 
 // CARGOS routes
-Route::get('/cargos', [CargoController::class, 'listarCargos']);
-Route::get('/cargos/{id}', [CargoController::class, 'mostrarCargo']);
+// Route::get('/cargos', [CargoController::class, 'listarCargos']);
+// Route::get('/cargos/{id}', [CargoController::class, 'mostrarCargo']);
 // Route::post('/cargos', [CargoController::class, 'crearCargo']);
 // Route::put('/cargos/{id}', [CargoController::class, 'actualizarCargo']);
 // Route::delete('/cargos/{id}', [CargoController::class, 'eliminarCargo']);

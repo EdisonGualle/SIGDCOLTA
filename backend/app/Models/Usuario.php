@@ -16,7 +16,6 @@ class Usuario extends Model
     protected $fillable = [
         'nombre',
         'password',
-        'idRol',
         'idEmpleado',
     ];
 
