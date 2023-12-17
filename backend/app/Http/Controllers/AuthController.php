@@ -15,7 +15,6 @@ class AuthController extends Controller
         $request->validate([
             'usuario' => 'required|unique:usuario',
             'password' => 'required',
-            'idRol' => 'required',
             'idEmpleado' => 'required'
         ]);
 
@@ -23,7 +22,6 @@ class AuthController extends Controller
         $user = new User([
             'usuario' => $request->usuario,
             'password' => Hash::make($request->password),
-            'idRol' => $request->idRol,
             'idEmpleado' => $request->idEmpleado,
         ]);
 

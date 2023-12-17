@@ -50,7 +50,6 @@ class DatabaseSeeder extends Seeder
         Estado::query()->delete();
         InstruccionFormal::query()->delete();
         Residencia::query()->delete();
-        Rol::query()->delete();
         TipoContrato::query()->delete();
         TipoPermiso::query()->delete();
         TipoSalida::query()->delete();
@@ -71,7 +70,6 @@ class DatabaseSeeder extends Seeder
         Discapacidad::factory(10)->create();
         Estado::factory(1)->create();
         InstruccionFormal::factory(10)->create();
-        Rol::factory(10)->create();
         TipoContrato::factory(10)->create();
         TipoPermiso::factory(10)->create();
         TipoSalida::factory(10)->create();
@@ -100,6 +98,8 @@ class DatabaseSeeder extends Seeder
         EmpleadoHasDiscapacidad::factory(10)->create();
         EmpleadoHasCapasitacion::factory(10)->create();
         EmpleadoHasEvaluacionDesempeno::factory(10)->create(); */
+
+       // RolSeeder::run();
 
     }
 }
