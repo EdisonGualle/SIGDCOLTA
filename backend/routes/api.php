@@ -142,6 +142,7 @@ Route::get('/empleados/estado/{idEstado}', [EmpleadoController::class, 'obtenerE
 Route::get('/empleados/nacionalidad/{nacionalidad}', [EmpleadoController::class, 'obtenerEmpleadosPorNacionalidad']);
 Route::get('/empleados/genero/{genero}', [EmpleadoController::class, 'obtenerEmpleadosPorGenero']);
 
+
 // ESTADOS routes
 Route::get('/estados', [EstadoController::class, 'listarEstados']);
 Route::get('/estados/{id}', [EstadoController::class, 'mostrarEstado']);
@@ -149,12 +150,20 @@ Route::post('/estados', [EstadoController::class, 'crearEstado']);
 Route::put('/estados/{id}', [EstadoController::class, 'actualizarEstado']);
 Route::delete('/estados/{id}', [EstadoController::class, 'eliminarEstado']);
 
+
 // EVALUACIONES DESEMPEÑO routes
 Route::get('/evaluacionesDesempeno', [EvaluacionDesempenoController::class, 'listarEvaluacionesDesempeno']);
 Route::get('/evaluacionesDesempeno/{id}', [EvaluacionDesempenoController::class, 'mostrarEvaluacionDesempeno']);
 Route::post('/evaluacionesDesempeno', [EvaluacionDesempenoController::class, 'crearEvaluacionDesempeno']);
 Route::put('/evaluacionesDesempeno/{id}', [EvaluacionDesempenoController::class, 'actualizarEvaluacionDesempeno']);
 Route::delete('/evaluacionesDesempeno/{id}', [EvaluacionDesempenoController::class, 'eliminarEvaluacionDesempeno']);
+Route::get('/evaluacionesDesempeno/porEmpleado/{idEmpleado}', [EvaluacionDesempenoController::class, 'obtenerEvaluacionesPorEmpleado']);
+Route::get('/evaluacionesDesempeno/porEvaluador/{idEvaluador}', [EvaluacionDesempenoController::class, 'obtenerEvaluacionesPorEvaluador']);
+Route::get('/evaluacionesDesempeno/porFecha/{fechaInicio}/{fechaFin}', [EvaluacionDesempenoController::class, 'obtenerEvaluacionesPorFecha']);
+Route::get('/evaluacionesDesempeno/porCalificacionMinima/{calificacionMinima}', [EvaluacionDesempenoController::class, 'obtenerEvaluacionesPorCalificacion']);
+Route::get('/evaluacionesDesempeno/contarPorEmpleado/{idEmpleado}', [EvaluacionDesempenoController::class, 'contarEvaluacionesPorEmpleado']);
+Route::get('/evaluacionesDesempeno/promedioCalificacionPorEvaluador/{idEvaluador}', [EvaluacionDesempenoController::class, 'calcularPromedioCalificacionPorEvaluador']);
+Route::get('/evaluacionesDesempeno/porEstado/{estado}', [EvaluacionDesempenoController::class, 'listasEvaluacionesPorEstado']);
 
 
 // EXPERIENCIAS LABORALES routes
