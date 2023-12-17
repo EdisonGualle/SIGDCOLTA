@@ -42,10 +42,34 @@ use App\Http\Controllers\UsuarioController;
 |
 */
 
+<<<<<<< HEAD
+/* Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+}) */
+  
+/*   
+   // Rutas AUTH
+Route::post('/registro', [ AuthController::class, 'registro']);
+Route::post('/login', [ AuthController::class, 'login']);
+
+// Rutas de prueba ---- Cuando el usuario este loguiado permite ciertas rutas 
+Route::middleware('auth:sanctum')->group(function(){
+    // CARGOS routes ---- basicas de un administrador
+    Route::post('/cargos', [CargoController::class, 'crearCargo']);
+    Route::put('/cargos/{id}', [CargoController::class, 'actualizarCargo']);
+    Route::delete('/cargos/{id}', [CargoController::class, 'eliminarCargo']); 
+    
+    //Cerrar sesion
+    Route::post('logout', [AuthController::class, "logout"]); 
+});
+ */
+ 
+=======
 include('roles.php');
 
 
 
+>>>>>>> 96be14c6e64a463b3dd603cef11dab79bcbb9ec3
 // CAPACITACIONES routes
 Route::get('/capacitaciones', [CapacitacionController::class, 'listarCapacitaciones']);
 Route::get('/capacitaciones/{id}', [CapacitacionController::class, 'mostrarCapacitacion']);
