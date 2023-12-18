@@ -1,0 +1,45 @@
+@startuml
+start
+
+:Inicio del Proceso;
+
+if (Usuario autenticado como Administrador del Sistema) then (Sí)
+  :Mostrar interfaz de Asignación de Roles;
+  :Seleccionar usuario a asignar rol;
+
+  if (Usuario seleccionado) then (Sí)
+    :Verificar si el usuario ya tiene un rol asignado;
+    if (Rol asignado previamente) then (Sí)
+      :Mostrar advertencia de cambio de rol;
+      :Confirmar cambio de rol;
+      if (Confirmación) then (Sí)
+        :Revocar rol anterior;
+        :Asignar nuevo rol;
+        :Actualizar registro de roles en el sistema;
+        :Mostrar mensaje de éxito;
+      else (No)
+        :Mostrar mensaje de cancelación;
+      endif
+    else (No)
+      :Asignar nuevo rol;
+if (Confirmación) then (Sí)
+        :Revocar rol anterior;
+        :Asignar nuevo rol;
+        :Actualizar registro de roles en el sistema;
+        :Mostrar mensaje de éxito;
+      else (No)
+        :Mostrar mensaje de cancelación;
+      endif
+      :Actualizar registro de roles en el sistema;
+      :Mostrar mensaje de éxito;
+    endif
+  else (No)
+    :Mostrar mensaje de usuario no seleccionado;
+  endif
+else (No)
+  :Mostrar mensaje de acceso no autorizado;
+endif
+
+:Fin del Proceso;
+stop
+@enduml

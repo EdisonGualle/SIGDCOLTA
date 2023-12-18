@@ -1,0 +1,44 @@
+@startuml
+start
+
+:Iniciar Sesión como ERH;
+if (Credenciales válidas?) then (Sí)
+  :Acceder a la sección de gestión de asistencia;
+  :Seleccionar operación (Registrar o Consultar);
+  if (Operación seleccionada es Registrar) then (Sí)
+    :Seleccionar empleado;
+    :Ingresar información de asistencia (fecha, hora, etc.);
+    if (Datos válidos?) then (Sí)
+      
+      :Registrar información de asistencia;
+      if (Registro exitoso?) then (Sí)
+        :Mostrar mensaje de éxito;
+      else (No)
+        :Mostrar mensaje de error en el registro de asistencia;
+      endif
+    else (No)
+      :Mostrar mensaje de error de datos no válidos;
+    endif
+  else if (Operación seleccionada es Consultar) then (Sí)
+    :Ingresar criterios de búsqueda (nombre, fecha, etc.);
+    if (Criterios de búsqueda válidos?) then (Sí)
+     
+      :Buscar información de asistencia;
+      if (Información encontrada) then (Sí)
+        :Mostrar información de asistencia;
+      else (No)
+        :Mostrar mensaje de que no hay información disponible;
+      endif
+    else (No)
+      :Mostrar mensaje de error de criterios de búsqueda no válidos;
+    endif
+  endif
+
+  :Cerrar sesión;
+  :Mostrar mensaje de cierre exitoso;
+else (No)
+  :Mostrar mensaje de error de credenciales;
+endif
+
+stop
+@enduml

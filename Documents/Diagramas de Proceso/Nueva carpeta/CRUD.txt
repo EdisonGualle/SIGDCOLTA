@@ -1,0 +1,50 @@
+@startuml
+start
+
+:Iniciar Sesión como ERH;
+if (Credenciales válidas?) then (Sí)
+  :Acceder a la sección de gestión de documentos y datos;
+  :Seleccionar operación (CRUD);
+  if (Operación seleccionada es Crear) then (Sí)
+    :Ingresar nuevos datos y documentos;
+    if (Datos válidos?) then (Sí)
+      :Crear nuevo registro de empleado;
+      :Mostrar mensaje de éxito;
+    else (No)
+      :Mostrar mensaje de error de datos no válidos;
+    endif
+  else if (Operación seleccionada es Leer) then (Sí)
+    :Seleccionar empleado y datos a visualizar;
+    :Mostrar información del empleado;
+  else if (Operación seleccionada es Actualizar) then (Sí)
+    :Seleccionar empleado y datos a actualizar;
+    :Ingresar nuevos datos;
+    if (Datos válidos?) then (Sí)
+      :Actualizar información del empleado;
+      :Mostrar mensaje de éxito;
+    else (No)
+      :Mostrar mensaje de error de datos no válidos;
+    endif
+  else if (Operación seleccionada es Eliminar) then (Sí)
+    :Seleccionar empleado a eliminar;
+    :Confirmar eliminación;
+    if (Eliminación confirmada) then (Sí)
+      :Eliminar registro de empleado;
+      if (Registro eliminado con éxito?) then (Sí)
+        :Mostrar mensaje de éxito;
+      else (No)
+        :Mostrar mensaje de error en la eliminación del registro;
+      endif
+    else (No)
+      :Mostrar mensaje de cancelación de eliminación;
+    endif
+  endif
+
+  :Cerrar sesión;
+  :Mostrar mensaje de cierre exitoso;
+else (No)
+  :Mostrar mensaje de error de credenciales;
+endif
+
+stop
+@enduml
