@@ -42,34 +42,10 @@ use App\Http\Controllers\UsuarioController;
 |
 */
 
-<<<<<<< HEAD
-/* Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-}) */
-  
-/*   
-   // Rutas AUTH
-Route::post('/registro', [ AuthController::class, 'registro']);
-Route::post('/login', [ AuthController::class, 'login']);
-
-// Rutas de prueba ---- Cuando el usuario este loguiado permite ciertas rutas 
-Route::middleware('auth:sanctum')->group(function(){
-    // CARGOS routes ---- basicas de un administrador
-    Route::post('/cargos', [CargoController::class, 'crearCargo']);
-    Route::put('/cargos/{id}', [CargoController::class, 'actualizarCargo']);
-    Route::delete('/cargos/{id}', [CargoController::class, 'eliminarCargo']); 
-    
-    //Cerrar sesion
-    Route::post('logout', [AuthController::class, "logout"]); 
-});
- */
- 
-=======
 include('roles.php');
 
 
 
->>>>>>> 96be14c6e64a463b3dd603cef11dab79bcbb9ec3
 // CAPACITACIONES routes
 Route::get('/capacitaciones', [CapacitacionController::class, 'listarCapacitaciones']);
 Route::get('/capacitaciones/{id}', [CapacitacionController::class, 'mostrarCapacitacion']);
@@ -193,9 +169,18 @@ Route::get('/evaluacionesDesempeno/porEstado/{estado}', [EvaluacionDesempenoCont
 // EXPERIENCIAS LABORALES routes
 Route::get('/experienciasLaborales', [ExperienciaLaboralController::class, 'listarExperienciasLaborales']);
 Route::get('/experienciasLaborales/{id}', [ExperienciaLaboralController::class, 'mostrarExperienciasLaborales']);
-Route::post('/experienciasLaborales', [ExperienciaLaboralController::class, 'crearExperienciasLaborales']);
-Route::put('/experienciasLaborales/{id}', [ExperienciaLaboralController::class, 'actualizarExperienciasLaborales']);
-Route::delete('/experienciasLaborales/{id}', [ExperienciaLaboralController::class, 'eliminarExperienciasLaborales']);
+Route::post('/experienciasLaborales', [ExperienciaLaboralController::class, 'crearExperienciaLaboral']);
+Route::put('/experienciasLaborales/{id}', [ExperienciaLaboralController::class, 'actualizarExperienciaLaboral']);
+Route::delete('/experienciasLaborales/{id}', [ExperienciaLaboralController::class, 'eliminarExperienciaLaboral']);
+
+Route::get('/experienciasLaborales/empleado/{idEmpleado}', [ExperienciaLaboralController::class, 'experienciasLaboralesEmpleado']);
+Route::get('/experienciasLaborales/instituciones/empleado/{idEmpleado}', [ExperienciaLaboralController::class, 'institucionesUnicasEmpleado']);
+Route::get('/experienciasLaborales/duracion/empleado/{idEmpleado}', [ExperienciaLaboralController::class, 'duracionExperienciaLaboralEmpleado']);
+Route::get('/experienciasLaborales/palabrasClave', [ExperienciaLaboralController::class, 'experienciasPorPalabrasClave']);
+Route::get('/experienciasLaborales/instituciones/instituciones-num-empleados', [ExperienciaLaboralController::class, 'institucionesYNumEmpleados']);
+Route::get('/experienciasLaborales/duracion-mayor/{numMeses}', [ExperienciaLaboralController::class, 'experienciasDuracionMayor']);
+Route::get('/empleados-con-experiencia', [ExperienciaLaboralController::class, 'empleadosConExperiencia']);
+
 
 // INSTRUCCIONES FORMALES routes
 Route::get('/instrucciones-formales', [InstruccionFormalController::class, 'listarInstruccionesFormales']);
