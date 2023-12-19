@@ -59,6 +59,15 @@ class ReferenciaLaboralController extends Controller
             return response()->json(['successful' => false, 'errors' => $validator->errors()], 422);
         }
 
+        // Validar que no exista otra referencia laboral con la misma cédula en la misma experiencia
+        $existingReference = ReferenciaLaboral::where('cedula', $request->cedula)
+            ->where('idExperienciaLaboral', $request->idExperienciaLaboral)
+            ->first();
+
+        if ($existingReference) {
+            return response()->json(['successful' => false, 'errors' => ['cedula' => ['Ya existe una referencia laboral con esta cédula en la misma experiencia.']]], 422);
+        }
+
         // Crear la referencia laboral
         $referenciaLaboral = ReferenciaLaboral::create($request->all());
 
@@ -95,11 +104,22 @@ class ReferenciaLaboralController extends Controller
             return response()->json(['successful' => false, 'error' => 'Referencia Laboral no encontrada'], 404);
         }
 
+        // Validar que no exista otra referencia laboral con la misma cédula en la misma experiencia
+        $existingReference = ReferenciaLaboral::where('cedula', $request->cedula)
+            ->where('idExperienciaLaboral', $request->idExperienciaLaboral)
+            ->where('idReferenciaLaboral', '!=', $id) // Excluir la referencia actual para permitir su propia actualización
+            ->first();
+
+        if ($existingReference) {
+            return response()->json(['successful' => false, 'errors' => ['cedula' => ['Ya existe una referencia laboral con esta cédula en la misma experiencia.']]], 422);
+        }
+
         // Actualizar la referencia laboral
         $referenciaLaboral->update($request->all());
 
         return response()->json(['successful' => true, 'data' => $referenciaLaboral]);
     }
+
 
     /**
      * Elimina una referencia laboral existente.

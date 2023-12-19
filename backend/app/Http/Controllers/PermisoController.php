@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Repositories\PermisoRepositoryInterface;
 use App\Transformers\PermisoTransformer;
 use Illuminate\Http\Request;
@@ -17,8 +18,8 @@ class PermisoController extends Controller
 
     public function listarPermisos()
     {
-        $permisos = $this->permisoRepository->all();
-        $permisosTransformados = PermisoTransformer::transformCollection($permisos);
+        $permisosTransformados = $this->permisoRepository->all();
+        //$permisosTransformados = PermisoTransformer::transformCollection($permisos);
 
         return response()->json(['successful' => true, 'data' => $permisosTransformados]);
     }
@@ -49,9 +50,9 @@ class PermisoController extends Controller
                 'idEmpleado' => 'required|numeric',
             ]);
 
-            // Si la validación falla, lanzar una excepción
+            // Si la validación falla, retornar errores
             if ($validator->fails()) {
-                throw new \Exception('Datos de entrada no válidos', 422);
+                return response()->json(['successful' => false, 'errors' => $validator->errors()], 422);
             }
 
             // Crear el permiso utilizando el repositorio

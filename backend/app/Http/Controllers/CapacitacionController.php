@@ -6,16 +6,25 @@ use Illuminate\Http\Request;
 use App\Models\Capacitacion;
 use Illuminate\Support\Facades\Validator;
 
+
+
+/**
+ * @OA\Info(
+ *     title="Título que mostraremos en swagger", 
+ *     version="1.0",
+ *     description="Descripcion"
+ * )
+ *
+ * @OA\Server(url="http://localhost:8000/api")
+ */
 class CapacitacionController extends Controller
 {
-
     /**
-     * Lista todas las capacitaciones.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     *         Parámetros de salida:
-     *         - 'successful': Indica si la operación fue exitosa (booleano).
-     *         - 'data': Datos de todas las capacitaciones (array) si la operación fue exitosa.
+     * @OA\Get(
+     *     path="/capacitacioness",
+     *     summary="Obtiene lista de capacitaciones",
+     *     @OA\Response(response="200", description="Respuesta exitosa")
+     * )
      */
     public function listarCapacitaciones()
     {

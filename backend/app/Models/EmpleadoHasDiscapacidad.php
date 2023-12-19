@@ -20,5 +20,18 @@ class EmpleadoHasDiscapacidad extends Model
         'notas',
     ];
 
+    // Definir la relación con la tabla Empleado
+    public function empleado()
+    {
+        return $this->belongsTo(Empleado::class, 'idEmpleado', 'idEmpleado');
+    }
+
+    // Definir la relación con la tabla Discapacidad 
+    public function discapacidad()
+    {
+        return $this->belongsTo(Discapacidad::class, 'idDiscapacidad', 'idDiscapacidad');
+    }
+
+
     // Puedes definir relaciones con otras entidades si es necesario
 }

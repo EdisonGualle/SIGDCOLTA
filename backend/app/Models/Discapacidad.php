@@ -19,5 +19,25 @@ class Discapacidad extends Model
         // Agrega aquí los demás campos de tu tabla cuestionarios
     ];
 
+     /**
+     * Obtener la colección de empleados asociados a la capacitación.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function empleados()
+    {
+        return $this->belongsToMany(Empleado::class, 'empleado_has_discapacidad', 'idDiscapacidad', 'idEmpleado');
+    }
+
+    /**
+     * Obtener la colección de capacitaciones asociadas a un empleado.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function discapacidadesDeEmpleado()
+    {
+        return $this->belongsToMany(Discapacidad::class, 'empleado_has_discapacidad', 'idEmpleado', 'idDiscapacidad');
+    }
+
     // Puedes definir relaciones con otras entidades si es necesario
 }
