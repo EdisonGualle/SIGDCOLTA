@@ -10,7 +10,7 @@ class SalidaCampo extends Model
     use HasFactory;
 
     protected $table = 'salidacampo';
-    protected $primaryKey = 'idSalidaCampo ';
+    protected $primaryKey = 'idSalidaCampo';
 
     protected $fillable = [
         'nombre',

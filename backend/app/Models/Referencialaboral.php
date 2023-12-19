@@ -10,7 +10,7 @@ class Referencialaboral extends Model
     use HasFactory;
 
     protected $table = 'referencialaboral';
-    protected $primaryKey = 'idReferenciaLaboral ';
+    protected $primaryKey = 'idReferenciaLaboral';
 
     protected $fillable = [
         'nombre',

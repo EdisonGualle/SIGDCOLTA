@@ -10,7 +10,7 @@ class ExperienciaLaboral extends Model
     use HasFactory;
 
     protected $table = 'experiencialaboral';
-    protected $primaryKey = 'idExperienciaLaboral ';
+    protected $primaryKey = 'idExperienciaLaboral';
 
     protected $fillable = [
         'institucion',

@@ -19,6 +19,7 @@ class User extends Authenticatable
         'usuario',
         'password',
         'idRol',
+        'idTipoEstado',
         'idEmpleado',
     ];
 }

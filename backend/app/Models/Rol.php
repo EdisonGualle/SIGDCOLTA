@@ -9,12 +9,13 @@ class Rol extends Model
 {
     use HasFactory;
 
-    protected $table = 'rol';
-    protected $primaryKey = 'idRol';
+    protected $table = 'roles';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
-        'nombre',
-        
+        'name',
+        'guard_name'
+
 
         // Agrega aquí los demás campos de tu tabla cargo
     ];

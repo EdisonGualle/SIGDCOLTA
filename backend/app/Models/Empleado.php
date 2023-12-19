@@ -45,4 +45,10 @@ class Empleado extends Model
         return $this->belongsToMany(Capacitacion::class, 'empleado_has_capacitacion', 'idEmpleado', 'idCapacitacion')
             ->withTimestamps();
     }
+
+    public function discapacidades()
+    {
+        return $this->belongsToMany(Discapacidad::class, 'empleado_has_discapacidad', 'idEmpleado', 'idDiscapacidad')
+            ->withTimestamps();
+    }
 }
