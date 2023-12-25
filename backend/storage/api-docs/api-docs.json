@@ -11,10 +11,10 @@
         }
     ],
     "paths": {
-        "/capacitacioness": {
+        "/capacitaciones": {
             "get": {
                 "summary": "Obtiene lista de capacitaciones",
-                "operationId": "1e863bc0dbf640d0994149cb2d261202",
+                "operationId": "ac32844afab8477b45eec8780e705d4a",
                 "responses": {
                     "200": {
                         "description": "Respuesta exitosa"

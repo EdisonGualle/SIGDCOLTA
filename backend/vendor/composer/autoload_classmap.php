@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
+    'App\\Entities\\CapacitacionRepository' => $baseDir . '/app/Entities/CapacitacionRepository.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\AuthController' => $baseDir . '/app/Http/Controllers/AuthController.php',
     'App\\Http\\Controllers\\CapacitacionController' => $baseDir . '/app/Http/Controllers/CapacitacionController.php',
@@ -18,6 +19,7 @@ return array(
     'App\\Http\\Controllers\\EmpleadoController' => $baseDir . '/app/Http/Controllers/EmpleadoController.php',
     'App\\Http\\Controllers\\EmpleadoHasCapacitacionController' => $baseDir . '/app/Http/Controllers/EmpleadoHasCapacitacionController.php',
     'App\\Http\\Controllers\\EmpleadoHasDiscapacidadController' => $baseDir . '/app/Http/Controllers/EmpleadoHasDiscapacidadController.php',
+    'App\\Http\\Controllers\\EmpleadoHasInstruccionFormalController' => $baseDir . '/app/Http/Controllers/EmpleadoHasInstruccionFormalController.php',
     'App\\Http\\Controllers\\EstadoController' => $baseDir . '/app/Http/Controllers/EstadoController.php',
     'App\\Http\\Controllers\\PermisoController' => $baseDir . '/app/Http/Controllers/PermisoController.php',
     'App\\Http\\Controllers\\ResidenciaController' => $baseDir . '/app/Http/Controllers/ResidenciaController.php',

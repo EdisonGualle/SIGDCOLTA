@@ -44,6 +44,7 @@ use App\Http\Controllers\UserController;
 |
 */
 
+Route::get('/capacitaciones', [CapacitacionController::class, 'listarCapacitaciones']);
 
 
 
@@ -54,8 +55,8 @@ Route::get('/capacitaciones-instruccionesformales', [EmpleadoHasInstruccionForma
 Route::group(['middleware' => ['auth:sanctum', 'role:Admin|Empleado']], function () {
     // Rutas AUTH
     Route::post('/login', [AuthController::class, 'login']);
+    Route::get('/capacitaciones/{id}', [CapacitacionController::class, 'mostrarCapacitacion']);
 
-    Route::get('/capacitaciones', [CapacitacionController::class, 'listarCapacitaciones']);
 
 
     // CAPACITACIONES routes
@@ -164,7 +165,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:Admin|Empleado']], function
 
     // ESTADOS routes
     Route::get('/estados', [EstadoController::class, 'listarEstados']);
-    Route::get('/estados/{id}', [EstadoController::class, 'mostrarEstado']);
+    Route::get('/estados/{id}', [EstadoController::class, 'mostrarEstado']); 
     Route::post('/estados', [EstadoController::class, 'crearEstado']);
     Route::put('/estados/{id}', [EstadoController::class, 'actualizarEstado']);
     Route::delete('/estados/{id}', [EstadoController::class, 'eliminarEstado']);

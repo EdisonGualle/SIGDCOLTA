@@ -38,6 +38,10 @@ class PermisoController extends Controller
     public function crearPermiso(Request $request)
     {
         try {
+
+
+            $validacion=$this->permisoRepository->validacion($request);
+
             // Validar los datos de entrada
             $validator = Validator::make($request->all(), [
                 'fechaSolicitud' => 'required|date',

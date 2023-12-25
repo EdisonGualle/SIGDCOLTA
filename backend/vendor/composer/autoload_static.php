@@ -590,6 +590,7 @@ class ComposerStaticInitfe33f98a750b8c5a51b30c78bd3fab21
 
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
+        'App\\Entities\\CapacitacionRepository' => __DIR__ . '/../..' . '/app/Entities/CapacitacionRepository.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/AuthController.php',
         'App\\Http\\Controllers\\CapacitacionController' => __DIR__ . '/../..' . '/app/Http/Controllers/CapacitacionController.php',
@@ -601,6 +602,7 @@ class ComposerStaticInitfe33f98a750b8c5a51b30c78bd3fab21
         'App\\Http\\Controllers\\EmpleadoController' => __DIR__ . '/../..' . '/app/Http/Controllers/EmpleadoController.php',
         'App\\Http\\Controllers\\EmpleadoHasCapacitacionController' => __DIR__ . '/../..' . '/app/Http/Controllers/EmpleadoHasCapacitacionController.php',
         'App\\Http\\Controllers\\EmpleadoHasDiscapacidadController' => __DIR__ . '/../..' . '/app/Http/Controllers/EmpleadoHasDiscapacidadController.php',
+        'App\\Http\\Controllers\\EmpleadoHasInstruccionFormalController' => __DIR__ . '/../..' . '/app/Http/Controllers/EmpleadoHasInstruccionFormalController.php',
         'App\\Http\\Controllers\\EstadoController' => __DIR__ . '/../..' . '/app/Http/Controllers/EstadoController.php',
         'App\\Http\\Controllers\\PermisoController' => __DIR__ . '/../..' . '/app/Http/Controllers/PermisoController.php',
         'App\\Http\\Controllers\\ResidenciaController' => __DIR__ . '/../..' . '/app/Http/Controllers/ResidenciaController.php',
