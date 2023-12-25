@@ -21,7 +21,7 @@ class CapacitacionController extends Controller
 {
     /**
      * @OA\Get(
-     *     path="/capacitacioness",
+     *     path="/capacitaciones",
      *     summary="Obtiene lista de capacitaciones",
      *     @OA\Response(response="200", description="Respuesta exitosa")
      * )

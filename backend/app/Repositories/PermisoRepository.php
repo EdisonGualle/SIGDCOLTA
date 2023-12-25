@@ -44,4 +44,9 @@ class PermisoRepository implements PermisoRepositoryInterface
 
         return false;
     }
+
+
+    public function validacion($data){
+        return 'ok';
+    }
 }

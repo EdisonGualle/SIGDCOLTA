@@ -69,10 +69,10 @@ class ControlDiarioController extends Controller
         // Validar los datos de entrada
         $validator = Validator::make($request->all(), [
             'fechaControl' => 'required|date',
-            'horaEntrada' => 'nullable|date_format:H:i:s',
-            'horaSalida' => 'nullable|date_format:H:i:s',
-            'horaEntradaReceso' => 'nullable|date_format:H:i:s',
-            'horaSalidaReceso' => 'nullable|date_format:H:i:s',
+            'horaEntrada' => 'required|nullable|date_format:H:i:s',
+            'horaSalida' => 'required|nullable|date_format:H:i:s',
+            'horaEntradaReceso' => 'required|nullable|date_format:H:i:s',
+            'horaSalidaReceso' => 'required|nullable|date_format:H:i:s',
             'idEmpleado' => 'required|exists:empleado,idEmpleado',
         ]);
 
@@ -413,6 +413,7 @@ class ControlDiarioController extends Controller
      * @return float
      *         Parámetros de salida:
      *         - Total de horas trabajadas (float redondeado a dos decimales).
+     * 
      */
     private function calcularTotalHoras(Request $request)
     {
@@ -431,7 +432,11 @@ class ControlDiarioController extends Controller
         // Calcular el total trabajado restando las horas de receso
         $totalTrabajado = $horaSalida - $horaEntrada - ($horaSalidaReceso - $horaEntradaReceso);
 
+    
+
         // Convertir el total a horas y redondear a dos decimales
         return round(max($totalTrabajado, 0) / 3600, 2); // No permitir que el total sea negativo
+
+
     }
 }
