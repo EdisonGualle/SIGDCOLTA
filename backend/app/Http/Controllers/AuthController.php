@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 class AuthController extends Controller
 {
 
-
+    
     /**
      * Intenta autenticar a un usuario y generar un nuevo token de acceso.
      *
@@ -51,12 +51,6 @@ class AuthController extends Controller
         }
     }
 
-
-    /* //Primer ejemplo
-    public function cargos()
-    {
-        return Auth::user();
-    } */
 
     //Cerrar Sesion
     public function logout(Request $request)

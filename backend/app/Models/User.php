@@ -22,4 +22,9 @@ class User extends Authenticatable
         'idTipoEstado',
         'idEmpleado',
     ];
+
+    public function empleado()
+    {
+        return $this->belongsTo(Empleado::class, 'idEmpleado');
+    }
 }

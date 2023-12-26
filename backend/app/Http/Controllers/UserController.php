@@ -83,7 +83,6 @@ class UserController extends Controller
             'password' => Hash::make($request->input('password')), // Hash de la contraseña
             'idEmpleado' => $request->input('idEmpleado'),
             'idTipoEstado' => $request->input('idTipoEstado'),
-
         ]);
 
         // Asignar rol 'Empleado' al usuario
