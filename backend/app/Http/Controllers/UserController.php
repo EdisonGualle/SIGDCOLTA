@@ -54,45 +54,48 @@ class UserController extends Controller
         // Validar los datos de entrada
         $validator = Validator::make($request->all(), [
             'idEmpleado' => 'required|integer|exists:empleado,idEmpleado',
-            'password' => 'required|string',
+            'password' => 'required|string|min:6', 
+            'correo' => 'required|email|unique:usuario,correo', 
             'idTipoEstado' => 'integer|exists:estado,idEstado',
         ]);
-
+    
         // Si la validación falla, retornar errores
         if ($validator->fails()) {
             return response()->json(['successful' => false, 'errors' => $validator->errors()], 422);
         }
-
+    
         // Obtener el empleado
         $empleado = Empleado::find($request->input('idEmpleado'));
-
+    
         if (!$empleado) {
             return response()->json(['successful' => false, 'error' => 'Empleado no encontrado'], 404);
         }
-
+    
         // Verificar que existe el estado con idEstado proporcionado
         $estado = Estado::find($request->input('idTipoEstado'));
-
+    
         if (!$estado) {
             return response()->json(['successful' => false, 'error' => 'Estado no encontrado'], 404);
         }
-
+    
         // Crear el usuario
         $usuario = User::create([
-            'usuario' => strtolower($empleado->nombre . $empleado->apellido), // Concatenar nombre y apellido
-            'password' => Hash::make($request->input('password')), // Hash de la contraseña
+            'usuario' => strtolower($empleado->nombre . $empleado->apellido),
+            'password' => Hash::make($request->input('password')),
+            'correo' => $request->input('correo'), // Agregar el correo
             'idEmpleado' => $request->input('idEmpleado'),
             'idTipoEstado' => $request->input('idTipoEstado'),
         ]);
-
+    
         // Asignar rol 'Empleado' al usuario
         $usuario->assignRole('Empleado');
-
+    
         // Iniciar sesión y generar token de acceso
         $token = $usuario->createToken('auth_token')->plainTextToken;
-
+    
         return response()->json(['successful' => true, 'data' => $usuario, 'access_token' => $token], 201);
     }
+    
 
 
     /**

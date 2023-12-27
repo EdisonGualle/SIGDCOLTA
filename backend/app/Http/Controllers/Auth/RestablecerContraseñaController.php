@@ -21,29 +21,29 @@ class RestablecerContraseñaController extends Controller
             $user = User::where('usuario', $request->usuario)
                 ->orWhere('correo', $request->correo)
                 ->first(['usuario', 'correo']);
-    
+
             if ($user && isset($user->correo)) {
                 // Generar un token aleatorio
                 $token = Str::random(40);
-    
+
                 // Construir la URL con el token
                 $domain = URL::to('/');
                 $url = $domain . '/recuperar-contraseña?token=' . $token;
-    
+
                 // Configurar datos para el correo
                 $datos['url'] = $url;
                 $datos['email'] = $user->correo;
                 $datos['title'] = "Recuperar Contraseña";
                 $datos['body'] = 'Por favor haga clic en el siguiente enlace para restablecer su contraseña';
-    
+
                 // Enviar el correo
                 Mail::send('correoRecuperacionContrasena', ['datos' => $datos], function ($message) use ($datos) {
                     $message->to($datos['email'])->subject($datos['title']);
                 });
-    
+
                 // Obtener la fecha y hora actual
                 $now = Carbon::now()->format('Y-m-d H:i:s');
-    
+
                 // Actualizar o crear un registro en la tabla RestablecerContraseña
                 RestablecerContraseña::updateOrCreate(
                     ['correo' => $datos['email']],
@@ -52,7 +52,7 @@ class RestablecerContraseñaController extends Controller
                         'created_at' => $now
                     ]
                 );
-    
+
                 // Respuesta JSON de éxito
                 return response()->json([
                     'success' => true,
@@ -68,7 +68,7 @@ class RestablecerContraseñaController extends Controller
             return response()->json(['success' => false, 'msg' => $e->getMessage()]);
         }
     }
-    
+
 
 
     // Cargar vista para restablecer contraseña
@@ -99,24 +99,27 @@ class RestablecerContraseñaController extends Controller
     public function restablecerContraseña(Request $request)
     {
         $request->validate([
-            'password' => 'required|string|min:2|confirmed'
+            'password' => 'required|string|min:6|confirmed'
         ]);
-    
+
         // Encuentra al usuario por su ID
         $user = User::find($request->id);
-    
-    
-        // Actualiza la contraseña del usuario
-        $user->password =$request->password;
+
+        if (!$user) {
+            return response()->json(['successful' => false, 'error' => 'Usuario no encontrado'], 404);
+        }
+
+        // Actualiza la contraseña del usuario con el hash
+        $user->password = Hash::make($request->password);
         $user->save();
-    
+
         // Elimina el token de restablecimiento asociado con el correo del empleado
         RestablecerContraseña::where('correo', $user->correo)->delete();
-    
+
         // Mensaje de éxito
-        return "<h1>Tu contraseña se ha restablecido exitosamente.</h1>";
+        return response('<h1>Tu contraseña se ha restablecido exitosamente.</h1>');
     }
-    
-    
+
+
 
 }

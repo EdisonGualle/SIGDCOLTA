@@ -18,6 +18,7 @@ class User extends Authenticatable  implements CanResetPassword
     protected $primaryKey = 'idUsuario'; //Est
     protected $fillable = [
         'usuario',
+        'correo',
         'password',
         'idRol',
         'idTipoEstado',
