@@ -1,14 +1,19 @@
 <?php
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\JsonResponse;
 
 //Auth
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Auth\RestablecerContraseñaController;
 
 // Ingreso
 Route::post('/users', [UserController::class, 'crearUsuario']);
 Route::post('/ingresar', [AuthController::class, 'ingresar']);
+
+// Recuperar contraseña 
+Route::post('/recuperar-contraseña', [RestablecerContraseñaController::class,'recuperarContraseña']);
+
+
 
 // Rutas con autenticación mediante Sanctum
 Route::group(['middleware' => ['auth:sanctum']], function () {
@@ -35,7 +40,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 
 // Ruta de fallback para manejar 404
-Route::fallback(function () {
-    // Respuesta JSON personalizada para error 404
-    return response()->json(['error' => 'Ruta no encontrada.'], JsonResponse::HTTP_NOT_FOUND);
-});
+// Route::fallback(function () {
+//     // Respuesta JSON personalizada para error 404
+//     return response()->json(['error' => 'Ruta no encontrada.'], JsonResponse::HTTP_NOT_FOUND);
+// });
