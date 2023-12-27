@@ -6,19 +6,6 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\UserController;
 
-// Rutas probando  para administrador
-    use App\Http\Controllers\Config\ConfiguracionController;
-
-    // Obtener todas las configuraciones
-    Route::get('/configuraciones', [ConfiguracionController::class, 'obtenerConfiguraciones']);
-
-    // Obtener configuración por clave
-    Route::get('/configuraciones/{clave}', [ConfiguracionController::class, 'obtenerConfiguracionPorClave']);
-
-    // Actualizar configuración
-    Route::put('/configuraciones/{clave}', [ConfiguracionController::class, 'actualizarConfiguracion']);
-
-
 // Ingreso
 Route::post('/users', [UserController::class, 'crearUsuario']);
 Route::post('/ingresar', [AuthController::class, 'ingresar']);
