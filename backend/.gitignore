@@ -1,3 +1,4 @@
+# .gitignore
+
+# Ignorar el archivo .env
 .env
-.env.backup
-.env.production
