@@ -24,9 +24,11 @@ use App\Http\Controllers\ExperienciaLaboralController;
 use App\Http\Controllers\InstruccionFormalController;
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\ReferenciaLaboralController;
+use App\Http\Controllers\RegistroAsistenciaController;
 use App\Http\Controllers\ResidenciaController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\SalidaCampoController;
+use App\Http\Controllers\TipoAsistenciaController;
 use App\Http\Controllers\TipoContratoController;
 use App\Http\Controllers\TipoPermisoController;
 use App\Http\Controllers\TipoSalidaController;
@@ -44,26 +46,115 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/capacitaciones', [CapacitacionController::class, 'listarCapacitaciones']);
-
-
-
-Route::get('/capacitaciones-instruccionesformales', [EmpleadoHasInstruccionFormalController::class, 'listarInstruccionesFormalesEmpleado']);
 
 
 // CARGOS routes
 Route::group(['middleware' => ['auth:sanctum', 'role:Admin|Empleado']], function () {
     // Rutas AUTH
     Route::post('/login', [AuthController::class, 'login']);
-    Route::get('/capacitaciones/{id}', [CapacitacionController::class, 'mostrarCapacitacion']);
-
-
 
     // CAPACITACIONES routes
-    Route::get('/capacitaciones/{id}', [CapacitacionController::class, 'mostrarCapacitacion']);
+    Route::get('/capacitaciones', [CapacitacionController::class, 'listarCapacitaciones']);
+    Route::get('/capacitaciones/{id}', [CapacitacionController::class, 'listarCapacitacionPorId']);
+    Route::get('/capacitaciones/nombre/{nombre}', [CapacitacionController::class, 'listarCapacitacionPorNombre']);
+    Route::get('/capacitaciones/fecha/{fecha}', [CapacitacionController::class, 'listarCapacitacionesPorFecha']);
+    Route::get('/capacitaciones/rango-fechas/{fechaInicio}/{fechaFin}', [CapacitacionController::class, 'listarCapacitacionesPorRangoDeFechas']);
     Route::post('/capacitaciones', [CapacitacionController::class, 'crearCapacitacion']);
     Route::put('/capacitaciones/{id}', [CapacitacionController::class, 'actualizarCapacitacion']);
     Route::delete('/capacitaciones/{id}', [CapacitacionController::class, 'eliminarCapacitacion']);
+
+    // CARGOS routes
+    Route::get('/cargos', [CargoController::class, 'listarCargos']);
+    Route::get('/cargos/{id}', [CargoController::class, 'mostrarCargo']);
+    Route::post('/cargos', [CargoController::class, 'crearCargo']);
+    Route::put('/cargos/{id}', [CargoController::class, 'actualizarCargo']);
+    Route::delete('/cargos/{id}', [CargoController::class, 'eliminarCargo']);
+
+
+    // CONTRATOS routes
+    Route::get('/contratos', [ContratoController::class, 'listarContratos']);
+    Route::get('/contratos/{id}', [ContratoController::class, 'mostrarContrato']);
+    Route::get('/contratos/empleado/cedula/{cedula}', [ContratoController::class, 'listarContratosPorCedula']);
+    Route::get('/contratos/empleado/id/{idEmpleado}', [ContratoController::class, 'listarContratosPorIdEmpleado']);
+    Route::get('/contratos/tipo/id/{idTipoContrato}', [ContratoController::class, 'listarContratosPorIdTipoContrato']);
+    Route::get('/contratos/tipo/nombre/{nombreTipoContrato}', [ContratoController::class, 'listarContratosPorNombreTipoContrato']);
+    Route::post('/contratos', [ContratoController::class, 'crearContrato']);
+    Route::put('/contratos/{id}', [ContratoController::class, 'actualizarContrato']);
+    Route::delete('/contratos/{id}', [ContratoController::class, 'eliminarContrato']);
+
+
+    // DATOS BANCARIOS routes
+    Route::get('/datos-bancarios', [DatoBancarioController::class, 'listarDatosBancarios']);
+    Route::get('/datos-bancarios/{id}', [DatoBancarioController::class, 'mostrarDatoBancarioPorId']);
+    Route::get('/datos-bancarios/empleado/id/{idEmpleado}', [DatoBancarioController::class, 'listarDatosBancariosPorIdEmpleado']);
+    Route::get('/datos-bancarios/empleado/cedula/{cedulaEmpleado}', [DatoBancarioController::class, 'listarDatosBancariosPorCedulaEmpleado']);
+    Route::get('/datos-bancarios/banco/{nombreBanco}', [DatoBancarioController::class, 'listarDatosBancariosPorNombreBanco']);
+    Route::get('/datos-bancarios/tipo-cuenta/{tipoCuenta}', [DatoBancarioController::class, 'listarDatosBancariosPorTipoCuenta']);
+    Route::post('/datos-bancarios', [DatoBancarioController::class, 'crearDatoBancario']);
+    Route::put('/datos-bancarios/{id}', [DatoBancarioController::class, 'actualizarDatoBancario']);
+    Route::delete('/datos-bancarios/{id}', [DatoBancarioController::class, 'eliminarDatoBancario']);
+
+
+
+    // DEPARTAMENTOS routes
+    Route::get('/departamentos', [DepartamentoController::class, 'listarDepartamentos']);
+    Route::get('/departamentos/{id}', [DepartamentoController::class, 'mostrarDepartamentoPorId']);
+    Route::get('/departamentos/unidad/id/{idUnidad}', [DepartamentoController::class, 'listarDepartamentosPorIdUnidad']);
+    Route::get('/departamentos/unidad/nombre/{nombreUnidad}', [DepartamentoController::class, 'listarDepartamentosPorNombreUnidad']);
+    Route::post('/departamentos', [DepartamentoController::class, 'crearDepartamento']);
+    Route::put('/departamentos/{id}', [DepartamentoController::class, 'actualizarDepartamento']);
+    Route::delete('/departamentos/{id}', [DepartamentoController::class, 'eliminarDepartamento']);
+    Route::get('/departamentos/departamentosPorUnidad/{idUnidad}', [DepartamentoController::class, 'departamentosPorUnidad']);
+
+
+
+
+    // DISCAPACIDADES routes
+    Route::get('/discapacidades', [DiscapacidadController::class, 'listarDiscapacidades']);
+    Route::get('/discapacidades/{id}', [DiscapacidadController::class, 'mostrarDiscapacidad']);
+    Route::get('/discapacidades/tipo/{tipo}', [DiscapacidadController::class, 'listarDiscapacidadesPorTipo']);
+    Route::post('/discapacidades', [DiscapacidadController::class, 'crearDiscapacidad']);
+    Route::put('/discapacidades/{id}', [DiscapacidadController::class, 'actualizarDiscapacidad']);
+    Route::delete('/discapacidades/{id}', [DiscapacidadController::class, 'eliminarDiscapacidad']);
+
+
+
+    // CAPACITACIONES HAS EMPLEADOS routes
+    Route::get('/discapacidades-empleados', [EmpleadoHasDiscapacidadController::class, 'listarDiscapacidadesDeEmpleados']);
+    Route::post('/discapacidades-empleados', [EmpleadoHasDiscapacidadController::class, 'crearAsignacionCapacitacion']);
+    Route::put('/discapacidades-empleados', [EmpleadoHasDiscapacidadController::class, 'actualizarAsignacionDiscapacidad']);
+    Route::delete('/discapacidades-empleados', [EmpleadoHasDiscapacidadController::class, 'eliminarAsignacionCapacitacion']);
+
+
+    // EMPLEADOS routes
+    Route::get('/empleados', [EmpleadoController::class, 'listarEmpleados']);
+    Route::get('/empleados/{id}', [EmpleadoController::class, 'mostrarEmpleadoPorId']);
+    Route::get('/empleados/departamento/{idDepartamento}', [EmpleadoController::class, 'listarEmpleadosPorDepartamentoId']);
+    Route::get('/empleados/estado/{idEstado}', [EmpleadoController::class, 'listarEmpleadosPorEstadoId']);
+    Route::get('/empleados/genero/{genero}', [EmpleadoController::class, 'listarEmpleadosPorGenero']);
+    Route::get('/empleados/nacionalidad/{nacionalidad}', [EmpleadoController::class, 'listarEmpleadosPorNacionalidad']);
+    Route::post('/empleados', [EmpleadoController::class, 'crearEmpleado']);
+    Route::put('/empleados/{id}', [EmpleadoController::class, 'actualizarEmpleado']);
+    Route::delete('/empleados/{id}', [EmpleadoController::class, 'eliminarEmpleado']);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // CAPACITACIONES HAS EMPLEADOS routes
     Route::get('/capacitaciones-empleados', [EmpleadoHasCapacitacionController::class, 'listarCapacitacionesDeEmpleados']);
@@ -78,94 +169,10 @@ Route::group(['middleware' => ['auth:sanctum', 'role:Admin|Empleado']], function
     Route::get('/capacitaciones-empleados/empleados-capacitaciones-rangoFechas/{fechaInicio}/{fechaFin}', [EmpleadoHasCapacitacionController::class, 'empleadosEnCapacitacionesEnRangoDeFechas']);
 
 
-    Route::get('/cargos', [CargoController::class, 'listarCargos']);
-    Route::get('/cargos/{id}', [CargoController::class, 'mostrarCargo']);
-    Route::post('/cargos', [CargoController::class, 'crearCargo']);
-    Route::put('/cargos/{id}', [CargoController::class, 'actualizarCargo']);
-    Route::delete('/cargos/{id}', [CargoController::class, 'eliminarCargo']);
-
-
-
-
-    // CONTRATOS routes
-    Route::get('/contratos', [ContratoController::class, 'listarContratos']);
-    Route::get('/contratos/{id}', [ContratoController::class, 'mostrarContrato']);
-    Route::post('/contratos', [ContratoController::class, 'crearContrato']);
-    Route::put('/contratos/{id}', [ContratoController::class, 'actualizarContrato']);
-    Route::delete('/contratos/{id}', [ContratoController::class, 'eliminarContrato']);
-    Route::get('/contratosActivos', [ContratoController::class, 'contratosActivos']);
-
-
-    // CONTROL DIARIO routes
-    Route::get('/controlDiario', [ControlDiarioController::class, 'listarControlDiarios']);
-    Route::get('/controlDiario/{id}', [ControlDiarioController::class, 'mostrarControlDiario']);
-    Route::post('/controlDiario', [ControlDiarioController::class, 'crearControlDiario']);
-    Route::put('/controlDiario/{id}', [ControlDiarioController::class, 'actualizarControlDiario']);
-    Route::delete('/controlDiario/{id}', [ControlDiarioController::class, 'eliminarControlDiario']);
-
-    Route::get('/controlDiario/empleado/{idEmpleado}', [ControlDiarioController::class, 'controlesDiariosEmpleado']);
-    Route::get('/controlDiario/fecha/{fecha}', [ControlDiarioController::class, 'controlesDiariosFecha']);
-    Route::get('/controlDiario/rangoFechas/{fechaInicio}/{fechaFin}', [ControlDiarioController::class, 'controlesDiariosRangoFechas']);
-    Route::get('/controlDiario/totalHoras/{idEmpleado}/{fechaInicio}/{fechaFin}', [ControlDiarioController::class, 'totalHorasTrabajadas']);
-    Route::get('/controlDiario/ultimoControlDiario/{idEmpleado}', [ControlDiarioController::class, 'ultimoControlDiario']);
-    Route::get('/controlDiario/promedioHoras/{idEmpleado}/{fechaInicio}/{fechaFin}', [ControlDiarioController::class, 'promedioHorasTrabajadas']);
-
-
-
-    // DATOS BANCARIOS routes
-    Route::get('/datosBancarios', [DatoBancarioController::class, 'listarDatosBancarios']);
-    Route::get('/datosBancarios/{id}', [DatoBancarioController::class, 'mostrarDatoBancario']);
-    Route::post('/datosBancarios', [DatoBancarioController::class, 'crearDatoBancario']);
-    Route::put('/datosBancarios/{id}', [DatoBancarioController::class, 'actualizarDatoBancario']);
-    Route::delete('/datosBancarios/{id}', [DatoBancarioController::class, 'eliminarDatoBancario']);
-    Route::get('/datosBancarios/numerosCuentaEmpleado/{idEmpleado}', [DatoBancarioController::class, 'numerosCuentaEmpleado']);
-    Route::get('/datosBancarios/datosBancariosPorBanco/{nombreBanco}', [DatoBancarioController::class, 'datosBancariosPorBanco']);
-    Route::get('/datosBancarios/datosBancariosPorTipoCuenta/{tipoCuenta}', [DatoBancarioController::class, 'datosBancariosPorTipoCuenta']);
-
-
-    // DEPARTAMENTOS routes
-    Route::get('/departamentos', [DepartamentoController::class, 'listarDepartamentos']);
-    Route::get('/departamentos/{id}', [DepartamentoController::class, 'mostrarDepartamento']);
-    Route::post('/departamentos', [DepartamentoController::class, 'crearDepartamento']);
-    Route::put('/departamentos/{id}', [DepartamentoController::class, 'actualizarDepartamento']);
-    Route::delete('/departamentos/{id}', [DepartamentoController::class, 'eliminarDepartamento']);
-    Route::get('/departamentos/departamentosPorUnidad/{idUnidad}', [DepartamentoController::class, 'departamentosPorUnidad']);
-
-
-
-
-    // DISCAPACIDADES routes
-    Route::get('/discapacidades', [DiscapacidadController::class, 'listarDiscapacidades']);
-    Route::get('/discapacidades/{id}', [DiscapacidadController::class, 'mostrarDiscapacidad']);
-    Route::post('/discapacidades', [DiscapacidadController::class, 'crearDiscapacidad']);
-    Route::put('/discapacidades/{id}', [DiscapacidadController::class, 'actualizarDiscapacidad']);
-    Route::delete('/discapacidades/{id}', [DiscapacidadController::class, 'eliminarDiscapacidad']);
-    Route::get('/discapacidades/tipo/{tipo}', [DiscapacidadController::class, 'obtenerDiscapacidadesPorTipo']);
-
-
-
-    // CAPACITACIONES HAS EMPLEADOS routes
-    Route::get('/discapacidades-empleados', [EmpleadoHasDiscapacidadController::class, 'listarDiscapacidadesDeEmpleados']);
-    Route::post('/discapacidades-empleados', [EmpleadoHasDiscapacidadController::class, 'crearAsignacionCapacitacion']);
-    Route::put('/discapacidades-empleados', [EmpleadoHasDiscapacidadController::class, 'actualizarAsignacionDiscapacidad']);
-    Route::delete('/discapacidades-empleados', [EmpleadoHasDiscapacidadController::class, 'eliminarAsignacionCapacitacion']);
-
-
-    // EMPLEADOS routes
-    Route::get('/empleados', [EmpleadoController::class, 'listarEmpleados']);
-    Route::get('/empleados/{id}', [EmpleadoController::class, 'mostrarEmpleado']);
-    Route::post('/empleados', [EmpleadoController::class, 'crearEmpleado']);
-    Route::put('/empleados/{id}', [EmpleadoController::class, 'actualizarEmpleado']);
-    Route::delete('/empleados/{id}', [EmpleadoController::class, 'eliminarEmpleado']);
-    Route::get('/empleados/departamento/{idDepartamento}', [EmpleadoController::class, 'obtenerEmpleadosPorDepartamento']);
-    Route::get('/empleados/estado/{idEstado}', [EmpleadoController::class, 'obtenerEmpleadosPorEstado']);
-    Route::get('/empleados/nacionalidad/{nacionalidad}', [EmpleadoController::class, 'obtenerEmpleadosPorNacionalidad']);
-    Route::get('/empleados/genero/{genero}', [EmpleadoController::class, 'obtenerEmpleadosPorGenero']);
-
 
     // ESTADOS routes
     Route::get('/estados', [EstadoController::class, 'listarEstados']);
-    Route::get('/estados/{id}', [EstadoController::class, 'mostrarEstado']); 
+    Route::get('/estados/{id}', [EstadoController::class, 'mostrarEstado']);
     Route::post('/estados', [EstadoController::class, 'crearEstado']);
     Route::put('/estados/{id}', [EstadoController::class, 'actualizarEstado']);
     Route::delete('/estados/{id}', [EstadoController::class, 'eliminarEstado']);
@@ -279,4 +286,24 @@ Route::group(['middleware' => ['auth:sanctum', 'role:Admin|Empleado']], function
     Route::post('/users', [UserController::class, 'crearUsuario']);
     Route::put('/users/{id}', [UserController::class, 'actualizarUsuario']);
     Route::delete('/users/{id}', [UserController::class, 'eliminarUsuario']);
+
+
+
+
+
+
+    // TIPOS ASISTENCIA routes
+    Route::get('/tipos-asistencia', [TipoAsistenciaController::class, 'listarTiposAsistencia']);
+    Route::get('/tipos-asistencia/{id}', [TipoAsistenciaController::class, 'mostrarTipoAsistencia']);
+    Route::post('/tipos-asistencia', [TipoAsistenciaController::class, 'crearTipoAsistencia']);
+    Route::put('/tipos-asistencia/{id}', [TipoAsistenciaController::class, 'actualizarTipoAsistencia']);
+    Route::delete('/tipos-asistencia/{id}', [TipoAsistenciaController::class, 'eliminarTipoAsistencia']);
+
+
+    // REGISTRO ASISTENCIA routes
+    Route::get('/registros-asistencia', [RegistroAsistenciaController::class, 'listarRegistrosAsistencia']);
+    Route::get('/registros-asistencia/{id}', [RegistroAsistenciaController::class, 'mostrarRegistroAsistencia']);
+    Route::post('/registros-asistencia', [RegistroAsistenciaController::class, 'registrarAsistencia']);
+    Route::put('/registros-asistencia/{id}', [RegistroAsistenciaController::class, 'actualizarRegistroAsistencia']);
+    Route::delete('/registros-asistencia/{id}', [RegistroAsistenciaController::class, 'eliminarRegistroAsistencia']);
 });

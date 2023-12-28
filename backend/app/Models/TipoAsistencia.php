@@ -5,19 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cargo extends Model
+class TipoAsistencia extends Model
 {
     use HasFactory;
-    protected $hidden = [
-        "updated_at",
-        "created_at"
-    ];
-    protected $table = 'cargo';
-    protected $primaryKey = 'idCargo';
+
+    protected $table = 'tipoasistencia';
+    protected $primaryKey = 'idTipoAsistencia';
 
     protected $fillable = [
-        'nombre',
-        'descripcion',
+        'tipo',
         // Agrega aquí los demás campos de tu tabla cargo
     ];
 

@@ -28,6 +28,11 @@ class EvaluacionDesempeno extends Model
         'estadoEvaluacion',
         'archivo'
     ];
+    protected $hidden = [
+        "updated_at",
+        "created_at"
+    ];
+
 
     // Puedes definir relaciones con otras entidades aquí si es necesario
 

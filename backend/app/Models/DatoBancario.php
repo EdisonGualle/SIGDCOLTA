@@ -11,7 +11,10 @@ class DatoBancario extends Model
 
     protected $table = 'datoBancario';
     protected $primaryKey = 'idDatoBancario';
-
+    protected $hidden = [
+        "updated_at",
+        "created_at"
+    ];
     protected $fillable = [
         'nombreBanco',
         'numeroCuenta',

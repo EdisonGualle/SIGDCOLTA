@@ -11,24 +11,24 @@ class Contrato extends Model
 
     protected $table = 'contrato';
     protected $primaryKey = 'idContrato';
-
+    protected $hidden = [
+        "updated_at",
+        "created_at"
+    ];
     protected $fillable = [
         'fechaInicio',
         'fechaFin',
         'idEmpleado',
         'idTipoContrato',
-        // Agrega aquí los demás campos de tabla contrato
     ];
 
-
-
-    //funciones de acceso a la bd
-    private function contratosActivos()
+    public function empleados()
     {
-        return $this->select('contrato.idContrato', 'empleado.nombre AS empleado', 'contrato.fecha_inicio as fechaInicio', 'contrato.fecha_fin as fechaFin', 'tipocontrato.nombre AS tipoContrato')
-            ->join('empleado', 'contrato.idEmpleado', '=', 'empleado.idEmpleado')
-            ->join('tipocontrato', 'contrato.idTipoContrato', '=', 'tipocontrato.idTipoContrato')
-            ->where('contrato.fecha_fin', '>', now())
-            ->get();
+        return $this->belongsTo(Empleado::class, 'idEmpleado', 'idEmpleado');
+    }
+
+    public function tiposContrato()
+    {
+        return $this->belongsTo(TipoContrato::class, 'idTipoContrato', 'idTipoContrato');
     }
 }

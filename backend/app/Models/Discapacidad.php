@@ -11,7 +11,10 @@ class Discapacidad extends Model
 
     protected $table = 'discapacidad';
     protected $primaryKey = 'idDiscapacidad';
-
+    protected $hidden = [
+        "updated_at",
+        "created_at"
+    ];
     protected $fillable = [
         'nombre',
         'tipo',

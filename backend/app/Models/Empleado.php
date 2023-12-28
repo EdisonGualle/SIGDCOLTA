@@ -11,11 +11,14 @@ class Empleado extends Model
 
     protected $table = 'empleado';
     protected $primaryKey = 'idEmpleado';
-
+    protected $hidden = [
+        "updated_at",
+        "created_at"
+    ];
     protected $fillable = [
         'cedula',
-        'nombre',
-        'apellido',
+        'nombres',
+        'apellidos',
         'fechaNacimiento',
         'genero',
         'telefonoPersonal',
@@ -31,7 +34,6 @@ class Empleado extends Model
         'idDepartamento',
         'idCargo',
         'idEstado',
-        // Otros campos necesarios
     ];
 
     public function capacitacionesDeEmpleado()
