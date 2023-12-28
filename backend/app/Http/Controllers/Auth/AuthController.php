@@ -5,15 +5,14 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
+use App\Models\Configuracion;
 use App\Models\User;
 use App\Models\Estado;
-use Illuminate\Support\Facades\Validator;
-use App\Models\Configuracion;
 
 class AuthController extends Controller
 {
-
-
     /**
      * Intenta autenticar a un usuario y generar un nuevo token de acceso.
      *
@@ -43,7 +42,12 @@ class AuthController extends Controller
         })->first();
 
         if (!$user) {
-            return response()->json(['successful' => false, 'mensaje' => 'Credenciales incorrectas.'], 401);
+            // Verificar si se proporcionó un usuario o un correo
+            $mensajeError = $request->input('usuario')
+                ? 'El usuario no existe.'
+                : 'El correo electronico no existe.';
+
+            return response()->json(['successful' => false, 'mensaje' => 'Error. ' . $mensajeError], 401);
         }
 
         // Verificar si el usuario está bloqueado
@@ -109,7 +113,7 @@ class AuthController extends Controller
                     return response()->json(['successful' => false, 'mensaje' => "Usuario bloqueado. Intenta nuevamente en $tiempoFormateado."], 401);
                 }
 
-                return response()->json(['successful' => false, 'mensaje' => 'Credenciales incorrectas. Por favor, verifica tu nombre de usuario y contraseña.'], 401);
+                return response()->json(['successful' => false, 'mensaje' => 'Error. Contraseña incorrecta.'], 401);
             }
         } else {
             // Usuario no encontrado o inactivo
