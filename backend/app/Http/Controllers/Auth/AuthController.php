@@ -70,45 +70,54 @@ class AuthController extends Controller
                 return response()->json(['successful' => false, 'mensaje' => "Usuario bloqueado. Intenta nuevamente en $tiempoFormateado."], 401);
             }
         }
+        // Verificar si el usuario existe y está activo
+        if ($user && $this->isUserActive($user)) {
+            // Intentar autenticar al usuario
+            $credentials = [
+                'password' => $request->password,
+            ];
 
-        // Intentar autenticar al usuario
-        $credentials = [
-            'password' => $request->password,
-        ];
-
-        if ($request->has('usuario')) {
-            $credentials['usuario'] = $request->input('usuario');
-        } elseif ($request->has('correo')) {
-            $credentials['correo'] = $request->input('correo');
-        }
-
-        if (Auth::attempt($credentials)) {
-            // Si la autenticación es exitosa, restablecer intentos fallidos
-            $user->update(['intentos_fallidos' => 0]);
-
-            // Eliminar tokens anteriores (revocar todos los tokens)
-            $user->tokens()->delete();
-
-            // Generar un nuevo token de acceso
-            $token = $user->createToken('auth_token')->plainTextToken;
-            return response()->json(['successful' => true, 'mensaje' => 'Inicio de sesión exitoso', 'access_token' => $token], 200);
-        } else {
-            // Autenticación fallida (credenciales incorrectas)
-            // Incrementar el contador de intentos fallidos
-            $intentosFallidos++;
-            $user->update(['intentos_fallidos' => $intentosFallidos]);
-
-            // Bloquear al usuario
-            if ($intentosFallidos >= $maxIntentos) {
-                $tiempoBloqueo = $this->obtenerTiempoBloqueo();
-                $bloqueadoHasta = now()->addMinutes($tiempoBloqueo);
-                $user->update(['bloqueado_hasta' => $bloqueadoHasta]);
-                $tiempoFormateado = $this->formatoTiempo($tiempoBloqueo * 60);
-
-                return response()->json(['successful' => false, 'mensaje' => "Usuario bloqueado. Intenta nuevamente en $tiempoFormateado."], 401);
+            if ($request->has('usuario')) {
+                $credentials['usuario'] = $request->input('usuario');
+            } elseif ($request->has('correo')) {
+                $credentials['correo'] = $request->input('correo');
             }
 
-            return response()->json(['successful' => false, 'mensaje' => 'Credenciales incorrectas. Por favor, verifica tu nombre de usuario y contraseña.'], 401);
+            if (Auth::attempt($credentials)) {
+                // Si la autenticación es exitosa, restablecer intentos fallidos
+                $user->update(['intentos_fallidos' => 0]);
+
+                // Eliminar tokens anteriores (revocar todos los tokens)
+                $user->tokens()->delete();
+
+                // Generar un nuevo token de acceso
+                $token = $user->createToken('auth_token')->plainTextToken;
+                return response()->json(['successful' => true, 'mensaje' => 'Inicio de sesión exitoso', 'access_token' => $token], 200);
+            } else {
+                // Autenticación fallida (credenciales incorrectas)
+                // Incrementar el contador de intentos fallidos
+                $intentosFallidos++;
+                $user->update(['intentos_fallidos' => $intentosFallidos]);
+
+                // Bloquear al usuario
+                if ($intentosFallidos >= $maxIntentos) {
+                    $tiempoBloqueo = $this->obtenerTiempoBloqueo();
+                    $bloqueadoHasta = now()->addMinutes($tiempoBloqueo);
+                    $user->update(['bloqueado_hasta' => $bloqueadoHasta]);
+                    $tiempoFormateado = $this->formatoTiempo($tiempoBloqueo * 60);
+
+                    return response()->json(['successful' => false, 'mensaje' => "Usuario bloqueado. Intenta nuevamente en $tiempoFormateado."], 401);
+                }
+
+                return response()->json(['successful' => false, 'mensaje' => 'Credenciales incorrectas. Por favor, verifica tu nombre de usuario y contraseña.'], 401);
+            }
+        } else {
+            // Usuario no encontrado o inactivo
+            $mensajeError = $request->input('usuario')
+                ? 'Usuario inactivo.'
+                : 'Correo inactivo.';
+
+            return response()->json(['successful' => false, 'mensaje' => 'ERROR. ' . $mensajeError], 401);
         }
     }
 
@@ -119,6 +128,14 @@ class AuthController extends Controller
         $request->user()->tokens()->delete();
 
         return response()->json(['mensaje' => 'Sesión cerrada correctamente'], 200);
+    }
+
+    // Función para verificar si el usuario está activo
+    private function isUserActive($user)
+    {
+        $estadoActivo = Estado::where('tipoEstado', 'Activo')->first();
+
+        return $user->idTipoEstado == $estadoActivo->idEstado;
     }
 
     // Obtener el número máximo de intentos
