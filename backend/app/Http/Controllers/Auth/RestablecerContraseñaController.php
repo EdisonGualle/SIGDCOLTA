@@ -120,6 +120,4 @@ class RestablecerContraseñaController extends Controller
         return response('<h1>Tu contraseña se ha restablecido exitosamente.</h1>');
     }
 
-
-
 }
