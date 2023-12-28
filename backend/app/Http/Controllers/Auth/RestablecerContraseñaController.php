@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Estado;
 use App\Models\Auth\RestablecerContraseña;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
@@ -20,9 +21,18 @@ class RestablecerContraseñaController extends Controller
             // Buscar al usuario por el nombre de usuario o correo en la tabla 'usuario'
             $user = User::where('usuario', $request->usuario)
                 ->orWhere('correo', $request->correo)
-                ->first(['usuario', 'correo']);
+                ->first(['usuario', 'correo', 'idTipoEstado']);
 
             if ($user && isset($user->correo)) {
+                // Verificar si el usuario está inactivo
+                if (!$this->isUserActive($user)) {
+                    $mensajeError = $request->usuario
+                        ? 'Usuario inactivo.'
+                        : 'Correo inactivo.';
+
+                    return response()->json(['success' => false, 'Mensaje' => 'Error. ' . $mensajeError]);
+                }
+
                 // Generar un token aleatorio
                 $token = Str::random(40);
 
@@ -60,13 +70,19 @@ class RestablecerContraseñaController extends Controller
                     'email_enviado' => $datos['email']
                 ]);
             } else {
-                // Usuario no encontrado o sin correo asociado
-                return response()->json(['success' => false, 'msg' => 'Usuario no encontrado o sin correo asociado.']);
+                return response()->json(['success' => false, 'msg' => 'Credenciales inválidas.']);
             }
         } catch (\Exception $e) {
             // Manejar excepciones y devolver una respuesta JSON
             return response()->json(['success' => false, 'msg' => $e->getMessage()]);
         }
+    }
+
+    // Función para verificar si el usuario está activo
+    private function isUserActive($user)
+    {
+        $estadoActivo = Estado::where('tipoEstado', 'Activo')->first();
+        return $user->idTipoEstado == $estadoActivo->idEstado;
     }
 
 
