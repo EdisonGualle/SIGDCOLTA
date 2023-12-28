@@ -19,4 +19,9 @@ class Cargo extends Model
     ];
 
     // Define las relaciones con otras entidades si es necesario
+    //Relacion Empleado-Cargo
+    public function empleados()
+    {
+        return $this->hasMany(Empleado::class, 'idCargo');
+    }
 }

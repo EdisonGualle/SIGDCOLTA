@@ -51,4 +51,16 @@ class Empleado extends Model
         return $this->belongsToMany(Discapacidad::class, 'empleado_has_discapacidad', 'idEmpleado', 'idDiscapacidad')
             ->withTimestamps();
     }
+
+    // Define las relaciones con otras entidades si es necesario
+    //Relacion Empleado-Cargo
+    public function cargo()
+    {
+        return $this->belongsTo(Cargo::class, 'idCargo');
+    }
+
+    public function departamento()
+    {
+        return $this->belongsTo(Departamento::class, 'idDepartamento');
+    }
 }
