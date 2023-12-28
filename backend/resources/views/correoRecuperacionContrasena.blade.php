@@ -9,6 +9,3 @@
     <p>Gracias.</p>
 </body>
 </html>
-
-
-Prueba rodirgo
