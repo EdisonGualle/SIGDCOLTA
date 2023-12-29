@@ -12,9 +12,6 @@ class AsignarRolController extends Controller
 {
     public function asignarRol(Request $request)
     {
-        // Obtener el usuario actualmente autenticado 
-        $usuarioAutenticado = auth()->user();
-
         // Validar la existencia del usuario
         $usuario = User::where('usuario', $request->input('usuario'))->first();
 
@@ -27,9 +24,13 @@ class AsignarRolController extends Controller
             return response()->json(['error' => 'Usuario inactivo'], 400);
         }
 
-        // Validar la existencia del rol
+        // Validar la existencia del nuevo rol
         $nuevoRol = $request->input('rol');
         $rolExistente = $usuario->getRoleNames()->first();
+
+        if (!$this->existeRol($nuevoRol)) {
+            return response()->json(['error' => 'El nuevo rol no existe'], 404);
+        }
 
         if (!$rolExistente) {
             // Si el usuario no tiene un rol asignado, asignar el nuevo rol
@@ -54,5 +55,11 @@ class AsignarRolController extends Controller
         }
 
         return $user->idTipoEstado == $estadoActivo->idEstado;
+    }
+
+    // Función para verificar la existencia de un rol
+    private function existeRol($rol)
+    {
+        return Rol::where('name', $rol)->exists();
     }
 }
