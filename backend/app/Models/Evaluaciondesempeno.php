@@ -32,4 +32,11 @@ class EvaluacionDesempeno extends Model
     // Puedes definir relaciones con otras entidades aquí si es necesario
 
     // También puedes definir accesores, mutadores u otros métodos según sea necesario
+    //Relacion Empleado-EvaluacionDesempeno
+    public function empleado()
+    {
+        return $this->belongsTo(Empleado::class, 'idEmpleado');
+    }
+
+
 }

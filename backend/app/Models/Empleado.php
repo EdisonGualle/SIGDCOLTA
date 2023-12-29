@@ -77,4 +77,12 @@ class Empleado extends Model
         return $this->hasMany(DatoBancario::class, 'idEmpleado', 'idEmpleado');
     }
 
+    //Relacion Empleado-Evaluacion Desempeno
+    public function evaluacionesDeEmpleado()
+    {
+        // Suponiendo que el modelo de evaluación se llama EvaluacionDesempeno
+        return $this->hasMany(EvaluacionDesempeno::class, 'idEmpleado');
+    }
+
+
 }
