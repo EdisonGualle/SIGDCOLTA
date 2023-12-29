@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+
 class EmpleadoCargoController extends Controller
 {
     public function mostrarInformacionEmpleadoCargoDepartamento()

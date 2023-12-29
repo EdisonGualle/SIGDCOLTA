@@ -63,4 +63,9 @@ class Empleado extends Model
     {
         return $this->belongsTo(Departamento::class, 'idDepartamento');
     }
+    //Relacion Empleado-Contratos
+    public function contratos()
+    {
+        return $this->hasMany(Contrato::class, 'idEmpleado');
+    }
 }

@@ -31,4 +31,13 @@ class Contrato extends Model
             ->where('contrato.fecha_fin', '>', now())
             ->get();
     }
+
+
+
+    //Relacion Empleado-Contratos
+
+    public function tipoContrato()
+    {
+        return $this->belongsTo(TipoContrato::class, 'idTipoContrato');
+    }
 }
