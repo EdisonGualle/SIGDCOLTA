@@ -84,5 +84,9 @@ class Empleado extends Model
         return $this->hasMany(EvaluacionDesempeno::class, 'idEmpleado');
     }
 
-
+    //Relacion Empleado-ExperienciaLaboral
+    public function experienciasLaborales()
+    {
+        return $this->hasMany(ExperienciaLaboral::class, 'idEmpleado');
+    }
 }

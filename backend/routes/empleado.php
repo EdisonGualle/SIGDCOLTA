@@ -7,6 +7,7 @@ use App\Http\Controllers\Employee\EmpleadoContratoController;
 use App\Http\Controllers\Employee\EmpleadoDepartamentoController;
 use App\Http\Controllers\Employee\EmpleadoDatoBancarioController;
 use App\Http\Controllers\Employee\EmpleadoEvaluaciondesempenoController;
+use App\Http\Controllers\Employee\EmpleadoExperiencialaboralController;
 
 
 //Rutas Capacitaciones
@@ -30,3 +31,8 @@ Route::get('/mostrar-datos-bancarios', [EmpleadoDatoBancarioController::class, '
 Route::get('listar-evaluaciones-desempeno', [EmpleadoEvaluaciondesempenoController::class, 'listarEvaluacionesDesempeno']);
 Route::get('total-evaluaciones-desempeno', [EmpleadoEvaluaciondesempenoController::class, 'obtenerTotalEvaluacionesDesempeno']);
 
+//Rutas Experiencia Laboral
+Route::get('total-experiencias-laborales', [EmpleadoExperiencialaboralController::class, 'obtenerTotalExperienciasLaborales']);
+//asc-desc
+Route::get('experiencias-laborales-ordenadas-por-fecha/{orden?}', [EmpleadoExperiencialaboralController::class, 'listarExperienciasLaboralesOrdenadasPorFecha']);
+Route::get('listar-evaluaciones-desempeno', [EmpleadoExperiencialaboralController::class, 'mostrarDetallesEmpleadoYExperiencias']);
