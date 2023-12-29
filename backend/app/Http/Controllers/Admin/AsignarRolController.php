@@ -40,6 +40,11 @@ class AsignarRolController extends Controller
             return response()->json(['error' => 'El usuario ya posee el rol solicitado'], 400);
         }
 
+        // Validar que no se asigne el rol de Super Administrador
+        if ($nuevoRol === 'Super Administrador') {
+            return response()->json(['error' => 'No puedes asignar el rol de Super Administrador'], 400);
+        }
+
         if (!$this->existeRol($nuevoRol)) {
             return response()->json(['error' => 'El nuevo rol no existe'], 404);
         }

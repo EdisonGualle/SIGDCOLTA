@@ -11,18 +11,26 @@ Route::post('/users', [UserController::class, 'crearUsuario']);
 Route::post('/ingresar', [AuthController::class, 'ingresar']);
 
 // Recuperar contraseña 
-Route::post('/recuperar-contraseña', [RestablecerContraseñaController::class,'recuperarContraseña']);
+Route::post('/recuperar-contraseña', [RestablecerContraseñaController::class, 'recuperarContraseña']);
 
 
 
 // Rutas con autenticación mediante Sanctum
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    
+
+    // Rutas específicas para el rol 'SuperAdministrador'
+    Route::middleware('role:Super Administrador')->group(function () {
+        // Rutas del subgrupo 'administrador'
+        Route::prefix('administrador')->group(function () {
+            include('superAdministrador.php'); 
+        });
+    });
+
     // Rutas específicas para el rol 'SuperAdministrador' o 'Administrador' 
     Route::middleware('role:Super Administrador|Administrador')->group(function () {
         // Rutas del subgrupo 'administrador'
         Route::prefix('administrador')->group(function () {
-            include('administrador.php');  // Incluye las rutas definidas en 'administrador.php'
+            include('administrador.php');  
         });
     });
 
@@ -30,7 +38,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::middleware('role:Empleado')->group(function () {
         // Rutas del subgrupo 'empleado'
         Route::prefix('empleado')->group(function () {
-            include('empleado.php');  // Incluye las rutas definidas en 'empleado.php'
+            include('empleado.php');  
         });
     });
 

@@ -27,16 +27,7 @@ use App\Http\Controllers\TipoPermisoController;
 use App\Http\Controllers\TipoSalidaController;
 use App\Http\Controllers\UnidadController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\Config\ConfiguracionController;
 
-use App\Http\Controllers\Admin\AsignarRolController;
-//Asignar Roles
-Route::post('/asignar-rol', [AsignarRolController::class, 'asignarRol']);
-
-//CONFIGURACION routes
-Route::get('/configuraciones', [ConfiguracionController::class, 'obtenerConfiguraciones']);
-Route::get('/configuraciones/{clave}', [ConfiguracionController::class, 'obtenerConfiguracionPorClave']);
-Route::put('/configuraciones/{clave}', [ConfiguracionController::class, 'actualizarConfiguracion']);
 
 // CAPACITACIONES routes
 Route::get('/capacitaciones', [CapacitacionController::class, 'listarCapacitaciones']);

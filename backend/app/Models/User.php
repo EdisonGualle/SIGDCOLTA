@@ -10,6 +10,8 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+use App\Models\Rol;
+
 class User extends Authenticatable  implements CanResetPassword
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
@@ -27,8 +29,4 @@ class User extends Authenticatable  implements CanResetPassword
         'bloqueado_hasta',
     ];
 
-    public function empleado()
-    {
-        return $this->belongsTo(Empleado::class, 'idEmpleado');
-    }
 }
