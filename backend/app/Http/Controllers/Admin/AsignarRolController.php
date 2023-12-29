@@ -12,6 +12,14 @@ class AsignarRolController extends Controller
 {
     public function asignarRol(Request $request)
     {
+        // Obtener el usuario autenticado con Laravel Sanctum
+        $usuarioAutenticado = auth()->user();
+
+        // Validar que el usuario autenticado no sea el mismo que se está modificando
+        if ($usuarioAutenticado && $usuarioAutenticado->usuario === $request->input('usuario')) {
+            return response()->json(['error' => 'No puedes cambiar tu propio rol'], 400);
+        }
+
         // Validar la existencia del usuario
         $usuario = User::where('usuario', $request->input('usuario'))->first();
 
