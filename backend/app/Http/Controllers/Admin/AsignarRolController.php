@@ -34,21 +34,18 @@ class AsignarRolController extends Controller
 
         // Validar la existencia del nuevo rol
         $nuevoRol = $request->input('rol');
-        $rolExistente = $usuario->getRoleNames()->first();
+
+        // Verificar si el usuario ya tiene el mismo rol
+        if ($usuario->hasRole($nuevoRol)) {
+            return response()->json(['error' => 'El usuario ya posee el rol solicitado'], 400);
+        }
 
         if (!$this->existeRol($nuevoRol)) {
             return response()->json(['error' => 'El nuevo rol no existe'], 404);
         }
 
-        if (!$rolExistente) {
-            // Si el usuario no tiene un rol asignado, asignar el nuevo rol
-            $usuario->assignRole($nuevoRol);
-            return response()->json(['message' => 'Rol asignado con éxito']);
-        }
-
-        // Si el usuario ya tiene un rol, eliminar el antiguo y asignar el nuevo
-        $usuario->removeRole($rolExistente);
-        $usuario->assignRole($nuevoRol);
+        // Eliminar el rol existente y asignar el nuevo rol
+        $usuario->syncRoles([$nuevoRol]);
 
         return response()->json(['message' => 'Rol actualizado con éxito']);
     }
