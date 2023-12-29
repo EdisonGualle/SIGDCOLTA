@@ -20,7 +20,7 @@ class RestablecerContraseñaController extends Controller
         try {
             // Buscar al usuario por el nombre de usuario o correo en la tabla 'usuario'
             $user = User::where('usuario', $request->usuario)
-                ->orWhere('correo', $request->correo)
+                  ->orWhere('correo', $request->correo)
                 ->first(['usuario', 'correo', 'idTipoEstado']);
 
             if ($user && isset($user->correo)) {

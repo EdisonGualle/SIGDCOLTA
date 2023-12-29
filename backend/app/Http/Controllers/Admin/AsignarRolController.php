@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Rol;
 use App\Models\Estado;
 use Illuminate\Http\Request;
+use App\Notifications\CambioDeRolNotification;
 
 class AsignarRolController extends Controller
 {
@@ -50,6 +51,21 @@ class AsignarRolController extends Controller
             return response()->json(['error' => 'El nuevo rol no existe'], 404);
         }
 
+
+            // Antes de cambiar el rol, guarda los roles actuales
+        $rolesAntes = $usuario->getRoleNames();
+
+        // Eliminar el rol existente y asignar el nuevo rol
+        $usuario->syncRoles([$nuevoRol]);
+
+        // Después de cambiar el rol, guarda los nuevos roles
+        $rolesDespues = $usuario->getRoleNames();
+// Notificar al usuario por correo electrónico sobre el cambio de rol
+$usuario->notify(new CambioDeRolNotification($usuario, $rolesAntes, $rolesDespues));
+
+
+
+
         // Eliminar el rol existente y asignar el nuevo rol
         $usuario->syncRoles([$nuevoRol]);
 
@@ -91,6 +107,7 @@ class AsignarRolController extends Controller
         return response()->json(['message' => 'Rol eliminado con éxito']);
     }
 
+    // Listar todos los usuarios que tienen rol
     public function listarUsuariosConRoles()
     {
         // Obtén todos los roles
@@ -125,7 +142,7 @@ class AsignarRolController extends Controller
     }
 
 
-    // Listar todos los usuarios con rol
+    // Listar todos los usuarios con un rol en especifico
     public function listarUsuariosPorRol($rol)
     {
         // Validar la existencia del rol
