@@ -6,8 +6,11 @@ use App\Http\Controllers\Config\ConfiguracionController;
 use App\Http\Controllers\Admin\AsignarRolController;
 
 
-//Asignar Roles
-Route::post('/asignar-rol', [AsignarRolController::class, 'asignarRol']);
+//Asignar Roles Routes
+Route::post('/asignar-rol', [AsignarRolController::class, 'asignarRolUsuario']);
+Route::delete('/eliminar-rol', [AsignarRolController::class, 'eliminarRolUsuario']);
+
+
 
 //CONFIGURACION routes
 Route::get('/configuraciones', [ConfiguracionController::class, 'obtenerConfiguraciones']);

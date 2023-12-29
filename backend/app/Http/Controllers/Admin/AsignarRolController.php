@@ -10,7 +10,8 @@ use Illuminate\Http\Request;
 
 class AsignarRolController extends Controller
 {
-    public function asignarRol(Request $request)
+    // Asignar Rol
+    public function asignarRolUsuario(Request $request)
     {
         // Obtener el usuario autenticado con Laravel Sanctum
         $usuarioAutenticado = auth()->user();
@@ -55,6 +56,40 @@ class AsignarRolController extends Controller
         return response()->json(['message' => 'Rol actualizado con éxito']);
     }
 
+    // Eliminar
+    public function eliminarRolUsuario(Request $request)
+    {
+        // Obtener el usuario autenticado con Laravel Sanctum
+        $usuarioAutenticado = auth()->user();
+
+        // Validar que el usuario autenticado no sea el mismo que se está modificando
+        if ($usuarioAutenticado && $usuarioAutenticado->usuario === $request->input('usuario')) {
+            return response()->json(['error' => 'No puedes eliminar tu propio rol'], 400);
+        }
+
+        // Validar la existencia del usuario
+        $usuario = User::where('usuario', $request->input('usuario'))->first();
+
+        if (!$usuario) {
+            return response()->json(['error' => 'Usuario no encontrado'], 404);
+        }
+
+        // Obtener rol antes de eliminar
+        $rolesAntesDeEliminar = $usuario->getRoleNames();
+
+        // Eliminar  usuario
+        $usuario->syncRoles([]);
+
+        // Obtener roles después de eliminar
+        $rolesDespuesDeEliminar = $usuario->getRoleNames();
+
+        // Verificar si el usuario ya no tiene ningún rol
+        if ($rolesAntesDeEliminar->isEmpty() && $rolesDespuesDeEliminar->isEmpty()) {
+            return response()->json(['error' => 'El usuario no tiene ningun rol'], 404);
+        }
+
+        return response()->json(['message' => 'Rol eliminado con éxito']);
+    }
     // Función para verificar si el usuario está activo
     private function isUserActive($user)
     {
