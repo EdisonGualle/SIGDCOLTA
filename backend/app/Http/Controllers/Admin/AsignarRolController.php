@@ -12,7 +12,7 @@ class AsignarRolController extends Controller
 {
     public function asignarRol(Request $request)
     {
-        // Obtener el usuario actualmente autenticado (puedes ajustar esto según tu lógica de autenticación)
+        // Obtener el usuario actualmente autenticado 
         $usuarioAutenticado = auth()->user();
 
         // Validar la existencia del usuario
@@ -25,11 +25,6 @@ class AsignarRolController extends Controller
         // Validar si el usuario está activo
         if (!$this->isUserActive($usuario)) {
             return response()->json(['error' => 'Usuario inactivo'], 400);
-        }
-
-        // Validar que el usuario no esté intentando cambiarse a sí mismo el rol
-        if ($usuarioAutenticado && $usuario->id === $usuarioAutenticado->id) {
-            return response()->json(['error' => 'No puedes cambiarte a ti mismo el rol'], 400);
         }
 
         // Validar la existencia del rol

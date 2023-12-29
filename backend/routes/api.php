@@ -18,8 +18,8 @@ Route::post('/recuperar-contraseña', [RestablecerContraseñaController::class,'
 // Rutas con autenticación mediante Sanctum
 Route::group(['middleware' => ['auth:sanctum']], function () {
     
-    // Rutas específicas para el rol 'Administrador'
-    Route::middleware('role:Admin')->group(function () {
+    // Rutas específicas para el rol 'SuperAdministrador' o 'Administrador' 
+    Route::middleware('role:Super Administrador|Administrador')->group(function () {
         // Rutas del subgrupo 'administrador'
         Route::prefix('administrador')->group(function () {
             include('administrador.php');  // Incluye las rutas definidas en 'administrador.php'
