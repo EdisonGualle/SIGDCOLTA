@@ -12,6 +12,21 @@ class Handler extends ExceptionHandler
      *
      * @var array<class-string<\Throwable>, \Psr\Log\LogLevel::*>
      */
+
+    // Manejo de error de 
+    public function render($request, Throwable $exception)
+    {
+        if ($exception instanceof \Spatie\Permission\Exceptions\UnauthorizedException || $exception instanceof \Illuminate\Auth\Access\AuthorizationException) {
+            return response()->json(['message' => $exception->getMessage()], 403);
+        }
+
+        if ($exception instanceof \Illuminate\Http\Exceptions\HttpResponseException) {
+            return response()->json(['message' => $exception->getResponse()->getStatusCode()], $exception->getResponse()->getStatusCode());
+        }
+
+        return parent::render($request, $exception);
+    }
+
     protected $levels = [
         //
     ];

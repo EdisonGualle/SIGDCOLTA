@@ -15,10 +15,7 @@ class Rol extends Model
     protected $fillable = [
         'name',
         'guard_name'
-
-
-        // Agrega aquí los demás campos de tu tabla cargo
+      
     ];
 
-    // Define las relaciones con otras entidades si es necesario
 }
