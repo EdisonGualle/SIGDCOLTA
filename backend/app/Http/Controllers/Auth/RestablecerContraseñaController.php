@@ -44,7 +44,7 @@ class RestablecerContraseñaController extends Controller
                 $datos['url'] = $url;
                 $datos['email'] = $user->correo;
                 $datos['title'] = "Recuperar Contraseña";
-                $datos['body'] = 'Por favor haga clic en el siguiente enlace para restablecer su contraseña';
+                $datos['body'] = 'Por favor, haz clic en el enlace para restablecer tu contraseña:';
 
                 // Enviar el correo
                 Mail::send('correoRecuperacionContrasena', ['datos' => $datos], function ($message) use ($datos) {
