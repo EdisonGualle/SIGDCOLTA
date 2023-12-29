@@ -19,5 +19,11 @@ class Departamento extends Model
         'idUnidad',
     ];
 
-    
+    //Relacion Empleado-Departamento
+    public function empleados()
+    {
+        return $this->hasMany(Empleado::class, 'idDepartamento');
+    }
+
+
 }

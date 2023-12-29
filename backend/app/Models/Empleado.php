@@ -68,4 +68,6 @@ class Empleado extends Model
     {
         return $this->hasMany(Contrato::class, 'idEmpleado');
     }
+    //Relacion Empleado-Departamento ya definido
+
 }
