@@ -70,4 +70,11 @@ class Empleado extends Model
     }
     //Relacion Empleado-Departamento ya definido
 
+
+    //Relacion Empleado-DatosBancarios
+    public function datosBancarios()
+    {
+        return $this->hasMany(DatoBancario::class, 'idEmpleado', 'idEmpleado');
+    }
+
 }

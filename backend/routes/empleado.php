@@ -5,7 +5,7 @@ use App\Http\Controllers\Employee\EmpleadoCapacitacionController;
 use App\Http\Controllers\Employee\EmpleadoCargoController;
 use App\Http\Controllers\Employee\EmpleadoContratoController;
 use App\Http\Controllers\Employee\EmpleadoDepartamentoController;
-
+use App\Http\Controllers\Employee\EmpleadoDatoBancarioController;
 
 
 //Rutas Capacitaciones
@@ -21,5 +21,7 @@ Route::get('/informacion-contratos-empleado', [EmpleadoContratoController::class
 //Rutas Departamento
 Route::get('/mostrar-departamentos', [EmpleadoDepartamentoController::class, 'obtenerDatosEmpleadoAuth']);
 
+//Rutas Dato Bancario
+Route::get('/mostrar-datos-bancarios', [EmpleadoDatoBancarioController::class, 'mostrarDatosBancariosEmpleadoAuth']);
 
 
