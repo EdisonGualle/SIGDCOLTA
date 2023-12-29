@@ -51,8 +51,7 @@ class AsignarRolController extends Controller
             return response()->json(['error' => 'El nuevo rol no existe'], 404);
         }
 
-
-            // Antes de cambiar el rol, guarda los roles actuales
+        // Antes de cambiar el rol, guarda los roles actuales
         $rolesAntes = $usuario->getRoleNames();
 
         // Eliminar el rol existente y asignar el nuevo rol
@@ -60,11 +59,8 @@ class AsignarRolController extends Controller
 
         // Después de cambiar el rol, guarda los nuevos roles
         $rolesDespues = $usuario->getRoleNames();
-// Notificar al usuario por correo electrónico sobre el cambio de rol
-$usuario->notify(new CambioDeRolNotification($usuario, $rolesAntes, $rolesDespues));
-
-
-
+        // Notificar al usuario por correo electrónico sobre el cambio de rol
+        $usuario->notify(new CambioDeRolNotification($usuario, $rolesAntes, $rolesDespues));
 
         // Eliminar el rol existente y asignar el nuevo rol
         $usuario->syncRoles([$nuevoRol]);
@@ -112,31 +108,31 @@ $usuario->notify(new CambioDeRolNotification($usuario, $rolesAntes, $rolesDespue
     {
         // Obtén todos los roles
         $roles = Rol::all();
-    
+
         // Inicializa un array para almacenar usuarios con al menos un rol
         $usersWithRoles = [];
-    
+
         // Itera sobre cada rol
         foreach ($roles as $role) {
             // Obtén todos los usuarios asociados a este rol
             $users = User::role($role->name)->get();
-    
+
             // Agrega los usuarios al array general
             $usersWithRoles = array_merge($usersWithRoles, $users->all());
         }
 
         // Prepara la respuesta
         $response = [];
-    
+
         // Itera sobre los usuarios con roles y crea la respuesta deseada
         foreach ($usersWithRoles as $user) {
             $response[] = [
                 'idUsuario' => $user->idUsuario,
-                'usuario' => $user->usuario, 
+                'usuario' => $user->usuario,
                 'rol' => $user->roles->pluck('name')->first(),
             ];
         }
-    
+
         // Ahora $response contiene la información requerida
         return response()->json(['success' => true, 'data' => $response], 200);
     }

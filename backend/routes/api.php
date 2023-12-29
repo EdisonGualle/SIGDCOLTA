@@ -13,8 +13,6 @@ Route::post('/ingresar', [AuthController::class, 'ingresar']);
 // Recuperar contraseña 
 Route::post('/recuperar-contraseña', [RestablecerContraseñaController::class, 'recuperarContraseña']);
 
-
-
 // Rutas con autenticación mediante Sanctum
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
@@ -22,7 +20,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::middleware('role:Super Administrador')->group(function () {
         // Rutas del subgrupo 'administrador'
         Route::prefix('administrador')->group(function () {
-            include('superAdministrador.php'); 
+            include('superAdministrador.php');
         });
     });
 
@@ -30,7 +28,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::middleware('role:Super Administrador|Administrador')->group(function () {
         // Rutas del subgrupo 'administrador'
         Route::prefix('administrador')->group(function () {
-            include('administrador.php');  
+            include('administrador.php');
         });
     });
 
@@ -38,7 +36,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::middleware('role:Empleado')->group(function () {
         // Rutas del subgrupo 'empleado'
         Route::prefix('empleado')->group(function () {
-            include('empleado.php');  
+            include('empleado.php');
         });
     });
 

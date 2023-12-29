@@ -21,24 +21,22 @@ class CambioDeRolNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('Cambio de Rol en tu cuenta')
+            ->subject('Cambio de Rol')
             ->greeting('Hola ' . $notifiable->name . '!')
             ->line('Queremos informarte que se ha realizado un cambio de rol para el usuario ' . $this->usuario->usuario)
             ->line('Rol antes del cambio: ' . $this->implodeArray($this->rolesAntes))
             ->line('Nuevo rol: ' . $this->implodeArray($this->rolesDespues))
-            ->action('Ver detalles del usuario', url('/usuarios/' . $this->usuario->idUsuario))
-            ->line('¡Gracias por ser parte de nuestro servicio! Si tienes alguna pregunta, no dudes en ponerte en contacto con nosotros.')
-            ->salutation('Saludos, Rodrigo | Soporte de SIGCOLTA');
+            ->action('Ingresar al sistema', url('/api/ingresar'))
+            ->line('Agradecemos tu dedicación y compromiso como miembro del equipo del GAD Municipal de Colta. Si tienes alguna pregunta o necesitas asistencia, no dudes en ponerte en contacto con nosotros. Estamos aquí para ayudarte en lo que necesites.');
     }
-    
-    
 
-    protected function implodeArray($array)
+    protected function implodeArray($array, $forMessage = false)
     {
         if (is_array($array)) {
-            return implode(', ', $array);
+            $result = implode(', ', $array);
+            return $forMessage ? $result : $result;
         }
-
+    
         return $array; // Si no es un array, devolver el valor tal cual
     }
 
