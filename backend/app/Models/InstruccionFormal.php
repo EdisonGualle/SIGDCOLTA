@@ -23,4 +23,10 @@ class InstruccionFormal extends Model
     ];
 
     // Define las relaciones con otras entidades si es necesario
+    //Relacion Empleado-Instruccion Formal
+    public function empleado()
+    {
+        return $this->belongsTo(Empleado::class, 'empleado_has_instruccionformal', 'idInstruccionFormal	', 'idEmpleado');
+    }
+ 
 }

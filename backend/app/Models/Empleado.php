@@ -89,4 +89,11 @@ class Empleado extends Model
     {
         return $this->hasMany(ExperienciaLaboral::class, 'idEmpleado');
     }
+    //Relacion Empleado-Instruccion Formal
+    public function instruccionesFormales()
+    {
+        return $this->belongsToMany(InstruccionFormal::class, 'empleado_has_instruccionformal', 'idEmpleado', 'idInstruccionFormal')
+            ->withTimestamps();
+    }
+
 }
