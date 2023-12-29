@@ -37,7 +37,7 @@ class Discapacidad extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function discapacidadesDeEmpleado()
+    public function discapacidades()
     {
         return $this->belongsToMany(Discapacidad::class, 'empleado_has_discapacidad', 'idEmpleado', 'idDiscapacidad');
     }

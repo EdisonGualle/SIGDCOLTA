@@ -16,7 +16,7 @@ class EvaluacionDesempenoService
     }
 
 
-    public function mostrarEvaluacionDesempeno($id)
+    public function mostrarEvaluacionDesempenoPorId($id)
     {
         $evaluacionDesempeno = EvaluacionDesempeno::find($id);
 
@@ -131,7 +131,7 @@ class EvaluacionDesempenoService
 
 
 
-    public function obtenerEvaluacionesPorEmpleado($idEmpleado)
+    public function listarEvaluacionesPorEmpleadoId($idEmpleado)
     {
         // Verificar si el empleado existe
         $empleado = Empleado::find($idEmpleado);
@@ -147,7 +147,7 @@ class EvaluacionDesempenoService
     }
 
 
-    public function obtenerEvaluacionesPorEvaluador($idEvaluador)
+    public function listarEvaluacionesPorEvaluadorId($idEvaluador)
     {
         // Verificar si el evaluador existe
         $evaluador = Empleado::find($idEvaluador);
@@ -164,7 +164,7 @@ class EvaluacionDesempenoService
 
 
 
-    public function obtenerEvaluacionesPorFecha($fechaInicio, $fechaFin)
+    public function listarEvaluacionesPorRangoFechas($fechaInicio, $fechaFin)
     {
         $validator = Validator::make(compact('fechaInicio', 'fechaFin'), [
             'fechaInicio' => 'required|date',
@@ -181,69 +181,6 @@ class EvaluacionDesempenoService
     }
 
 
-    public function obtenerEvaluacionesPorCalificacion($calificacionMinima)
-    {
-        $validator = Validator::make(['calificacionMinima' => $calificacionMinima], [
-            'calificacionMinima' => 'required|numeric|min:0|max:100',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['successful' => false, 'errors' => $validator->errors()], 422);
-        }
-
-        $evaluaciones = EvaluacionDesempeno::where('calificacionGeneral', '>', $calificacionMinima)->get();
-        return response()->json(['successful' => true, 'data' => $evaluaciones]);
-    }
-
-
-    public function contarEvaluacionesPorEmpleado($idEmpleado)
-    {
-        // Validar que $idEmpleado sea un número entero
-        $validator = Validator::make(['idEmpleado' => $idEmpleado], [
-            'idEmpleado' => 'required|numeric',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['successful' => false, 'errors' => $validator->errors()], 422);
-        }
-
-        $empleado = Empleado::find($idEmpleado);
-
-        if (!$empleado) {
-            return response()->json(['successful' => false, 'error' => 'Empleado no encontrado'], 404);
-        }
-
-        // Contar las evaluaciones del empleado
-        $cantidadEvaluaciones = EvaluacionDesempeno::where('idEmpleado', $idEmpleado)->count();
-        return response()->json(['successful' => true, 'cantidad evaluaciones' => $cantidadEvaluaciones]);
-    }
-
-
-    public function calcularPromedioCalificacionPorEvaluador($idEvaluador)
-    {
-        // Validar que $idEvaluador sea un número entero
-        $validator = Validator::make(['idEvaluador' => $idEvaluador], [
-            'idEvaluador' => 'required|numeric',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['successful' => false, 'errors' => $validator->errors()], 422);
-        }
-
-        // Verificar si el evaluador existe
-        $evaluador = Empleado::find($idEvaluador);
-
-        if (!$evaluador) {
-            return response()->json(['successful' => false, 'error' => 'Evaluador no encontrado'], 404);
-        }
-
-        // Calcular el promedio de calificación del evaluador
-        $promedioCalificacion = EvaluacionDesempeno::where('idEvaluador', $idEvaluador)->avg('calificacionGeneral');
-        return response()->json(['successful' => true, 'data' => $promedioCalificacion]);
-    }
-
-
-
     public function listasEvaluacionesPorEstado($estado)
     {
         $validator = Validator::make(['estado' => $estado], [
@@ -255,6 +192,37 @@ class EvaluacionDesempenoService
         }
 
         $evaluaciones = EvaluacionDesempeno::where('estadoEvaluacion', $estado)->get();
+
+        return response()->json(['successful' => true, 'data' => $evaluaciones]);
+    }
+
+
+    public function listarEvaluacionesPorCedulaEmpleado($cedulaEmpleado)
+    {
+        // Verificar si el empleado existe
+        $empleado = Empleado::where('cedula', $cedulaEmpleado)->first();
+
+        if (!$empleado) {
+            return response()->json(['successful' => false, 'error' => 'Empleado no encontrado'], 404);
+        }
+
+        // Obtener las evaluaciones del empleado
+        $evaluaciones = EvaluacionDesempeno::where('idEmpleado', $empleado->idEmpleado)->get();
+
+        return response()->json(['successful' => true, 'data' => $evaluaciones]);
+    }
+
+    public function listarEvaluacionesPorCedulaEvaluador($cedulaEvaluador)
+    {
+        // Verificar si el evaluador existe
+        $evaluador = Empleado::where('cedula', $cedulaEvaluador)->first();
+
+        if (!$evaluador) {
+            return response()->json(['successful' => false, 'error' => 'Evaluador no encontrado'], 404);
+        }
+
+        // Obtener las evaluaciones del evaluador
+        $evaluaciones = EvaluacionDesempeno::where('idEvaluador', $evaluador->idEmpleado)->get();
 
         return response()->json(['successful' => true, 'data' => $evaluaciones]);
     }

@@ -8,7 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class InstruccionFormal extends Model
 {
     use HasFactory;
-
+    protected $hidden = [
+        "updated_at",
+        "created_at"
+    ];
     protected $table = 'instruccionformal';
     protected $primaryKey = 'idInstruccionFormal';
 

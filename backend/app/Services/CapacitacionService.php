@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Models\Capacitacion;
+use App\Models\Empleado;
+use App\Models\EmpleadoHasCapacitacion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -87,7 +89,6 @@ class CapacitacionService
         return response()->json(['successful' => true, 'data' => $capacitaciones]);
     }
 
-
     public function crearCapacitacion(Request $request)
     {
         // Validar los datos de entrada
@@ -154,5 +155,120 @@ class CapacitacionService
         $capacitacion->delete();
 
         return ['successful' => true, 'data' => ['message' => 'Capacitación eliminada correctamente']];
+    }
+
+
+    //OPERACIONES PARA TABLA EMPLEADO_HAS_CAPACITACIONES
+
+    public function crearAsignacionEmpleadoCapacitacion(Request $request, $idEmpleado, $idCapacitacion)
+    {
+        $validator = Validator::make($request->all(), [
+            'idEmpleado' => 'required|exists:empleado,idEmpleado',
+            'idCapacitacion' => 'required|exists:capacitacion,idCapacitacion',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['successful' => false, 'error' => $validator->errors()], 400);
+        }
+
+        $empleado = Empleado::find($request->idEmpleado);
+        $capacitacion = Capacitacion::find($request->idCapacitacion);
+
+        if (!$empleado || !$capacitacion) {
+            return response()->json(['successful' => false, 'error' => 'Empleado o capacitación no encontrados'], 404);
+        }
+
+        // Check if the relationship already exists
+        if (!$empleado->capacitaciones->contains($capacitacion->idCapacitacion)) {
+            $empleado->capacitaciones()->attach($capacitacion);
+        }
+
+        return response()->json(['successful' => true, 'message' => 'Asignación creada exitosamente']);
+    }
+
+
+    public function actualizarAsignacionEmpleadoCapacitacion(Request $request, $idEmpleado, $idCapacitacion)
+    {
+        $validator = Validator::make($request->all(), [
+            'idEmpleado' => 'required|exists:empleado,idEmpleado',
+            'idCapacitacion' => 'required|exists:capacitacion,idCapacitacion',
+            // Agrega las reglas de validación para los campos que deseas actualizar (por ejemplo, 'nuevaInformacion').
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['successful' => false, 'error' => $validator->errors()], 400);
+        }
+
+        $asignacionCapacitacion = EmpleadoHasCapacitacion::where('idEmpleado', $idEmpleado)
+            ->where('idCapacitacion', $idCapacitacion)
+            ->first();
+
+        if (!$asignacionCapacitacion) {
+            return response()->json(['successful' => false, 'error' => 'Asignación de capacitacion no encontrada'], 404);
+        }
+
+        $asignacionCapacitacion->update($request->all());
+
+        return response()->json(['successful' => true, 'data' => $asignacionCapacitacion]);
+    }
+
+    public function eliminarAsignacionEmpleadoCapacitacion($idEmpleado, $idCapacitacion)
+    {
+        $asignacionCapacitacion = EmpleadoHasCapacitacion::where('idEmpleado', $idEmpleado)
+            ->where('idCapacitacion', $idCapacitacion)
+            ->first();
+
+        if (!$asignacionCapacitacion) {
+            return response()->json(['successful' => false, 'error' => 'Asignación de capacitacion no encontrada'], 404);
+        }
+
+        $asignacionCapacitacion->delete();
+
+        return response()->json(['successful' => true, 'message' => 'Asignación de capacitacion eliminada correctamente']);
+    }
+
+
+    public function listarCapacitacionesPorEmpleadoId($idEmpleado)
+    {
+        $empleado = Empleado::find($idEmpleado);
+
+        if (!$empleado) {
+            return response()->json(['successful' => false, 'error' => 'Empleado no encontrado'], 404);
+        }
+
+        $capacitacionesRealizadas = $empleado->capacitaciones;
+
+        return response()->json(['successful' => true, 'capacitaciones' => $capacitacionesRealizadas]);
+    }
+
+
+    public function listarEmpleadosPorCapacitacionId($idCapacitacion)
+    {
+        $capacitacion = Capacitacion::find($idCapacitacion);
+
+        if (!$capacitacion) {
+            return response()->json(['successful' => false, 'error' => 'Capacitación no encontrada'], 404);
+        }
+
+        $empleadosParticipantes = $capacitacion->empleados;
+
+        return response()->json(['successful' => true, 'empleados' => $empleadosParticipantes]);
+    }
+
+
+    public function listarCapacitacionesNoRealizadasPorEmpleadoId($idEmpleado)
+    {
+        $empleado = Empleado::find($idEmpleado);
+
+        if (!$empleado) {
+            return response()->json(['successful' => false, 'error' => 'Empleado no encontrado'], 404);
+        }
+
+        $capacitacionesNoRealizadas = Capacitacion::whereDoesntHave('empleados', function ($query) use ($idEmpleado) {
+            $query->where('empleado.idEmpleado', $idEmpleado);
+        })->get();
+
+
+        return response()->json(['successful' => true, 'capacitacion' => $capacitacionesNoRealizadas]);
     }
 }

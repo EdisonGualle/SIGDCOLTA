@@ -19,9 +19,9 @@ class EvaluacionDesempenoController extends Controller
         return $this->evaluacionDesempenoService->listarEvaluacionesDesempeno();
     }
 
-    public function mostrarEvaluacionDesempeno($id)
+    public function mostrarEvaluacionDesempenoPorId($id)
     {
-        return $this->evaluacionDesempenoService->mostrarEvaluacionDesempeno($id);
+        return $this->evaluacionDesempenoService->mostrarEvaluacionDesempenoPorId($id);
     }
 
     public function crearEvaluacionDesempeno(Request $request)
@@ -39,38 +39,34 @@ class EvaluacionDesempenoController extends Controller
         return $this->evaluacionDesempenoService->eliminarEvaluacionDesempeno($id);
     }
 
-    public function obtenerEvaluacionesPorEmpleado($idEmpleado)
+    public function listarEvaluacionesPorEmpleadoId($idEmpleado)
     {
-        return $this->evaluacionDesempenoService->obtenerEvaluacionesPorEmpleado($idEmpleado);
+        return $this->evaluacionDesempenoService->listarEvaluacionesPorEmpleadoId($idEmpleado);
     }
 
-    public function obtenerEvaluacionesPorEvaluador($idEvaluador)
+    public function listarEvaluacionesPorEvaluadorId($idEvaluador)
     {
-        return $this->evaluacionDesempenoService->obtenerEvaluacionesPorEvaluador($idEvaluador);
+        return $this->evaluacionDesempenoService->listarEvaluacionesPorEvaluadorId($idEvaluador);
     }
 
-    public function obtenerEvaluacionesPorFecha($fechaInicio, $fechaFin)
+    public function listarEvaluacionesPorRangoFechas($fechaInicio, $fechaFin)
     {
-        return $this->evaluacionDesempenoService->obtenerEvaluacionesPorFecha($fechaInicio, $fechaFin);
-    }
-
-    public function obtenerEvaluacionesPorCalificacion($calificacionMinima)
-    {
-        return $this->evaluacionDesempenoService->obtenerEvaluacionesPorCalificacion($calificacionMinima);
-    }
-
-    public function contarEvaluacionesPorEmpleado($idEmpleado)
-    {
-        return $this->evaluacionDesempenoService->contarEvaluacionesPorEmpleado($idEmpleado);
-    }
-
-    public function calcularPromedioCalificacionPorEvaluador($idEvaluador)
-    {
-        return $this->evaluacionDesempenoService->calcularPromedioCalificacionPorEvaluador($idEvaluador);
+        return $this->evaluacionDesempenoService->listarEvaluacionesPorRangoFechas($fechaInicio, $fechaFin);
     }
 
     public function listasEvaluacionesPorEstado($estado)
     {
         return $this->evaluacionDesempenoService->listasEvaluacionesPorEstado($estado);
+    }
+
+    public function listarEvaluacionesPorCedulaEmpleado($cedulaEmpleado)
+    {
+        return $this->evaluacionDesempenoService->listarEvaluacionesPorCedulaEmpleado($cedulaEmpleado);
+    }
+
+
+    public function listarEvaluacionesPorCedulaEvaluador($cedulaEvaluador)
+    {
+        return $this->evaluacionDesempenoService->listarEvaluacionesPorCedulaEvaluador($cedulaEvaluador);
     }
 }

@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Empleado;
 use Illuminate\Http\Request;
 use App\Services\ExperienciaLaboralService; // Asegúrate de importar el servicio correspondiente
-use Illuminate\Support\Facades\Validator;
 
 class ExperienciaLaboralController extends Controller
 {
@@ -21,9 +19,9 @@ class ExperienciaLaboralController extends Controller
         return $this->experienciaLaboralService->listarExperienciasLaborales();
     }
 
-    public function mostrarExperienciasLaborales($id)
+    public function mostrarExperienciaLaboralId($id)
     {
-        return $this->experienciaLaboralService->mostrarExperienciasLaborales($id);
+        return $this->experienciaLaboralService->mostrarExperienciaLaboralId($id);
     }
 
     public function crearExperienciaLaboral(Request $request)
@@ -41,47 +39,13 @@ class ExperienciaLaboralController extends Controller
         return $this->experienciaLaboralService->eliminarExperienciaLaboral($id);
     }
 
-    public function experienciasLaboralesEmpleado($idEmpleado)
+    public function experienciasLaboralesEmpleadoId($idEmpleado)
     {
-        return $this->experienciaLaboralService->experienciasLaboralesEmpleado($idEmpleado);
+        return $this->experienciaLaboralService->listarExperienciasLaboralesPorEmpleadoId($idEmpleado);
     }
 
-    public function institucionesUnicasEmpleado($idEmpleado)
+    public function experienciasLaboralesPorCedulaEmpleado($idEmpleado)
     {
-        return $this->experienciaLaboralService->institucionesUnicasEmpleado($idEmpleado);
-    }
-
-    public function duracionExperienciaLaboralEmpleado($idEmpleado)
-    {
-        return $this->experienciaLaboralService->duracionExperienciaLaboralEmpleado($idEmpleado);
-    }
-
-    public function experienciasPorPalabrasClave(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'palabrasClave' => 'required|array',
-            'palabrasClave.*' => 'string',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['successful' => false, 'errors' => $validator->errors()], 422);
-        }
-
-        return $this->experienciaLaboralService->experienciasPorPalabrasClave($request->input('palabrasClave'));
-    }
-
-    public function institucionesYNumEmpleados()
-    {
-        return $this->experienciaLaboralService->institucionesYNumEmpleados();
-    }
-
-    public function experienciasDuracionMayor($numMeses)
-    {
-        return $this->experienciaLaboralService->experienciasDuracionMayor($numMeses);
-    }
-
-    public function empleadosConExperiencia()
-    {
-        return $this->experienciaLaboralService->empleadosConExperiencia();
+        return $this->experienciaLaboralService->listarExperienciasLaboralesPorCedulaEmpleado($idEmpleado);
     }
 }

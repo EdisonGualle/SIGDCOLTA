@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Models\Discapacidad;
+use App\Models\Empleado;
+use App\Models\EmpleadoHasDiscapacidad;
 use Illuminate\Contracts\Validation\Factory as ValidatorFactory;
 use Illuminate\Http\Request;
 
@@ -122,5 +124,104 @@ class DiscapacidadService
         $discapacidad->delete();
 
         return response()->json(['successful' => true, 'message' => 'Discapacidad eliminada correctamente']);
+    }
+
+
+    //funciones de empleado_has_discapacidad
+
+    public function crearAsignacionEmpleadoDiscapacidad(Request $request)
+    {
+        $validator =  $this->validator->make($request->all(), [
+            'idEmpleado' => 'required|exists:empleado,idEmpleado',
+            'idDiscapacidad' => 'required|exists:discapacidad,idDiscapacidad',
+            'porcentaje' => 'required|numeric|min:0|max:100',
+            'nivel' => 'required|string',
+            'adaptaciones' => 'nullable|string',
+            'notas' => 'nullable|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['successful' => false, 'error' => $validator->errors()], 400);
+        }
+
+        $empleado = Empleado::find($request->idEmpleado);
+        $discapacidad = Discapacidad::find($request->idDiscapacidad);
+
+        if (!$empleado || !$discapacidad) {
+            return response()->json(['successful' => false, 'error' => 'Empleado o discapacidad no encontrados'], 404);
+        }
+
+        $asignacionDiscapacidad = EmpleadoHasDiscapacidad::create($request->all());
+
+        return response()->json(['successful' => true, 'data' => $asignacionDiscapacidad], 201);
+    }
+
+    public function actualizarAsignacionEmpleadoDiscapacidad(Request $request, $idEmpleado, $idDiscapacidad)
+    {
+        $validator =  $this->validator->make($request->all(), [
+            'porcentaje' => 'required|numeric|min:0|max:100',
+            'nivel' => 'required|string',
+            'adaptaciones' => 'nullable|string',
+            'notas' => 'nullable|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['successful' => false, 'error' => $validator->errors()], 400);
+        }
+
+        $asignacionDiscapacidad = EmpleadoHasDiscapacidad::where('idEmpleado', $idEmpleado)
+            ->where('idDiscapacidad', $idDiscapacidad)
+            ->first();
+
+        if (!$asignacionDiscapacidad) {
+            return response()->json(['successful' => false, 'error' => 'Asignación de discapacidad no encontrada'], 404);
+        }
+
+        $asignacionDiscapacidad->update($request->all());
+
+        return response()->json(['successful' => true, 'data' => $asignacionDiscapacidad]);
+    }
+
+    public function eliminarAsignacionEmpleadoDiscapacidad($idEmpleado, $idDiscapacidad)
+    {
+        $asignacionDiscapacidad = EmpleadoHasDiscapacidad::where('idEmpleado', $idEmpleado)
+            ->where('idDiscapacidad', $idDiscapacidad)
+            ->first();
+
+        if (!$asignacionDiscapacidad) {
+            return response()->json(['successful' => false, 'error' => 'Asignación de discapacidad no encontrada'], 404);
+        }
+
+        $asignacionDiscapacidad->delete();
+
+        return response()->json(['successful' => true, 'message' => 'Asignación de discapacidad eliminada correctamente']);
+    }
+
+
+    public function listarDiscapacidadesPorEmpleadoId($idEmpleado)
+    {
+        $empleado = Empleado::find($idEmpleado);
+
+        if (!$empleado) {
+            return response()->json(['successful' => false, 'error' => 'Empleado no encontrado'], 404);
+        }
+
+        $discapacidades = $empleado->discapacidades;
+
+        return response()->json(['successful' => true, 'discapacidades' => $discapacidades]);
+    }
+
+
+    public function listarEmpleadosPorDiscapacidadId($idDiscapacidad)
+    {
+        $discapacidad = Discapacidad::find($idDiscapacidad);
+
+        if (!$discapacidad) {
+            return response()->json(['successful' => false, 'error' => 'Discapacidad no encontrada'], 404);
+        }
+
+        $empleadosDiscapacidades = $discapacidad->empleados;
+
+        return response()->json(['successful' => true, 'empleados' => $empleadosDiscapacidades]);
     }
 }
