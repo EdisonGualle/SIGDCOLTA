@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\Roles\CambioDeRolNotification;
 use App\Notifications\Roles\CambioDeRolAdminNotification;
+use App\Notifications\Roles\EliminarRolNotification;
+use App\Notifications\Roles\EliminarRolAdminNotification;
+
 
 
 
@@ -56,17 +59,17 @@ class AsignarRolController extends Controller
         }
 
         //Notificaciones 
-            // Antes de cambiar el rol, guarda los roles actuales
-            $rolesAntes = $usuario->getRoleNames();
-            // Eliminar el rol existente y asignar el nuevo rol
-            $usuario->syncRoles([$nuevoRol]);
-            // Después de cambiar el rol, guarda los nuevos roles
-            $rolesDespues = $usuario->getRoleNames();
+        // Antes de cambiar el rol, guarda los roles actuales
+        $rolesAntes = $usuario->getRoleNames();
+        // Eliminar el rol existente y asignar el nuevo rol
+        $usuario->syncRoles([$nuevoRol]);
+        // Después de cambiar el rol, guarda los nuevos roles
+        $rolesDespues = $usuario->getRoleNames();
 
-            // Notificar al usuario que realiza el cambio de rol
-            Notification::send($usuarioAutenticado, new CambioDeRolAdminNotification($usuario, $rolesAntes, $rolesDespues));
-            // Notificar al usuario por correo electrónico sobre el cambio de rol
-            $usuario->notify(new CambioDeRolNotification($usuario, $rolesAntes, $rolesDespues));
+        // Notificar al usuario que realiza el cambio de rol
+        Notification::send($usuarioAutenticado, new CambioDeRolAdminNotification($usuario, $rolesAntes, $rolesDespues));
+        // Notificar al usuario por correo electrónico sobre el cambio de rol
+        $usuario->notify(new CambioDeRolNotification($usuario, $rolesAntes, $rolesDespues));
 
         // Eliminar el rol existente y asignar el nuevo rol
         $usuario->syncRoles([$nuevoRol]);
@@ -105,6 +108,15 @@ class AsignarRolController extends Controller
         if ($rolesAntesDeEliminar->isEmpty() && $rolesDespuésDeEliminar->isEmpty()) {
             return response()->json(['error' => 'El usuario no tiene ningún rol'], 404);
         }
+
+        // Notificar al usuario que realizo la eliminacion de rol
+        Notification::send($usuarioAutenticado, new EliminarRolAdminNotification($usuario, $rolesAntesDeEliminar));
+        
+        // Notificar al usuario afectado por correo electrónico sobre la eliminación de rol
+        $usuario->notify(new EliminarRolNotification($usuario, $rolesAntesDeEliminar));
+
+        // Notificar al usuario que realiza la eliminación de rol
+        // Notification::send($usuarioAutenticado, new EliminacionDeRolAdminNotification($usuarioAutenticado, $usuario, $rolesAntesDeEliminar));
 
         return response()->json(['message' => 'Rol eliminado con éxito']);
     }
