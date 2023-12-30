@@ -7,7 +7,11 @@ use App\Models\User;
 use App\Models\Rol;
 use App\Models\Estado;
 use Illuminate\Http\Request;
-use App\Notifications\CambioDeRolNotification;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\Roles\CambioDeRolNotification;
+use App\Notifications\Roles\CambioDeRolAdminNotification;
+
+
 
 class AsignarRolController extends Controller
 {
@@ -51,16 +55,18 @@ class AsignarRolController extends Controller
             return response()->json(['error' => 'El nuevo rol no existe'], 404);
         }
 
-        // Antes de cambiar el rol, guarda los roles actuales
-        $rolesAntes = $usuario->getRoleNames();
+        //Notificaciones 
 
-        // Eliminar el rol existente y asignar el nuevo rol
-        $usuario->syncRoles([$nuevoRol]);
+            // Antes de cambiar el rol, guarda los roles actuales
+            $rolesAntes = $usuario->getRoleNames();
 
-        // Después de cambiar el rol, guarda los nuevos roles
-        $rolesDespues = $usuario->getRoleNames();
-        // Notificar al usuario por correo electrónico sobre el cambio de rol
-        $usuario->notify(new CambioDeRolNotification($usuario, $rolesAntes, $rolesDespues));
+            // Después de cambiar el rol, guarda los nuevos roles
+            $rolesDespues = $usuario->getRoleNames();
+
+            // Notificar al usuario que realiza el cambio de rol
+            Notification::send($usuarioAutenticado, new CambioDeRolAdminNotification($usuario, $rolesAntes, $rolesDespues));
+            // Notificar al usuario por correo electrónico sobre el cambio de rol
+            $usuario->notify(new CambioDeRolNotification($usuario, $rolesAntes, $rolesDespues));
 
         // Eliminar el rol existente y asignar el nuevo rol
         $usuario->syncRoles([$nuevoRol]);
@@ -102,6 +108,24 @@ class AsignarRolController extends Controller
 
         return response()->json(['message' => 'Rol eliminado con éxito']);
     }
+
+
+    // Enviar notificacion
+    private function notificarCambioDeRol($usuarioAutenticado, $usuario, $rolesAntes, $rolesDespues, $notificacionAdmin, $notificacionUsuario) {
+        // Antes de cambiar el rol, guarda los roles actuales
+        $rolesAntes = $usuario->getRoleNames();
+    
+        // Después de cambiar el rol, guarda los nuevos roles
+        $rolesDespues = $usuario->getRoleNames();
+    
+        // Notificar al usuario que realiza el cambio de rol
+        Notification::send($usuarioAutenticado, new $notificacionAdmin($usuario, $rolesAntes, $rolesDespues));
+    
+        // Notificar al usuario por correo electrónico sobre el cambio de rol
+        $usuario->notify(new $notificacionUsuario($usuario, $rolesAntes, $rolesDespues));
+    }
+
+
 
     // Listar todos los usuarios que tienen rol
     public function listarUsuariosConRoles()

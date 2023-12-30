@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Notifications;
+namespace App\Notifications\Roles;
 
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -22,12 +22,12 @@ class CambioDeRolNotification extends Notification
     {
         return (new MailMessage)
             ->subject('Cambio de Rol')
-            ->greeting('Hola ' . $notifiable->name . '!')
+            ->greeting('Hola !')
             ->line('Queremos informarte que se ha realizado un cambio de rol para el usuario ' . $this->usuario->usuario)
             ->line('Rol antes del cambio: ' . $this->implodeArray($this->rolesAntes))
             ->line('Nuevo rol: ' . $this->implodeArray($this->rolesDespues))
             ->action('Ingresar al sistema', url('/api/ingresar'))
-            ->line('Agradecemos tu dedicación y compromiso como miembro del equipo del GAD Municipal de Colta. Si tienes alguna pregunta o necesitas asistencia, no dudes en ponerte en contacto con nosotros. Estamos aquí para ayudarte en lo que necesites.');
+            ->line('Agradecemos tu dedicación y compromiso como miembro del equipo del GAD Municipal de Colta.');
     }
 
     protected function implodeArray($array, $forMessage = false)
