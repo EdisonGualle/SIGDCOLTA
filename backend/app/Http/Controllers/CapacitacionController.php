@@ -13,8 +13,7 @@ class CapacitacionController extends Controller
 
     public function __construct(CapacitacionService $capacitacionService)
     {
-        $response = $this->capacitacionService = $capacitacionService;
-        return $response;
+        $this->capacitacionService = $capacitacionService;
     }
 
 
@@ -180,9 +179,9 @@ class CapacitacionController extends Controller
 
     /**
      * @OA\Put(
-     *     path="/empleados/{idEmpleado}/capacitaciones/{idCapacitacion}",
+     *     path="/capacitaciones/asignacion-empleado-capacitacion/{idEmpleado}/{idCapacitacion}",
      *     summary="Actualizar asignación de un empleado a una capacitación",
-     *     tags={"Asignaciones"},
+     *     tags={"Capacitaciones"},
      *     @OA\Parameter(name="idEmpleado", in="path", required=true, description="ID del empleado", @OA\Schema(type="integer")),
      *     @OA\Parameter(name="idCapacitacion", in="path", required=true, description="ID de la capacitación", @OA\Schema(type="integer")),
      *     @OA\RequestBody(
@@ -203,9 +202,9 @@ class CapacitacionController extends Controller
 
     /**
      * @OA\Delete(
-     *     path="/empleados/{idEmpleado}/capacitaciones/{idCapacitacion}",
+     *     path="/capacitaciones/asignacion-empleado-capacitacion/{idEmpleado}/{idCapacitacion}",
      *     summary="Eliminar asignación de un empleado a una capacitación",
-     *     tags={"Asignaciones"},
+     *     tags={"Capacitaciones"},
      *     @OA\Parameter(name="idEmpleado", in="path", required=true, description="ID del empleado", @OA\Schema(type="integer")),
      *     @OA\Parameter(name="idCapacitacion", in="path", required=true, description="ID de la capacitación", @OA\Schema(type="integer")),
      *     @OA\Response(response="200", description="Asignación de capacitación eliminada exitosamente"),
@@ -220,9 +219,9 @@ class CapacitacionController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/empleados/{idEmpleado}/capacitaciones",
+     *     path="/capacitaciones/capacitaciones-por-empleado/id/{idEmpleado}",
      *     summary="Listar capacitaciones realizadas por un empleado",
-     *     tags={"Asignaciones"},
+     *     tags={"Capacitaciones"},
      *     @OA\Parameter(name="idEmpleado", in="path", required=true, description="ID del empleado", @OA\Schema(type="integer")),
      *     @OA\Response(response="200", description="Lista de capacitaciones realizadas por el empleado"),
      *     @OA\Response(response="404", description="Empleado no encontrado"),
@@ -236,9 +235,9 @@ class CapacitacionController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/capacitaciones/{idCapacitacion}/empleados",
+     *     path="/capacitaciones/empleados-por-capacitacion/id/{idCapacitacion}",
      *     summary="Listar empleados participantes en una capacitación",
-     *     tags={"Asignaciones"},
+     *     tags={"Capacitaciones"},
      *     @OA\Parameter(name="idCapacitacion", in="path", required=true, description="ID de la capacitación", @OA\Schema(type="integer")),
      *     @OA\Response(response="200", description="Lista de empleados participantes en la capacitación"),
      *     @OA\Response(response="404", description="Capacitación no encontrada"),
@@ -253,9 +252,9 @@ class CapacitacionController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/empleados/{idEmpleado}/capacitaciones-no-realizadas",
+     *     path="/capacitaciones/capacitaciones-no-realizadas-por-empleado/id/{idEmpleado}",
      *     summary="Listar capacitaciones no realizadas por un empleado",
-     *     tags={"Asignaciones"},
+     *     tags={"Capacitaciones"},
      *     @OA\Parameter(name="idEmpleado", in="path", required=true, description="ID del empleado", @OA\Schema(type="integer")),
      *     @OA\Response(response="200", description="Lista de capacitaciones no realizadas por el empleado"),
      *     @OA\Response(response="404", description="Empleado no encontrado"),

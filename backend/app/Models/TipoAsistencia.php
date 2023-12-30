@@ -10,10 +10,18 @@ class TipoAsistencia extends Model
     use HasFactory;
 
     protected $table = 'tipoasistencia';
-    protected $primaryKey = 'idTipoAsistencia';
+    protected $primaryKey = 'tipoAsistencia';
+    protected $hidden = [
+        "updated_at",
+        "created_at"
+    ];
+
+    public $timestamps = false;
+    const ATRASADO = 'atrasado';
 
     protected $fillable = [
-        'tipo',
+        'desde',
+        'hasta'
         // Agrega aquí los demás campos de tu tabla cargo
     ];
 

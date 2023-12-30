@@ -298,13 +298,13 @@
                 }
             }
         },
-        "/empleados/{idEmpleado}/capacitaciones/{idCapacitacion}": {
+        "/capacitaciones/asignacion-empleado-capacitacion/{idEmpleado}/{idCapacitacion}": {
             "put": {
                 "tags": [
-                    "Asignaciones"
+                    "Capacitaciones"
                 ],
                 "summary": "Actualizar asignación de un empleado a una capacitación",
-                "operationId": "dbab77c52348b7ac2c9c97a44d47c0d4",
+                "operationId": "1369012ded0c2d6bc63971344560fc07",
                 "parameters": [
                     {
                         "name": "idEmpleado",
@@ -348,10 +348,10 @@
             },
             "delete": {
                 "tags": [
-                    "Asignaciones"
+                    "Capacitaciones"
                 ],
                 "summary": "Eliminar asignación de un empleado a una capacitación",
-                "operationId": "b083d52595a789d905f48901515edc20",
+                "operationId": "24577d58539484bd2da67e482560ca0f",
                 "parameters": [
                     {
                         "name": "idEmpleado",
@@ -382,13 +382,13 @@
                 }
             }
         },
-        "/empleados/{idEmpleado}/capacitaciones": {
+        "/capacitaciones/capacitaciones-por-empleado/id/{idEmpleado}": {
             "get": {
                 "tags": [
-                    "Asignaciones"
+                    "Capacitaciones"
                 ],
                 "summary": "Listar capacitaciones realizadas por un empleado",
-                "operationId": "4289dc8cd5252fe90ed2ddbdc8b3ebb8",
+                "operationId": "aec9273ddbc9268e642e4943c19432b4",
                 "parameters": [
                     {
                         "name": "idEmpleado",
@@ -410,13 +410,13 @@
                 }
             }
         },
-        "/capacitaciones/{idCapacitacion}/empleados": {
+        "/capacitaciones/empleados-por-capacitacion/id/{idCapacitacion}": {
             "get": {
                 "tags": [
-                    "Asignaciones"
+                    "Capacitaciones"
                 ],
                 "summary": "Listar empleados participantes en una capacitación",
-                "operationId": "e42c6c6b2aa251081b41085ddb2f3189",
+                "operationId": "874926b68d23a487a7c4ae17cc4287e4",
                 "parameters": [
                     {
                         "name": "idCapacitacion",
@@ -438,13 +438,13 @@
                 }
             }
         },
-        "/empleados/{idEmpleado}/capacitaciones-no-realizadas": {
+        "/capacitaciones/capacitaciones-no-realizadas-por-empleado/id/{idEmpleado}": {
             "get": {
                 "tags": [
-                    "Asignaciones"
+                    "Capacitaciones"
                 ],
                 "summary": "Listar capacitaciones no realizadas por un empleado",
-                "operationId": "7a81504dfac3164533e9073c33aa7d49",
+                "operationId": "9aa4b1b20e425f22900d0690c25ee134",
                 "parameters": [
                     {
                         "name": "idEmpleado",

@@ -10,13 +10,20 @@ class RegistroAsistencia extends Model
     use HasFactory;
 
     protected $table = 'registroAsistencia';
-    protected $primaryKey = 'idRegistro';
+    protected $primaryKey = 'idRegistroAsistencia';
+    protected $hidden = [
+        "updated_at",
+        "created_at"
+    ];
+    public $timestamps = false;
 
     protected $fillable = [
         'idEmpleado',
-        'idTipoAsistencia',
-        'fechaHora'
-
+        'tipoAsistencia',
+        'estadoAsistencia',
+        'descripcion',
+        'fecha',
+        'hora'
 
         // Agrega aquí los demás campos de tu tabla cargo
     ];

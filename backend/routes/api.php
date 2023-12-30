@@ -2,11 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
 //Auth
 use App\Http\Controllers\AuthController;
-
-
 use App\Http\Controllers\CapacitacionController;
 use App\Http\Controllers\CargoController;
 use App\Http\Controllers\ContratoController;
@@ -41,9 +38,6 @@ use App\Http\Controllers\UsuarioController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-
-
 
 
 // CAPACITACIONES routes
@@ -96,6 +90,7 @@ Route::get('/datos-bancarios/tipo-cuenta/{tipoCuenta}', [DatoBancarioController:
 Route::post('/datos-bancarios', [DatoBancarioController::class, 'crearDatoBancario']);
 Route::put('/datos-bancarios/{id}', [DatoBancarioController::class, 'actualizarDatoBancario']);
 Route::delete('/datos-bancarios/{id}', [DatoBancarioController::class, 'eliminarDatoBancario']);
+
 
 // DEPARTAMENTOS routes
 Route::get('/departamentos', [DepartamentoController::class, 'listarDepartamentos']);
@@ -156,6 +151,7 @@ Route::get('/evaluaciones-desempeno/evaluador/cedula/{cedulaEvaluador}', [Evalua
 Route::get('/evaluaciones-desempeno/porFechas/{fechaInicio}/{fechaFin}', [EvaluacionDesempenoController::class, 'listarEvaluacionesPorRangoFechas']);
 Route::get('/evaluaciones-desempeno/porEstado/{estado}', [EvaluacionDesempenoController::class, 'listasEvaluacionesPorEstado']);
 
+
 // EXPERIENCIAS LABORALES routes
 Route::get('/experienciasLaborales', [ExperienciaLaboralController::class, 'listarExperienciasLaborales']);
 Route::get('/experienciaLaboralId/{id}', [ExperienciaLaboralController::class, 'mostrarExperienciaLaboralId']);
@@ -172,6 +168,7 @@ Route::get('/instrucciones-formalesPorId/{id}', [InstruccionFormalController::cl
 Route::post('/instrucciones-formales', [InstruccionFormalController::class, 'crearInstruccionFormal']);
 Route::put('/instrucciones-formales/{id}', [InstruccionFormalController::class, 'actualizarInstruccionFormal']);
 Route::delete('/instrucciones-formales/{id}', [InstruccionFormalController::class, 'eliminarInstruccionFormal']);
+
 
 // PERMISOS routes
 Route::get('/permisos', [PermisoController::class, 'listarPermisos']);
@@ -190,7 +187,7 @@ Route::delete('/referencias-laborales/{id}', [ReferenciaLaboralController::class
 
 // REGISTRO ASISTENCIA routes
 Route::get('/registros-asistencia', [RegistroAsistenciaController::class, 'listarRegistrosAsistencia']);
-Route::get('/registros-asistencia/{id}', [RegistroAsistenciaController::class, 'mostrarRegistroAsistencia']);
+Route::get('/registros-asistencia/{id}', [RegistroAsistenciaController::class, 'mostrarRegistroAsistenciaPorId']);
 Route::post('/registros-asistencia', [RegistroAsistenciaController::class, 'registrarAsistencia']);
 Route::put('/registros-asistencia/{id}', [RegistroAsistenciaController::class, 'actualizarRegistroAsistencia']);
 Route::delete('/registros-asistencia/{id}', [RegistroAsistenciaController::class, 'eliminarRegistroAsistencia']);

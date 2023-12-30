@@ -11,7 +11,10 @@ class Unidad extends Model
 
     protected $table = 'unidad';
     protected $primaryKey = 'idUnidad';
-
+    protected $hidden = [
+        "updated_at",
+        "created_at"
+    ];
     protected $fillable = [
         'nombre',
         'descripcion',
