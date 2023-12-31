@@ -31,4 +31,13 @@ class Contrato extends Model
     {
         return $this->belongsTo(TipoContrato::class, 'idTipoContrato', 'idTipoContrato');
     }
+
+
+
+    //Relacion Empleado-Contratos
+
+    public function tipoContrato()
+    {
+        return $this->belongsTo(TipoContrato::class, 'idTipoContrato');
+    }
 }

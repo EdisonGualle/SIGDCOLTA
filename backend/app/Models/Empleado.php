@@ -53,4 +53,49 @@ class Empleado extends Model
         return $this->belongsToMany(Discapacidad::class, 'empleado_has_discapacidad', 'idEmpleado', 'idDiscapacidad')
             ->withTimestamps();
     }
+
+    // Define las relaciones con otras entidades si es necesario
+    //Relacion Empleado-Cargo
+    public function cargo()
+    {
+        return $this->belongsTo(Cargo::class, 'idCargo');
+    }
+
+    public function departamento()
+    {
+        return $this->belongsTo(Departamento::class, 'idDepartamento');
+    }
+    //Relacion Empleado-Contratos
+    public function contratos()
+    {
+        return $this->hasMany(Contrato::class, 'idEmpleado');
+    }
+    //Relacion Empleado-Departamento ya definido
+
+
+    //Relacion Empleado-DatosBancarios
+    public function datosBancarios()
+    {
+        return $this->hasMany(DatoBancario::class, 'idEmpleado', 'idEmpleado');
+    }
+
+    //Relacion Empleado-Evaluacion Desempeno
+    public function evaluacionesDeEmpleado()
+    {
+        // Suponiendo que el modelo de evaluación se llama EvaluacionDesempeno
+        return $this->hasMany(EvaluacionDesempeno::class, 'idEmpleado');
+    }
+
+    //Relacion Empleado-ExperienciaLaboral
+    public function experienciasLaborales()
+    {
+        return $this->hasMany(ExperienciaLaboral::class, 'idEmpleado');
+    }
+    //Relacion Empleado-Instruccion Formal
+    public function instruccionesFormales()
+    {
+        return $this->belongsToMany(InstruccionFormal::class, 'empleado_has_instruccionformal', 'idEmpleado', 'idInstruccionFormal')
+            ->withTimestamps();
+    }
+
 }
