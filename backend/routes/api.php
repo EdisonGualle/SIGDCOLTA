@@ -7,6 +7,8 @@ use App\Http\Controllers\Auth\RestablecerContraseñaController;
 use Illuminate\Http\JsonResponse;
 
 
+Route::post('/usuarios', [UsuarioController::class, 'crearUsuario']);
+
 // Ingreso
 Route::post('/users', [UsuarioController::class, 'crearUsuario']);
 Route::post('/ingresar', [AuthController::class, 'ingresar']);
