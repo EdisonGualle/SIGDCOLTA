@@ -16,7 +16,13 @@ class User extends Authenticatable implements CanResetPassword
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     protected $table = 'usuario';
+
     protected $primaryKey = 'idUsuario';
+    protected $hidden = [
+        "updated_at",
+        "created_at"
+    ];
+
     protected $fillable = [
         'usuario',
         'correo',
