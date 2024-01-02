@@ -2,57 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SalidaCampo;
+use App\Services\SalidaCampoService;
 use Illuminate\Http\Request;
 
 class SalidaCampoController extends Controller
 {
-    public function listarSalidasCampo()
+    protected $salidaCampoService;
+
+    public function __construct(SalidaCampoService $salidaCampoService)
     {
-        $salidasCampo = SalidaCampo::all();
-        return response()->json($salidasCampo);
+        $this->salidaCampoService = $salidaCampoService;
     }
 
-    public function mostrarSalidaCampo($id)
+    public function listarSalidasCampo()
     {
-        $salidaCampo = SalidaCampo::find($id);
+        return $this->salidaCampoService->listarSalidasCampo();
+    }
 
-        if (!$salidaCampo) {
-            return response()->json(['error' => 'Salida de Campo no encontrada'], 404);
-        }
-
-        return response()->json($salidaCampo);
+    public function mostrarSalidaCampoPorId($id)
+    {
+        return $this->salidaCampoService->mostrarSalidaCampoPorId($id);
     }
 
     public function crearSalidaCampo(Request $request)
     {
-        $salidaCampo = SalidaCampo::create($request->all());
-        return response()->json($salidaCampo, 201);
+        return $this->salidaCampoService->crearSalidaCampo($request);
     }
 
     public function actualizarSalidaCampo(Request $request, $id)
     {
-        $salidaCampo = SalidaCampo::find($id);
-
-        if (!$salidaCampo) {
-            return response()->json(['error' => 'Salida de Campo no encontrada'], 404);
-        }
-
-        $salidaCampo->update($request->all());
-
-        return response()->json($salidaCampo, 200);
+        return $this->salidaCampoService->actualizarSalidaCampo($request, $id);
     }
 
     public function eliminarSalidaCampo($id)
     {
-        $salidaCampo = SalidaCampo::find($id);
-
-        if (!$salidaCampo) {
-            return response()->json(['error' => 'Salida de Campo no encontrada'], 404);
-        }
-
-        $salidaCampo->delete();
-
-        return response()->json(['message' => 'Salida de Campo eliminada correctamente'], 200);
+        return $this->salidaCampoService->eliminarSalidaCampo($id);
     }
 }

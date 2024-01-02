@@ -2,57 +2,50 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ExperienciaLaboral;
 use Illuminate\Http\Request;
+use App\Services\ExperienciaLaboralService; // Asegúrate de importar el servicio correspondiente
 
 class ExperienciaLaboralController extends Controller
 {
-    public function listarExperienciasLaborales()
+    protected $experienciaLaboralService;
+
+    public function __construct(ExperienciaLaboralService $experienciaLaboralService)
     {
-        $experienciasLaborales = ExperienciaLaboral::all();
-        return response()->json($experienciasLaborales);
+        $this->experienciaLaboralService = $experienciaLaboralService;
     }
 
-    public function mostrarExperienciaLaboral($id)
+    public function listarExperienciasLaborales()
     {
-        $experienciaLaboral = ExperienciaLaboral::find($id);
+        return $this->experienciaLaboralService->listarExperienciasLaborales();
+    }
 
-        if (!$experienciaLaboral) {
-            return response()->json(['error' => 'Experiencia Laboral no encontrada'], 404);
-        }
-
-        return response()->json($experienciaLaboral);
+    public function mostrarExperienciaLaboralId($id)
+    {
+        return $this->experienciaLaboralService->mostrarExperienciaLaboralId($id);
     }
 
     public function crearExperienciaLaboral(Request $request)
     {
-        $experienciaLaboral = ExperienciaLaboral::create($request->all());
-        return response()->json($experienciaLaboral, 201);
+        return $this->experienciaLaboralService->crearExperienciaLaboral($request);
     }
 
     public function actualizarExperienciaLaboral(Request $request, $id)
     {
-        $experienciaLaboral = ExperienciaLaboral::find($id);
-
-        if (!$experienciaLaboral) {
-            return response()->json(['error' => 'Experiencia Laboral no encontrada'], 404);
-        }
-
-        $experienciaLaboral->update($request->all());
-
-        return response()->json($experienciaLaboral, 200);
+        return $this->experienciaLaboralService->actualizarExperienciaLaboral($request, $id);
     }
 
     public function eliminarExperienciaLaboral($id)
     {
-        $experienciaLaboral = ExperienciaLaboral::find($id);
+        return $this->experienciaLaboralService->eliminarExperienciaLaboral($id);
+    }
 
-        if (!$experienciaLaboral) {
-            return response()->json(['error' => 'Experiencia Laboral no encontrada'], 404);
-        }
+    public function experienciasLaboralesEmpleadoId($idEmpleado)
+    {
+        return $this->experienciaLaboralService->listarExperienciasLaboralesPorEmpleadoId($idEmpleado);
+    }
 
-        $experienciaLaboral->delete();
-
-        return response()->json(['message' => 'Experiencia Laboral eliminada correctamente'], 200);
+    public function experienciasLaboralesPorCedulaEmpleado($idEmpleado)
+    {
+        return $this->experienciaLaboralService->listarExperienciasLaboralesPorCedulaEmpleado($idEmpleado);
     }
 }

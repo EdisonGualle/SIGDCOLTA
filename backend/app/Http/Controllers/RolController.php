@@ -2,57 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Rol;
 use Illuminate\Http\Request;
+use App\Services\RolService; // Asegúrate de importar el servicio correspondiente
 
 class RolController extends Controller
 {
-    public function listarRoles()
+    protected $rolService;
+
+    public function __construct(RolService $rolService)
     {
-        $roles = Rol::all();
-        return response()->json($roles);
+        $this->rolService = $rolService;
     }
 
-    public function mostrarRol($id)
+    public function listarRoles()
     {
-        $rol = Rol::find($id);
+        return $this->rolService->listarRoles();
+    }
 
-        if (!$rol) {
-            return response()->json(['error' => 'Rol no encontrado'], 404);
-        }
-
-        return response()->json($rol);
+    public function mostrarRolPorId($id)
+    {
+        return $this->rolService->mostrarRolPorId($id);
     }
 
     public function crearRol(Request $request)
     {
-        $rol = Rol::create($request->all());
-        return response()->json($rol, 201);
+        return $this->rolService->crearRol($request);
     }
 
     public function actualizarRol(Request $request, $id)
     {
-        $rol = Rol::find($id);
-
-        if (!$rol) {
-            return response()->json(['error' => 'Rol no encontrado'], 404);
-        }
-
-        $rol->update($request->all());
-
-        return response()->json($rol, 200);
+        return $this->rolService->actualizarRol($request, $id);
     }
 
     public function eliminarRol($id)
     {
-        $rol = Rol::find($id);
-
-        if (!$rol) {
-            return response()->json(['error' => 'Rol no encontrado'], 404);
-        }
-
-        $rol->delete();
-
-        return response()->json(['message' => 'Rol eliminado correctamente'], 200);
+        return $this->rolService->eliminarRol($id);
     }
 }

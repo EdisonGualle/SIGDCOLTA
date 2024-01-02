@@ -11,12 +11,18 @@ class Estado extends Model
 
     protected $table = 'estado';
     protected $primaryKey = 'idEstado';
-
+    protected $hidden = [
+        "updated_at",
+        "created_at"
+    ];
+    
     protected $fillable = [
         'tipoEstado',
-        
         // Agrega aquí los demás campos de tu tabla cargo
     ];
-
+    public function empleados()
+    {
+        return $this->hasMany(Empleado::class, 'idEstado', 'idEstado');
+    }
     // Define las relaciones con otras entidades si es necesario
 }

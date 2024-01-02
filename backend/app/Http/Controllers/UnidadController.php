@@ -2,57 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Unidad;
+use App\Services\UnidadService;
 use Illuminate\Http\Request;
 
 class UnidadController extends Controller
 {
-    public function listarUnidades()
+    protected $unidadService;
+
+    public function __construct(UnidadService $unidadService)
     {
-        $unidades = Unidad::all();
-        return response()->json($unidades);
+        $this->unidadService = $unidadService;
     }
 
-    public function mostrarUnidad($id)
+    public function listarUnidades()
     {
-        $unidad = Unidad::find($id);
+        return $this->unidadService->listarUnidades();
+    }
 
-        if (!$unidad) {
-            return response()->json(['error' => 'Unidad no encontrada'], 404);
-        }
-
-        return response()->json($unidad);
+    public function mostrarUnidadPorId($id)
+    {
+        return $this->unidadService->mostrarUnidadPorId($id);
     }
 
     public function crearUnidad(Request $request)
     {
-        $unidad = Unidad::create($request->all());
-        return response()->json($unidad, 201);
+        return $this->unidadService->crearUnidad($request);
     }
 
     public function actualizarUnidad(Request $request, $id)
     {
-        $unidad = Unidad::find($id);
-
-        if (!$unidad) {
-            return response()->json(['error' => 'Unidad no encontrada'], 404);
-        }
-
-        $unidad->update($request->all());
-
-        return response()->json($unidad, 200);
+        return $this->unidadService->actualizarUnidad($request, $id);
     }
 
     public function eliminarUnidad($id)
     {
-        $unidad = Unidad::find($id);
-
-        if (!$unidad) {
-            return response()->json(['error' => 'Unidad no encontrada'], 404);
-        }
-
-        $unidad->delete();
-
-        return response()->json(['message' => 'Unidad eliminada correctamente'], 200);
+        return $this->unidadService->eliminarUnidad($id);
     }
 }

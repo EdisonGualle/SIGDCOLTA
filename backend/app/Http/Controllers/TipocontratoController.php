@@ -2,57 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TipoContrato;
+use App\Services\TipoContratoService;
 use Illuminate\Http\Request;
 
 class TipoContratoController extends Controller
 {
-    public function listarTiposContrato()
+    protected $tipoContratoService;
+
+    public function __construct(TipoContratoService $tipoContratoService)
     {
-        $tipoContratos = TipoContrato::all();
-        return response()->json($tipoContratos);
+        $this->tipoContratoService = $tipoContratoService;
     }
 
-    public function mostrarTipoContrato($id)
+    public function listarTiposContrato()
     {
-        $tipoContrato = TipoContrato::find($id);
+        return $this->tipoContratoService->listarTiposContrato();
+    }
 
-        if (!$tipoContrato) {
-            return response()->json(['error' => 'Tipo de Contrato no encontrado'], 404);
-        }
-
-        return response()->json($tipoContrato);
+    public function mostrarTipoContratoPorId($id)
+    {
+        return $this->tipoContratoService->mostrarTipoContratoPorId($id);
     }
 
     public function crearTipoContrato(Request $request)
     {
-        $tipoContrato = TipoContrato::create($request->all());
-        return response()->json($tipoContrato, 201);
+        return $this->tipoContratoService->crearTipoContrato($request);
     }
 
     public function actualizarTipoContrato(Request $request, $id)
     {
-        $tipoContrato = TipoContrato::find($id);
-
-        if (!$tipoContrato) {
-            return response()->json(['error' => 'Tipo de Contrato no encontrado'], 404);
-        }
-
-        $tipoContrato->update($request->all());
-
-        return response()->json($tipoContrato, 200);
+        return $this->tipoContratoService->actualizarTipoContrato($request, $id);
     }
 
     public function eliminarTipoContrato($id)
     {
-        $tipoContrato = TipoContrato::find($id);
-
-        if (!$tipoContrato) {
-            return response()->json(['error' => 'Tipo de Contrato no encontrado'], 404);
-        }
-
-        $tipoContrato->delete();
-
-        return response()->json(['message' => 'Tipo de Contrato eliminado correctamente'], 200);
+        return $this->tipoContratoService->eliminarTipoContrato($id);
     }
 }

@@ -2,57 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TipoSalida;
+use App\Services\TipoSalidaService;
 use Illuminate\Http\Request;
 
 class TipoSalidaController extends Controller
 {
-    public function listarTiposSalida()
+    protected $tipoSalidaService;
+
+    public function __construct(TipoSalidaService $tipoSalidaService)
     {
-        $tiposSalida = TipoSalida::all();
-        return response()->json($tiposSalida);
+        $this->tipoSalidaService = $tipoSalidaService;
     }
 
-    public function mostrarTipoSalida($id)
+    public function listarTiposSalida()
     {
-        $tipoSalida = TipoSalida::find($id);
+        return $this->tipoSalidaService->listarTiposSalida();
+    }
 
-        if (!$tipoSalida) {
-            return response()->json(['error' => 'Tipo de Salida no encontrado'], 404);
-        }
-
-        return response()->json($tipoSalida);
+    public function mostrarTipoSalidaPorId($id)
+    {
+        return $this->tipoSalidaService->mostrarTipoSalidaPorId($id);
     }
 
     public function crearTipoSalida(Request $request)
     {
-        $tipoSalida = TipoSalida::create($request->all());
-        return response()->json($tipoSalida, 201);
+        return $this->tipoSalidaService->crearTipoSalida($request);
     }
 
     public function actualizarTipoSalida(Request $request, $id)
     {
-        $tipoSalida = TipoSalida::find($id);
-
-        if (!$tipoSalida) {
-            return response()->json(['error' => 'Tipo de Salida no encontrado'], 404);
-        }
-
-        $tipoSalida->update($request->all());
-
-        return response()->json($tipoSalida, 200);
+        return $this->tipoSalidaService->actualizarTipoSalida($request, $id);
     }
 
     public function eliminarTipoSalida($id)
     {
-        $tipoSalida = TipoSalida::find($id);
-
-        if (!$tipoSalida) {
-            return response()->json(['error' => 'Tipo de Salida no encontrado'], 404);
-        }
-
-        $tipoSalida->delete();
-
-        return response()->json(['message' => 'Tipo de Salida eliminado correctamente'], 200);
+        return $this->tipoSalidaService->eliminarTipoSalida($id);
     }
 }

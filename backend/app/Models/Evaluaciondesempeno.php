@@ -13,12 +13,35 @@ class EvaluacionDesempeno extends Model
     protected $primaryKey = 'idEvaluacionDesempeno';
 
     protected $fillable = [
-        'fecha',
-        'resultado',
-        'observaciones'
-
-        // Agrega aquí los demás campos de tu tabla cargo
+        'idEmpleado',
+        'idEvaluador',
+        'fechaEvaluacion',
+        'ObjetivosMetas',
+        'cumplimientoObjetivos',
+        'competencias',
+        'calificacionGeneral',
+        'comentarios',
+        'areasMejora',
+        'reconocimientosLogros',
+        'desarrolloProfesional',
+        'feedbackEmpleado',
+        'estadoEvaluacion',
+        'archivo'
+    ];
+    protected $hidden = [
+        "updated_at",
+        "created_at"
     ];
 
-    // Define las relaciones con otras entidades si es necesario
+
+    // Puedes definir relaciones con otras entidades aquí si es necesario
+
+    // También puedes definir accesores, mutadores u otros métodos según sea necesario
+    //Relacion Empleado-EvaluacionDesempeno
+    public function empleado()
+    {
+        return $this->belongsTo(Empleado::class, 'idEmpleado');
+    }
+
+
 }

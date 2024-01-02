@@ -2,70 +2,59 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\EmpleadoService;
 use Illuminate\Http\Request;
-use App\Models\Empleado;
 
 class EmpleadoController extends Controller
 {
-    public function listarEmpleados()
+    protected $empleadoService;
+
+    public function __construct(EmpleadoService $empleadoService)
     {
-        $empleados = Empleado::all();
-        return response()->json($empleados);
+        $this->empleadoService = $empleadoService;
     }
 
-    public function mostrarEmpleado($id)
+    public function listarEmpleados()
     {
-        $empleado = Empleado::find($id);
+        return response()->json($this->empleadoService->listarEmpleados());
+    }
 
-        if (!$empleado) {
-            return response()->json(['error' => 'Empleado no encontrado'], 404);
-        }
+    public function mostrarEmpleadoPorId($id)
+    {
+        return response()->json($this->empleadoService->mostrarEmpleadoPorId($id));
+    }
+    public function listarEmpleadosPorDepartamentoId($idDepartamento)
+    {
+        return response()->json($this->empleadoService->listarEmpleadosPorDepartamentoId($idDepartamento));
+    }
 
-        return response()->json($empleado);
+    public function listarEmpleadosPorEstadoId($idEstado)
+    {
+        return response()->json($this->empleadoService->listarEmpleadosPorEstadoId($idEstado));
+    }
+
+    public function listarEmpleadosPorNacionalidad($nacionalidad)
+    {
+        return response()->json($this->empleadoService->listarEmpleadosPorNacionalidad($nacionalidad));
+    }
+
+    public function listarEmpleadosPorGenero($genero)
+    {
+        return response()->json($this->empleadoService->listarEmpleadosPorGenero($genero));
     }
 
     public function crearEmpleado(Request $request)
     {
-        $empleado = Empleado::create($request->all());
-        return response()->json($empleado, 201);
+        return response()->json($this->empleadoService->crearEmpleado($request));
     }
 
     public function actualizarEmpleado(Request $request, $id)
     {
-        $empleado = Empleado::find($id);
-
-        if (!$empleado) {
-            return response()->json(['error' => 'Empleado no encontrado'], 404);
-        }
-
-        $empleado->update($request->all());
-
-        return response()->json($empleado, 200);
+        return response()->json($this->empleadoService->actualizarEmpleado($request, $id));
     }
 
     public function eliminarEmpleado($id)
     {
-        $empleado = Empleado::find($id);
-
-        if (!$empleado) {
-            return response()->json(['error' => 'Empleado no encontrado'], 404);
-        }
-
-        $empleado->delete();
-
-        return response()->json(['message' => 'Empleado eliminado correctamente'], 200);
-    }
-
-    public function mostrarUsuarios($id)
-    {
-        $empleado = Empleado::find($id);
-
-        if (!$empleado) {
-            return response()->json(['error' => 'Empleado no encontrado'], 404);
-        }
-
-        $usuarios = $empleado->usuarios;
-
-        return response()->json($usuarios);
+        return response()->json($this->empleadoService->eliminarEmpleado($id));
     }
 }

@@ -2,57 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TipoPermiso;
+use App\Services\TipoPermisoService;
 use Illuminate\Http\Request;
 
 class TipoPermisoController extends Controller
 {
-    public function listarTiposPermiso()
+    protected $tipoPermisoService;
+
+    public function __construct(TipoPermisoService $tipoPermisoService)
     {
-        $tiposPermiso = TipoPermiso::all();
-        return response()->json($tiposPermiso);
+        $this->tipoPermisoService = $tipoPermisoService;
     }
 
-    public function mostrarTipoPermiso($id)
+    public function listarTiposPermiso()
     {
-        $tipoPermiso = TipoPermiso::find($id);
+        return $this->tipoPermisoService->listarTiposPermiso();
+    }
 
-        if (!$tipoPermiso) {
-            return response()->json(['error' => 'Tipo de Permiso no encontrado'], 404);
-        }
-
-        return response()->json($tipoPermiso);
+    public function mostrarTipoPermisoPorId($id)
+    {
+        return $this->tipoPermisoService->mostrarTipoPermisoPorId($id);
     }
 
     public function crearTipoPermiso(Request $request)
     {
-        $tipoPermiso = TipoPermiso::create($request->all());
-        return response()->json($tipoPermiso, 201);
+        return $this->tipoPermisoService->crearTipoPermiso($request);
     }
 
     public function actualizarTipoPermiso(Request $request, $id)
     {
-        $tipoPermiso = TipoPermiso::find($id);
-
-        if (!$tipoPermiso) {
-            return response()->json(['error' => 'Tipo de Permiso no encontrado'], 404);
-        }
-
-        $tipoPermiso->update($request->all());
-
-        return response()->json($tipoPermiso, 200);
+        return $this->tipoPermisoService->actualizarTipoPermiso($request, $id);
     }
 
     public function eliminarTipoPermiso($id)
     {
-        $tipoPermiso = TipoPermiso::find($id);
-
-        if (!$tipoPermiso) {
-            return response()->json(['error' => 'Tipo de Permiso no encontrado'], 404);
-        }
-
-        $tipoPermiso->delete();
-
-        return response()->json(['message' => 'Tipo de Permiso eliminado correctamente'], 200);
+        return $this->tipoPermisoService->eliminarTipoPermiso($id);
     }
 }

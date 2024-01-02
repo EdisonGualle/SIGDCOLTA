@@ -3,56 +3,69 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Contrato;
+use App\Services\ContratoService;
 
 class ContratoController extends Controller
 {
+    protected $contratoService;
+
+    public function __construct(ContratoService $contratoService)
+    {
+        $this->contratoService = $contratoService;
+    }
+
     public function listarContratos()
     {
-        $contratos = Contrato::with('usuario', 'cargo')->get();
-        return response()->json($contratos);
+        $response = $this->contratoService->listarContratos();
+        return $response;
     }
+
+    public function listarContratosPorCedula($cedula)
+    {
+        $response = $this->contratoService->listarContratosPorCedula($cedula);
+        return $response;
+    }
+
+    public function listarContratosPorIdEmpleado($idEmpleado)
+    {
+        $response = $this->contratoService->listarContratosPorIdEmpleado($idEmpleado);
+        return $response;
+    }
+
+    public function listarContratosPorIdTipoContrato($idTipoContrato)
+    {
+        $response = $this->contratoService->listarContratosPorIdTipoContrato($idTipoContrato);
+        return $response;
+    }
+
+    public function listarContratosPorNombreTipoContrato($nombreTipoContrato)
+    {
+        $response = $this->contratoService->listarContratosPorNombreTipoContrato($nombreTipoContrato);
+        return $response;
+    }
+
 
     public function mostrarContrato($id)
     {
-        $contrato = Contrato::with('usuario', 'cargo')->find($id);
-
-        if (!$contrato) {
-            return response()->json(['error' => 'Contrato no encontrado'], 404);
-        }
-
-        return response()->json($contrato);
+        $response = $this->contratoService->mostrarContrato($id);
+        return $response;
     }
 
     public function crearContrato(Request $request)
     {
-        $contrato = Contrato::create($request->all());
-        return response()->json($contrato, 201);
+        $response = $this->contratoService->crearContrato($request);
+        return $response;
     }
 
     public function actualizarContrato(Request $request, $id)
     {
-        $contrato = Contrato::find($id);
-
-        if (!$contrato) {
-            return response()->json(['error' => 'Contrato no encontrado'], 404);
-        }
-
-        $contrato->update($request->all());
-
-        return response()->json($contrato, 200);
+        $response = $this->contratoService->actualizarContrato($request, $id);
+        return $response;
     }
 
     public function eliminarContrato($id)
     {
-        $contrato = Contrato::find($id);
-
-        if (!$contrato) {
-            return response()->json(['error' => 'Contrato no encontrado'], 404);
-        }
-
-        $contrato->delete();
-
-        return response()->json(['message' => 'Contrato eliminado correctamente'], 200);
+        $response = $this->contratoService->eliminarContrato($id);
+        return $response;
     }
 }

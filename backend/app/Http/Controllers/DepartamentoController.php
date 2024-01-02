@@ -2,57 +2,57 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\DepartamentoService;
 use Illuminate\Http\Request;
-use App\Models\Departamento;
 
 class DepartamentoController extends Controller
 {
-    public function listarDepartamentos()
+    protected $departamentoService;
+
+    public function __construct(DepartamentoService $departamentoService)
     {
-        $departamentos = Departamento::all();
-        return response()->json($departamentos);
+        $this->departamentoService = $departamentoService;
     }
 
-    public function mostrarDepartamento($id)
+    public function listarDepartamentos()
     {
-        $departamento = Departamento::find($id);
+        return $this->departamentoService->listarDepartamentos();
+    }
 
-        if (!$departamento) {
-            return response()->json(['error' => 'Departamento no encontrado'], 404);
-        }
+    public function mostrarDepartamentoPorId($id)
+    {
+        return $this->departamentoService->mostrarDepartamentoPorId($id);
+    }
+    
+  
 
-        return response()->json($departamento);
+    public function listarDepartamentosPorIdUnidad($idUnidad)
+    {
+        return $this->departamentoService->listarDepartamentosPorIdUnidad($idUnidad);
+    }
+
+    public function listarDepartamentosPorNombreUnidad($nombreUnidad)
+    {
+        return $this->departamentoService->listarDepartamentosPorNombreUnidad($nombreUnidad);
     }
 
     public function crearDepartamento(Request $request)
     {
-        $departamento = Departamento::create($request->all());
-        return response()->json($departamento, 201);
+        return $this->departamentoService->crearDepartamento($request);
     }
 
     public function actualizarDepartamento(Request $request, $id)
     {
-        $departamento = Departamento::find($id);
-
-        if (!$departamento) {
-            return response()->json(['error' => 'Departamento no encontrado'], 404);
-        }
-
-        $departamento->update($request->all());
-
-        return response()->json($departamento, 200);
+        return $this->departamentoService->actualizarDepartamento($request, $id);
     }
 
     public function eliminarDepartamento($id)
     {
-        $departamento = Departamento::find($id);
+        return $this->departamentoService->eliminarDepartamento($id);
+    }
 
-        if (!$departamento) {
-            return response()->json(['error' => 'Departamento no encontrado'], 404);
-        }
-
-        $departamento->delete();
-
-        return response()->json(['message' => 'Departamento eliminado correctamente'], 200);
+    public function departamentosPorUnidad($idUnidad)
+    {
+        return $this->departamentoService->departamentosPorUnidad($idUnidad);
     }
 }

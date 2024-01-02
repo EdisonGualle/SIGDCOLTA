@@ -11,8 +11,12 @@ class Permiso extends Model
 
     protected $table = 'permiso';
     protected $primaryKey = 'idPermiso';
-
+    protected $hidden = [
+        "updated_at",
+        "created_at"
+    ];
     protected $fillable = [
+        'idPermiso',
         'fechaSolicitud',
         'fechaInicio',
         'fechaFinaliza',

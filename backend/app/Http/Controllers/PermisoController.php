@@ -2,57 +2,43 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Permiso;
 use Illuminate\Http\Request;
+use App\Services\PermisoService; // Asegúrate de importar el servicio correspondiente
 
 class PermisoController extends Controller
 {
-    public function listarPermisos()
+    protected $permisoService;
+
+    public function __construct(PermisoService $permisoService)
     {
-        $permisos = Permiso::all();
-        return response()->json($permisos);
+        $this->permisoService = $permisoService;
     }
 
-    public function mostrarPermiso($id)
+    public function listarPermisos()
     {
-        $permiso = Permiso::find($id);
+        return $this->permisoService->listarPermisos();
+    }
 
-        if (!$permiso) {
-            return response()->json(['error' => 'Permiso no encontrado'], 404);
-        }
-
-        return response()->json($permiso);
+    public function mostrarPermisoId($id)
+    {
+        return $this->permisoService->mostrarPermisoId($id);
     }
 
     public function crearPermiso(Request $request)
     {
-        $permiso = Permiso::create($request->all());
-        return response()->json($permiso, 201);
+        return $this->permisoService->crearPermiso($request);
     }
 
     public function actualizarPermiso(Request $request, $id)
     {
-        $permiso = Permiso::find($id);
-
-        if (!$permiso) {
-            return response()->json(['error' => 'Permiso no encontrado'], 404);
-        }
-
-        $permiso->update($request->all());
-
-        return response()->json($permiso, 200);
+        return $this->permisoService->actualizarPermiso($request, $id);
     }
 
     public function eliminarPermiso($id)
     {
-        $permiso = Permiso::find($id);
-
-        if (!$permiso) {
-            return response()->json(['error' => 'Permiso no encontrado'], 404);
-        }
-
-        $permiso->delete();
-
-        return response()->json(['message' => 'Permiso eliminado correctamente'], 200);
+        return $this->permisoService->eliminarPermiso($id);
     }
 }
+
+
+

@@ -8,7 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Cargo extends Model
 {
     use HasFactory;
-
+    protected $hidden = [
+        "updated_at",
+        "created_at"
+    ];
     protected $table = 'cargo';
     protected $primaryKey = 'idCargo';
 
@@ -19,4 +22,9 @@ class Cargo extends Model
     ];
 
     // Define las relaciones con otras entidades si es necesario
+    //Relacion Empleado-Cargo
+    public function empleados()
+    {
+        return $this->hasMany(Empleado::class, 'idCargo');
+    }
 }

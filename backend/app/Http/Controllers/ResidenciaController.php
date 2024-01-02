@@ -3,56 +3,39 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Residencia;
+use App\Services\ResidenciaService; // Asegúrate de importar el servicio correspondiente
 
 class ResidenciaController extends Controller
 {
-    public function listarResidencias()
+    protected $residenciaService;
+
+    public function __construct(ResidenciaService $residenciaService)
     {
-        $residencias = Residencia::all();
-        return response()->json($residencias);
+        $this->residenciaService = $residenciaService;
     }
 
-    public function mostrarResidencia($id)
+    public function listarResidencias()
     {
-        $residencia = Residencia::find($id);
+        return $this->residenciaService->listarResidencias();
+    }
 
-        if (!$residencia) {
-            return response()->json(['error' => 'Residencia no encontrada'], 404);
-        }
-
-        return response()->json($residencia);
+    public function mostrarResidenciaPorId($id)
+    {
+        return $this->residenciaService->mostrarResidenciaPorId($id);
     }
 
     public function crearResidencia(Request $request)
     {
-        $residencia = Residencia::create($request->all());
-        return response()->json($residencia, 201);
+        return $this->residenciaService->crearResidencia($request);
     }
 
     public function actualizarResidencia(Request $request, $id)
     {
-        $residencia = Residencia::find($id);
-
-        if (!$residencia) {
-            return response()->json(['error' => 'Residencia no encontrada'], 404);
-        }
-
-        $residencia->update($request->all());
-
-        return response()->json($residencia, 200);
+        return $this->residenciaService->actualizarResidencia($request, $id);
     }
 
     public function eliminarResidencia($id)
     {
-        $residencia = Residencia::find($id);
-
-        if (!$residencia) {
-            return response()->json(['error' => 'Residencia no encontrada'], 404);
-        }
-
-        $residencia->delete();
-
-        return response()->json(['message' => 'Residencia eliminada correctamente'], 200);
+        return $this->residenciaService->eliminarResidencia($id);
     }
 }

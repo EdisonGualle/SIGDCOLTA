@@ -11,7 +11,10 @@ class DatoBancario extends Model
 
     protected $table = 'datoBancario';
     protected $primaryKey = 'idDatoBancario';
-
+    protected $hidden = [
+        "updated_at",
+        "created_at"
+    ];
     protected $fillable = [
         'nombreBanco',
         'numeroCuenta',
@@ -21,4 +24,9 @@ class DatoBancario extends Model
     ];
 
     // Puedes definir relaciones con otras entidades si es necesario
+    //Relacion Empleado-DatosBancarios
+    public function empleado()
+    {
+        return $this->belongsTo(Empleado::class, 'idEmpleado', 'idEmpleado');
+    }
 }

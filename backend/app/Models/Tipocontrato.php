@@ -11,7 +11,10 @@ class TipoContrato extends Model
 
     protected $table = 'tipoContrato';
     protected $primaryKey = 'idTipoContrato';
-
+    protected $hidden = [
+        "updated_at",
+        "created_at"
+    ];
     protected $fillable = [
         'nombre',
         'descripcion',

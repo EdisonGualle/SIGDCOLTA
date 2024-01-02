@@ -2,57 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ReferenciaLaboral;
 use Illuminate\Http\Request;
+use App\Services\ReferenciaLaboralService; // Asegúrate de importar el servicio correspondiente
 
 class ReferenciaLaboralController extends Controller
 {
-    public function listarReferenciasLaborales()
+    protected $referenciaLaboralService;
+
+    public function __construct(ReferenciaLaboralService $referenciaLaboralService)
     {
-        $referenciasLaborales = ReferenciaLaboral::all();
-        return response()->json($referenciasLaborales);
+        $this->referenciaLaboralService = $referenciaLaboralService;
     }
 
-    public function mostrarReferenciaLaboral($id)
+    public function listarReferenciasLaborales()
     {
-        $referenciaLaboral = ReferenciaLaboral::find($id);
+        return $this->referenciaLaboralService->listarReferenciasLaborales();
+    }
 
-        if (!$referenciaLaboral) {
-            return response()->json(['error' => 'Referencia Laboral no encontrada'], 404);
-        }
-
-        return response()->json($referenciaLaboral);
+    public function mostrarReferenciaLaboralPorId($id)
+    {
+        return $this->referenciaLaboralService->mostrarReferenciaLaboralPorId($id);
     }
 
     public function crearReferenciaLaboral(Request $request)
     {
-        $referenciaLaboral = ReferenciaLaboral::create($request->all());
-        return response()->json($referenciaLaboral, 201);
+        return $this->referenciaLaboralService->crearReferenciaLaboral($request);
     }
 
     public function actualizarReferenciaLaboral(Request $request, $id)
     {
-        $referenciaLaboral = ReferenciaLaboral::find($id);
-
-        if (!$referenciaLaboral) {
-            return response()->json(['error' => 'Referencia Laboral no encontrada'], 404);
-        }
-
-        $referenciaLaboral->update($request->all());
-
-        return response()->json($referenciaLaboral, 200);
+        return $this->referenciaLaboralService->actualizarReferenciaLaboral($request, $id);
     }
 
     public function eliminarReferenciaLaboral($id)
     {
-        $referenciaLaboral = ReferenciaLaboral::find($id);
-
-        if (!$referenciaLaboral) {
-            return response()->json(['error' => 'Referencia Laboral no encontrada'], 404);
-        }
-
-        $referenciaLaboral->delete();
-
-        return response()->json(['message' => 'Referencia Laboral eliminada correctamente'], 200);
+        return $this->referenciaLaboralService->eliminarReferenciaLaboral($id);
     }
 }

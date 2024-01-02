@@ -11,7 +11,10 @@ class TipoPermiso extends Model
 
     protected $table = 'tipopermiso';
     protected $primaryKey = 'idTipoPermiso';
-
+    protected $hidden = [
+        "updated_at",
+        "created_at"
+    ];
     protected $fillable = [
         'nombre',
         'descripcion',

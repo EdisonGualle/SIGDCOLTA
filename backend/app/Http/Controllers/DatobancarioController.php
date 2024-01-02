@@ -2,57 +2,60 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\DatoBancarioService;
 use Illuminate\Http\Request;
-use App\Models\DatoBancario;
 
 class DatoBancarioController extends Controller
 {
-    public function listarDatosBancarios()
+    protected $datoBancarioService;
+
+    public function __construct(DatoBancarioService $datoBancarioService)
     {
-        $datosBancarios = DatoBancario::all();
-        return response()->json($datosBancarios);
+        $this->datoBancarioService = $datoBancarioService;
     }
 
-    public function mostrarDatoBancario($id)
+    public function listarDatosBancarios()
     {
-        $datoBancario = DatoBancario::find($id);
+        return $this->datoBancarioService->listarDatosBancarios();
+    }
 
-        if (!$datoBancario) {
-            return response()->json(['error' => 'Dato Bancario no encontrado'], 404);
-        }
+    public function mostrarDatoBancarioPorId($id)
+    {
+        return $this->datoBancarioService->mostrarDatoBancarioPorId($id);
+    }
 
-        return response()->json($datoBancario);
+    public function listarDatosBancariosPorIdEmpleado($idEmpleado)
+    {
+        return $this->datoBancarioService->listarDatosBancariosPorIdEmpleado($idEmpleado);
+    }
+
+    public function listarDatosBancariosPorCedulaEmpleado($cedulaEmpleado)
+    {
+        return $this->datoBancarioService->listarDatosBancariosPorCedulaEmpleado($cedulaEmpleado);
+    }
+
+    public function listarDatosBancariosPorNombreBanco($nombreBanco)
+    {
+        return $this->datoBancarioService->listarDatosBancariosPorNombreBanco($nombreBanco);
+    }
+
+    public function listarDatosBancariosPorTipoCuenta($tipoCuenta)
+    {
+        return $this->datoBancarioService->listarDatosBancariosPorTipoCuenta($tipoCuenta);
     }
 
     public function crearDatoBancario(Request $request)
     {
-        $datoBancario = DatoBancario::create($request->all());
-        return response()->json($datoBancario, 201);
+        return $this->datoBancarioService->crearDatoBancario($request);
     }
 
     public function actualizarDatoBancario(Request $request, $id)
     {
-        $datoBancario = DatoBancario::find($id);
-
-        if (!$datoBancario) {
-            return response()->json(['error' => 'Dato Bancario no encontrado'], 404);
-        }
-
-        $datoBancario->update($request->all());
-
-        return response()->json($datoBancario, 200);
+        return $this->datoBancarioService->actualizarDatoBancario($request, $id);
     }
 
     public function eliminarDatoBancario($id)
     {
-        $datoBancario = DatoBancario::find($id);
-
-        if (!$datoBancario) {
-            return response()->json(['error' => 'Dato Bancario no encontrado'], 404);
-        }
-
-        $datoBancario->delete();
-
-        return response()->json(['message' => 'Dato Bancario eliminado correctamente'], 200);
+        return $this->datoBancarioService->eliminarDatoBancario($id);
     }
 }

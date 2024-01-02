@@ -3,56 +3,70 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\EvaluacionDesempeno;
+use App\Services\EvaluacionDesempenoService; // Asegúrate de importar el servicio correspondiente
 
 class EvaluacionDesempenoController extends Controller
 {
-    public function listarEvaluacionesDesempeno()
+    protected $evaluacionDesempenoService;
+
+    public function __construct(EvaluacionDesempenoService $evaluacionDesempenoService)
     {
-        $evaluacionesDesempeno = EvaluacionDesempeno::all();
-        return response()->json($evaluacionesDesempeno);
+        $this->evaluacionDesempenoService = $evaluacionDesempenoService;
     }
 
-    public function mostrarEvaluacionDesempeno($id)
+    public function listarEvaluacionesDesempeno()
     {
-        $evaluacionDesempeno = EvaluacionDesempeno::find($id);
+        return $this->evaluacionDesempenoService->listarEvaluacionesDesempeno();
+    }
 
-        if (!$evaluacionDesempeno) {
-            return response()->json(['error' => 'Evaluación de Desempeño no encontrada'], 404);
-        }
-
-        return response()->json($evaluacionDesempeno);
+    public function mostrarEvaluacionDesempenoPorId($id)
+    {
+        return $this->evaluacionDesempenoService->mostrarEvaluacionDesempenoPorId($id);
     }
 
     public function crearEvaluacionDesempeno(Request $request)
     {
-        $evaluacionDesempeno = EvaluacionDesempeno::create($request->all());
-        return response()->json($evaluacionDesempeno, 201);
+        return $this->evaluacionDesempenoService->crearEvaluacionDesempeno($request);
     }
 
     public function actualizarEvaluacionDesempeno(Request $request, $id)
     {
-        $evaluacionDesempeno = EvaluacionDesempeno::find($id);
-
-        if (!$evaluacionDesempeno) {
-            return response()->json(['error' => 'Evaluación de Desempeño no encontrada'], 404);
-        }
-
-        $evaluacionDesempeno->update($request->all());
-
-        return response()->json($evaluacionDesempeno, 200);
+        return $this->evaluacionDesempenoService->actualizarEvaluacionDesempeno($request, $id);
     }
 
     public function eliminarEvaluacionDesempeno($id)
     {
-        $evaluacionDesempeno = EvaluacionDesempeno::find($id);
+        return $this->evaluacionDesempenoService->eliminarEvaluacionDesempeno($id);
+    }
 
-        if (!$evaluacionDesempeno) {
-            return response()->json(['error' => 'Evaluación de Desempeño no encontrada'], 404);
-        }
+    public function listarEvaluacionesPorEmpleadoId($idEmpleado)
+    {
+        return $this->evaluacionDesempenoService->listarEvaluacionesPorEmpleadoId($idEmpleado);
+    }
 
-        $evaluacionDesempeno->delete();
+    public function listarEvaluacionesPorEvaluadorId($idEvaluador)
+    {
+        return $this->evaluacionDesempenoService->listarEvaluacionesPorEvaluadorId($idEvaluador);
+    }
 
-        return response()->json(['message' => 'Evaluación de Desempeño eliminada correctamente'], 200);
+    public function listarEvaluacionesPorRangoFechas($fechaInicio, $fechaFin)
+    {
+        return $this->evaluacionDesempenoService->listarEvaluacionesPorRangoFechas($fechaInicio, $fechaFin);
+    }
+
+    public function listasEvaluacionesPorEstado($estado)
+    {
+        return $this->evaluacionDesempenoService->listasEvaluacionesPorEstado($estado);
+    }
+
+    public function listarEvaluacionesPorCedulaEmpleado($cedulaEmpleado)
+    {
+        return $this->evaluacionDesempenoService->listarEvaluacionesPorCedulaEmpleado($cedulaEmpleado);
+    }
+
+
+    public function listarEvaluacionesPorCedulaEvaluador($cedulaEvaluador)
+    {
+        return $this->evaluacionDesempenoService->listarEvaluacionesPorCedulaEvaluador($cedulaEvaluador);
     }
 }

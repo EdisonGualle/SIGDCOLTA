@@ -3,56 +3,45 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Cargo;
+use App\Services\CargoService;
+
 
 class CargoController extends Controller
 {
+    protected $cargoService;
+
+    public function __construct(CargoService $cargoService)
+    {
+        $this->cargoService = $cargoService;
+    }
+
     public function listarCargos()
     {
-        $cargos = Cargo::all();
-        return response()->json($cargos);
+        $response = $this->cargoService->listarCargos();
+        return $response;
     }
 
     public function mostrarCargo($id)
     {
-        $cargo = Cargo::find($id);
-
-        if (!$cargo) {
-            return response()->json(['error' => 'Cargo no encontrado'], 404);
-        }
-
-        return response()->json($cargo);
+        $response = $this->cargoService->mostrarCargo($id);
+        return $response;
     }
 
     public function crearCargo(Request $request)
     {
-        $cargo = Cargo::create($request->all());
-        return response()->json($cargo, 201);
+        $response = $this->cargoService->crearCargo($request);
+        return $response;
     }
 
     public function actualizarCargo(Request $request, $id)
     {
-        $cargo = Cargo::find($id);
-
-        if (!$cargo) {
-            return response()->json(['error' => 'Cargo no encontrado'], 404);
-        }
-
-        $cargo->update($request->all());
-
-        return response()->json($cargo, 200);
+        $response = $this->cargoService->actualizarCargo($request, $id);
+        return $response;
     }
 
     public function eliminarCargo($id)
     {
-        $cargo = Cargo::find($id);
-
-        if (!$cargo) {
-            return response()->json(['error' => 'Cargo no encontrado'], 404);
-        }
-
-        $cargo->delete();
-
-        return response()->json(['message' => 'Cargo eliminado correctamente'], 200);
+        $response = $this->cargoService->eliminarCargo($id);
+        return $response;
     }
 }
