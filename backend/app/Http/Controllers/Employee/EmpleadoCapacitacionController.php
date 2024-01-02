@@ -33,7 +33,6 @@ class EmpleadoCapacitacionController extends Controller
         $capacitacionesRealizadas = $empleado->capacitacionesDeEmpleado()->with('capacitacion')->get();
 
         $datos = [
-            'empleado' => $empleado->toArray(),
             'capacitaciones' => $capacitacionesRealizadas->pluck('capacitacion')->toArray(),
         ];
 

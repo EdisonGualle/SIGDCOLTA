@@ -62,7 +62,7 @@ class UsuarioService
     
         // Crear el usuario
         $usuario = User::create([
-            'usuario' => strtolower($empleado->nombre . $empleado->apellido),
+            'usuario' => strtolower($empleado->nombres . $empleado->apellidos),
             'password' => Hash::make($request->input('password')),
             'correo' => $request->input('correo'), // Agregar el correo
             'idEmpleado' => $request->input('idEmpleado'),

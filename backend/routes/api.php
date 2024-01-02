@@ -7,7 +7,6 @@ use App\Http\Controllers\Auth\RestablecerContraseñaController;
 use Illuminate\Http\JsonResponse;
 
 
-Route::post('/usuarios', [UsuarioController::class, 'crearUsuario']);
 
 // Ingreso
 Route::post('/users', [UsuarioController::class, 'crearUsuario']);
@@ -24,6 +23,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         // Rutas del subgrupo 'administrador'
         Route::prefix('administrador')->group(function () {
             include('superAdministrador.php');
+            include('administrador.php');
+            include('empleado.php');
         });
     });
 
@@ -32,6 +33,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         // Rutas del subgrupo 'administrador'
         Route::prefix('administrador')->group(function () {
             include('administrador.php');
+            include('empleado.php');
         });
     });
 
