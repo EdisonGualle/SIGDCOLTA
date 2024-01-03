@@ -9,7 +9,6 @@ use Illuminate\Http\JsonResponse;
 
 
 // Ingreso
-Route::post('/usuarios', [UsuarioController::class, 'crearUsuario']);
 Route::post('/ingresar', [AuthController::class, 'ingresar']);
 
 

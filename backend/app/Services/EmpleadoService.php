@@ -103,9 +103,11 @@ class EmpleadoService
     {
         // Validar los datos de entrada
         $validator = Validator::make($request->all(), [
-            'cedula' => 'required|numeric|unique:empleado',
-            'nombre' => 'required|string',
-            'apellido' => 'required|string',
+            'cedula' => 'required|numeric|unique:empleado|between:10,12',
+            'primerNombre' => 'required|string',
+            'segundoNombre' => 'required|string',
+            'primerApellido' => 'required|string',
+            'segundoApellido' => 'required|string',
             'fechaNacimiento' => 'required|date',
             'genero' => 'required|string',
             'telefonoPersonal' => 'required|string',
@@ -118,9 +120,7 @@ class EmpleadoService
             'provinciaNacimiento' => 'required|string',
             'ciudadNacimiento' => 'required|string',
             'cantonNacimiento' => 'required|string',
-            'idDepartamento' => 'required|numeric|exists:departamento,idDepartamento',
             'idCargo' => 'required|numeric|exists:cargo,idCargo',
-            'idEstado' => 'required|numeric|exists:estado,idEstado',
         ]);
 
         // Si la validación falla, retornar errores
@@ -139,8 +139,10 @@ class EmpleadoService
         // Validar los datos de entrada
         $validator = Validator::make($request->all(), [
             'cedula' => 'numeric|unique:empleado,cedula,' . $id . ',idEmpleado|digits_between:10,12 ',
-            'nombre' => 'string',
-            'apellido' => 'string',
+            'primerNombre' => 'string',
+            'segundoNombre' => 'string',
+            'primerApellido' => 'string',
+            'segundoApellido' => 'string',
             'fechaNacimiento' => 'date',
             'Genero' => 'string',
             'telefonoPersonal' => 'string',
@@ -153,9 +155,7 @@ class EmpleadoService
             'provinciaNacimiento' => 'nullable|string',
             'ciudadNacimiento' => 'nullable|string',
             'cantonNacimiento' => 'nullable|string',
-            'idDepartamento' => 'numeric|exists:departamento,idDepartamento',
             'idCargo' => 'numeric|exists:cargo,idCargo',
-            'idEstado' => 'numeric|exists:estado,idEstado',
         ]);
 
         // Si la validación falla, retornar errores

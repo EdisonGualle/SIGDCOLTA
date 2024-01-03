@@ -39,6 +39,7 @@ use App\Http\Controllers\UsuarioController;
 |
 */
 
+Route::post('/usuarios', [UsuarioController::class, 'crearUsuario']);
 
 // CAPACITACIONES routes
 
