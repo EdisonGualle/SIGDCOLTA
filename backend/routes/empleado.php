@@ -30,7 +30,7 @@ Route::get('/mostrar-datos-bancarios', [EmpleadoDatoBancarioController::class, '
 
 //Rutas Evaluacion-desempeno
 Route::get('listar-evaluaciones-desempeno', [EmpleadoEvaluaciondesempenoController::class, 'listarEvaluacionesDesempeno']);
-Route::get('total-evaluaciones-desempeno', [EmpleadoEvaluaciondesempenoController::class, 'obtenerTotalEvaluacionesDesempeno']);
+Route::get('total-evaluaciones-desempeno    ', [EmpleadoEvaluaciondesempenoController::class, 'obtenerTotalEvaluacionesDesempeno']);
 
 //Rutas Experiencia Laboral
 Route::get('total-experiencias-laborales', [EmpleadoExperiencialaboralController::class, 'obtenerTotalExperienciasLaborales']);

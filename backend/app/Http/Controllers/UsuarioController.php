@@ -38,4 +38,20 @@ class UsuarioController extends Controller
     {
         return $this->usuarioService->eliminarUsuario($id);
     }
+
+    public function suspenderUsuario($id)
+    {
+        return $this->usuarioService->suspenderUsuario($id);
+    }
+
+    public function activarUsuario($id)
+    {
+        return $this->usuarioService->activarUsuario($id);
+    }
+    
+    public function cambiarContrasena(Request $request)
+    {
+        return $this->usuarioService->cambiarContrasena($request);
+    }
 }
+

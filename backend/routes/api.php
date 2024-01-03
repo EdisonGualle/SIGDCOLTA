@@ -9,14 +9,18 @@ use Illuminate\Http\JsonResponse;
 
 
 // Ingreso
-Route::post('/users', [UsuarioController::class, 'crearUsuario']);
+Route::post('/usuarios', [UsuarioController::class, 'crearUsuario']);
 Route::post('/ingresar', [AuthController::class, 'ingresar']);
+
+
+
 
 // Recuperar contraseña 
 Route::post('/recuperar-contraseña', [RestablecerContraseñaController::class, 'recuperarContraseña']);
 
 // Rutas con autenticación mediante Sanctum
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::post('/cambiar-contraseña', [UsuarioController::class, 'cambiarContrasena']);
 
     // Rutas específicas para el rol 'SuperAdministrador'
     Route::middleware('role:Super Administrador')->group(function () {

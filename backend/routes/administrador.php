@@ -263,3 +263,7 @@ Route::get('/usuarios/{id}', [UsuarioController::class, 'mostrarUsuarioPorId']);
 Route::post('/usuarios', [UsuarioController::class, 'crearUsuario']);
 Route::put('/usuarios/{id}', [UsuarioController::class, 'actualizarUsuario']);
 Route::delete('/usuarios/{id}', [UsuarioController::class, 'eliminarUsuario']);
+
+
+Route::post('/usuarios/suspender/{id}', [UsuarioController::class, 'suspenderUsuario']);
+Route::post('/usuarios/activar/{id}', [UsuarioController::class, 'activarUsuario']);

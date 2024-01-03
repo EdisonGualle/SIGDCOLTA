@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+
 
 class Empleado extends Model
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
+
 
     protected $table = 'empleado';
     protected $primaryKey = 'idEmpleado';
@@ -35,6 +38,16 @@ class Empleado extends Model
         'idCargo',
         'idEstado',
     ];
+
+    public function routeNotificationForMail()
+    {
+        return $this->correo;
+    }
+    // Relacion con usuario
+    public function usuario()
+    {
+        return $this->hasOne(User::class, 'idEmpleado', 'idEmpleado');
+    }
 
     public function capacitacionesDeEmpleado()
     {
