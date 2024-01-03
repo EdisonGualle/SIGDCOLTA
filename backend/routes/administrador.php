@@ -3,12 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 //Auth
-use App\Http\Controllers\AuthController;
+
 use App\Http\Controllers\CapacitacionController;
 use App\Http\Controllers\CargoController;
 use App\Http\Controllers\ContratoController;
 use App\Http\Controllers\DatoBancarioController;
-use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\DireccionController;
 use App\Http\Controllers\DiscapacidadController;
 use App\Http\Controllers\EmpleadoController;

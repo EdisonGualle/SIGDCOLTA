@@ -30,7 +30,7 @@ class Unidad extends Model
     }
 
     public function empleados()
-{
-    return $this->hasMany(Empleado::class, 'idUnidad');
-}
+    {
+        return $this->hasMany(Empleado::class, 'idUnidad');
+    }
 }
