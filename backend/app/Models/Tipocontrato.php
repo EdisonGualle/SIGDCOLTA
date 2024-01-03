@@ -19,6 +19,7 @@ class TipoContrato extends Model
         'nombre',
         'descripcion',
         'clausulas',
+        'duracionMeses',
         // Agrega aquí los demás campos de tu tabla cargo
     ];
 

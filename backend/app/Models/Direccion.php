@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Unidad extends Model
+class Direccion extends Model
 {
     use HasFactory;
 
-    protected $table = 'unidad';
-    protected $primaryKey = 'idUnidad';
+    protected $table = 'direccion';
+    protected $primaryKey = 'idDireccion';
     protected $hidden = [
         "updated_at",
         "created_at"
@@ -18,19 +18,14 @@ class Unidad extends Model
     protected $fillable = [
         'nombre',
         'descripcion',
-        'telefono',
-        'idDireccion'
-        // Agrega aquí los demás campos de tu tabla cargo
     ];
-
-
-    public function cargos()
+    public function unidades()
     {
-        return $this->hasMany(Cargo::class, 'idUnidad');
+        return $this->hasMany(Unidad::class, 'idUnidad');
     }
 
     public function empleados()
 {
-    return $this->hasMany(Empleado::class, 'idUnidad');
+    return $this->hasManyThrough(Empleado::class, Unidad::class, 'idDireccion', 'idUnidad');
 }
 }

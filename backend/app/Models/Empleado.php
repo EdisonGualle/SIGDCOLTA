@@ -17,8 +17,10 @@ class Empleado extends Model
     ];
     protected $fillable = [
         'cedula',
-        'nombres',
-        'apellidos',
+        'primerNombre',
+        'segundoNombre',
+        'primerApellido',
+        'segundoApellido',
         'fechaNacimiento',
         'genero',
         'telefonoPersonal',
@@ -31,9 +33,7 @@ class Empleado extends Model
         'provinciaNacimiento',
         'ciudadNacimiento',
         'cantonNacimiento',
-        'idDepartamento',
         'idCargo',
-        'idEstado',
     ];
 
     public function capacitacionesDeEmpleado()
@@ -61,10 +61,7 @@ class Empleado extends Model
         return $this->belongsTo(Cargo::class, 'idCargo');
     }
 
-    public function departamento()
-    {
-        return $this->belongsTo(Departamento::class, 'idDepartamento');
-    }
+
     //Relacion Empleado-Contratos
     public function contratos()
     {
@@ -97,5 +94,4 @@ class Empleado extends Model
         return $this->belongsToMany(InstruccionFormal::class, 'empleado_has_instruccionformal', 'idEmpleado', 'idInstruccionFormal')
             ->withTimestamps();
     }
-
 }
