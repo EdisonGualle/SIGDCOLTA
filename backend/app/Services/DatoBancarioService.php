@@ -96,7 +96,7 @@ class DatoBancarioService
             'nombreBanco' => 'required|string|max:255',
             'numeroCuenta' => 'required|string',
             'tipoCuenta' => 'required|string|max:255',
-            'idEmpleado' => 'required|numeric|exists:empleados,idEmpleado',
+            'idEmpleado' => 'required|numeric|exists:empleado,idEmpleado',
         ], [
             'idEmpleado.exists' => 'No existe el empleado especificado'
         ]);
@@ -136,7 +136,7 @@ class DatoBancarioService
             'nombreBanco' => 'string|max:255',
             'numeroCuenta' => 'string',
             'tipoCuenta' => 'string|max:255',
-            'idEmpleado' => 'numeric|exists:empleados,idEmpleado',
+            'idEmpleado' => 'numeric|exists:empleado,idEmpleado',
         ], [
             'idEmpleado.exists' => 'No existe el empleado edpecificado'
         ]);

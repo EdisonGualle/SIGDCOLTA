@@ -36,54 +36,54 @@ class UsuarioService
         // Validar los datos de entrada
         $validator = Validator::make($request->all(), [
             'idEmpleado' => 'required|integer|exists:empleado,idEmpleado',
-            'password' => 'required|string|min:6', 
-            'correo' => 'required|email|unique:usuario,correo', 
+            'password' => 'required|string|min:6',
+            'correo' => 'required|email|unique:usuario,correo',
             'idTipoEstado' => 'integer|exists:estado,idEstado',
         ]);
-    
+
         // Si la validación falla, retornar errores
         if ($validator->fails()) {
             return response()->json(['successful' => false, 'errors' => $validator->errors()], 422);
         }
-    
+
         // Obtener el empleado
         $empleado = Empleado::find($request->input('idEmpleado'));
-    
+
         if (!$empleado) {
             return response()->json(['successful' => false, 'error' => 'Empleado no encontrado'], 404);
         }
-    
+
         // Verificar que existe el estado con idEstado proporcionado
         $estado = Estado::find($request->input('idTipoEstado'));
-    
+
         if (!$estado) {
             return response()->json(['successful' => false, 'error' => 'Estado no encontrado'], 404);
         }
-    
+
         // Crear el usuario
         $usuario = User::create([
-            'usuario' => strtolower($empleado->nombre . $empleado->apellido),
+            'usuario' => strtolower($empleado->nombres . $empleado->apellidos),
             'password' => Hash::make($request->input('password')),
             'correo' => $request->input('correo'), // Agregar el correo
             'idEmpleado' => $request->input('idEmpleado'),
             'idTipoEstado' => $request->input('idTipoEstado'),
         ]);
-    
+
         // Asignar rol 'Empleado' al usuario
         $usuario->assignRole('Empleado');
-    
+
         // Iniciar sesión y generar token de acceso
         $token = $usuario->createToken('auth_token')->plainTextToken;
-    
+
         return response()->json(['successful' => true, 'data' => $usuario, 'access_token' => $token], 201);
     }
-    
+
 
     public function actualizarUsuario(Request $request, $id)
     {
         // Validar los datos de entrada
         $validator = Validator::make($request->all(), [
-            'correo'=>'string',
+            'correo' => 'string',
             'password' => 'string',
             'idEmpleado' => 'integer|exists:empleado,idEmpleado',
             'idTipoEstado' => 'integer|exists:estado,idEstado',
@@ -129,4 +129,57 @@ class UsuarioService
 
         return response()->json(['successful' => true, 'message' => 'Usuario eliminado correctamente']);
     }
+
+
+    // ... (existing code)
+
+    public function suspenderUsuario($id)
+    {
+        $usuario = User::find($id);
+
+        if (!$usuario) {
+            return response()->json(['successful' => false, 'error' => 'Usuario no encontrado'], 404);
+        }
+
+        // Assuming 'idTipoEstado' represents user status and 'suspendido' is the status for suspension
+        $suspendidoEstado = Estado::where('tipoEstado', 'suspendido')->first();
+
+        if (!$suspendidoEstado) {
+            return response()->json(['successful' => false, 'error' => 'Estado "suspendido" no encontrado'], 404);
+        }
+
+        // Obtener rol antes de eliminar
+        $usuario->getRoleNames();
+
+        // Eliminar usuario
+        $usuario->syncRoles([]);
+
+        $usuario->update(['idTipoEstado' => $suspendidoEstado->idEstado]);
+
+
+        return response()->json(['successful' => true, 'message' => 'Usuario suspendido correctamente']);
+    }
+
+    public function activarUsuario($id)
+    {
+        $usuario = User::find($id);
+
+        if (!$usuario) {
+            return response()->json(['successful' => false, 'error' => 'Usuario no encontrado'], 404);
+        }
+
+        // Assuming 'idTipoEstado' represents user status and 'activo' is the status for activation
+        $activoEstado = Estado::where('tipoEstado', 'activo')->first();
+
+        if (!$activoEstado) {
+            return response()->json(['successful' => false, 'error' => 'Estado "activo" no encontrado'], 404);
+        }
+
+        $usuario->update(['idTipoEstado' => $activoEstado->idEstado]);
+
+        return response()->json(['successful' => true, 'message' => 'Usuario activado correctamente']);
+    }
+
+    // ... (existing code)
+
 }
