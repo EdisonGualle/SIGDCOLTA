@@ -41,5 +41,4 @@ class User extends Authenticatable implements CanResetPassword
     {
         return $this->correo;
     }
-
 }
