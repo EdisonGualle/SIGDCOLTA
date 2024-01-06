@@ -14,7 +14,6 @@ class Estado extends Model
 
     protected $fillable = [
         'tipoEstado',
-        
         // Agrega aquí los demás campos de tu tabla cargo
     ];
 

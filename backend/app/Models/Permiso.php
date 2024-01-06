@@ -13,6 +13,7 @@ class Permiso extends Model
     protected $primaryKey = 'idPermiso';
 
     protected $fillable = [
+        'idPermiso',
         'fechaSolicitud',
         'fechaInicio',
         'fechaFinaliza',

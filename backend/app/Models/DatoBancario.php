@@ -21,4 +21,9 @@ class DatoBancario extends Model
     ];
 
     // Puedes definir relaciones con otras entidades si es necesario
+    //Relacion Empleado-DatosBancarios
+    public function empleado()
+    {
+        return $this->belongsTo(Empleado::class, 'idEmpleado', 'idEmpleado');
+    }
 }

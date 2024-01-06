@@ -1,0 +1,26 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Título que mostraremos en swagger",
+        "description": "Descripcion",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api"
+        }
+    ],
+    "paths": {
+        "/capacitaciones": {
+            "get": {
+                "summary": "Obtiene lista de capacitaciones",
+                "operationId": "ac32844afab8477b45eec8780e705d4a",
+                "responses": {
+                    "200": {
+                        "description": "Respuesta exitosa"
+                    }
+                }
+            }
+        }
+    }
+}

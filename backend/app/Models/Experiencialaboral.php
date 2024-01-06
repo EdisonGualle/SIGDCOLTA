@@ -10,7 +10,7 @@ class ExperienciaLaboral extends Model
     use HasFactory;
 
     protected $table = 'experiencialaboral';
-    protected $primaryKey = 'idExperienciaLaboral ';
+    protected $primaryKey = 'idExperienciaLaboral';
 
     protected $fillable = [
         'institucion',
@@ -28,4 +28,10 @@ class ExperienciaLaboral extends Model
     ];
 
     // Define las relaciones con otras entidades si es necesario
+    //Relacion Empleado-ExperienciaLaboral
+
+    public function empleado()
+    {
+        return $this->belongsTo(Empleado::class, 'idEmpleado');
+    }
 }
