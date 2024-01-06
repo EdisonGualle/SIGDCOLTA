@@ -17,13 +17,13 @@ class CargoService
 
     public function listarCargos()
     {
-        $cargos = Cargo::select('idCargo', 'nombre', 'descripcion')->get();
+        $cargos = Cargo::all();
         return response()->json(['successful' => true, 'data' => $cargos]);
     }
 
     public function mostrarCargo($id)
     {
-        $cargo = Cargo::select('idCargo', 'nombre', 'descripcion')->find($id);
+        $cargo = Cargo::find($id);
 
         if (!$cargo) {
             return response()->json(['successful' => false, 'error' => 'Cargo no encontrado']);

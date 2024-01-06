@@ -3,12 +3,12 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 //Auth
-use App\Http\Controllers\AuthController;
+
 use App\Http\Controllers\CapacitacionController;
 use App\Http\Controllers\CargoController;
 use App\Http\Controllers\ContratoController;
 use App\Http\Controllers\DatoBancarioController;
-use App\Http\Controllers\DepartamentoController;
+use App\Http\Controllers\DireccionController;
 use App\Http\Controllers\DiscapacidadController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\EstadoController;
@@ -39,6 +39,7 @@ use App\Http\Controllers\UsuarioController;
 |
 */
 
+Route::post('/usuarios', [UsuarioController::class, 'crearUsuario']);
 
 // CAPACITACIONES routes
 
@@ -72,6 +73,8 @@ Route::delete('/cargos/{id}', [CargoController::class, 'eliminarCargo']);
 Route::get('/contratos', [ContratoController::class, 'listarContratos']);
 Route::get('/contratos/{id}', [ContratoController::class, 'mostrarContrato']);
 Route::get('/contratos/empleado/cedula/{cedula}', [ContratoController::class, 'listarContratosPorCedula']);
+Route::get('/contratos/estado/{estadoContrato}', [ContratoController::class, 'listarContratosPorEstado']);
+
 Route::get('/contratos/empleado/id/{idEmpleado}', [ContratoController::class, 'listarContratosPorIdEmpleado']);
 Route::get('/contratos/tipo/id/{idTipoContrato}', [ContratoController::class, 'listarContratosPorIdTipoContrato']);
 Route::get('/contratos/tipo/nombre/{nombreTipoContrato}', [ContratoController::class, 'listarContratosPorNombreTipoContrato']);
@@ -92,16 +95,11 @@ Route::put('/datos-bancarios/{id}', [DatoBancarioController::class, 'actualizarD
 Route::delete('/datos-bancarios/{id}', [DatoBancarioController::class, 'eliminarDatoBancario']);
 
 
-// DEPARTAMENTOS routes
-Route::get('/departamentos', [DepartamentoController::class, 'listarDepartamentos']);
-Route::get('/departamentos/{id}', [DepartamentoController::class, 'mostrarDepartamentoPorId']);
-Route::get('/departamentos/unidad/id/{idUnidad}', [DepartamentoController::class, 'listarDepartamentosPorIdUnidad']);
-Route::get('/departamentos/unidad/nombre/{nombreUnidad}', [DepartamentoController::class, 'listarDepartamentosPorNombreUnidad']);
-Route::post('/departamentos', [DepartamentoController::class, 'crearDepartamento']);
-Route::put('/departamentos/{id}', [DepartamentoController::class, 'actualizarDepartamento']);
-Route::delete('/departamentos/{id}', [DepartamentoController::class, 'eliminarDepartamento']);
-Route::get('/departamentos/departamentosPorUnidad/{idUnidad}', [DepartamentoController::class, 'departamentosPorUnidad']);
-
+Route::get('/direcciones', [DireccionController::class, 'listarDirecciones']);
+Route::get('/direcciones/{id}', [DireccionController::class, 'mostrarDireccionPorId']);
+Route::post('/direcciones', [DireccionController::class, 'crearDireccion']);
+Route::put('/direcciones/{id}', [DireccionController::class, 'actualizarDireccion']);
+Route::delete('/direcciones/{id}', [DireccionController::class, 'eliminarDireccion']);
 
 // DISCAPACIDADES routes
 Route::get('/discapacidades', [DiscapacidadController::class, 'listarDiscapacidades']);
@@ -121,7 +119,9 @@ Route::get('/discapacidades/empleados-por-discapacidad/id/{idDiscapacidad}', [Di
 // EMPLEADOS routes
 Route::get('/empleados', [EmpleadoController::class, 'listarEmpleados']);
 Route::get('/empleados/{id}', [EmpleadoController::class, 'mostrarEmpleadoPorId']);
-Route::get('/empleados/departamento/{idDepartamento}', [EmpleadoController::class, 'listarEmpleadosPorDepartamentoId']);
+Route::get('/empleados/direccion/{idDireccion}', [EmpleadoController::class, 'listarEmpleadosPorDireccionId']);
+Route::get('/empleados/unidad/{idUnidad}', [EmpleadoController::class, 'listarEmpleadosPorUnidadId']);
+Route::get('/empleados/cargo/{idCargo}', [EmpleadoController::class, 'listarEmpleadosPorCargoId']);
 Route::get('/empleados/estado/{idEstado}', [EmpleadoController::class, 'listarEmpleadosPorEstadoId']);
 Route::get('/empleados/genero/{genero}', [EmpleadoController::class, 'listarEmpleadosPorGenero']);
 Route::get('/empleados/nacionalidad/{nacionalidad}', [EmpleadoController::class, 'listarEmpleadosPorNacionalidad']);
@@ -261,5 +261,7 @@ Route::delete('/unidades/{id}', [UnidadController::class, 'eliminarUnidad']);
 Route::get('/usuarios', [UsuarioController::class, 'listarUsuarios']);
 Route::get('/usuarios/{id}', [UsuarioController::class, 'mostrarUsuarioPorId']);
 Route::post('/usuarios', [UsuarioController::class, 'crearUsuario']);
+Route::post('/usuarios/suspender/{id}', [UsuarioController::class, 'suspenderUsuario']);
+Route::post('/usuarios/activar/{id}', [UsuarioController::class, 'activarUsuario']);
 Route::put('/usuarios/{id}', [UsuarioController::class, 'actualizarUsuario']);
 Route::delete('/usuarios/{id}', [UsuarioController::class, 'eliminarUsuario']);

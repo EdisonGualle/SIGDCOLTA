@@ -32,6 +32,12 @@ class ContratoController extends Controller
         return $response;
     }
 
+    public function listarContratosPorEstado($estadoContrato)
+    {
+        $response = $this->contratoService->listarContratosPorEstado($estadoContrato);
+        return $response;
+    }
+
     public function listarContratosPorIdTipoContrato($idTipoContrato)
     {
         $response = $this->contratoService->listarContratosPorIdTipoContrato($idTipoContrato);

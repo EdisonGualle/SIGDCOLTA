@@ -23,15 +23,20 @@ class EmpleadoController extends Controller
     {
         return response()->json($this->empleadoService->mostrarEmpleadoPorId($id));
     }
-    public function listarEmpleadosPorDepartamentoId($idDepartamento)
+    public function listarEmpleadosPorDireccionId($idDepartamento)
     {
-        return response()->json($this->empleadoService->listarEmpleadosPorDepartamentoId($idDepartamento));
+        return response()->json($this->empleadoService->listarEmpleadosPorDireccionId($idDepartamento));
+    }
+    public function listarEmpleadosPorUnidadId($idUnidad)
+    {
+        return response()->json($this->empleadoService->listarEmpleadosPorUnidadId($idUnidad));
     }
 
-    public function listarEmpleadosPorEstadoId($idEstado)
+    public function listarEmpleadosPorCargoId($idCargo)
     {
-        return response()->json($this->empleadoService->listarEmpleadosPorEstadoId($idEstado));
+        return response()->json($this->empleadoService->listarEmpleadosPorCargoId($idCargo));
     }
+
 
     public function listarEmpleadosPorNacionalidad($nacionalidad)
     {

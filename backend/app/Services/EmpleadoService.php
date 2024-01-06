@@ -2,10 +2,14 @@
 
 namespace App\Services;
 
+use App\Models\Cargo;
 use App\Models\Departamento;
+use App\Models\Direccion;
 use App\Models\Empleado;
 use App\Models\Estado;
+use App\Models\Unidad;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class EmpleadoService
@@ -27,32 +31,52 @@ class EmpleadoService
         return ['successful' => true, 'data' => $empleado];
     }
 
-    public function listarEmpleadosPorDepartamentoId($idDepartamento)
+
+    public function listarEmpleadosPorDireccionId($idDireccion)
     {
-        $departamento = Departamento::find($idDepartamento);
+        $empleados = DB::table('empleado')
+            ->join('cargo', 'empleado.idCargo', '=', 'cargo.idCargo')
+            ->join('unidad', 'cargo.idUnidad', '=', 'unidad.idUnidad')
+            ->join('direcciones', 'unidad.idDireccion', '=', 'direcciones.idDireccion')
+            ->where('direcciones.idDireccion', $idDireccion)
+            ->select('empleado.*')
+            ->get();
 
-        if (!$departamento) {
-            return ['successful' => false, 'error' => 'Departamento no encontrado'];
+        if ($empleados->isEmpty()) {
+            return ['successful' => false, 'error' => 'Empleados no encontrados para la dirección especificada'];
         }
-
-        $empleados = $departamento->empleados;
 
         return ['successful' => true, 'data' => $empleados];
     }
 
-    public function listarEmpleadosPorEstadoId($idEstado)
+    public function listarEmpleadosPorUnidadId($idUnidad)
     {
-        $estado = Estado::find($idEstado);
+        $empleados = DB::table('empleado')
+            ->join('cargo', 'empleado.idCargo', '=', 'cargo.idCargo')
+            ->join('unidad', 'cargo.idUnidad', '=', 'unidad.idUnidad')
+            ->where('unidad.idUnidad', $idUnidad)
+            ->select('empleado.*')
+            ->get();
 
-        if (!$estado) {
-            return ['successful' => false, 'error' => 'Estado no encontrado'];
+        if ($empleados->isEmpty()) {
+            return ['successful' => false, 'error' => 'Empleados no encontrados para la unidad especificada'];
         }
-
-        $empleados = $estado->empleados;
 
         return ['successful' => true, 'data' => $empleados];
     }
 
+    public function listarEmpleadosPorCargoId($idCargo)
+    {
+        $cargo = Cargo::find($idCargo);
+
+        if (!$cargo) {
+            return ['successful' => false, 'error' => 'Cargo no encontrado'];
+        }
+
+        $empleados = $cargo->empleados;
+
+        return ['successful' => true, 'data' => $empleados];
+    }
     public function listarEmpleadosPorNacionalidad($nacionalidad)
     {
         $empleados = Empleado::where('nacionalidad', $nacionalidad)->get();
@@ -79,9 +103,11 @@ class EmpleadoService
     {
         // Validar los datos de entrada
         $validator = Validator::make($request->all(), [
-            'cedula' => 'required|numeric|unique:empleado',
-            'nombre' => 'required|string',
-            'apellido' => 'required|string',
+            'cedula' => 'required|numeric|unique:empleado|between:10,12',
+            'primerNombre' => 'required|string',
+            'segundoNombre' => 'required|string',
+            'primerApellido' => 'required|string',
+            'segundoApellido' => 'required|string',
             'fechaNacimiento' => 'required|date',
             'genero' => 'required|string',
             'telefonoPersonal' => 'required|string',
@@ -94,9 +120,7 @@ class EmpleadoService
             'provinciaNacimiento' => 'required|string',
             'ciudadNacimiento' => 'required|string',
             'cantonNacimiento' => 'required|string',
-            'idDepartamento' => 'required|numeric|exists:departamento,idDepartamento',
             'idCargo' => 'required|numeric|exists:cargo,idCargo',
-            'idEstado' => 'required|numeric|exists:estado,idEstado',
         ]);
 
         // Si la validación falla, retornar errores
@@ -115,8 +139,10 @@ class EmpleadoService
         // Validar los datos de entrada
         $validator = Validator::make($request->all(), [
             'cedula' => 'numeric|unique:empleado,cedula,' . $id . ',idEmpleado|digits_between:10,12 ',
-            'nombre' => 'string',
-            'apellido' => 'string',
+            'primerNombre' => 'string',
+            'segundoNombre' => 'string',
+            'primerApellido' => 'string',
+            'segundoApellido' => 'string',
             'fechaNacimiento' => 'date',
             'Genero' => 'string',
             'telefonoPersonal' => 'string',
@@ -129,9 +155,7 @@ class EmpleadoService
             'provinciaNacimiento' => 'nullable|string',
             'ciudadNacimiento' => 'nullable|string',
             'cantonNacimiento' => 'nullable|string',
-            'idDepartamento' => 'numeric|exists:departamento,idDepartamento',
             'idCargo' => 'numeric|exists:cargo,idCargo',
-            'idEstado' => 'numeric|exists:estado,idEstado',
         ]);
 
         // Si la validación falla, retornar errores

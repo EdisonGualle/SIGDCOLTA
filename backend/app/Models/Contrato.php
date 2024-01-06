@@ -20,6 +20,9 @@ class Contrato extends Model
         'fechaFin',
         'idEmpleado',
         'idTipoContrato',
+        'archivo',
+        'salario',
+        'estadoContrato',
     ];
 
     public function empleados()

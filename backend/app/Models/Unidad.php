@@ -18,8 +18,19 @@ class Unidad extends Model
     protected $fillable = [
         'nombre',
         'descripcion',
+        'telefono',
+        'idDireccion'
         // Agrega aquí los demás campos de tu tabla cargo
     ];
 
-    // Define las relaciones con otras entidades si es necesario
+
+    public function cargos()
+    {
+        return $this->hasMany(Cargo::class, 'idUnidad');
+    }
+
+    public function empleados()
+    {
+        return $this->hasMany(Empleado::class, 'idUnidad');
+    }
 }

@@ -18,6 +18,8 @@ class Cargo extends Model
     protected $fillable = [
         'nombre',
         'descripcion',
+        'idUnidad',
+        'jerarquia'
         // Agrega aquí los demás campos de tu tabla cargo
     ];
 
@@ -27,4 +29,6 @@ class Cargo extends Model
     {
         return $this->hasMany(Empleado::class, 'idCargo');
     }
+
+    
 }
