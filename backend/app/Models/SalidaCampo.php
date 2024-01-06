@@ -11,10 +11,7 @@ class SalidaCampo extends Model
 
     protected $table = 'salidacampo';
     protected $primaryKey = 'idSalidaCampo';
-    protected $hidden = [
-        "updated_at",
-        "created_at"
-    ];
+
     protected $fillable = [
         'nombre',
         'fecha',

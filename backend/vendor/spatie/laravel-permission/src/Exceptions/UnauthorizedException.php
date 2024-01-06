@@ -7,33 +7,71 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class UnauthorizedException extends HttpException
 {
-    public static function forRoles(array $roles): void
+    private $requiredRoles = [];
+
+    private $requiredPermissions = [];
+
+    public static function forRoles(array $roles): self
     {
-        static::throwSimpleException('El usuario no tiene los roles adecuados.');
+        $message = 'El usuario no tiene los roles adecuados.';
+
+        if (config('permission.display_role_in_exception')) {
+            $message .= ' Roles necesarios'.implode(', ', $roles);
+        }
+
+        $exception = new static(403, $message, null, []);
+        $exception->requiredRoles = $roles;
+
+        return $exception;
     }
 
-    public static function forPermissions(array $permissions): void
+    public static function forPermissions(array $permissions): self
     {
-        static::throwSimpleException('El usuario no tiene los permisos adecuados.');
+        $message = 'El usuario no tiene los permisos adecuados.';
+
+        if (config('permission.display_permission_in_exception')) {
+            $message .= ' Permisos necesarios:'.implode(', ', $permissions);
+        }
+
+        $exception = new static(403, $message, null, []);
+        $exception->requiredPermissions = $permissions;
+
+        return $exception;
     }
 
-    public static function forRolesOrPermissions(array $rolesOrPermissions): void
+    public static function forRolesOrPermissions(array $rolesOrPermissions): self
     {
-        static::throwSimpleException('El usuario no tiene ninguno de los derechos de acceso necesarios.');
+        $message = 'El usuario no tiene ninguno de los derechos de acceso necesarios..';
+
+        if (config('permission.display_permission_in_exception') && config('permission.display_role_in_exception')) {
+            $message .= ' Roles o permisos necesarios:'.implode(', ', $rolesOrPermissions);
+        }
+
+        $exception = new static(403, $message, null, []);
+        $exception->requiredPermissions = $rolesOrPermissions;
+
+        return $exception;
     }
 
-    public static function missingTraitHasRoles(Authorizable $user): void
+    public static function missingTraitHasRoles(Authorizable $user): self
     {
-        static::throwSimpleException('La clase Authorizable debe usar el rasgo Spatie\Permission\Traits\HasRoles.');
+        $class = get_class($user);
+
+        return new static(403, "La clase Authorizable `{$class}` debe usar el rasgo Spatie\Permission\Traits\HasRoles.", null, []);
     }
 
-    public static function notLoggedIn(): void
+    public static function notLoggedIn(): self
     {
-        static::throwSimpleException('El usuario no está autenticado.');
+        return new static(403, 'El usuario no esta .', null, []);
     }
 
-    protected static function throwSimpleException(string $message): void
+    public function getRequiredRoles(): array
     {
-        throw new static(403, $message, null, []);
+        return $this->requiredRoles;
+    }
+
+    public function getRequiredPermissions(): array
+    {
+        return $this->requiredPermissions;
     }
 }

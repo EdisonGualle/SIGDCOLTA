@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Discapacidad;
 use App\Models\Empleado;
+use App\Models\EmpleadoHasCapacitacion;
 use App\Models\EmpleadoHasDiscapacidad;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;

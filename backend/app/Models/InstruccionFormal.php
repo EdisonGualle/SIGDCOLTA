@@ -8,10 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class InstruccionFormal extends Model
 {
     use HasFactory;
-    protected $hidden = [
-        "updated_at",
-        "created_at"
-    ];
+
     protected $table = 'instruccionformal';
     protected $primaryKey = 'idInstruccionFormal';
 
@@ -26,10 +23,4 @@ class InstruccionFormal extends Model
     ];
 
     // Define las relaciones con otras entidades si es necesario
-    //Relacion Empleado-Instruccion Formal
-    public function empleado()
-    {
-        return $this->belongsTo(Empleado::class, 'empleado_has_instruccionformal', 'idInstruccionFormal	', 'idEmpleado');
-    }
- 
 }

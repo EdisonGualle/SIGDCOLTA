@@ -2,75 +2,198 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\DiscapacidadService;
 use Illuminate\Http\Request;
+use App\Models\Discapacidad;
+use Illuminate\Support\Facades\Validator;
+
 
 class DiscapacidadController extends Controller
 {
-    protected $discapacidadService;
-
-    public function __construct(DiscapacidadService $discapacidadService)
-    {
-        $this->discapacidadService = $discapacidadService;
-    }
-
+    /**
+     * Lista todas las discapacidades.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     *         Parámetros de salida:
+     *         - 'successful': Indica si la operación fue exitosa (booleano).
+     *         - 'data': Datos de todas las discapacidades (array) si la operación fue exitosa.
+     */
     public function listarDiscapacidades()
     {
-        return $this->discapacidadService->listarDiscapacidades();
+        $discapacidades = Discapacidad::all();
+        return response()->json(['successful' => true, 'data' => $discapacidades]);
     }
 
-    public function mostrarDiscapacidadPorId($id)
+    /**
+     * Muestra los detalles de una discapacidad específica.
+     *
+     * @param  int  $id 
+     *         Parámetros de entrada:
+     *         - 'id': ID de la discapacidad (numérico, obligatorio).
+     *
+     * @return \Illuminate\Http\JsonResponse
+     *         Parámetros de salida:
+     *         - 'successful': Indica si la operación fue exitosa (booleano).
+     *         - 'data': Datos de la discapacidad solicitada (array) si la operación fue exitosa.
+     *         - 'error': Mensaje de error (cadena) si la discapacidad no fue encontrada.
+     */
+    public function mostrarDiscapacidad($id)
     {
-        return $this->discapacidadService->mostrarDiscapacidadPorId($id);
+        $discapacidad = Discapacidad::find($id);
+
+        if (!$discapacidad) {
+            return response()->json(['successful' => false, 'error' => 'Discapacidad no encontrada'], 404);
+        }
+
+        return response()->json(['successful' => true, 'data' => $discapacidad]);
     }
 
-    public function listarDiscapacidadesPorTipo($tipo)
-    {
-        return $this->discapacidadService->listarDiscapacidadesPorTipo($tipo);
-    }
-
+    /**
+     * Crea una nueva discapacidad con los datos proporcionados en la solicitud.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     *         Parámetros de entrada:
+     *         - 'nombre': Nombre de la discapacidad (cadena, obligatorio).
+     *         - 'tipo': Tipo de discapacidad (cadena, obligatorio).
+     *         - 'porcentaje': Porcentaje de discapacidad (numérico, obligatorio).
+     *
+     * @return \Illuminate\Http\JsonResponse
+     *         Parámetros de salida:
+     *         - 'successful': Indica si la operación fue exitosa (booleano).
+     *         - 'data': Datos de la discapacidad creada (array) si la operación fue exitosa.
+     *         - 'errors': Detalles de los errores de validación (array) si la operación falló.
+     */
     public function crearDiscapacidad(Request $request)
     {
-        return $this->discapacidadService->crearDiscapacidad($request);
+        // Validar los datos de entrada
+        $validator = Validator::make($request->all(), [
+            'nombre' => 'required|string|unique:discapacidad',
+            'tipo' => 'required|string',
+            'descripcion' => 'required|string',
+        ], [
+            'nombre.unique' => 'Ya existe un departamento con este nommbre'
+        ]);
+
+        // Si la validación falla, retornar errores
+        if ($validator->fails()) {
+            return response()->json(['successful' => false, 'errors' => $validator->errors()], 422);
+        }
+
+        // Crear la discapacidad
+        $discapacidad = Discapacidad::create($request->all());
+
+        return response()->json(['successful' => true, 'data' => $discapacidad], 201);
     }
 
+    /**
+     * Actualiza los detalles de una discapacidad existente.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     *         Parámetros de entrada:
+     *         - 'id': ID de la discapacidad a actualizar (numérico, obligatorio).
+     *         - 'nombre': Nuevo nombre de la discapacidad (cadena, opcional).
+     *         - 'tipo': Nuevo tipo de discapacidad (cadena, opcional).
+     *         - 'descripcion': Nueva descripción de la discapacidad (cadena, opcional).
+     *
+     * @return \Illuminate\Http\JsonResponse
+     *         Parámetros de salida:
+     *         - 'successful': Indica si la operación fue exitosa (booleano).
+     *         - 'data': Datos de la discapacidad actualizada (array) si la operación fue exitosa.
+     *         - 'errors': Detalles de los errores de validación (array) si la operación falló.
+     *         - 'error': Mensaje de error (cadena) si la discapacidad no fue encontrada.
+     */
     public function actualizarDiscapacidad(Request $request, $id)
     {
-        return $this->discapacidadService->actualizarDiscapacidad($request, $id);
+        // Validar los datos de entrada
+        $validator = Validator::make($request->all(), [
+            'nombre' => 'string',
+            'tipo' => 'string',
+            'descripcion' => 'string',
+        ]);
+
+        // Si la validación falla, retornar errores
+        if ($validator->fails()) {
+            return response()->json(['successful' => false, 'errors' => $validator->errors()], 422);
+        }
+
+        $discapacidad = Discapacidad::find($id);
+
+        if (!$discapacidad) {
+            return response()->json(['successful' => false, 'error' => 'Discapacidad no encontrada'], 404);
+        }
+
+        // Verificar si el nuevo nombre ya está en uso por otra discapacidad
+        if ($request->has('nombre') && $request->input('nombre') !== $discapacidad->nombre) {
+            $nombreValidator = Validator::make($request->all(), [
+                'nombre' => 'unique:discapacidad,nombre',
+            ], [
+                'nombre.unique' => 'Ya existe una discapacidad con este nombre'
+            ]);
+
+            if ($nombreValidator->fails()) {
+                return response()->json(['successful' => false, 'errors' => $nombreValidator->errors()], 422);
+            }
+        }
+
+        // Actualizar la discapacidad
+        $discapacidad->update($request->all());
+
+        return response()->json(['successful' => true, 'data' => $discapacidad]);
     }
 
+    /**
+     * Elimina una discapacidad existente.
+     *
+     * @param  int  $id
+     *         Parámetros de entrada:
+     *         - 'id': ID de la discapacidad a eliminar (numérico, obligatorio).
+     *
+     * @return \Illuminate\Http\JsonResponse
+     *         Parámetros de salida:
+     *         - 'successful': Indica si la operación fue exitosa (booleano).
+     *         - 'message': Mensaje de éxito o error (cadena).
+     *         - 'error': Mensaje de error (cadena) si la discapacidad no fue encontrada.
+     */
     public function eliminarDiscapacidad($id)
     {
-        return $this->discapacidadService->eliminarDiscapacidad($id);
+        $discapacidad = Discapacidad::find($id);
+
+        if (!$discapacidad) {
+            return response()->json(['successful' => false, 'error' => 'Discapacidad no encontrada'], 404);
+        }
+
+        $discapacidad->delete();
+
+        return response()->json(['successful' => true, 'message' => 'Discapacidad eliminada correctamente']);
     }
 
-
-
-    public function crearAsignacionEmpleadoDiscapacidad(Request $request)
+    /**
+     * Obtiene todas las discapacidades de un tipo específico.
+     *
+     * @param  string  $tipo - Tipo de discapacidad a filtrar
+     *         Parámetros de entrada:
+     *         - 'tipo': Tipo de discapacidad (cadena, obligatorio).
+     *
+     * @return \Illuminate\Http\JsonResponse
+     *         Parámetros de salida:
+     *         - 'successful': Indica si la operación fue exitosa (booleano).
+     *         - 'data': Datos de las discapacidades filtradas por tipo (array) si la operación fue exitosa.
+     *         - 'errors': Detalles de los errores de validación (array) si la operación falló.
+     */
+    public function obtenerDiscapacidadesPorTipo($tipo)
     {
-        return $this->discapacidadService->crearAsignacionEmpleadoDiscapacidad($request);
-    }
+        // Validar los datos de entrada
+        $validator = Validator::make(['tipo' => $tipo], [
+            'tipo' => 'required|string',
+        ]);
 
-    public function actualizarAsignacionEmpleadoDiscapacidad(Request $request, $idEmpleado, $idDiscapacidad)
-    {
-        return $this->discapacidadService->actualizarAsignacionEmpleadoDiscapacidad($request, $idEmpleado, $idDiscapacidad);
-    }
+        // Si la validación falla, retornar errores
+        if ($validator->fails()) {
+            return response()->json(['successful' => false, 'errors' => $validator->errors()], 422);
+        }
 
-    public function eliminarAsignacionEmpleadoDiscapacidad($idEmpleado, $idDiscapacidad)
-    {
+        // Obtener las discapacidades por tipo
+        $discapacidades = Discapacidad::where('tipo', $tipo)->get();
 
-        return $this->discapacidadService->eliminarAsignacionEmpleadoDiscapacidad($idEmpleado, $idDiscapacidad);
-    }
-
-
-    public function listarDiscapacidadesPorEmpleadoId($idEmpleado)
-    {
-        return $this->discapacidadService->listarDiscapacidadesPorEmpleadoId($idEmpleado);
-    }
-
-
-    public function listarEmpleadosPorDiscapacidadId($idDiscapacidad)
-    {
-        return $this->discapacidadService->listarEmpleadosPorDiscapacidadId($idDiscapacidad);
+        return response()->json(['successful' => true, 'data' => $discapacidades]);
     }
 }

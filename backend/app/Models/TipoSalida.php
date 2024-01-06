@@ -11,10 +11,7 @@ class TipoSalida extends Model
 
     protected $table = 'tiposalida';
     protected $primaryKey = 'idTipoSalida';
-    protected $hidden = [
-        "updated_at",
-        "created_at"
-    ];
+
     protected $fillable = [
         'nombre',
         'descripcion',

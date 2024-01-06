@@ -28,20 +28,8 @@ class EvaluacionDesempeno extends Model
         'estadoEvaluacion',
         'archivo'
     ];
-    protected $hidden = [
-        "updated_at",
-        "created_at"
-    ];
-
 
     // Puedes definir relaciones con otras entidades aquí si es necesario
 
     // También puedes definir accesores, mutadores u otros métodos según sea necesario
-    //Relacion Empleado-EvaluacionDesempeno
-    public function empleado()
-    {
-        return $this->belongsTo(Empleado::class, 'idEmpleado');
-    }
-
-
 }

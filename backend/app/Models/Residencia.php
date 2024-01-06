@@ -11,10 +11,7 @@ class Residencia extends Model
 
     protected $table = 'residencia';
     protected $primaryKey = 'idResidencia';
-    protected $hidden = [
-        "updated_at",
-        "created_at"
-    ];
+
     protected $fillable = [
         'pais',
         'provincia',
