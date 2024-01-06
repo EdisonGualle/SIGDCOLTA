@@ -74,7 +74,6 @@ Route::get('/contratos', [ContratoController::class, 'listarContratos']);
 Route::get('/contratos/{id}', [ContratoController::class, 'mostrarContrato']);
 Route::get('/contratos/empleado/cedula/{cedula}', [ContratoController::class, 'listarContratosPorCedula']);
 Route::get('/contratos/estado/{estadoContrato}', [ContratoController::class, 'listarContratosPorEstado']);
-
 Route::get('/contratos/empleado/id/{idEmpleado}', [ContratoController::class, 'listarContratosPorIdEmpleado']);
 Route::get('/contratos/tipo/id/{idTipoContrato}', [ContratoController::class, 'listarContratosPorIdTipoContrato']);
 Route::get('/contratos/tipo/nombre/{nombreTipoContrato}', [ContratoController::class, 'listarContratosPorNombreTipoContrato']);
