@@ -8,11 +8,12 @@ use App\Http\Controllers\Employee\EmpleadoDepartamentoController;
 use App\Http\Controllers\Employee\EmpleadoDatoBancarioController;
 use App\Http\Controllers\Employee\EmpleadoEvaluaciondesempenoController;
 use App\Http\Controllers\Employee\EmpleadoExperiencialaboralController;
+use App\Http\Controllers\Employee\EmpleadoInstruccionformalController;
 
 
 //Rutas Capacitaciones
-Route::get('/capacitaciones', [EmpleadoCapacitacionController::class, 'listarCapacitacionesPorEmpleadoAuth']);
-Route::get('/capacitaciones/total', [EmpleadoCapacitacionController::class, 'obtenerTotalCapacitacionesPorEmpleadoAuth']);
+Route::get('/mis-capacitaciones', [EmpleadoCapacitacionController::class, 'listarCapacitacionesPorEmpleadoAuth']);
+Route::get('/mis-capacitaciones/total', [EmpleadoCapacitacionController::class, 'obtenerTotalCapacitacionesPorEmpleadoAuth']);
 
 //Rutas Cargo
 Route::get('/informacion-empleado-cargo-departamento', [EmpleadoCargoController::class, 'mostrarInformacionEmpleadoCargoDepartamento']);
@@ -36,3 +37,8 @@ Route::get('total-experiencias-laborales', [EmpleadoExperiencialaboralController
 //asc-desc
 Route::get('experiencias-laborales-ordenadas-por-fecha/{orden?}', [EmpleadoExperiencialaboralController::class, 'listarExperienciasLaboralesOrdenadasPorFecha']);
 Route::get('listar-evaluaciones-desempeno', [EmpleadoExperiencialaboralController::class, 'mostrarDetallesEmpleadoYExperiencias']);
+
+//Rutas Instrucciones Formales
+Route::get('total-instrucciones-formales', [EmpleadoInstruccionformalController::class, 'obtenerTotalInstruccionesFormales']);
+Route::get('instrucciones-formales-ordenadas-por-fecha/{orden?}', [EmpleadoInstruccionformalController::class, 'listarInstruccionesFormalesOrdenadasPorFecha']);
+Route::get('listar-instrucciones-formales', [EmpleadoInstruccionformalController::class, 'mostrarDetallesEmpleadoEInstruccionesFormales']);

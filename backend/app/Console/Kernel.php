@@ -17,6 +17,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->call('App\Http\Controllers\TuControlador@calculoHoras')->dailyAt('17:09');
+        // $schedule->command('inspire')->hourly();
         $schedule->call(function () {
             // Limpiar usuarios bloqueados después de 2 minutos
             User::where('bloqueado_hasta', '<', now())->update(['intentos_fallidos' => 0, 'bloqueado_hasta' => null]);

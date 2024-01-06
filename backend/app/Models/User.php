@@ -10,12 +10,19 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable  implements CanResetPassword
+
+class User extends Authenticatable implements CanResetPassword
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     protected $table = 'usuario';
-    protected $primaryKey = 'idUsuario'; //Est
+
+    protected $primaryKey = 'idUsuario';
+    protected $hidden = [
+        "updated_at",
+        "created_at"
+    ];
+
     protected $fillable = [
         'usuario',
         'correo',
@@ -26,9 +33,13 @@ class User extends Authenticatable  implements CanResetPassword
         'intentos_fallidos',
         'bloqueado_hasta',
     ];
-
     public function empleado()
     {
         return $this->belongsTo(Empleado::class, 'idEmpleado');
     }
+    public function routeNotificationForMail()
+    {
+        return $this->correo;
+    }
+
 }

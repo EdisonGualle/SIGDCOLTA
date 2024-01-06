@@ -11,11 +11,14 @@ class Departamento extends Model
 
     protected $table = 'departamento';
     protected $primaryKey = 'idDepartamento';
-
+    protected $hidden = [
+        "updated_at",
+        "created_at"
+    ];
     protected $fillable = [
         'nombre',
         'descripcion',
-        'telefonos',
+        'telefono',
         'idUnidad',
     ];
 
@@ -24,6 +27,5 @@ class Departamento extends Model
     {
         return $this->hasMany(Empleado::class, 'idDepartamento');
     }
-
 
 }
