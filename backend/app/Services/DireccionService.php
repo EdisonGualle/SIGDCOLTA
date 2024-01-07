@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\DatoBancario;
 use App\Models\Direccion;
 use Illuminate\Contracts\Validation\Factory as ValidatorFactory;
 use Illuminate\Http\Request;
@@ -82,7 +81,7 @@ class DireccionService
 
         return response()->json(['successful' => true, 'data' => $direccion], 200);
     }
-    
+
     public function eliminarDireccion($id)
     {
         $direccion = Direccion::find($id);
