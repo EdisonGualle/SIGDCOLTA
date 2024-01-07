@@ -11,7 +11,10 @@ class Discapacidad extends Model
 
     protected $table = 'discapacidad';
     protected $primaryKey = 'idDiscapacidad';
-
+    protected $hidden = [
+        "updated_at",
+        "created_at"
+    ];
     protected $fillable = [
         'nombre',
         'tipo',
@@ -34,7 +37,7 @@ class Discapacidad extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function discapacidadesDeEmpleado()
+    public function discapacidades()
     {
         return $this->belongsToMany(Discapacidad::class, 'empleado_has_discapacidad', 'idEmpleado', 'idDiscapacidad');
     }

@@ -35,10 +35,12 @@ class Capacitacion extends Model
         'institucion',
         'cantidadHoras',
         'fecha',
-        'archivo',
         // Agrega aquí los demás campos de tu tabla capacitacion
     ];
-
+    protected $hidden = [
+        "updated_at",
+        "created_at"
+    ];
     /**
      * Obtener la colección de empleados asociados a la capacitación.
      *

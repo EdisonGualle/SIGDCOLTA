@@ -11,7 +11,10 @@ class Referencialaboral extends Model
 
     protected $table = 'referencialaboral';
     protected $primaryKey = 'idReferenciaLaboral';
-
+    protected $hidden = [
+        "updated_at",
+        "created_at"
+    ];
     protected $fillable = [
         'nombre',
         'apellido',

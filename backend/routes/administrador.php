@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CantonesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 //Auth
@@ -16,6 +17,7 @@ use App\Http\Controllers\EvaluacionDesempenoController;
 use App\Http\Controllers\ExperienciaLaboralController;
 use App\Http\Controllers\InstruccionFormalController;
 use App\Http\Controllers\PermisoController;
+use App\Http\Controllers\ProvinciaController;
 use App\Http\Controllers\ReferenciaLaboralController;
 use App\Http\Controllers\RegistroAsistenciaController;
 use App\Http\Controllers\ResidenciaController;
@@ -119,15 +121,27 @@ Route::get('/discapacidades/empleados-por-discapacidad/id/{idDiscapacidad}', [Di
 // EMPLEADOS routes
 Route::get('/empleados', [EmpleadoController::class, 'listarEmpleados']);
 Route::get('/empleados/{id}', [EmpleadoController::class, 'mostrarEmpleadoPorId']);
+/////
 Route::get('/empleados/direccion/{idDireccion}', [EmpleadoController::class, 'listarEmpleadosPorDireccionId']);
+/////
 Route::get('/empleados/unidad/{idUnidad}', [EmpleadoController::class, 'listarEmpleadosPorUnidadId']);
 Route::get('/empleados/cargo/{idCargo}', [EmpleadoController::class, 'listarEmpleadosPorCargoId']);
-Route::get('/empleados/estado/{idEstado}', [EmpleadoController::class, 'listarEmpleadosPorEstadoId']);
+Route::get('/empleados/estado/{idEstado}', [EmpleadoController::class, 'listarEmpleadosPorEstadoId']);//*Creado*/
 Route::get('/empleados/genero/{genero}', [EmpleadoController::class, 'listarEmpleadosPorGenero']);
 Route::get('/empleados/nacionalidad/{nacionalidad}', [EmpleadoController::class, 'listarEmpleadosPorNacionalidad']);
+Route::get('/empleados/provincia/{id_provincia}', [EmpleadoController::class, 'listarEmpleadosPorProvincia']);
+Route::get('/empleados/canton/{id_canton}', [EmpleadoController::class, 'listarEmpleadosPorCanton']);
 Route::post('/empleados', [EmpleadoController::class, 'crearEmpleado']);
 Route::put('/empleados/{id}', [EmpleadoController::class, 'actualizarEmpleado']);
 Route::delete('/empleados/{id}', [EmpleadoController::class, 'eliminarEmpleado']);
+
+// PROVINCIAS routes
+Route::get('/provincia', [ProvinciaController::class, 'listarProvincia']);
+Route::get('/provincia/{id}', [ProvinciaController::class, 'mostrarProvincia']);
+// PROVINCIAS routes
+Route::get('/cantones', [CantonesController::class, 'listarCantones']);
+Route::get('/cantones/{id}', [CantonesController::class, 'mostrarCantones']);
+
 
 
 // ESTADOS routes

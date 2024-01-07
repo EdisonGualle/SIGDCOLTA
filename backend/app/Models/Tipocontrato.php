@@ -11,11 +11,15 @@ class TipoContrato extends Model
 
     protected $table = 'tipoContrato';
     protected $primaryKey = 'idTipoContrato';
-
+    protected $hidden = [
+        "updated_at",
+        "created_at"
+    ];
     protected $fillable = [
         'nombre',
         'descripcion',
         'clausulas',
+        'duracionMeses',
         // Agrega aquí los demás campos de tu tabla cargo
     ];
 
