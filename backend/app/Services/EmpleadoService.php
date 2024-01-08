@@ -65,6 +65,8 @@ class EmpleadoService
         return ['successful' => true, 'data' => $empleados];
     }
 
+    // Logica de cargos 
+    
     public function listarEmpleadosPorCargoId($idCargo)
     {
         $cargo = Cargo::find($idCargo);
@@ -77,6 +79,37 @@ class EmpleadoService
 
         return ['successful' => true, 'data' => $empleados];
     }
+
+    public function asignarCargo(Request $request, $idEmpleado)
+    {
+        $validator = Validator::make($request->all(), [
+            'idCargo' => 'required|exists:cargo,idCargo',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['successful' => false, 'errors' => $validator->errors()], 422);
+        }
+
+        $empleado = Empleado::find($idEmpleado);
+
+        if (!$empleado) {
+            return response()->json(['successful' => false, 'error' => 'Empleado no encontrado'], 404);
+        }
+
+        $idCargo = $request->input('idCargo');
+        $cargo = Cargo::find($idCargo);
+
+        if (!$cargo) {
+            return response()->json(['successful' => false, 'error' => 'Cargo no encontrado'], 404);
+        }
+
+        // Asignar el cargo al empleado
+        $empleado->cargo()->associate($cargo);
+        $empleado->save();
+
+        return response()->json(['successful' => true, 'message' => 'Cargo asignado correctamente al empleado']);
+    }
+    
     public function listarEmpleadosPorNacionalidad($nacionalidad)
     {
         $empleados = Empleado::where('nacionalidad', $nacionalidad)->get();

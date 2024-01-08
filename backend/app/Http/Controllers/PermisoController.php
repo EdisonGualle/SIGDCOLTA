@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\PermisoService;
 use Illuminate\Http\Request;
-use App\Services\PermisoService; // Asegúrate de importar el servicio correspondiente
 
 class PermisoController extends Controller
 {
@@ -39,6 +39,3 @@ class PermisoController extends Controller
         return $this->permisoService->eliminarPermiso($id);
     }
 }
-
-
-
