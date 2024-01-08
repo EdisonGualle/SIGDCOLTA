@@ -26,7 +26,7 @@ class CapacitacionService
 
     public function listarCapacitacionPorId($id)
     {
-        $capacitacion = Capacitacion::select('idCapacitacion', 'nombre', 'descripcion', 'tipoEvento', 'institucion', 'cantidadHoras', 'fecha')->find($id);
+        $capacitacion = Capacitacion::find($id);
 
         if (!$capacitacion) {
             return response()->json(['successful' => false, 'error' => 'Capacitación no encontrada'], 404);
@@ -34,11 +34,9 @@ class CapacitacionService
 
         return response()->json(['successful' => true, 'data' => $capacitacion]);
     }
-
     public function listarCapacitacionPorNombre($nombre)
     {
-        $capacitaciones = Capacitacion::select('idCapacitacion', 'nombre', 'descripcion', 'tipoEvento', 'institucion', 'cantidadHoras', 'fecha')
-            ->where('nombre', 'LIKE', '%' . $nombre . '%')
+        $capacitaciones = Capacitacion::where('nombre', 'LIKE', '%' . $nombre . '%')
             ->get();
 
         return response()->json(['successful' => true, 'data' => $capacitaciones]);
@@ -54,8 +52,7 @@ class CapacitacionService
             return response()->json(['successful' => false, 'errors' => $validator->errors()], 422);
         }
 
-        $capacitaciones = Capacitacion::select('idCapacitacion', 'nombre', 'descripcion', 'tipoEvento', 'institucion', 'cantidadHoras', 'fecha')
-            ->whereDate('fecha', '=', $fecha)
+        $capacitaciones = Capacitacion::whereDate('fecha', '=', $fecha)
             ->get();
 
         if ($capacitaciones->isEmpty()) {
@@ -106,6 +103,20 @@ class CapacitacionService
             return ['successful' => false, 'errors' => $validator->errors()];
         }
 
+        // Verificar si ya existe una capacitación con los mismos atributos
+        $existingCapacitacion = Capacitacion::where([
+            'nombre' => $request->nombre,
+            'tipoEvento' => $request->tipoEvento,
+            'institucion' => $request->institucion,
+            'cantidadHoras' => $request->cantidadHoras,
+            'fecha' => $request->fecha,
+        ])->first();
+
+        // Si ya existe, retornar un error
+        if ($existingCapacitacion) {
+            return ['successful' => false, 'errors' => 'Ya existe una capacitación con estos datos.'];
+        }
+
         // Crear la capacitación
         $capacitacion = Capacitacion::create($request->all());
 
@@ -137,6 +148,20 @@ class CapacitacionService
             return response()->json(['successful' => false, 'error' => 'Capacitación no encontrada'], 404);
         }
 
+        // Verificar si ya existe otra capacitación con los mismos atributos
+        $existingCapacitacion = Capacitacion::where([
+            'nombre' => $request->nombre,
+            'tipoEvento' => $request->tipoEvento,
+            'institucion' => $request->institucion,
+            'cantidadHoras' => $request->cantidadHoras,
+            'fecha' => $request->fecha,
+        ])->where('idCapacitacion', '!=', $id)->first();
+
+        // Si ya existe, retornar un error
+        if ($existingCapacitacion) {
+            return response()->json(['successful' => false, 'errors' => 'Ya existe otra capacitación con estos atributos.'], 422);
+        }
+
         // Actualizar la capacitación con los nuevos datos
         $capacitacion->update($request->all());
 
@@ -160,7 +185,7 @@ class CapacitacionService
 
     //OPERACIONES PARA TABLA EMPLEADO_HAS_CAPACITACIONES
 
-    public function crearAsignacionEmpleadoCapacitacion(Request $request, $idEmpleado, $idCapacitacion)
+    public function crearAsignacionEmpleadoCapacitacion(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'idEmpleado' => 'required|exists:empleado,idEmpleado',
@@ -269,6 +294,6 @@ class CapacitacionService
         })->get();
 
 
-        return response()->json(['successful' => true, 'capacitacion' => $capacitacionesNoRealizadas]);
+        return response()->json(['successful' => true, 'capacitaciones' => $capacitacionesNoRealizadas]);
     }
 }

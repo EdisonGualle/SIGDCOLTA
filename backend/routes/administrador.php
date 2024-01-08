@@ -106,7 +106,6 @@ Route::get('/contratos', [ContratoController::class, 'listarContratos']);
 Route::get('/contratos/{id}', [ContratoController::class, 'mostrarContrato']);
 Route::get('/contratos/empleado/cedula/{cedula}', [ContratoController::class, 'listarContratosPorCedula']);
 Route::get('/contratos/estado/{estadoContrato}', [ContratoController::class, 'listarContratosPorEstado']);
-
 Route::get('/contratos/empleado/id/{idEmpleado}', [ContratoController::class, 'listarContratosPorIdEmpleado']);
 Route::get('/contratos/tipo/id/{idTipoContrato}', [ContratoController::class, 'listarContratosPorIdTipoContrato']);
 Route::get('/contratos/tipo/nombre/{nombreTipoContrato}', [ContratoController::class, 'listarContratosPorNombreTipoContrato']);
@@ -229,8 +228,12 @@ Route::delete('/referencias-laborales/{id}', [ReferenciaLaboralController::class
 Route::get('/registros-asistencia', [RegistroAsistenciaController::class, 'listarRegistrosAsistencia']);
 Route::get('/registros-asistencia/{id}', [RegistroAsistenciaController::class, 'mostrarRegistroAsistenciaPorId']);
 Route::post('/registros-asistencia', [RegistroAsistenciaController::class, 'registrarAsistencia']);
-Route::put('/registros-asistencia/{id}', [RegistroAsistenciaController::class, 'actualizarRegistroAsistencia']);
+Route::put('/registros-asistencia/{id}', [RegistroAsistenciaController::class, 'actualizarAsistencia']);
 Route::delete('/registros-asistencia/{id}', [RegistroAsistenciaController::class, 'eliminarRegistroAsistencia']);
+Route::get('/registros-asistencia/empleado/cedula/{cedula}', [RegistroAsistenciaController::class, 'listarAsistenciaPorCedulaEmpleado']);
+Route::get('/registros-asistencia/empleado/id/{id}', [RegistroAsistenciaController::class, 'listarAsistenciaPorIdEmpleado']);
+Route::get('/registros-asistencia/tipo/{tipo}', [RegistroAsistenciaController::class, 'listarAsistenciaPorTipoAsistencia']);
+Route::get('/registros-asistencia/estado/{estado}', [RegistroAsistenciaController::class, 'listarAsistenciaPorEstadoAsistencia']);
 
 
 // RESIDENCIAS routes
