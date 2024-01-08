@@ -22,10 +22,10 @@ Route::get('/mi-cargo', [EmpleadoCargoController::class, 'mostrarInformacionEmpl
 Route::get('/mis-contratos', [EmpleadoContratoController::class, 'listarContratosPorEmpleadoAuth']);
 
 //Rutas Departamento
-Route::get('/mis-departamentos', [EmpleadoDepartamentoController::class, 'obtenerDatosEmpleadoAuth']);
+Route::get('/mi-departamento', [EmpleadoDepartamentoController::class, 'obtenerDatosEmpleadoAuth']);
 
 //Rutas Dato Bancario
-Route::get('/mostrar-datos-bancarios', [EmpleadoDatoBancarioController::class, 'mostrarDatosBancariosEmpleadoAuth']);
+Route::get('/mis-datosbancarios', [EmpleadoDatoBancarioController::class, 'mostrarDatosBancariosEmpleadoAuth']);
 
 
 //Rutas Evaluacion-desempeno
