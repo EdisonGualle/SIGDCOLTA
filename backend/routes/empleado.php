@@ -16,13 +16,13 @@ Route::get('/mis-capacitaciones', [EmpleadoCapacitacionController::class, 'lista
 Route::get('/mis-capacitaciones/total', [EmpleadoCapacitacionController::class, 'obtenerTotalCapacitacionesPorEmpleadoAuth']);
 
 //Rutas Cargo
-Route::get('/informacion-empleado-cargo-departamento', [EmpleadoCargoController::class, 'mostrarInformacionEmpleadoCargoDepartamento']);
+Route::get('/mi-cargo', [EmpleadoCargoController::class, 'mostrarInformacionEmpleadoCargoDepartamento']);
 
 //Rutas Contrato
-Route::get('/informacion-contratos-empleado', [EmpleadoContratoController::class, 'listarContratosPorEmpleadoAuth']);
+Route::get('/mis-contratos', [EmpleadoContratoController::class, 'listarContratosPorEmpleadoAuth']);
 
 //Rutas Departamento
-Route::get('/mostrar-departamentos', [EmpleadoDepartamentoController::class, 'obtenerDatosEmpleadoAuth']);
+Route::get('/mis-departamentos', [EmpleadoDepartamentoController::class, 'obtenerDatosEmpleadoAuth']);
 
 //Rutas Dato Bancario
 Route::get('/mostrar-datos-bancarios', [EmpleadoDatoBancarioController::class, 'mostrarDatosBancariosEmpleadoAuth']);
