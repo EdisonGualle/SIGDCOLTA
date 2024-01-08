@@ -17,18 +17,37 @@ class Permiso extends Model
     ];
     protected $fillable = [
         'idPermiso',
+        'idEmpleado',
+        'idTipoPermiso',
+        'motivo',
         'fechaSolicitud',
         'fechaInicio',
         'fechaFinaliza',
         'tiempoPermiso',
-        'aprobacionJefeInmediato',
-        'aprobacionTalentoHumano',
-        'idTipoPermiso',
-        'idEmpleado'
-
-
-        // Agrega aquí los demás campos de tu tabla cargo
+        'idEstadoPermiso'
     ];
 
-    // Define las relaciones con otras entidades si es necesario
+    // Relación con el modelo TipoPermiso
+    public function tipoPermiso()
+    {
+        return $this->belongsTo(TipoPermiso::class, 'idTipoPermiso');
+    }
+
+    // Relación con el modelo Empleado
+    public function empleado()
+    {
+        return $this->belongsTo(Empleado::class, 'idEmpleado');
+    }
+
+    // Relación con el modelo AprobacionPermiso
+    public function aprobaciones()
+    {
+        return $this->hasMany(AprobacionPermiso::class, 'idPermiso');
+    }
+
+    // Relación con el modelo EstadoPermiso
+    public function estadoPermiso()
+    {
+        return $this->belongsTo(EstadoPermiso::class, 'idEstadoPermiso');
+    }
 }

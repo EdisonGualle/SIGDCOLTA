@@ -5,25 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TipoPermiso extends Model
+class EstadoPermiso extends Model
 {
     use HasFactory;
-
-    protected $table = 'tipopermiso';
-    protected $primaryKey = 'idTipoPermiso';
+    protected $table = 'estadopermiso';
+    protected $primaryKey = 'idEstadoPermiso';
     protected $hidden = [
         "updated_at",
         "created_at"
     ];
-    protected $fillable = [
-        'nombre',
-        'descripcion',
 
+    protected $fillable = [
+        'estado'
     ];
 
     // Relación con el modelo Permiso
     public function permisos()
     {
-        return $this->hasMany(Permiso::class, 'idTipoPermiso');
+        return $this->hasMany(Permiso::class, 'idEstadoPermiso');
     }
+
 }
