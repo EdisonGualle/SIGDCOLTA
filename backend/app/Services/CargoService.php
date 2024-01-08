@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Cargo;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 
 class CargoService
@@ -35,10 +36,11 @@ class CargoService
     public function crearCargo(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nombre' => 'required|string|max:255|unique:cargo',
+            'nombre' => 'required|string|max:255|unique:cargo,nombre,NULL,idCargo,idUnidad,' . $request->get('idUnidad'),
             'descripcion' => 'required|string',
+            'idUnidad' => 'required|numeric|exists:unidad,idUnidad',
         ], [
-            'nombre.unique' => 'Ya existe un cargo con este nombre.',
+            'nombre.unique' => 'Ya existe un cargo con este nombre en la misma unidad.',
         ]);
 
         if ($validator->fails()) {
@@ -50,40 +52,55 @@ class CargoService
         return response()->json(['successful' => true, 'data' => $cargo], 201);
     }
 
-    public function actualizarCargo(Request $request, $id)
+    public function actualizarCargo(Request $request, $idCargo)
     {
+        $cargo = Cargo::find($idCargo);
+    
+        if (!$cargo) {
+            return response()->json(['successful' => false, 'message' => 'Cargo no encontrado'], 404);
+        }
+    
         $validator = Validator::make($request->all(), [
-            'nombre' => 'string|max:255|unique:cargo,nombre,' . $id . ',idCargo',
-            'descripcion' => 'string',
+            'nombre' => 'sometimes|required|string|max:255|unique:cargo,nombre,' . $idCargo . ',idCargo,idUnidad,' . $request->input('idUnidad'),
+            'descripcion' => 'sometimes|required|string',
+            'idUnidad' => 'nullable|numeric|exists:unidad,idUnidad',
         ], [
-            'nombre.unique' => 'Ya existe un cargo con este nombre.',
+            'nombre.unique' => 'Ya existe un cargo con este nombre en la misma unidad.',
         ]);
-
+    
         if ($validator->fails()) {
             return response()->json(['successful' => false, 'errors' => $validator->errors()], 422);
         }
-
-        $cargo = Cargo::find($id);
-
-        if (!$cargo) {
-            return response()->json(['successful' => false, 'error' => 'Cargo no encontrado']);
-        }
-
-        $cargo->update($request->all());
-
-        return response()->json(['successful' => true, 'data' => $cargo]);
+    
+        $cargo->update($request->only(['nombre', 'descripcion', 'idUnidad']));
+    
+        return response()->json(['successful' => true, 'message' => 'Cargo actualizado con éxito', 'data' => $cargo]);
     }
+    
+    
+
+
+
+
+
 
     public function eliminarCargo($id)
     {
+        if (!is_numeric($id)) {
+            return response()->json(['successful' => false, 'error' => 'ID de cargo no válido'], 422);
+        }
+
+        $id = (int) $id; // Convertir a entero
+
         $cargo = Cargo::find($id);
 
         if (!$cargo) {
-            return response()->json(['successful' => false, 'error' => 'Cargo no encontrado']);
+            return response()->json(['successful' => false, 'error' => 'Cargo no encontrado'], 404);
         }
 
         $cargo->delete();
 
         return response()->json(['successful' => true, 'message' => 'Cargo eliminado correctamente']);
     }
+
 }

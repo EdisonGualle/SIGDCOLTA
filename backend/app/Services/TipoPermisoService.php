@@ -29,7 +29,7 @@ class TipoPermisoService
     {
         // Validar los datos de entrada
         $validator = Validator::make($request->all(), [
-            'nombre' => 'required|string|max:255|unique:tipoPermiso',
+            'nombre' => 'required|string|max:255|unique:tipoPermiso,nombre',
             'descripcion' => 'required|string',
         ]);
 

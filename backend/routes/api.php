@@ -8,6 +8,10 @@ use Illuminate\Http\JsonResponse;
 
 
 
+/// Pruebas 
+
+include('administrador.php');
+
 // Ingreso
 Route::post('/ingresar', [AuthController::class, 'ingresar']);
 
@@ -45,6 +49,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         // Rutas del subgrupo 'empleado'
         Route::prefix('empleado')->group(function () {
             include('empleado.php');
+            include('administrador.php');
         });
     });
 

@@ -29,6 +29,10 @@ use App\Http\Controllers\TipoPermisoController;
 use App\Http\Controllers\TipoSalidaController;
 use App\Http\Controllers\UnidadController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\EstadoPermisoController;
+use App\Http\Controllers\JerarquiaPermisoController;
+use App\Http\Controllers\AprobacionPermisoController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -64,11 +68,39 @@ Route::get('/capacitaciones/empleados-por-capacitacion/id/{idCapacitacion}', [Ca
 
 
 // CARGOS routes
-Route::get('/cargos', [CargoController::class, 'listarCargos']);
-Route::get('/cargos/{id}', [CargoController::class, 'mostrarCargo']);
-Route::post('/cargos', [CargoController::class, 'crearCargo']);
-Route::put('/cargos/{id}', [CargoController::class, 'actualizarCargo']);
-Route::delete('/cargos/{id}', [CargoController::class, 'eliminarCargo']);
+// Route::get('/cargos', [CargoController::class, 'listarCargos']);
+// Route::get('/cargos/{id}', [CargoController::class, 'mostrarCargo']);
+// Route::post('/cargos', [CargoController::class, 'crearCargo']);
+// Route::put('/cargos/{id}', [CargoController::class, 'actualizarCargo']);
+// Route::delete('/cargos/{id}', [CargoController::class, 'eliminarCargo']);
+
+
+Route::controller(CargoController::class)->group(function () {
+    Route::get('/cargos', 'listarCargos');
+    Route::get('/cargos/{id}', 'mostrarCargo');
+    Route::post('/cargos',  'crearCargo');
+    Route::put('/cargos/{id}', 'actualizarCargo');
+    Route::delete('/cargos/{id}', 'eliminarCargo');
+});
+
+// JerarquiaPermiso routes
+Route::controller(JerarquiaPermisoController::class)->group(function () {
+    Route::get('/jerarquia-permiso', 'listarJerarquiasPermiso');
+    Route::get('/jerarquia-permiso/{idCargo}/{idCargoAprobador}', 'mostrarJerarquiaPermiso');
+    Route::post('/jerarquia-permiso', 'crearJerarquiaPermiso');
+    Route::put('/jerarquia-permiso/{idCargo}/{idCargoAprobador}', 'actualizarJerarquiaPermiso');
+    Route::delete('/jerarquia-permiso/{idCargo}/{idCargoAprobador}', 'eliminarJerarquiaPermiso');
+});
+
+// Rutas para AprobacionPermiso
+Route::controller(AprobacionPermisoController::class)->group(function () {
+    Route::get('/aprobaciones-permiso','listarAprobacionesPermiso');
+    Route::get('/aprobaciones-permiso/{id}', 'mostrarAprobacionPermiso');
+    Route::post('/aprobaciones-permiso', 'crearAprobacionPermiso');
+    Route::put('/aprobaciones-permiso/{id}','actualizarAprobacionPermiso');
+    Route::delete('/aprobaciones-permiso/{id}', 'eliminarAprobacionPermiso');    
+});
+
 
 
 // CONTRATOS routes
@@ -185,11 +217,19 @@ Route::delete('/instrucciones-formales/{id}', [InstruccionFormalController::clas
 
 
 // PERMISOS routes
-Route::get('/permisos', [PermisoController::class, 'listarPermisos']);
-Route::get('/permiso/{id}', [PermisoController::class, 'mostrarPermisoId']);
-Route::post('/permisos', [PermisoController::class, 'crearPermiso']);
-Route::put('/permisos/{id}', [PermisoController::class, 'actualizarPermiso']);
-Route::delete('/permisos/{id}', [PermisoController::class, 'eliminarPermiso']);
+// Route::get('/permisos', [PermisoController::class, 'listarPermisos']);
+// Route::get('/permiso/{id}', [PermisoController::class, 'mostrarPermisoId']);
+// Route::post('/permisos', [PermisoController::class, 'crearPermiso']);
+// Route::put('/permisos/{id}', [PermisoController::class, 'actualizarPermiso']);
+// Route::delete('/permisos/{id}', [PermisoController::class, 'eliminarPermiso']);
+
+Route::controller(PermisoController::class)->group(function () {
+    Route::get('/permisos','listarPermisos');
+    Route::get('/permisos/{id}','mostrarPermisoId');
+    Route::post('/permisos','crearPermiso');
+    Route::put('/permisos/{id}', 'actualizarPermiso');
+    Route::delete('/permisos/{id}', 'eliminarPermiso');
+});
 
 
 Route::get('/referencias-laborales', [ReferenciaLaboralController::class, 'listarReferenciasLaborales']);
@@ -247,12 +287,28 @@ Route::delete('/tipos-contrato/{id}', [TipoContratoController::class, 'eliminarT
 
 
 // TIPOS PERMISO routes
-Route::get('/tiposPermiso', [TipoPermisoController::class, 'listarTiposPermiso']);
-Route::get('/tiposPermiso/{id}', [TipoPermisoController::class, 'mostrarTipoPermisoPorId']);
-Route::post('/tiposPermiso', [TipoPermisoController::class, 'crearTipoPermiso']);
-Route::put('/tiposPermiso/{id}', [TipoPermisoController::class, 'actualizarTipoPermiso']);
-Route::delete('/tiposPermiso/{id}', [TipoPermisoController::class, 'eliminarTipoPermiso']);
+// Route::get('/tiposPermiso', [TipoPermisoController::class, 'listarTiposPermiso']);
+// Route::get('/tiposPermiso/{id}', [TipoPermisoController::class, 'mostrarTipoPermisoPorId']);
+// Route::post('/tiposPermiso', [TipoPermisoController::class, 'crearTipoPermiso']);
+// Route::put('/tiposPermiso/{id}', [TipoPermisoController::class, 'actualizarTipoPermiso']);
+// Route::delete('/tiposPermiso/{id}', [TipoPermisoController::class, 'eliminarTipoPermiso']);
 
+Route::controller(TipoPermisoController::class)->group(function () {
+    Route::get('/tiposPermiso','listarTiposPermiso');
+    Route::get('/tiposPermiso/{id}', 'mostrarTipoPermisoPorId');
+    Route::post('/tiposPermiso', 'crearTipoPermiso');
+    Route::put('/tiposPermiso/{id}', 'actualizarTipoPermiso');
+    Route::delete('/tiposPermiso/{id}', 'eliminarTipoPermiso');
+});
+
+// ESTADO PERMISO Routes
+Route::controller(EstadoPermisoController::class)->group(function () {
+    Route::get('estadoPermiso', 'listarEstadosPermiso');
+    Route::get('estadoPermiso/{id}', 'mostrarEstadoPermisoPorId');
+    Route::post('estadoPermiso', 'crearEstadoPermiso');
+    Route::put('estadoPermiso/{id}',  'actualizarEstadoPermiso');
+    Route::delete('estadoPermiso/{id}','eliminarEstadoPermiso');
+});
 
 
 // TIPOS SALIDA routes

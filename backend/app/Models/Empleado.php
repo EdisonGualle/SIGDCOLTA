@@ -42,6 +42,18 @@ class Empleado extends Model
     {
         return $this->correo;
     }
+
+      // Relación con el modelo AprobacionPermiso (Empleado solicitante)
+      public function aprobacionesSolicitante()
+      {
+          return $this->hasMany(AprobacionPermiso::class, 'idEmpleadoSolicitante');
+      }
+  
+      // Relación con el modelo AprobacionPermiso (Empleado aprobador)
+      public function aprobacionesAprobador()
+      {
+          return $this->hasMany(AprobacionPermiso::class, 'idEmpleadoAprobador');
+      }
     // Relacion con usuario
     public function usuario()
     {
@@ -70,7 +82,7 @@ class Empleado extends Model
     //Relacion Empleado-Cargo
     public function cargo()
     {
-        return $this->belongsTo(Cargo::class, 'idCargo');
+        return $this->hasOne(Cargo::class, 'idCargo');
     }
 
 
