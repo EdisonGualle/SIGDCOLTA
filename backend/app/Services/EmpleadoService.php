@@ -11,6 +11,7 @@ use App\Models\Unidad;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class EmpleadoService
 {
@@ -77,9 +78,27 @@ class EmpleadoService
 
         $empleados = $cargo->empleados;
 
-        return ['successful' => true, 'data' => $empleados];
+        return ['successful' => false, 'error' => 'Empleados no encontrados para el cargo especificado'];
     }
-
+    
+    public function listarEmpleadosPorEstadoId($idEstado)
+    {
+        // Utilizando el constructor de consultas de Laravel para interactuar con la base de datos
+        $empleados = DB::table('empleado')
+            ->join('usuario', 'empleado.idEmpleado', '=', 'usuario.idEmpleado')
+            ->join('estadousuario', 'usuario.idTipoEstado', '=', 'estadousuario.idEstado')
+            ->where('estadousuario.idEstado', $idEstado)
+            ->select('empleado.*')
+            ->get();
+    
+        // Verificando si el conjunto de resultados está vacío
+        if ($empleados->isEmpty()) {
+            return ['exitoso' => false, 'error' => 'Empleados no encontrados para el estado especificado'];
+        }
+    
+        // Devolviendo el resultado si se encuentran empleados
+        return ['exitoso' => true, 'datos' => $empleados];
+    }
     public function asignarCargo(Request $request, $idEmpleado)
     {
         $validator = Validator::make($request->all(), [
@@ -120,39 +139,75 @@ class EmpleadoService
 
         return ['successful' => true, 'data' => $empleados];
     }
-
-    public function listarEmpleadosPorGenero($genero)
+    public function listarEmpleadosPorProvincia($provincia)
     {
-        $empleados = Empleado::where('Genero', $genero)->get();
+        $empleados = Empleado::where('id_provincia', $provincia)->get();
 
         if ($empleados->isEmpty()) {
-            return ['successful' => false, 'error' => 'Empleados con este género no encontrados'];
+            return ['successful' => false, 'error' => 'Empleados con esta provincia no encontrados'];
+        }
+
+        return ['successful' => true, 'data' => $empleados];
+    }
+    public function listarEmpleadosPorCanton ($canton)
+    {
+        $empleados = Empleado::where('id_canton', $canton)->get();
+
+        if ($empleados->isEmpty()) {
+            return ['successful' => false, 'error' => 'Empleados con este canton no encontrados'];
         }
 
         return ['successful' => true, 'data' => $empleados];
     }
 
+    public function listarEmpleadosPorGenero($genero)
+    {
+        if ($genero === 'ND') {
+            // Si el género es 'SN', busca empleados con 'Genero' vacío o en blanco
+            $empleados = Empleado::whereNull('Genero')->orWhere('Genero', '')->get();
+        } else {
+            // Si se proporciona un género específico, busca empleados con ese género
+            $empleados = Empleado::where('Genero', $genero)->get();
+        }
+    
+        if ($empleados->isEmpty()) {
+            return ['exitoso' => false, 'error' => 'Empleados con este género no encontrados'];
+        }
+    
+        return ['exitoso' => true, 'datos' => $empleados];
+    }
+    
+
     public function crearEmpleado(Request $request)
     {
         // Validar los datos de entrada
         $validator = Validator::make($request->all(), [
-            'cedula' => 'required|numeric|unique:empleado|between:10,12',
+            'cedula' => 'required|numeric|unique:empleado',
             'primerNombre' => 'required|string',
             'segundoNombre' => 'required|string',
             'primerApellido' => 'required|string',
             'segundoApellido' => 'required|string',
-            'fechaNacimiento' => 'required|date',
+            'fechaNacimiento' => 'required|date|before:' . Carbon::now()->subYears(18)->format('Y-m-d'),
             'genero' => 'required|string',
-            'telefonoPersonal' => 'required|string',
-            'telefonoTrabajo' => 'required|string',
+            'telefonoPersonal' => [
+                'required',
+                'string',
+                'unique:empleado',
+                function ($attribute, $value, $fail) {
+                    // Validar el formato del número de teléfono personal
+                    if ($value !== 'SN' && !preg_match("/^09\d{8}$/", $value)) {
+                        $fail("El formato del teléfono personal no es válido. Debe seguir el formato '09XXXXXXXX'.");
+                    }
+                },
+            ],
+            'telefonoTrabajo' => 'required|string|unique:empleado',
             'correo' => 'required|email|unique:empleado',
             'etnia' => 'required|string',
             'estadoCivil' => 'required|string',
             'tipoSangre' => 'required|string',
             'nacionalidad' => 'required|string',
-            'provinciaNacimiento' => 'required|string',
-            'ciudadNacimiento' => 'required|string',
-            'cantonNacimiento' => 'required|string',
+            'id_provincia' => 'required|numeric|exists:provincia,id_provincia',
+            'id_canton' => 'required|numeric|exists:canton,id_canton,id_provincia,' . $request->id_provincia,
             'idCargo' => 'required|numeric|exists:cargo,idCargo',
         ]);
 
@@ -164,30 +219,39 @@ class EmpleadoService
         // Crear el empleado
         $empleado = Empleado::create($request->all());
 
-        return response()->json(['successful' => true, 'data' => $empleado], 201);
+        return response()->json(['successful' => true, 'true' => 'Empleado creado'], 201);
     }
 
     public function actualizarEmpleado(Request $request, $id)
     {
         // Validar los datos de entrada
         $validator = Validator::make($request->all(), [
-            'cedula' => 'numeric|unique:empleado,cedula,' . $id . ',idEmpleado|digits_between:10,12 ',
+           /* 'cedula' => 'numeric|unique:empleado,cedula,' . $id . ',idEmpleado|digits_between:10,12 ',
             'primerNombre' => 'string',
             'segundoNombre' => 'string',
             'primerApellido' => 'string',
             'segundoApellido' => 'string',
-            'fechaNacimiento' => 'date',
+            'fechaNacimiento' => 'date',*/
             'Genero' => 'string',
-            'telefonoPersonal' => 'string',
+            'telefonoPersonal' => [
+                'required',
+                'string',
+                'unique:empleado,telefonoPersonal,' . $id . ',idEmpleado',
+                function ($attribute, $value, $fail) {
+                    // Validar el formato del número de teléfono personal
+                    if ($value !== 'SN' && !preg_match("/^09\d{8}$/", $value)) {
+                        $fail("El formato del teléfono personal no es válido. Debe seguir el formato '09XXXXXXXX'.");
+                    }
+                },
+            ],
             'telefonoTrabajo' => 'nullable|string',
             'correo' => 'email|unique:empleado,correo,' . $id . ',idEmpleado',
             'etnia' => 'nullable|string',
             'estadoCivil' => 'nullable|string',
             'tipoSangre' => 'nullable|string',
-            'nacionalidad' => 'string',
-            'provinciaNacimiento' => 'nullable|string',
-            'ciudadNacimiento' => 'nullable|string',
-            'cantonNacimiento' => 'nullable|string',
+           /* 'nacionalidad' => 'string',*/
+            'id_provincia' => 'nullable|numeric|exists:provincia,id_provincia',
+            'id_canton' => 'nullable|numeric|exists:canton,id_canton,id_provincia,' . $request->id_provincia,
             'idCargo' => 'numeric|exists:cargo,idCargo',
         ]);
 
@@ -205,7 +269,7 @@ class EmpleadoService
         // Actualizar el empleado
         $empleado->update($request->all());
 
-        return response()->json(['successful' => true, 'data' => $empleado]);
+        return response()->json(['successful' => true, 'data' => 'Empleado Actualizado']);
     }
 
     public function eliminarEmpleado($id)

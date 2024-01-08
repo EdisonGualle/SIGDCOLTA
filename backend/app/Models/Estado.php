@@ -9,7 +9,7 @@ class Estado extends Model
 {
     use HasFactory;
 
-    protected $table = 'estado';
+    protected $table = 'estadousuario';
     protected $primaryKey = 'idEstado';
     protected $hidden = [
         "updated_at",
