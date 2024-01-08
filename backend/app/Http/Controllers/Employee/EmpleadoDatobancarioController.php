@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Models\DatoBancario;
 
 class EmpleadoDatobancarioController extends Controller
 {
@@ -39,5 +40,28 @@ class EmpleadoDatobancarioController extends Controller
         ];
 
         return response()->json($respuesta);
+    }
+
+
+    public function totalDatosBancariosEmpleadoActual()
+    {
+        // Obtén al usuario autenticado (asumiendo que el empleado está vinculado al usuario)
+        $usuarioAutenticado = Auth::user();
+
+        if (!$usuarioAutenticado) {
+            return response()->json(['error' => 'Usuario no autenticado'], 401);
+        }
+
+        // Obtén el modelo Empleado a través del modelo User
+        $empleado = $usuarioAutenticado->empleado;
+
+        if (!$empleado) {
+            return response()->json(['error' => 'Empleado no encontrado'], 404);
+        }
+
+        // Obtén el total de datos bancarios para el empleado actual
+        $totalDatosBancarios = $empleado->datosBancarios->count();
+
+        return response()->json(['totalDatosBancariosEmpleado' => $totalDatosBancarios]);
     }
 }

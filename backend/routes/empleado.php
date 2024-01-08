@@ -12,8 +12,8 @@ use App\Http\Controllers\Employee\EmpleadoInstruccionformalController;
 
 
 //Rutas Capacitaciones
-Route::get('/mis-capacitaciones', [EmpleadoCapacitacionController::class, 'listarCapacitacionesPorEmpleadoAuth']);
-Route::get('/mis-capacitaciones/total', [EmpleadoCapacitacionController::class, 'obtenerTotalCapacitacionesPorEmpleadoAuth']);
+Route::get('mis-capacitaciones', [EmpleadoCapacitacionController::class, 'listarCapacitacionesPorEmpleadoAuth']);
+Route::get('total-capacitaciones', [EmpleadoCapacitacionController::class, 'obtenerTotalCapacitacionesPorEmpleadoAuth']);
 
 //Rutas Cargo
 Route::get('/mi-cargo', [EmpleadoCargoController::class, 'mostrarInformacionEmpleadoCargoDepartamento']);
@@ -26,20 +26,21 @@ Route::get('/mi-departamento', [EmpleadoDepartamentoController::class, 'obtenerD
 
 //Rutas Dato Bancario
 Route::get('/mis-datosbancarios', [EmpleadoDatoBancarioController::class, 'mostrarDatosBancariosEmpleadoAuth']);
+Route::get('/total-datosbancarios', [EmpleadoDatoBancarioController::class, 'totalDatosBancariosEmpleadoActual']);
 
 
 //Rutas Evaluacion-desempeno
-Route::get('mis-evaluacionesdesempeno', [EmpleadoEvaluaciondesempenoController::class, 'listarEvaluacionesDesempeno']);
-Route::get('total-evaluacionesdesempeno', [EmpleadoEvaluaciondesempenoController::class, 'obtenerTotalEvaluacionesDesempeno']);
+Route::get('/mis-evaluacionesdesempeno', [EmpleadoEvaluaciondesempenoController::class, 'listarEvaluacionesDesempeno']);
+Route::get('/total-evaluacionesdesempeno', [EmpleadoEvaluaciondesempenoController::class, 'obtenerTotalEvaluacionesDesempeno']);
 
 //Rutas Experiencia Laboral
-Route::get('mis-experienciaslaborales', [EmpleadoExperiencialaboralController::class, 'mostrarDetallesEmpleadoYExperiencias']);
+Route::get('/mis-experienciaslaborales', [EmpleadoExperiencialaboralController::class, 'mostrarDetallesEmpleadoYExperiencias']);
 
-Route::get('total-experienciaslaborales', [EmpleadoExperiencialaboralController::class, 'obtenerTotalExperienciasLaborales']);
+Route::get('/total-experienciaslaborales', [EmpleadoExperiencialaboralController::class, 'obtenerTotalExperienciasLaborales']);
 //asc-desc
-Route::get('experiencias-laborales-ordenadas-por-fecha/{orden?}', [EmpleadoExperiencialaboralController::class, 'listarExperienciasLaboralesOrdenadasPorFecha']);
+Route::get('/expLaborales-ordenadasxfecha/{orden?}', [EmpleadoExperiencialaboralController::class, 'listarExperienciasLaboralesOrdenadasPorFecha']);
 
 //Rutas Instrucciones Formales
-Route::get('total-instrucciones-formales', [EmpleadoInstruccionformalController::class, 'obtenerTotalInstruccionesFormales']);
-Route::get('instrucciones-formales-ordenadas-por-fecha/{orden?}', [EmpleadoInstruccionformalController::class, 'listarInstruccionesFormalesOrdenadasPorFecha']);
-Route::get('listar-instrucciones-formales', [EmpleadoInstruccionformalController::class, 'mostrarDetallesEmpleadoEInstruccionesFormales']);
+Route::get('/total-instruccionesformales', [EmpleadoInstruccionformalController::class, 'obtenerTotalInstruccionesFormales']);
+Route::get('/Instformales-ordenadasxfecha/{orden?}', [EmpleadoInstruccionformalController::class, 'listarInstruccionesFormalesOrdenadasPorFecha']);
+Route::get('/mis-instruccionesformales', [EmpleadoInstruccionformalController::class, 'mostrarDetallesEmpleadoEInstruccionesFormales']);
