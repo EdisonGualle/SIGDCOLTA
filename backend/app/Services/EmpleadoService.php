@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 use App\Rules\EcuadorCedula;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class EmpleadoService
 {
@@ -20,6 +21,36 @@ class EmpleadoService
     {
         $empleados = Empleado::all();
         return ['successful' => true, 'data' => $empleados];
+    }
+    public function EmpleadosReporte()
+    {
+        $empleados = DB::table('empleado')
+        ->join('cargo', 'empleado.idCargo', '=', 'cargo.idCargo')
+        ->join('unidad', 'cargo.idUnidad', '=', 'unidad.idUnidad')
+        ->join('direccion', 'unidad.iddireccion', '=', 'direccion.idDireccion')
+        ->join('contrato', 'empleado.idEmpleado', '=', 'contrato.idEmpleado')
+        ->join('tipocontrato', 'contrato.idTipoContrato', '=', 'tipocontrato.idTipoContrato')
+        ->select(
+            'empleado.primerNombre',
+            'empleado.primerApellido',
+            'empleado.cedula',
+            'cargo.nombre as nombreCargo',
+            'unidad.nombre as nombreUnidad',
+            'direccion.nombre as nombreDireccion',
+            'tipocontrato.nombre as nombreTipoContrato',
+            'contrato.salario'
+        )
+        ->get();
+
+
+        // Verificando si el conjunto de resultados está vacío
+        if ($empleados->isEmpty()) {
+            return ['exitoso' => false, 'error' => 'No se encontró información de empleados'];
+        }
+
+        // Devolviendo el resultado si se encuentran empleados
+        $pdf = PDF::loadView('PDF.EmpleadosReporte', ['empleados' => $empleados]);
+        return $pdf->download('empleados_reporte.pdf');
     }
 
     public function mostrarEmpleadoPorId($id)
@@ -285,4 +316,8 @@ class EmpleadoService
 
         return ['successful' => true, 'message' => 'Empleado eliminado correctamente'];
     }
+
+    
+
+    
 }
