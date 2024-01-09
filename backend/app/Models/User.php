@@ -37,6 +37,12 @@ class User extends Authenticatable implements CanResetPassword
     {
         return $this->belongsTo(Empleado::class, 'idEmpleado');
     }
+
+    public function estado()
+    {
+        return $this->belongsTo(EstadoUsuario::class, 'idEstado', 'idEstado');
+    }
+    
     public function routeNotificationForMail()
     {
         return $this->correo;

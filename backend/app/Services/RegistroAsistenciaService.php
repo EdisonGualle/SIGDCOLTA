@@ -2,13 +2,19 @@
 
 namespace App\Services;
 
+use App\Models\Contrato;
 use App\Models\RegistroAsistencia;
 use App\Models\Empleado;
 use App\Models\Estado;
 use App\Models\EstadoAsistencia;
+use App\Models\EstadoUsuario;
+use App\Models\HorarioEmpleado;
+use App\Models\MinutosAtraso;
 use App\Models\TipoAsistencia;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class RegistroAsistenciaService
 {
@@ -88,10 +94,14 @@ class RegistroAsistenciaService
         return response()->json(['successful' => true, 'message' => 'Registro de Asistencia eliminado correctamente'], 200);
     }
 
+
+
+
+
     public function registrarAsistencia(Request $request)
     {
         // Validar los datos de entrada
-        $validator = $this->validator->make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'idEmpleado' => 'required|exists:empleado,idEmpleado',
             'tipoAsistencia' => 'required|exists:tipoasistencia,tipoAsistencia',
             'fecha' => 'required|date',
@@ -106,9 +116,9 @@ class RegistroAsistenciaService
         // Verificar si el empleado está activo
         $empleado = Empleado::find($request->idEmpleado);
 
-        if (!$empleado || !$this->isEmpleadoActivo($empleado)) {
+        /*  if (!$empleado || !$this->isEmpleadoActivo($empleado)) {
             return response()->json(['successful' => false, 'error' => 'El empleado no está activo'], 422);
-        }
+        } */
 
         // Verificar si el tipo asistencia está activo
         $tipoAsistencia = TipoAsistencia::find($request->tipoAsistencia);
@@ -127,33 +137,84 @@ class RegistroAsistenciaService
             return response()->json(['successful' => false, 'error' => 'Ya existe un registro para este empleado, tipo de asistencia y fecha'], 422);
         }
 
+
+        $tipoAsistencia = TipoAsistencia::find($request->tipoAsistencia);
+        $horarioEmpleado = HorarioEmpleado::where('idEmpleado', $request->idEmpleado)
+            ->where('tipoAsistencia', $request->tipoAsistencia) // Ajusta el nombre de la columna según tu estructura
+            ->first();
+
         // Validar el rango de horas
         $horaSolicitud = Carbon::parse($request->hora);
-        $horaDesde = Carbon::parse($tipoAsistencia->desde);
-        $horaHasta = Carbon::parse($tipoAsistencia->hasta);
+        $horaDesde = Carbon::parse($horarioEmpleado->horaDesde);
+        $horaHasta = Carbon::parse($horarioEmpleado->horaHasta);
 
         // Verificar si la hora de la solicitud está dentro del rango permitido
         if ($horaSolicitud->between($horaDesde, $horaHasta)) {
             // Crear el registro de asistencia
-            RegistroAsistencia::create($request->all());
+            $request->merge(['estadoAsistencia' => TipoAsistencia::PRESENTE]); // Asignar el estado "Atrasado"
+            $registroAsistencia = RegistroAsistencia::create($request->all());
             return response()->json(['successful' => true, 'message' => 'Registro de Asistencia realizado correctamente'], 200);
         } else {
-            // La hora está fuera del rango, guardar como atrasado
             $request->merge(['estadoAsistencia' => TipoAsistencia::ATRASADO]); // Asignar el estado "Atrasado"
-            RegistroAsistencia::create($request->all());
-            return response()->json(['successful' => true, 'message' => 'Registro de Asistencia realizado como atrasado'], 200);
+            $registroAsistencia = RegistroAsistencia::create($request->all());
+
+            // Registrar minutos de atraso
+            $minutosAtraso = Carbon::parse($horarioEmpleado->horaHasta)->diffInMinutes($horaSolicitud);
+
+            MinutosAtraso::create([
+                'idEmpleado' => $empleado->idEmpleado,
+                'idRegistroAsistencia' => $registroAsistencia->idRegistroAsistencia,
+                'cantidad_minutos' => $minutosAtraso,
+                'fecha' => $registroAsistencia->fecha,
+            ]);
+
+            return response()->json(['successful' => true, 'message' => 'Registro de Asistencia realizado como atrasado', $empleado->idEmpleado], 200);
         }
     }
 
-    // Función auxiliar para verificar si el empleado está activo
-    private function isEmpleadoActivo($empleado)
+    public function cantidadHorasAtrasoEmpleado(Request $request)
     {
-        // Obtener el estado del empleado
-        $estadoEmpleado = Estado::find($empleado->idEstado);
+        $validator = Validator::make($request->all(), [
+            'idEmpleado' => 'required|numeric|exists:empleado,idEmpleado', // Asegúrate de ajustar el nombre de la tabla 'empleados'
+            'fechaInicio' => 'required|date',
+            'fechaFin' => 'required|date|after_or_equal:fechaInicio',
+        ], [
+            'idEmpleado.exists' => 'No existe el empleado especificado',
+            'fechaFin.after_or_equal' => 'La fecha de fin debe ser igual o posterior a la fecha de inicio',
+        ]);
+        // Si la validación falla, devuelve los errores
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
+        }
 
-        // Verificar si el estado es 'activo'
-        return $estadoEmpleado && strtolower($estadoEmpleado->tipoEstado) === 'activo';
+
+        $minutosAtraso = MinutosAtraso::where('idEmpleado', $request->idEmpleado)
+            ->whereBetween('fecha', [$request->fechaInicio, $request->fechaFin])
+            ->sum('cantidad_minutos');
+
+        $horasAtraso = $minutosAtraso / 60;
+
+        return response()->json(['successful' => true, 'minutosTotales' => $minutosAtraso, "horasTotales" => $horasAtraso], 200);
     }
+
+
+
+    // Función auxiliar para verificar si el empleado está activo
+    private function isEmpleadoActivo($idEmpleado)
+    {
+        // Obtener el tipo de estado del usuario asociado al empleado
+        $tipoEstado = User::where('idEmpleado', $idEmpleado)
+            ->join('estadoUsuario', 'usuario.idTipoEstado', '=', 'estadoUsuario.idEstado')
+            ->value('estadoUsuario.tipoEstado');
+
+        // Verificar si el tipo de estado es 'activo'
+        if ($tipoEstado === 'activo') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
 
 
