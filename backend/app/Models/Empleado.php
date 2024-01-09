@@ -88,7 +88,7 @@ class Empleado extends Model
     //Relacion Empleado-Cargo
     public function cargo()
     {
-        return $this->hasOne(Cargo::class, 'idCargo');
+        return $this->belongsTo(Cargo::class, 'idCargo');
     }
 
 
@@ -123,5 +123,11 @@ class Empleado extends Model
     {
         return $this->belongsToMany(InstruccionFormal::class, 'empleado_has_instruccionformal', 'idEmpleado', 'idInstruccionFormal')
             ->withTimestamps();
+    }
+    
+    //nombresCompletos
+    public function nombresCompletos()
+    {
+        return $this->primerNombre . ' ' . $this->segundoNombre . ' ' . $this->primerApellido . ' ' . $this->segundoApellido;
     }
 }

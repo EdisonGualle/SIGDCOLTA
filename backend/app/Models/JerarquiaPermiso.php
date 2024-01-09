@@ -25,7 +25,7 @@ class JerarquiaPermiso extends Model
     public $incrementing = false;
 
     // Definir relaciones si es necesario
-    public function cargo()
+    public function cargoSolicitante()
     {
         return $this->belongsTo(Cargo::class, 'idCargo', 'idCargo');
     }
@@ -34,4 +34,5 @@ class JerarquiaPermiso extends Model
     {
         return $this->belongsTo(Cargo::class, 'idCargoAprobador', 'idCargo');
     }
+
 }

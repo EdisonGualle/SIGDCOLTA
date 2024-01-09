@@ -32,6 +32,8 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\EstadoPermisoController;
 use App\Http\Controllers\JerarquiaPermisoController;
 use App\Http\Controllers\AprobacionPermisoController;
+use App\Http\Controllers\Admin\AdministrarPermisosController;
+
 
 
 /*
@@ -151,6 +153,7 @@ Route::get('/discapacidades/empleados-por-discapacidad/id/{idDiscapacidad}', [Di
 
 // EMPLEADOS routes
 Route::get('/empleados', [EmpleadoController::class, 'listarEmpleados']);
+Route::get('/empleadosReporte', [EmpleadoController::class, 'EmpleadosReporte']);
 Route::get('/empleados/{id}', [EmpleadoController::class, 'mostrarEmpleadoPorId']);
 /////
 Route::get('/empleados/direccion/{idDireccion}', [EmpleadoController::class, 'listarEmpleadosPorDireccionId']);
@@ -165,6 +168,7 @@ Route::get('/empleados/canton/{id_canton}', [EmpleadoController::class, 'listarE
 Route::post('/empleados', [EmpleadoController::class, 'crearEmpleado']);
 Route::put('/empleados/{id}', [EmpleadoController::class, 'actualizarEmpleado']);
 Route::delete('/empleados/{id}', [EmpleadoController::class, 'eliminarEmpleado']);
+
 
 // PROVINCIAS routes
 Route::get('/provincia', [ProvinciaController::class, 'listarProvincia']);
@@ -338,3 +342,14 @@ Route::post('/usuarios/suspender/{id}', [UsuarioController::class, 'suspenderUsu
 Route::post('/usuarios/activar/{id}', [UsuarioController::class, 'activarUsuario']);
 Route::put('/usuarios/{id}', [UsuarioController::class, 'actualizarUsuario']);
 Route::delete('/usuarios/{id}', [UsuarioController::class, 'eliminarUsuario']);
+
+
+// Listar los permisos apobar loguiado
+Route::get('/listar-aprobaciones', [AdministrarPermisosController::class, 'listarAprobacionesPermiso']);
+Route::get('/aprobaciones-empleado/{idEmpleado}', [AdministrarPermisosController::class, 'listarAprobacionesEmpleadoId']);
+Route::get('/permisos-estado/{estadoPermiso}', [AdministrarPermisosController::class, 'listarPermisosPorEstado']);
+Route::patch('/aprobacionpermiso/{idAprobacionSolicitud}',[AdministrarPermisosController::class, 'editarAprobacionPermisoId']);
+
+
+
+
