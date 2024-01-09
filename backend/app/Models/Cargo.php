@@ -41,5 +41,8 @@ class Cargo extends Model
             ->withPivot('id');
     }
 
-
+    public function empleado()
+    {
+        return $this->hasOne(Empleado::class, 'idCargo', 'idCargo');
+    }
 }

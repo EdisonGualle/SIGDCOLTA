@@ -9,6 +9,7 @@ use App\Http\Controllers\Employee\EmpleadoDatoBancarioController;
 use App\Http\Controllers\Employee\EmpleadoEvaluaciondesempenoController;
 use App\Http\Controllers\Employee\EmpleadoExperiencialaboralController;
 use App\Http\Controllers\Employee\EmpleadoInstruccionformalController;
+use App\Http\Controllers\Employee\SolicitarPermisoController;
 
 
 //Rutas Capacitaciones
@@ -42,3 +43,8 @@ Route::get('listar-evaluaciones-desempeno', [EmpleadoExperiencialaboralControlle
 Route::get('total-instrucciones-formales', [EmpleadoInstruccionformalController::class, 'obtenerTotalInstruccionesFormales']);
 Route::get('instrucciones-formales-ordenadas-por-fecha/{orden?}', [EmpleadoInstruccionformalController::class, 'listarInstruccionesFormalesOrdenadasPorFecha']);
 Route::get('listar-instrucciones-formales', [EmpleadoInstruccionformalController::class, 'mostrarDetallesEmpleadoEInstruccionesFormales']);
+
+
+// Rutas permiso
+Route::post('solicitar-permiso', [SolicitarPermisoController::class, 'crearPermiso']);
+Route::get('/mis-permisos',[SolicitarPermisoController::class, 'listarMisPermisos']);
