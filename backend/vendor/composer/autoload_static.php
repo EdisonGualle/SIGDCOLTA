@@ -657,10 +657,6 @@ class ComposerStaticInitfe33f98a750b8c5a51b30c78bd3fab21
         'App\\Http\\Controllers\\Employee\\EmpleadoReferencialaboralController' => __DIR__ . '/../..' . '/app/Http/Controllers/Employee/EmpleadoReferencialaboralController.php',
         'App\\Http\\Controllers\\EstadoController' => __DIR__ . '/../..' . '/app/Http/Controllers/EstadoController.php',
         'App\\Http\\Controllers\\EstadoPermisoController' => __DIR__ . '/../..' . '/app/Http/Controllers/EstadoPermisoController.php',
-<<<<<<< HEAD
-        'App\\Http\\Controllers\\InstruccionFormalController' => __DIR__ . '/../..' . '/app/Http/Controllers/InstruccionFormalController.php',
-=======
->>>>>>> main
         'App\\Http\\Controllers\\JerarquiaPermisoController' => __DIR__ . '/../..' . '/app/Http/Controllers/JerarquiaPermisoController.php',
         'App\\Http\\Controllers\\PermisoController' => __DIR__ . '/../..' . '/app/Http/Controllers/PermisoController.php',
         'App\\Http\\Controllers\\ProvinciaController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProvinciaController.php',
@@ -706,32 +702,15 @@ class ComposerStaticInitfe33f98a750b8c5a51b30c78bd3fab21
         'App\\Models\\Invoice' => __DIR__ . '/../..' . '/app/Models/Invoice.php',
         'App\\Models\\JerarquiaPermiso' => __DIR__ . '/../..' . '/app/Models/JerarquiaPermiso.php',
         'App\\Models\\Permiso' => __DIR__ . '/../..' . '/app/Models/Permiso.php',
-<<<<<<< HEAD
-=======
-        'App\\Models\\Provincia' => __DIR__ . '/../..' . '/app/Models/Provincia.php',
-        'App\\Models\\Referencialaboral' => __DIR__ . '/../..' . '/app/Models/Referencialaboral.php',
->>>>>>> main
         'App\\Models\\RegistroAsistencia' => __DIR__ . '/../..' . '/app/Models/RegistroAsistencia.php',
         'App\\Models\\Residencia' => __DIR__ . '/../..' . '/app/Models/Residencia.php',
         'App\\Models\\Rol' => __DIR__ . '/../..' . '/app/Models/Rol.php',
         'App\\Models\\SalidaCampo' => __DIR__ . '/../..' . '/app/Models/SalidaCampo.php',
         'App\\Models\\TipoAsistencia' => __DIR__ . '/../..' . '/app/Models/TipoAsistencia.php',
-<<<<<<< HEAD
-        'App\\Models\\TipoContrato' => __DIR__ . '/../..' . '/app/Models/TipoContrato.php',
-=======
->>>>>>> main
         'App\\Models\\TipoPermiso' => __DIR__ . '/../..' . '/app/Models/TipoPermiso.php',
         'App\\Models\\TipoSalida' => __DIR__ . '/../..' . '/app/Models/TipoSalida.php',
         'App\\Models\\Unidad' => __DIR__ . '/../..' . '/app/Models/Unidad.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
-<<<<<<< HEAD
-        'App\\Models\\Vacacion' => __DIR__ . '/../..' . '/app/Models/Vacacion.php',
-=======
->>>>>>> main
-        'App\\Notifications\\Registro\\RegistroUsuarioNotification' => __DIR__ . '/../..' . '/app/Notifications/Registro/RegistroUsuarioNotification.php',
-        'App\\Notifications\\Roles\\CambioDeRolAdminNotification' => __DIR__ . '/../..' . '/app/Notifications/Roles/CambioDeRolAdminNotification.php',
-        'App\\Notifications\\Roles\\CambioDeRolNotification' => __DIR__ . '/../..' . '/app/Notifications/Roles/CambioDeRolNotification.php',
-        'App\\Notifications\\Roles\\EliminarRolAdminNotification' => __DIR__ . '/../..' . '/app/Notifications/Roles/EliminarRolAdminNotification.php',
         'App\\Notifications\\Roles\\EliminarRolNotification' => __DIR__ . '/../..' . '/app/Notifications/Roles/EliminarRolNotification.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
