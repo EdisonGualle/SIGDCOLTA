@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
+use App\Rules\EcuadorCedula;
 
 class EmpleadoService
 {
@@ -182,7 +183,7 @@ class EmpleadoService
     {
         // Validar los datos de entrada
         $validator = Validator::make($request->all(), [
-            'cedula' => 'required|numeric|unique:empleado',
+            'cedula' => ['required', 'string', new EcuadorCedula, 'unique:empleado'],
             'primerNombre' => 'required|string',
             'segundoNombre' => 'required|string',
             'primerApellido' => 'required|string',
