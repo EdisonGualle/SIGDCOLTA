@@ -33,4 +33,10 @@ class Unidad extends Model
     {
         return $this->hasMany(Empleado::class, 'idUnidad');
     }
+
+    // Relación con el modelo Direccion
+    public function direccion()
+    {
+        return $this->belongsTo(Direccion::class, 'idDireccion');
+    }
 }

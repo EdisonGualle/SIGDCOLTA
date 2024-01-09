@@ -40,7 +40,7 @@ class ContratoService
     {
         $contratos = Contrato::whereHas('empleados', function ($query) use ($cedula) {
             $query->where('cedula', $cedula);
-        })->select('idContrato', 'fechaInicio', 'fechaFin', 'idTipoContrato', 'idEmpleado')->get();
+        })->get();
 
         return response()->json(['successful' => true, 'data' => $contratos]);
     }
@@ -57,7 +57,6 @@ class ContratoService
     public function listarContratosPorIdEmpleado($idEmpleado)
     {
         $contratos = Contrato::where('idEmpleado', $idEmpleado)
-            ->select('idContrato', 'fechaInicio', 'fechaFin', 'idTipoContrato', 'idEmpleado')
             ->get();
         return response()->json(['successful' => true, 'data' => $contratos]);
     }
@@ -66,7 +65,6 @@ class ContratoService
     public function listarContratosPorIdTipoContrato($idTipoContrato)
     {
         $contratos = Contrato::where('idTipoContrato', $idTipoContrato)
-            ->select('idContrato', 'fechaInicio', 'fechaFin', 'idTipoContrato', 'idEmpleado')
             ->get();
 
         return response()->json(['successful' => true, 'data' => $contratos]);
@@ -77,7 +75,7 @@ class ContratoService
     {
         $contratos = Contrato::whereHas('tiposContrato', function ($query) use ($nombreTipoContrato) {
             $query->where('nombre', $nombreTipoContrato);
-        })->select('idContrato', 'fechaInicio', 'fechaFin', 'idTipoContrato', 'idEmpleado')->get();
+        })->get();
 
         return response()->json(['successful' => true, 'data' => $contratos]);
     }

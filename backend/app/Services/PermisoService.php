@@ -35,34 +35,36 @@ class PermisoService
     }
 
     public function crearPermiso(Request $request)
-{
-    // Obtener el ID del usuario autenticado
-    $idEmpleado = Auth::user()->idEmpleado;
+    {
+        try {
+            // Obtener el ID del empleado del request
+            $idEmpleado = $request->input('idEmpleado');
 
-    // Agregar el ID del empleado al request
-    $request->merge(['idEmpleado' => $idEmpleado]);
+            // Agregar la fecha y hora de solicitud al request
+            $request->merge(['fechaSolicitud' => now()]);
 
-    // Agregar la fecha y hora de solicitud al request
-    $request->merge(['fechaSolicitud' => Carbon::now()]);
+            $validator = Validator::make($request->all(), [
+                'idTipoPermiso' => 'required|numeric|exists:tipopermiso,idTipoPermiso',
+                'motivo' => 'required|string',
+                'fechaInicio' => 'required|date_format:Y-m-d H:i:s',
+                'fechaFinaliza' => 'required|date_format:Y-m-d H:i:s',
+                'tiempoPermiso' => 'required|numeric',
+                'idEstadoPermiso' => 'required|numeric|exists:estadopermiso,idEstadoPermiso',
+            ]);
 
-    $validator = Validator::make($request->all(), [
-        'idTipoPermiso' => 'required|numeric|exists:tipopermiso,idTipoPermiso',
-        'motivo' => 'required|string',
-        'fechaInicio' => 'required|date_format:Y-m-d H:i:s',
-        'fechaFinaliza' => 'required|date_format:Y-m-d H:i:s',
-        'tiempoPermiso' => 'required|numeric',
-        'idEstadoPermiso' => 'required|numeric|exists:estadopermiso,idEstadoPermiso',
-    ]);
+            if ($validator->fails()) {
+                return response()->json(['successful' => false, 'errors' => $validator->errors()], 422);
+            }
 
-    if ($validator->fails()) {
-        return response()->json(['successful' => false, 'errors' => $validator->errors()], 422);
+            // Crear el permiso con el ID del empleado proporcionado en el request
+            $permiso = Permiso::create($request->all());
+
+            return response()->json(['successful' => true, 'data' => $permiso], 201);
+        } catch (\Exception $e) {
+            // Manejar cualquier excepción que pueda ocurrir durante el proceso
+            return response()->json(['successful' => false, 'error' => $e->getMessage()], 500);
+        }
     }
-
-    // Crear el permiso
-    $permiso = Permiso::create($request->all());
-
-    return response()->json(['successful' => true, 'data' => $permiso], 201);
-}
 
     public function actualizarPermiso(Request $request, $id)
     {
