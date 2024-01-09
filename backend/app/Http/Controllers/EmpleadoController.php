@@ -36,17 +36,29 @@ class EmpleadoController extends Controller
     {
         return response()->json($this->empleadoService->listarEmpleadosPorCargoId($idCargo));
     }
-
-
+    ///listarEmpleadosPorCargoId
+    public function listarEmpleadosPorEstadoId($idEstado)
+    {
+        return response()->json($this->empleadoService->listarEmpleadosPorEstadoId($idEstado));
+    }
     public function listarEmpleadosPorNacionalidad($nacionalidad)
     {
         return response()->json($this->empleadoService->listarEmpleadosPorNacionalidad($nacionalidad));
+    }
+    public function listarEmpleadosPorProvincia($provincia)
+    {
+        return response()->json($this->empleadoService->listarEmpleadosPorProvincia($provincia));
+    }
+    public function listarEmpleadosPorCanton($canton)   
+    {
+        return response()->json($this->empleadoService->listarEmpleadosPorCanton($canton));
     }
 
     public function listarEmpleadosPorGenero($genero)
     {
         return response()->json($this->empleadoService->listarEmpleadosPorGenero($genero));
     }
+
 
     public function crearEmpleado(Request $request)
     {

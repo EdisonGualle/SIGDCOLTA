@@ -33,9 +33,8 @@ class Empleado extends Model
         'estadoCivil',
         'tipoSangre',
         'nacionalidad',
-        'provinciaNacimiento',
-        'ciudadNacimiento',
-        'cantonNacimiento',
+        'id_provincia',
+        'id_canton',
         'idCargo',
     ];
 
