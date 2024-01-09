@@ -1,9 +1,15 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 //Auth
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\Auth\RestablecerContraseñaController;
+use App\Http\Controllers\Calendario_actividades_gad_Controller;
+use App\Http\Controllers\VacacionController;
+use App\Models\Calendario_actividades_gad;
+use App\Services\ContratoService;
+use App\Services\RegistroAsistenciaService;
 use Illuminate\Http\JsonResponse;
 
 
@@ -63,3 +69,13 @@ Route::fallback(function () {
     // Respuesta JSON personalizada para error 404
     return response()->json(['error' => 'Ruta no encontrada.'], JsonResponse::HTTP_NOT_FOUND);
 });
+
+
+
+//RUTAS PARA SER INSERTADAS POR ANGEL MELENDRES
+
+
+Route::get('/obtenerDiasLaboradosEmpleado', [Calendario_actividades_gad_Controller::class, 'obtenerDiasLaboradosPorEmpleado']);
+Route::get('/obtenerDiasLaborablesEmpleado', [Calendario_actividades_gad_Controller::class, 'obtenerDiasLaborablesEmpleado']);
+Route::get('/cantidadHorasAtrasoEmpleado', [RegistroAsistenciaService::class, 'cantidadHorasAtrasoEmpleado']);
+Route::post('/registrarActividadesMesesAuto', [Calendario_actividades_gad_Controller::class, 'registrarActividadesMesesAuto']);

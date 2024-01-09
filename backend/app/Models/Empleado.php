@@ -43,21 +43,27 @@ class Empleado extends Model
         return $this->correo;
     }
 
-      // Relación con el modelo AprobacionPermiso (Empleado solicitante)
-      public function aprobacionesSolicitante()
-      {
-          return $this->hasMany(AprobacionPermiso::class, 'idEmpleadoSolicitante');
-      }
-  
-      // Relación con el modelo AprobacionPermiso (Empleado aprobador)
-      public function aprobacionesAprobador()
-      {
-          return $this->hasMany(AprobacionPermiso::class, 'idEmpleadoAprobador');
-      }
+    // Relación con el modelo AprobacionPermiso (Empleado solicitante)
+    public function aprobacionesSolicitante()
+    {
+        return $this->hasMany(AprobacionPermiso::class, 'idEmpleadoSolicitante');
+    }
+
+    // Relación con el modelo AprobacionPermiso (Empleado aprobador)
+    public function aprobacionesAprobador()
+    {
+        return $this->hasMany(AprobacionPermiso::class, 'idEmpleadoAprobador');
+    }
     // Relacion con usuario
     public function usuario()
     {
         return $this->hasOne(User::class, 'idEmpleado', 'idEmpleado');
+    }
+
+    // En el modelo User.php
+    public function estado()
+    {
+        return $this->belongsTo(EstadoUsuario::class, 'idEstado', 'idEstado');
     }
 
     public function capacitacionesDeEmpleado()

@@ -42,5 +42,4 @@ class AprobacionPermiso extends Model
     {
         return $this->belongsTo(EstadoPermiso::class, 'idEstadoPermiso');
     }
-
 }

@@ -8,6 +8,7 @@ use App\Models\EstadoContrato;
 use App\Models\TipoContrato;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class ContratoService
