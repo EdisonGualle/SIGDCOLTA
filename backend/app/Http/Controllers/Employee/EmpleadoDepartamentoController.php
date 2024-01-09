@@ -24,18 +24,18 @@ class EmpleadoDepartamentoController extends Controller
             return response()->json(['successful' => false, 'error' => 'Empleado no encontrado'], 404);
         }
 
-        // Obtén el departamento asociado al empleado
+        // Obtén el departamento asociado al empleado (si existe)
         $departamento = $empleado->departamento;
 
         // Crear arrays separados
         $arrayEmpleado = [
             'successful' => true,
-            'datosEmpleado' => $empleado, // Corregido de $datosEmpleado a $empleado
+            'datosEmpleado' => $empleado,
         ];
 
         $arrayDepartamento = [
             'successful' => true,
-            'departamento' => $departamento, // Corregido de $datosDepartamento a $departamento
+            'departamento' => $departamento ?? 'Aún no tiene asignado departamento',
         ];
 
         // Verificar si la información del departamento está presente en la respuesta del empleado
@@ -50,5 +50,4 @@ class EmpleadoDepartamentoController extends Controller
             'departamento' => $arrayDepartamento,
         ]);
     }
-
 }
