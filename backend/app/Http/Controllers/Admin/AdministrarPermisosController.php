@@ -348,8 +348,8 @@ class AdministrarPermisosController extends Controller
         // Verificar si ya existen dos aprobaciones para este permiso
         if ($permiso->aprobaciones->count() >= 2) {
 
-            // Verificar que el nivel de aprobación no sea 1 y el estado no sea "Rechazado"
-            if ($nivelAprobacion == 1 && $idEstadoPermiso != $idEstadoRechazado) {
+            // Verificar que el nivel de aprobación sea 1 y el estado sea "Rechazado"
+            if ($nivelAprobacion == 1 && $idEstadoPermiso == $idEstadoRechazado) {
                 // Obtener la segunda aprobación del permiso con el nivel de aprobación 2
                 $segundaAprobacion = $permiso->aprobaciones()->where('nivelAprobacion', 2)->first();
 
