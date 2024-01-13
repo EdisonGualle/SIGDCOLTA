@@ -279,6 +279,20 @@ class AdministrarPermisosController extends Controller
             return response()->json(['successful' => false, 'message' => 'Aprobación no encontrada o no autorizada'], 404);
         }
 
+
+        // Verificar si el usuario autenticado tiene el cargo de "Jefe de Talento Humano"
+        $esJefeTalentoHumano = Auth::user()->empleado->cargo->nombre === 'Jefe de Talento Humano';
+
+        // Si no es el Jefe de Talento Humano
+        if (!$esJefeTalentoHumano) {
+            // Verificar si existe la otra aprobación con nivel 2
+            $otraAprobacion = $aprobacion->permiso->aprobaciones()->where('nivelAprobacion', 2)->first();
+
+            // Si la otra aprobación existe y ya tiene un estado diferente a pendiente, no permitir la edición
+            if ($otraAprobacion && $otraAprobacion->permiso->idEstadoPermiso !== EstadoPermiso::where('estado', 'Pendiente')->value('idEstadoPermiso')) {
+                return response()->json(['successful' => false, 'message' => 'No puedes editar un permiso que ya ha sido procesado'], 400);
+            }
+        }
         // Validar y obtener datos de la solicitud
         $nivelAprobacion = $aprobacion->nivelAprobacion;
         $idEstadoPermiso = $request->input('idEstadoPermiso');
@@ -352,11 +366,9 @@ class AdministrarPermisosController extends Controller
             if ($nivelAprobacion == 1 && $idEstadoPermiso == $idEstadoRechazado) {
                 // Obtener la segunda aprobación del permiso con el nivel de aprobación 2
                 $segundaAprobacion = $permiso->aprobaciones()->where('nivelAprobacion', 2)->first();
-
                 // Eliminar la segunda aprobación del permiso
                 $segundaAprobacion->delete();
             }
-
         } else {
 
             // Verificar que el nivel de aprobación no sea 1 y el estado no sea "Rechazado"

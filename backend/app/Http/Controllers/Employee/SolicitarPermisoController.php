@@ -118,4 +118,5 @@ class SolicitarPermisoController extends Controller
         // Retornar la lista de permisos en formato JSON
         return response()->json(['permisos' => $permisosTransformados], 200);
     }
+
 }
