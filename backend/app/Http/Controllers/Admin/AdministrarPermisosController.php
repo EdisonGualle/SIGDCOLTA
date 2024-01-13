@@ -145,52 +145,6 @@ class AdministrarPermisosController extends Controller
         return response()->json(['successful' => true, 'data' => $data], 200);
     }
 
-    // public function listarPermisosPorEstado($estadoPermiso)
-    // {
-    //     // Obtén el ID del empleado aprobador autenticado
-    //     $idEmpleadoAprobador = Auth::user()->idEmpleado;
-
-    //     // Validar que el estado proporcionado existe en la base de datos
-    //     $estadoExistente = EstadoPermiso::where('estado', $estadoPermiso)->exists();
-    //     if (!$estadoExistente) {
-    //         return response()->json(['successful' => false, 'message' => 'Estado no encontrado'], 404);
-    //     }
-
-    //     // Inicializa la consulta para obtener las aprobaciones de permiso
-    //     $query = AprobacionPermiso::with([
-    //         'permiso' => function ($query) {
-    //             $query->with(['empleado', 'tipoPermiso']);
-    //         }
-    //     ])->where('idEmpleadoAprobador', $idEmpleadoAprobador);
-
-    //     // Filtra por el estado proporcionado
-    //     $query->whereHas('estadoPermiso', function ($query) use ($estadoPermiso) {
-    //         $query->where('estado', $estadoPermiso);
-    //     });
-
-    //     // Ejecuta la consulta
-    //     $aprobaciones = $query->get();
-
-    //     // Transforma la estructura de la respuesta
-    //     $data = $aprobaciones->map(function ($aprobacion) {
-    //         return [
-    //             'idAprobacionSolicitud' => $aprobacion->idAprobacionSolicitud,
-    //             'cedula' => $aprobacion->permiso->empleado->cedula,
-    //             'nombresCompletos' => $aprobacion->permiso->empleado->nombresCompletos(),
-    //             'nombreTipoPermiso' => $aprobacion->permiso->tipoPermiso->nombre,
-    //             'motivo' => $aprobacion->permiso->motivo,
-    //             'fechaSolicitud' => $aprobacion->permiso->fechaSolicitud,
-    //             'fechaInicio' => $aprobacion->permiso->fechaInicio,
-    //             'fechaFinaliza' => $aprobacion->permiso->fechaFinaliza,
-    //             'tiempoPermiso' => $aprobacion->permiso->tiempoPermiso,
-    //             'estadoPermiso' => $aprobacion->estadoPermiso->estado, // Ajusta esto según la columna real en tu tabla
-    //         ];
-    //     });
-
-    //     // Devuelve las aprobaciones en formato JSON
-    //     return response()->json(['successful' => true, 'data' => $data], 200);
-    // }
-
     public function listarPermisosPorEstado($estadoPermiso)
     {
         // Obtén el ID del empleado aprobador autenticado
@@ -262,8 +216,6 @@ class AdministrarPermisosController extends Controller
         return response()->json(['successful' => true, 'data' => $data], 200);
     }
 
-
-
     public function editarAprobacionPermisoId(Request $request, $idAprobacionSolicitud)
     {
         // Validar y obtener el idEmpleadoAprobador
@@ -282,7 +234,6 @@ class AdministrarPermisosController extends Controller
 
         // Verificar si el usuario autenticado tiene el cargo de "Jefe de Talento Humano"
         $esJefeTalentoHumano = Auth::user()->empleado->cargo->nombre === 'Jefe de Talento Humano';
-
         // Si no es el Jefe de Talento Humano
         if (!$esJefeTalentoHumano) {
             // Verificar si existe la otra aprobación con nivel 2
@@ -321,9 +272,6 @@ class AdministrarPermisosController extends Controller
 
         // Guardar los cambios
         $aprobacion->save();
-
-        // Obtener dinámicamente el ID del estado "Rechazado" desde la base de datos
-        $idEstadoRechazado = EstadoPermiso::where('estado', 'Rechazado')->value('idEstadoPermiso');
 
         // Verificar si el estado es "Rechazado" y actualizar el estado en la tabla de permiso
         if ($idEstadoPermiso == $idEstadoRechazado) {
@@ -405,10 +353,9 @@ class AdministrarPermisosController extends Controller
                     $permiso->save();
                 }
             } else {
-                return response()->json(['successful' => false, 'message' => 'Ya hay dos aprobaciones para este permiso y no se encontró la aprobación del Jefe de Talento Humano'], 400);
+                return response()->json(['successful' => false, 'message' => 'Error'], 400);
             }
         }
-
 
         // Mensaje de éxito
         return response()->json(['successful' => true, 'message' => 'Aprobación actualizada con éxito'], 200);
