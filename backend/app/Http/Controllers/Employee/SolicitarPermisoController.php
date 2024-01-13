@@ -11,6 +11,8 @@ use Illuminate\Support\Carbon;
 use App\Models\AprobacionPermiso;
 use App\Models\Empleado;
 use App\Models\JerarquiaPermiso;
+use Illuminate\Validation\Rule;
+
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -21,7 +23,7 @@ class SolicitarPermisoController extends Controller
         // Obtener el ID del usuario autenticado
         $idEmpleado = Auth::user()->idEmpleado;
 
-        
+
         // Buscar el empleado que realiza la solicitud
         try {
             $empleadoSolicitante = Empleado::findOrFail($idEmpleado);
@@ -51,13 +53,30 @@ class SolicitarPermisoController extends Controller
                         $fail('Los permisos largos deben comenzar en un día hábil.');
                     }
                 },
+                function ($attribute, $value, $fail) use ($request) {
+                    $fechaInicio = Carbon::parse($value);
+                    $fechaFinaliza = Carbon::parse($request->fechaFinaliza);
+        
+                    // Verificar solapamiento con permisos existentes
+                    $permisosSolapados = Permiso::where('idEmpleado', $request->idEmpleado)
+                        ->where(function ($query) use ($fechaInicio, $fechaFinaliza) {
+                            $query->whereBetween('fechaInicio', [$fechaInicio, $fechaFinaliza])
+                                ->orWhereBetween('fechaFinaliza', [$fechaInicio, $fechaFinaliza]);
+                        })
+                        ->exists();
+        
+                    if ($permisosSolapados) {
+                        $fail('El permiso se solapa con otro existente.');
+                    }
+                },
             ],
-    'fechaFinaliza' => 'required|date_format:Y-m-d H:i:s|after:fechaInicio|after_or_equal:today',
-    'tiempoPermiso' => 'required|numeric|min:1',
+            'fechaFinaliza' => 'required|date_format:Y-m-d H:i:s|after:fechaInicio|after_or_equal:today',
+            'tiempoPermiso' => 'required|numeric|min:1',
+            'unidadTiempo' => 'required|in:horas,dias',
             'idEstadoPermiso' => 'required|numeric|exists:estadopermiso,idEstadoPermiso',
         ]);
 
-        
+
 
         if ($validator->fails()) {
             return response()->json(['successful' => false, 'errors' => $validator->errors()], 422);
