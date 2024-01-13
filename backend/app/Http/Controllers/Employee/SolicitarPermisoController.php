@@ -21,6 +21,7 @@ class SolicitarPermisoController extends Controller
         // Obtener el ID del usuario autenticado
         $idEmpleado = Auth::user()->idEmpleado;
 
+        
         // Buscar el empleado que realiza la solicitud
         try {
             $empleadoSolicitante = Empleado::findOrFail($idEmpleado);
@@ -40,11 +41,23 @@ class SolicitarPermisoController extends Controller
         $validator = Validator::make($request->all(), [
             'idTipoPermiso' => 'required|numeric|exists:tipopermiso,idTipoPermiso',
             'motivo' => 'required|string',
-            'fechaInicio' => 'required|date_format:Y-m-d H:i:s',
-            'fechaFinaliza' => 'required|date_format:Y-m-d H:i:s',
-            'tiempoPermiso' => 'required|numeric',
+            'fechaInicio' => [
+                'required',
+                'date_format:Y-m-d H:i:s',
+                'after_or_equal:now',
+                function ($attribute, $value, $fail) {
+                    $fechaInicio = Carbon::parse($value);
+                    if (!$fechaInicio->isWeekday()) {
+                        $fail('Los permisos largos deben comenzar en un día hábil.');
+                    }
+                },
+            ],
+    'fechaFinaliza' => 'required|date_format:Y-m-d H:i:s|after:fechaInicio|after_or_equal:today',
+    'tiempoPermiso' => 'required|numeric|min:1',
             'idEstadoPermiso' => 'required|numeric|exists:estadopermiso,idEstadoPermiso',
         ]);
+
+        
 
         if ($validator->fails()) {
             return response()->json(['successful' => false, 'errors' => $validator->errors()], 422);
