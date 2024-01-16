@@ -1,12 +1,13 @@
+
 import React from "react";
 import { Outlet } from "react-router-dom";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 
-const LayoutAuth = () => {
+const LayoutEmpleado = () => {
   return (
     <div>
-      <Header />
+      <Header/>
 
       <Outlet />
 
@@ -15,4 +16,4 @@ const LayoutAuth = () => {
   );
 };
 
-export default LayoutAuth;
+export default LayoutEmpleado;

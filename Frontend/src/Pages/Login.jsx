@@ -51,12 +51,6 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="bg-secondary-100 p-8 rounded-xl shadow-2xl w-auto lg:w-[450px]">
-        {error.successful ? (
-          <p className="text-blue-500 mb-10">{error.message}</p>
-        ) : (
-          <p className="text-red-500 mb-10">{error.message}</p>
-        )}
-
         <h1 className="text-3xl text-center uppercase font-bold tracking-[5px] text-black mb-8">
           Iniciar <span className="text-primary">sesión</span>
         </h1>
@@ -65,7 +59,7 @@ const Login = () => {
             <RiMailLine className="absolute top-1/2 -translate-y-1/2 left-2 text-primary" />
             <input
               type="email"
-              className="py-3 pl-8 pr-4 bg-secondary-900 w-full outline-none rounded-lg"
+              className="py-3 pl-8 pr-4 bg-secondary-50 w-full outline-none rounded-lg"
               placeholder="Correo electrónico"
               name="correo"
               value={credenciales.correo}
@@ -76,7 +70,7 @@ const Login = () => {
             <RiLockLine className="absolute top-1/2 -translate-y-1/2 left-2 text-primary" />
             <input
               type={showPassword ? "text" : "password"}
-              className="py-3 px-8 bg-secondary-900 w-full outline-none rounded-lg"
+              className="py-3 px-8 bg-secondary-50 w-full outline-none rounded-lg"
               placeholder="Contraseña"
               name="password"
               value={credenciales.password}
@@ -103,6 +97,16 @@ const Login = () => {
             </button>
           </div>
         </form>
+        {error.message &&
+          (error.successful ? (
+            <p className="text-blue-500 mb-10 flex justify-center">
+              {error.message}
+            </p>
+          ) : (
+            <p className="text-red-500 mb-10 flex justify-center">
+              {error.message}
+            </p>
+          ))}
         <div className="flex flex-col items-center gap-4">
           <Link
             to="/olvide-password"
@@ -110,7 +114,7 @@ const Login = () => {
           >
             ¿Olvidaste tu contraseña?
           </Link>
-          <span className="flex items-center gap-2">
+          {/* <span className="flex items-center gap-2">
             ¿No tienes cuenta?{" "}
             <Link
               to="/registro"
@@ -118,7 +122,7 @@ const Login = () => {
             >
               Registrate
             </Link>
-          </span>
+          </span> */}
         </div>
       </div>
     </div>

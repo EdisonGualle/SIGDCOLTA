@@ -3,7 +3,7 @@ import EmpleadosProvider from "./Providers/EmpleadoProvider";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./Pages/Home";
 import LayoutEmpleado from "./Pages/Layouts/LayoutEmpleado";
-import LayoutAuth from "./Pages/Layouts/LayoutEmpleado";
+import LayoutAuth from "./Pages/Layouts/LayoutAuth";
 import Login from "./Pages/Login";
 import AuthProvider from "./Providers/AuthProvider";
 
@@ -30,9 +30,9 @@ function App() {
             }
           />
         </Route>
-        <Route path="/" element={<LayoutAuth />}>
+        <Route path="/" element={<LayoutAuth/>}>
           <Route
-            path="/login"
+            path="/Ingresar"
             element={
               <AuthProvider>
                 <Login />
