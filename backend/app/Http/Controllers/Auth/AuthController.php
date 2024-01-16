@@ -47,7 +47,7 @@ class AuthController extends Controller
                 ? 'El usuario no existe.'
                 : 'El correo electronico no existe.';
 
-            return response()->json(['successful' => false, 'mensaje' => 'Error. ' . $mensajeError], 401);
+            return response()->json(['successful' => false, 'mensaje' => $mensajeError], 401);
         }
 
         // Verificar si el usuario está bloqueado
