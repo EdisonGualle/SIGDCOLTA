@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
 // Icons
 import {
   RiMailLine,
@@ -7,11 +8,13 @@ import {
   RiEyeLine,
   RiEyeOffLine,
 } from "react-icons/ri";
+
 import AuthContext from "../Context/AuthContext";
+
 
 const Login = () => {
   const authContext = useContext(AuthContext);
-  const { loginUser, error } = authContext;
+  const { loginUser, error, isAuthenticated } = authContext;
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [credenciales, setCredenciales] = useState({
@@ -50,8 +53,8 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="bg-secondary-100 p-8 rounded-xl shadow-2xl w-auto lg:w-[450px]">
-        <h1 className="text-3xl text-center uppercase font-bold tracking-[5px] text-black mb-8">
+      <div className="bg-secondary-900 p-8 rounded-xl shadow-2xl w-auto lg:w-[450px]">
+        <h1 className="text-3xl text-center uppercase font-bold tracking-[5px] text-secondary-50 mb-8">
           Iniciar <span className="text-primary">sesión</span>
         </h1>
         <form className="mb-8" onSubmit={handleSubmit}>
@@ -107,10 +110,11 @@ const Login = () => {
               {error.message}
             </p>
           ))}
+
         <div className="flex flex-col items-center gap-4">
           <Link
             to="/olvide-password"
-            className="hover:text-primary transition-colors"
+            className=" text-secondary-50 hover:text-primary transition-colors"
           >
             ¿Olvidaste tu contraseña?
           </Link>

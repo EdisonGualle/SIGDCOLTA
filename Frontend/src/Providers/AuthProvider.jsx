@@ -1,8 +1,10 @@
+// AuthProvider.jsx
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import AuthContext from "../Context/AuthContext";
 
 const API_URL = "http://localhost:8000/api";
+
 
 const AuthProvider = ({ children }) => {
   const [error, setError] = useState({
@@ -12,7 +14,7 @@ const AuthProvider = ({ children }) => {
 
   const loginUser = async (correo, password) => {
     try {
-      if (correo.trim() === "" || password.trim() === "") {
+      if (!correo || !password) {
         setError({
           successful: false,
           message: "Todos los campos son obligatorios",
@@ -35,20 +37,28 @@ const AuthProvider = ({ children }) => {
       return response.data;
     } catch (error) {
       handleAxiosError(error);
+      return { successful: false };
     }
   };
 
   const handleAxiosError = (error) => {
-    if (error.response) {
-      setError({
-        successful: false,
-        message: error.response.data.mensaje,
-      });
-    } else if (error.request) {
-      setError({
-        successful: false,
-        message: "Error no responde el servidor",
-      });
+    if (axios.isAxiosError(error)) {
+      if (error.response) {
+        setError({
+          successful: false,
+          message: error.response.data.mensaje || "Error desconocido en el servidor",
+        });
+      } else if (error.request) {
+        setError({
+          successful: false,
+          message: "Error no responde el servidor",
+        });
+      } else {
+        setError({
+          successful: false,
+          message: "An unexpected error occurred.",
+        });
+      }
     } else {
       setError({
         successful: false,
@@ -65,17 +75,26 @@ const AuthProvider = ({ children }) => {
       });
       if (response.data.success) {
         localStorage.setItem("authToken", response.data.token);
+        setError({
+          successful: true,
+          message: "Registro exitoso",
+        });
         return response.data;
       } else {
-        throw new Error(response.data.message);
+        throw new Error(response.data.message || "Error desconocido en el servidor");
       }
     } catch (error) {
-      throw error;
+      handleAxiosError(error);
+      return { successful: false };
     }
   };
 
   const logoutUser = () => {
     localStorage.removeItem("authToken");
+    setError({
+      successful: true,
+      message: "Cierre de sesión exitoso",
+    });
   };
 
   const contextValue = {
@@ -84,6 +103,7 @@ const AuthProvider = ({ children }) => {
     logoutUser,
     registerUser,
   };
+
   return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );
