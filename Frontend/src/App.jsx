@@ -1,19 +1,18 @@
-// App.jsx
-import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import LayoutEmpleado from "./Pages/Layouts/LayoutEmpleado";
-import LayoutAuth from "./Pages/Layouts/LayoutAuth";
-import Home from "./Pages/Home";
-import Login from "./Pages/Login";
+import { useState } from "react";
 import EmpleadosProvider from "./Providers/EmpleadoProvider";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./Pages/Home";
+import LayoutEmpleado from "./Pages/Layouts/LayoutEmpleado";
+import LayoutAuth from "./Pages/Layouts/LayoutEmpleado";
+import Login from "./Pages/Login";
 import AuthProvider from "./Providers/AuthProvider";
-import PrivateRoute from "./Pages/Components/PrivateRoute";
+import PrivateRoute from "./Pages/Layouts/PrivateRoute";
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
-      <Route path="/" element={<LayoutEmpleado />}>
+        <Route element={<PrivateRoute />}>
           <Route
             index
             element={
@@ -27,14 +26,15 @@ function App() {
             path="/empleados"
             element={
               <EmpleadosProvider>
-               <Home />
+                <Home />
               </EmpleadosProvider>
             }
           />
         </Route>
-        <Route path="/" element={<LayoutAuth />}>
+
+        <Route element={<LayoutAuth />}>
           <Route
-            path="/Ingresar"
+            path="/ingresar"
             element={
               <AuthProvider>
                 <Login />
@@ -43,7 +43,7 @@ function App() {
           />
         </Route>
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }
 

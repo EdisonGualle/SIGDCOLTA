@@ -1,16 +1,26 @@
 // AuthProvider.jsx
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import AuthContext from "../Context/AuthContext";
 
 const API_URL = "http://localhost:8000/api";
 
-
 const AuthProvider = ({ children }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    Boolean(localStorage.getItem("access_token"))
+  );
+
   const [error, setError] = useState({
     successful: false,
     message: "",
   });
+
+  useEffect(() => {
+    const token = localStorage.getItem("access_token");
+    if (token) {
+      setIsAuthenticated(true);
+    }
+  }, []);
 
   const loginUser = async (correo, password) => {
     try {
@@ -28,7 +38,6 @@ const AuthProvider = ({ children }) => {
       });
 
       localStorage.setItem("access_token", response.data.access_token);
-
       setError({
         successful: true,
         message: "Inicio de sesión correcto",
@@ -43,10 +52,13 @@ const AuthProvider = ({ children }) => {
 
   const handleAxiosError = (error) => {
     if (axios.isAxiosError(error)) {
+      console.error("Axios error:", error);
+
       if (error.response) {
         setError({
           successful: false,
-          message: error.response.data.mensaje || "Error desconocido en el servidor",
+          message:
+            error.response.data.mensaje || "Error desconocido en el servidor",
         });
       } else if (error.request) {
         setError({
@@ -81,7 +93,9 @@ const AuthProvider = ({ children }) => {
         });
         return response.data;
       } else {
-        throw new Error(response.data.message || "Error desconocido en el servidor");
+        throw new Error(
+          response.data.message || "Error desconocido en el servidor"
+        );
       }
     } catch (error) {
       handleAxiosError(error);
@@ -92,12 +106,13 @@ const AuthProvider = ({ children }) => {
   const logoutUser = () => {
     localStorage.removeItem("authToken");
     setError({
-      successful: true,
+      successful: false,
       message: "Cierre de sesión exitoso",
     });
   };
 
   const contextValue = {
+    isAuthenticated,
     error,
     loginUser,
     logoutUser,
