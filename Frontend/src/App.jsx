@@ -18,7 +18,7 @@ function App() {
             index
             element={
               <EmpleadosProvider>
-                <PrivateRoute element={<Home />} />
+                <Home />
               </EmpleadosProvider>
             }
           />
@@ -27,7 +27,7 @@ function App() {
             path="/empleados"
             element={
               <EmpleadosProvider>
-               <PrivateRoute element={<Home />} />
+               <Home />
               </EmpleadosProvider>
             }
           />
