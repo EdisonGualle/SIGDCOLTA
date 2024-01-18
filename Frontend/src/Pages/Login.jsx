@@ -1,7 +1,7 @@
 import { useState } from "react";
+import clienteAxios from "../config/clienteAxios";
 import { Link, useNavigate } from "react-router-dom";
 import Alerta from "../components/Alerta";
-import clienteAxios from "../config/clienteAxios";
 import useAuth from "../hooks/useAuth";
 
 const Login = () => {
@@ -30,7 +30,7 @@ const Login = () => {
         password,
       });
       setAlerta({});
-      localStorage.setItem("token", data.access_token);
+      localStorage.setItem("token", data.token);
       setAuth(data);
       navigate("/dashboard");
       console.log(data);

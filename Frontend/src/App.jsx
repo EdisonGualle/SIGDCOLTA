@@ -1,12 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import { AuthProvider } from "./context/AuthProvider";
 import AuthLayout from "./layouts/AuthLayout";
 import RutaProtegida from "./layouts/RutaProtegida";
-
 import Login from "./Pages/Login";
-
-import { AuthProvider } from "./context/AuthProvider";
-import { ProyectosProvider } from "./context/ProyectosProvider";
 import Dashboard from "./Pages/Dashboard";
 
 function App() {

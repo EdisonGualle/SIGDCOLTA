@@ -1,5 +1,5 @@
-import { useState, useEffect, createContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect, createContext } from "react";
 import clienteAxios from "../config/clienteAxios";
 
 const AuthContext = createContext();
@@ -17,28 +17,31 @@ const AuthProvider = ({ children }) => {
         setCargando(false);
         return;
       }
-      setCargando(true);
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
 
-      
-      navigate('/dashboard')
-      /*  const config = {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                }
-            }
+      try {
+        //const { data } = await clienteAxios("/usuarios/perfil", config);
+        const data = {
+          successful: true,
+          _id: 113,
+          usuario: "niurkasilva",
+          correo: "niurkalisseth2004@gmail.com",
+          mensaje: "Inicio de sesión exitoso",
+          token: "250|Di90XGxpFnlEVV5WvcyGREcyuzdrQ5tmbowZ7IBa64fb5be3",
+        };
+        setAuth(data);
+        navigate('/dashboard')
+        console.log(data);
+      } catch (error) {
+        setAuth({});
+      }
 
-            try {
-                const { data } = await clienteAxios('/usuarios/perfil', config)
-                setAuth(data)
-                // navigate('/proyectos')
-
-            } catch (error) {
-                setAuth({})
-            } 
-
-            setCargando(false)
- */
+      setCargando(false);
     };
     autenticarUsuario();
   }, []);

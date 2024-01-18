@@ -5,10 +5,10 @@ import Sidebar from "../components/Sidebar";
 
 const RutaProtegida = () => {
   const { auth, cargando } = useAuth({});
-  if (!cargando) return "Cargando...";
+  if (cargando) return "Cargando...";
   return (
     <>
-      {true ? (
+      {auth._id ? (
         <div className="min-h-screen grid grid-cols-1 xl:grid-cols-6">
           <Sidebar />
           <div className="xl:col-span-5">
