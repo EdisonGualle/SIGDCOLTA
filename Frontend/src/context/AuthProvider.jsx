@@ -15,7 +15,7 @@ const AuthProvider = ({ children }) => {
       const token = localStorage.getItem("token");
       if (!token) {
         setCargando(false);
-        return;
+        return navigate('/');
       }
       const config = {
         headers: {
@@ -35,7 +35,7 @@ const AuthProvider = ({ children }) => {
           token: "250|Di90XGxpFnlEVV5WvcyGREcyuzdrQ5tmbowZ7IBa64fb5be3",
         };
         setAuth(data);
-        navigate('/dashboard')
+        //navigate('/dashboard')
         console.log(data);
       } catch (error) {
         setAuth({});

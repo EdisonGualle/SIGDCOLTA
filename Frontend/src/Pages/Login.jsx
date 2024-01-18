@@ -9,10 +9,13 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [alerta, setAlerta] = useState({});
 
-  const { setAuth } = useAuth();
+  const {auth, setAuth } = useAuth();
 
   const navigate = useNavigate();
 
+  if(auth){
+    return navigate('/dashboard')
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
 
