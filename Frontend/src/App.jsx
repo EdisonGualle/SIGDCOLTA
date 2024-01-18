@@ -8,12 +8,13 @@ import Login from "./Pages/Login";
 import EmpleadosProvider from "./Providers/EmpleadoProvider";
 import AuthProvider from "./Providers/AuthProvider";
 import PrivateRoute from "./Pages/Components/PrivateRoute";
-
+import ForgetPassword from "./Pages/ForgetPassword";
+import LayoutHome from "./Pages/Layouts/LayoutHome";
 function App() {
   return (
     <Router>
       <Routes>
-      <Route path="/" element={<LayoutEmpleado />}>
+      <Route path="/" element={<LayoutHome/>}>
           <Route
             index
             element={
@@ -41,6 +42,7 @@ function App() {
               </AuthProvider>
             }
           />
+          <Route path="/olvide-contraseña" element={<ForgetPassword />} />
         </Route>
       </Routes>
     </Router>
