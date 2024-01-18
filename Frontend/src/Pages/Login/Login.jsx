@@ -9,7 +9,7 @@ import {
   RiEyeOffLine,
 } from "react-icons/ri";
 
-import AuthContext from "../Context/AuthContext";
+import AuthContext from "../../Context/AuthContext";
 
 
 const Login = () => {
@@ -34,8 +34,10 @@ const Login = () => {
       credenciales.password
     );
 
+    console.log(isAuthenticated);
     if (response.successful) {
-      navigate("/empleados");
+      
+     // navigate("/");
       // Reset form on successful login
       setCredenciales({ correo: "", password: "" });
     }

@@ -4,46 +4,53 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./Pages/Home";
 import LayoutEmpleado from "./Pages/Layouts/LayoutEmpleado";
 import LayoutAuth from "./Pages/Layouts/LayoutEmpleado";
-import Login from "./Pages/Login";
+import Login from "./Pages/Login/Login";
 import AuthProvider from "./Providers/AuthProvider";
 import PrivateRoute from "./Pages/Layouts/PrivateRoute";
 
+
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<PrivateRoute />}>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
           <Route
-            index
+            path="/"
             element={
-              <EmpleadosProvider>
-                <Home />
-              </EmpleadosProvider>
+              <PrivateRoute>
+                <EmpleadosProvider>
+                  <LayoutEmpleado>
+                    <Home />
+                  </LayoutEmpleado>
+                </EmpleadosProvider>
+              </PrivateRoute>
             }
           />
 
           <Route
             path="/empleados"
             element={
-              <EmpleadosProvider>
-                <Home />
-              </EmpleadosProvider>
+              <PrivateRoute>
+                <EmpleadosProvider>
+                  <LayoutEmpleado>
+                    <Home />
+                  </LayoutEmpleado>
+                </EmpleadosProvider>
+              </PrivateRoute>
             }
           />
-        </Route>
 
-        <Route element={<LayoutAuth />}>
           <Route
             path="/ingresar"
             element={
-              <AuthProvider>
+              <LayoutAuth>
                 <Login />
-              </AuthProvider>
+              </LayoutAuth>
             }
           />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

@@ -19,6 +19,7 @@ const AuthProvider = ({ children }) => {
     const token = localStorage.getItem("access_token");
     if (token) {
       setIsAuthenticated(true);
+      setError({ successful: true, message: "ok" });
     }
   }, []);
 
@@ -38,6 +39,7 @@ const AuthProvider = ({ children }) => {
       });
 
       localStorage.setItem("access_token", response.data.access_token);
+      setIsAuthenticated(true);
       setError({
         successful: true,
         message: "Inicio de sesión correcto",
@@ -46,6 +48,7 @@ const AuthProvider = ({ children }) => {
       return response.data;
     } catch (error) {
       handleAxiosError(error);
+      setIsAuthenticated(false); // Asegurarse de establecer isAuthenticated en falso en caso de un error
       return { successful: false };
     }
   };
