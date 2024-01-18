@@ -12,8 +12,10 @@
   "dependencies": {
     "@headlessui/tailwindcss": "^0.2.0",
     "@szhsin/react-menu": "^4.1.0",
+    "ag-grid-react": "^31.0.2",
     "axios": "^1.6.5",
     "react": "^18.2.0",
+    "react-data-grid": "^7.0.0-beta.41",
     "react-dom": "^18.2.0",
     "react-icons": "^5.0.1",
     "react-router-dom": "^6.21.2",
