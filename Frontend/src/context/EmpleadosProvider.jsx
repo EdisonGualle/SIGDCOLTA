@@ -5,6 +5,7 @@ const EmpleadosContext = createContext();
 
 const EmpleadosProvider = ({ children }) => {
   const [empleados, setEmpleados] = useState([]);
+  const [cargando, setCargando] = useState(false);
 
   useEffect(() => {
     const getEmpleados = async () => {
