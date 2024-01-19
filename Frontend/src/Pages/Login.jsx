@@ -4,17 +4,25 @@ import { Link, useNavigate } from "react-router-dom";
 import Alerta from "../components/Alerta";
 import useAuth from "../hooks/useAuth";
 
+// Icons
+import {
+  RiMailLine,
+  RiLockLine,
+  RiEyeLine,
+  RiEyeOffLine,
+} from "react-icons/ri";
+
 const Login = () => {
   const [correo, setCorreo] = useState("");
   const [password, setPassword] = useState("");
   const [alerta, setAlerta] = useState({});
 
-  const {auth, setAuth } = useAuth();
+  const { auth, setAuth } = useAuth();
 
   const navigate = useNavigate();
 
-  if(auth){
-    return navigate('/dashboard')
+  if (auth) {
+    return navigate("/dashboard");
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -48,74 +56,52 @@ const Login = () => {
   const { msg } = alerta;
 
   return (
-    <>
-      <h1 className="text-sky-600 font-black text-6xl capitalize">
-        Inicia sesión{" "}
-        <span className="text-slate-700">GAD MUNICIPAL COLTA</span>
-      </h1>
+    <div className="min-h-screen flex items-center justify-center p-4">
+      <div className="bg-secondary-900 p-8 rounded-xl shadow-2xl w-auto lg:w-[450px]">
+        <h1 className="text-3xl text-center uppercase font-bold tracking-[5px] text-secondary-50 mb-8">
+          Inicia <span className="text-primary">sesión</span>
+        </h1>
+        {msg && <Alerta alerta={alerta} />}
+        <form className="mb-2" onSubmit={handleSubmit}>
+          <div className="relative mt-1 mb-4">
+          <RiMailLine className="absolute top-1/2 -translate-y-1/2 left-2 text-yellow-500" />
+            <input
+              id="correo"
+              type="email"
+              placeholder="Correo electrónico"
+              className="py-3 pl-8 pr-4 bg-secondary-50 w-full outline-none rounded-lg"
+              value={correo}
+              onChange={(e) => setCorreo(e.target.value)}
+            />
+          </div>
+          <div className="relative mb-8">
+          <RiLockLine className="absolute top-1/2 -translate-y-1/2 left-2 text-yellow-500" />
+            <input
+              id="password"
+              type="password"
+              placeholder="Contraseña"
+              className="py-3 px-8 bg-secondary-50 w-full outline-none rounded-lg"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
 
-      {msg && <Alerta alerta={alerta} />}
-
-      <form
-        className="my-10 bg-white shadow rounded-lg p-10"
-        onSubmit={handleSubmit}
-      >
-        <div className="my-5">
-          <label
-            className="uppercase text-gray-600 block text-xl font-bold"
-            htmlFor="correo"
-          >
-            Correo
-          </label>
           <input
-            id="correo"
-            type="email"
-            placeholder="Email de Registro"
-            className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
-            value={correo}
-            onChange={(e) => setCorreo(e.target.value)}
+            type="submit"
+            value="Ingresar"
+            className="bg-primary mb-5 w-full py-3 text-black text-sm uppercase font-bold rounded-lg hover:cursor-pointer hover:bg-yellow-500 transition-colors"
           />
-        </div>
-        <div className="my-5">
-          <label
-            className="uppercase text-gray-600 block text-xl font-bold"
-            htmlFor="password"
+        </form>
+        <div className="flex flex-col items-center gap-4">
+          <Link
+            to="/olvide-contraseña"
+            className=" text-gray-300 hover:text-primary transition-colors"
           >
-            Password
-          </label>
-          <input
-            id="password"
-            type="password"
-            placeholder="Password de Registro"
-            className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+            ¿Olvidaste tu contraseña?
+          </Link>
         </div>
-
-        <input
-          type="submit"
-          value="Iniciar Sesión"
-          className="bg-sky-700 mb-5 w-full py-3 text-white uppercase font-bold rounded hover:cursor-pointer hover:bg-sky-800 transition-colors"
-        />
-      </form>
-
-      <nav className="lg:flex lg:justify-between">
-        <Link
-          className="block text-center my-5 text-slate-500 uppercase text-sm"
-          to="/registrar"
-        >
-          ¿No tienes una cuenta? Regístrate
-        </Link>
-
-        <Link
-          className="block text-center my-5 text-slate-500 uppercase text-sm"
-          to="/olvide-password"
-        >
-          Olvide Mi Password
-        </Link>
-      </nav>
-    </>
+      </div>
+    </div>
   );
 };
 
