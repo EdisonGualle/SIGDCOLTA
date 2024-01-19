@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // Icons
 import {
   RiBarChart2Line,
@@ -11,10 +11,17 @@ import {
   RiMenu3Line,
   RiCloseLine,
 } from "react-icons/ri";
+import useAuth from "../hooks/useAuth";
 
 const Sidebar = () => {
+  const { cerrarSesionAuth } = useAuth();
+  const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const [showSubmenu, setShowSubmenu] = useState(false);
+  const cerrarSesion = () => {
+    console.log("asd");
+    cerrarSesionAuth();
+  };
   return (
     <>
       <div
@@ -108,12 +115,19 @@ const Sidebar = () => {
           </ul>
         </div>
         <nav>
-          <Link
+          {/* <Link
             to="/"
             className="flex  text-secondary-100   hover:text-black items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-100 transition-colors"
           >
             <RiLogoutCircleRLine className="text-primary" /> Cerrar sesión
-          </Link>
+          </Link> */}
+
+          <button
+            onClick={cerrarSesion}
+            className="flex  text-secondary-100   hover:text-black items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-100 transition-colors"
+          >
+            <RiLogoutCircleRLine className="text-primary" /> Cerrar sesión
+          </button>
         </nav>
       </div>
       <button

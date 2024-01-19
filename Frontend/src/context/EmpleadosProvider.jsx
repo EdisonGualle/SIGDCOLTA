@@ -6,6 +6,7 @@ const EmpleadosContext = createContext();
 const EmpleadosProvider = ({ children }) => {
   const [empleados, setEmpleados] = useState([]);
   const [cargando, setCargando] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getEmpleados = async () => {
@@ -22,7 +23,6 @@ const EmpleadosProvider = ({ children }) => {
       };
       const { data } = await clienteAxios("/empleados", config);
       setEmpleados(data.data);
-      console.log(data.data);
     };
     // Fetch data when component mounts
     getEmpleados();

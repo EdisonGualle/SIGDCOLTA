@@ -15,7 +15,8 @@ const AuthProvider = ({ children }) => {
       const token = localStorage.getItem("token");
       if (!token) {
         setCargando(false);
-        return navigate('/');
+        return;
+        /* return navigate("/"); */
       }
       const config = {
         headers: {
@@ -47,6 +48,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const cerrarSesionAuth = () => {
+    localStorage.removeItem("token");
     setAuth({});
   };
 

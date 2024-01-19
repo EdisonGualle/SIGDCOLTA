@@ -5,18 +5,17 @@ import React, { useEffect, useMemo, useState } from "react";
 import { TRANSLATIONS } from "../config/dataGridEs";
 import { LANGUAGE_OPTIONS } from "../config/dataGridEs";
 
-
-const TableEmpleados = ({empleados}) => {
+const TableEmpleados = ({ empleados }) => {
   const [rowData, setRowData] = useState([]);
 
   // Column Definitions: Defines & controls grid columns.
   const [colDefs] = useState([
-    { headerName: "ID Empleado", field: "idEmpleado" },
-    { headerName: "Cedula", field: "cedula" }, // Uso de filtro de texto para la columna de cédula
-    { headerName: "Primer Nombre", field: "primerNombre" },
-    { headerName: "Segundo Nombre", field: "segundoNombre" },
-    { headerName: "Primer Apellido", field: "primerApellido" },
-    { headerName: "Segundo Apellido", field: "segundoApellido" },
+    { headerName: "Cedula", field: "cedula" },
+    {
+      headerName: "Nombre Completo",
+      valueGetter: params =>
+        `${params.data.primerNombre} ${params.data.segundoNombre} ${params.data.primerApellido} ${params.data.segundoApellido}`,
+    },
     { headerName: "Fecha de Nacimiento", field: "fechaNacimiento" },
     { headerName: "Genero", field: "genero" },
     { headerName: "Teléfono Personal", field: "telefonoPersonal" },
@@ -35,24 +34,21 @@ const TableEmpleados = ({empleados}) => {
   }, [empleados]);
 
   // Apply settings across all columns
-  // Apply settings across all columns
   const defaultColDef = useMemo(
     () => ({
-      filter: "agTextColumnFilter", // Filtro de búsqueda simple por defecto
+      filter: "agTextColumnFilter",
       filterParams: {
         filterOptions: ["contains"],
-        defaultFilterOption: "contains", // Establece el filtro predeterminado a "contains"
-        suppressAndOrCondition: true, // Suprime las opciones de filtro "AND" y "OR"
+        defaultFilterOption: "contains",
+        suppressAndOrCondition: true,
       },
       floatingFilter: true,
     }),
     []
   );
+
   return (
-    <div
-      className={"ag-theme-quartz"}
-      style={{ width: "100%", height: "100%" }}
-    >
+    <div className={"ag-theme-quartz"} style={{ width: "100%", height: "90%" }}>
       <AgGridReact
         localeText={TRANSLATIONS[LANGUAGE_OPTIONS.ES]}
         rowData={rowData}

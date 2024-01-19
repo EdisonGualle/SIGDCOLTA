@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import clienteAxios from "../config/clienteAxios";
 import { Link, useNavigate } from "react-router-dom";
 import Alerta from "../components/Alerta";
@@ -21,9 +21,11 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  if (auth) {
-    return navigate("/dashboard");
-  }
+  useEffect(() => {
+    if (auth) {
+      navigate("/dashboard");
+    }
+  }, [auth, navigate]);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -64,7 +66,7 @@ const Login = () => {
         {msg && <Alerta alerta={alerta} />}
         <form className="mb-2" onSubmit={handleSubmit}>
           <div className="relative mt-1 mb-4">
-          <RiMailLine className="absolute top-1/2 -translate-y-1/2 left-2 text-yellow-500" />
+            <RiMailLine className="absolute top-1/2 -translate-y-1/2 left-2 text-yellow-500" />
             <input
               id="correo"
               type="email"
@@ -75,7 +77,7 @@ const Login = () => {
             />
           </div>
           <div className="relative mb-8">
-          <RiLockLine className="absolute top-1/2 -translate-y-1/2 left-2 text-yellow-500" />
+            <RiLockLine className="absolute top-1/2 -translate-y-1/2 left-2 text-yellow-500" />
             <input
               id="password"
               type="password"
