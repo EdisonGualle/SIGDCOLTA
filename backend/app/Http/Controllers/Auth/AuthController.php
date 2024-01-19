@@ -113,7 +113,7 @@ class AuthController extends Controller
                     return response()->json(['successful' => false, 'mensaje' => "Usuario bloqueado. Intenta nuevamente en $tiempoFormateado."], 401);
                 }
 
-                return response()->json(['successful' => false, 'mensaje' => 'Error. Contraseña incorrecta.'], 401);
+                return response()->json(['successful' => false, 'mensaje' => 'Contraseña incorrecta.'], 401);
             }
         } else {
             // Usuario no encontrado o inactivo
