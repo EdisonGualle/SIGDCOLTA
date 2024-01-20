@@ -1,7 +1,7 @@
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import { AgGridReact } from "ag-grid-react";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useCallback } from "react";
 import { TRANSLATIONS } from "../config/dataGridEs";
 import { LANGUAGE_OPTIONS } from "../config/dataGridEs";
 
@@ -13,7 +13,7 @@ const TableEmpleados = ({ empleados }) => {
     { headerName: "Cedula", field: "cedula" },
     {
       headerName: "Nombre Completo",
-      valueGetter: params =>
+      valueGetter: (params) =>
         `${params.data.primerNombre} ${params.data.segundoNombre} ${params.data.primerApellido} ${params.data.segundoApellido}`,
     },
     { headerName: "Fecha de Nacimiento", field: "fechaNacimiento" },
@@ -47,15 +47,35 @@ const TableEmpleados = ({ empleados }) => {
     []
   );
 
+  const onFirstDataRendered = useCallback((params) => {
+    params.api.createRangeChart({
+      chartContainer: document.querySelector("#myChart"), // Identificador del contenedor del gráfico
+      cellRange: {
+        rowStartIndex: 0,
+        rowEndIndex: rowData.length - 1,
+        columns: ["cedula", "edad"], // Ajusta las columnas según tus datos
+      },
+      chartType: "groupedColumn",
+      aggFunc: "sum",
+    });
+  }, [rowData]);
+
   return (
-    <div className={"ag-theme-quartz"} style={{ width: "100%", height: "90%" }}>
-      <AgGridReact
-        localeText={TRANSLATIONS[LANGUAGE_OPTIONS.ES]}
-        rowData={rowData}
-        columnDefs={colDefs}
-        defaultColDef={defaultColDef}
-        pagination={true}
-      />
+    <div className="h-full">
+      <div
+        className={"ag-theme-quartz"}
+        style={{ width: "100%", height: "90%" }}
+      >
+        <AgGridReact
+          localeText={TRANSLATIONS[LANGUAGE_OPTIONS.ES]}
+          rowData={rowData}
+          columnDefs={colDefs}
+          defaultColDef={defaultColDef}
+          pagination={true}
+          onFirstDataRendered={onFirstDataRendered}
+        />
+      </div>
+      <div id="myChart" className="ag-theme-quartz my-chart"></div>
     </div>
   );
 };

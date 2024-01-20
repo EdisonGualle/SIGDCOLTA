@@ -21,11 +21,10 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (auth) {
-      navigate("/dashboard");
-    }
-  }, [auth, navigate]);
+  if (auth) {
+    navigate("/dashboard");
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
