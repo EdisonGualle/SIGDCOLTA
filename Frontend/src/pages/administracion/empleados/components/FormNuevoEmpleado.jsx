@@ -6,7 +6,10 @@ const FormNuevoEmpleado = () => {
       <form className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {/* Columna 1 */}
         <div className="mb-4">
-          <label htmlFor="cedula" className="block text-sm font-medium text-gray-600">
+          <label
+            htmlFor="cedula"
+            className="block text-sm font-medium text-gray-600"
+          >
             Cédula
           </label>
           <input
@@ -18,7 +21,10 @@ const FormNuevoEmpleado = () => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="nombre" className="block text-sm font-medium text-gray-600">
+          <label
+            htmlFor="nombre"
+            className="block text-sm font-medium text-gray-600"
+          >
             Nombre
           </label>
           <input
@@ -30,7 +36,10 @@ const FormNuevoEmpleado = () => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="apellido" className="block text-sm font-medium text-gray-600">
+          <label
+            htmlFor="apellido"
+            className="block text-sm font-medium text-gray-600"
+          >
             Apellido
           </label>
           <input
@@ -43,7 +52,10 @@ const FormNuevoEmpleado = () => {
 
         {/* Columna 2 */}
         <div className="mb-4">
-          <label htmlFor="genero" className="block text-sm font-medium text-gray-600">
+          <label
+            htmlFor="genero"
+            className="block text-sm font-medium text-gray-600"
+          >
             Género
           </label>
           <select
@@ -58,7 +70,10 @@ const FormNuevoEmpleado = () => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="estadoCivil" className="block text-sm font-medium text-gray-600">
+          <label
+            htmlFor="estadoCivil"
+            className="block text-sm font-medium text-gray-600"
+          >
             Estado Civil
           </label>
           <select
@@ -73,7 +88,10 @@ const FormNuevoEmpleado = () => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="movil" className="block text-sm font-medium text-gray-600">
+          <label
+            htmlFor="movil"
+            className="block text-sm font-medium text-gray-600"
+          >
             Móvil
           </label>
           <input
@@ -86,7 +104,10 @@ const FormNuevoEmpleado = () => {
 
         {/* Columna 3 */}
         <div className="mb-4">
-          <label htmlFor="tipoSangre" className="block text-sm font-medium text-gray-600">
+          <label
+            htmlFor="tipoSangre"
+            className="block text-sm font-medium text-gray-600"
+          >
             Tipo de Sangre
           </label>
           <select
@@ -101,7 +122,10 @@ const FormNuevoEmpleado = () => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="correo" className="block text-sm font-medium text-gray-600">
+          <label
+            htmlFor="correo"
+            className="block text-sm font-medium text-gray-600"
+          >
             Correo
           </label>
           <input

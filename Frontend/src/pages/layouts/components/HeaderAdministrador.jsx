@@ -12,7 +12,7 @@ import "@szhsin/react-menu/dist/index.css";
 import "@szhsin/react-menu/dist/transitions/slide.css";
 import { Link } from "react-router-dom";
 
-const Header = () => {
+const HeaderAdministrador = () => {
   return (
     <header className="h-[7vh] md:h-[10vh] border-b border-secondary-100 p-8 flex items-center justify-end">
       <nav className="flex items-center gap-2">
@@ -154,4 +154,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default HeaderAdministrador;

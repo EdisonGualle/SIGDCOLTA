@@ -1,11 +1,11 @@
-import { useNavigate } from "react-router-dom";
 import { useState, useEffect, createContext } from "react";
+import { useNavigate } from "react-router-dom";
 import clienteAxios from "../config/clienteAxios";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState();
+  const [auth, setAuth] = useState({});
   const [cargando, setCargando] = useState(true);
 
   const navigate = useNavigate();
@@ -16,8 +16,8 @@ const AuthProvider = ({ children }) => {
       if (!token) {
         setCargando(false);
         return;
-        /* return navigate("/"); */
       }
+
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -33,11 +33,10 @@ const AuthProvider = ({ children }) => {
           usuario: "niurkasilva",
           correo: "niurkalisseth2004@gmail.com",
           mensaje: "Inicio de sesión exitoso",
-          token: "250|Di90XGxpFnlEVV5WvcyGREcyuzdrQ5tmbowZ7IBa64fb5be3",
+          token: localStorage.getItem("token"),
         };
+
         setAuth(data);
-        //navigate('/dashboard')
-        console.log(data);
       } catch (error) {
         setAuth({});
       }
@@ -48,7 +47,6 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const cerrarSesionAuth = () => {
-    localStorage.removeItem("token");
     setAuth({});
   };
 

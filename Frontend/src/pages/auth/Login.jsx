@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import clienteAxios from "../config/clienteAxios";
+import clienteAxios from "../../config/clienteAxios";
 import { Link, useNavigate } from "react-router-dom";
-import Alerta from "../components/Alerta";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
+import Alerta from "./components/Alerta";
 
 // Icons
 import {
@@ -20,10 +20,6 @@ const Login = () => {
   const { auth, setAuth } = useAuth();
 
   const navigate = useNavigate();
-
-  if (auth) {
-    navigate("/dashboard");
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,8 +40,7 @@ const Login = () => {
       setAlerta({});
       localStorage.setItem("token", data.token);
       setAuth(data);
-      navigate("/dashboard");
-      console.log(data);
+      navigate("/empleados");
     } catch (error) {
       setAlerta({
         msg: error.response.data.mensaje,

@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import useEmpleados from "../hooks/useEmpleados";
-import TableEmpleados from "../components/TableEmpleados";
-import Swal from "sweetalert2";
+import React from "react";
+import TableEmpleados from "./components/TableEmpleados";
+import useEmpleados from "../../../hooks/useEmpleados";
+import FormNuevoEmpleado from "./components/FormNuevoEmpleado";
 import withReactContent from "sweetalert2-react-content";
-import FormNuevoEmpleado from "../components/FormNuevoEmpleado";  // Importa el componente de formulario
+import Swal from "sweetalert2";
 
-const Empleados = () => {
+const IndexEmpleadosAdministrador = () => {
   const { empleados } = useEmpleados();
   const MySwal = withReactContent(Swal);
 
@@ -30,7 +30,7 @@ const Empleados = () => {
   const handleNuevoClick = () => {
     MySwal.fire({
       title: "Nuevo Empleado",
-      html: <FormNuevoEmpleado />,  // Renderiza el formulario de nuevo empleado en el contenido del SweetAlert
+      html: <FormNuevoEmpleado />, // Renderiza el formulario de nuevo empleado en el contenido del SweetAlert
       showCancelButton: true,
       showConfirmButton: false,
       cancelButtonColor: "#3085d6",
@@ -38,7 +38,6 @@ const Empleados = () => {
       width: "50%",
     });
   };
-
   return (
     <>
       <div className="uppercase  bg-white py-2 font-bold rounded-lg mb-1 p-10">
@@ -60,8 +59,10 @@ const Empleados = () => {
 
           <button
             className="bg-blue-700 text-white py-2 px-5 rounded-lg"
-            onClick={handleNuevoClick}  // Agrega el manejador de clic para el botón "Nuevo"
-          >Nuevo</button>
+            onClick={handleNuevoClick} // Agrega el manejador de clic para el botón "Nuevo"
+          >
+            Nuevo
+          </button>
         </div>
         <div className="flex justify-start">
           <div class="w-64">
@@ -96,7 +97,6 @@ const Empleados = () => {
           </div>
         </div>
       </div>
-
       <div className="h-full">
         <TableEmpleados empleados={empleados} />
       </div>
@@ -104,4 +104,4 @@ const Empleados = () => {
   );
 };
 
-export default Empleados;
+export default IndexEmpleadosAdministrador;

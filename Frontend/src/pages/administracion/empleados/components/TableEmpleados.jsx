@@ -2,8 +2,8 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import { AgGridReact } from "ag-grid-react";
 import React, { useEffect, useMemo, useState, useCallback } from "react";
-import { TRANSLATIONS } from "../config/dataGridEs";
-import { LANGUAGE_OPTIONS } from "../config/dataGridEs";
+import { TRANSLATIONS } from "./traduccionTableGrid";
+import { LANGUAGE_OPTIONS } from "./traduccionTableGrid";
 
 const TableEmpleados = ({ empleados }) => {
   const [rowData, setRowData] = useState([]);
@@ -47,18 +47,21 @@ const TableEmpleados = ({ empleados }) => {
     []
   );
 
-  const onFirstDataRendered = useCallback((params) => {
-    params.api.createRangeChart({
-      chartContainer: document.querySelector("#myChart"), // Identificador del contenedor del gráfico
-      cellRange: {
-        rowStartIndex: 0,
-        rowEndIndex: rowData.length - 1,
-        columns: ["cedula", "edad"], // Ajusta las columnas según tus datos
-      },
-      chartType: "groupedColumn",
-      aggFunc: "sum",
-    });
-  }, [rowData]);
+  const onFirstDataRendered = useCallback(
+    (params) => {
+      params.api.createRangeChart({
+        chartContainer: document.querySelector("#myChart"), // Identificador del contenedor del gráfico
+        cellRange: {
+          rowStartIndex: 0,
+          rowEndIndex: rowData.length - 1,
+          columns: ["cedula", "edad"], // Ajusta las columnas según tus datos
+        },
+        chartType: "groupedColumn",
+        aggFunc: "sum",
+      });
+    },
+    [rowData]
+  );
 
   return (
     <div className="h-full">

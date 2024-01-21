@@ -3,19 +3,18 @@ const DAY_OPTION: { weekday: string } = { weekday: "long" };
 const DATE_OPTION: { year: string; month: string; day: string } = {
   year: "numeric",
   month: "long",
-  day: "numeric"
+  day: "numeric",
 };
 
 const LANGUAGE_OPTIONS: Record<string, string> = {
   EN: "en-GB",
   ES: "es-ES",
-  DE: "de-DE"
+  DE: "de-DE",
 };
 
 type TranslationsType = Record<string, Record<string, string>>;
 
 const TRANSLATIONS: TranslationsType = {
- 
   "es-ES": {
     DAY: "día",
     DATE: "fecha",
@@ -93,15 +92,13 @@ const TRANSLATIONS: TranslationsType = {
     csvExport: "CSV exportar",
     excelExport: "Excel exportar (.xlsx)",
     excelXmlExport: "Excel exportar (.xml)",
-    page:'Pagina',
-    of:'de',
-    to:'a',
-    pageSize:'Cantidad',
-    and:'Y',
-    or: 'O'
-    
+    page: "Pagina",
+    of: "de",
+    to: "a",
+    pageSize: "Cantidad",
+    and: "Y",
+    or: "O",
   },
-
 };
 
 export { DATE_OPTION, DAY_OPTION, TRANSLATIONS, LANGUAGE_OPTIONS };
