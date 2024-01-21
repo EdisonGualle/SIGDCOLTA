@@ -28,8 +28,8 @@ const Header = () => {
           align="end"
           arrow
           transition
-          arrowClassName="bg-secondary-200"
-          menuClassName="bg-secondary-200 p-4"
+          arrowClassName="bg-secondary-100"
+          menuClassName="bg-secondary-100 p-4"
         >
           <h1 className="text-back text-center font-medium">
             Notificaciones (2)
@@ -112,9 +112,9 @@ const Header = () => {
           }
           align="end"
           arrow
-          arrowClassName="bg-secondary-200"
+          arrowClassName="bg-secondary-100"
           transition
-          menuClassName="bg-secondary-200 p-4"
+          menuClassName="bg-secondary-100 p-4"
         >
           <MenuItem className="p-0 hover:bg-transparent">
             <Link
