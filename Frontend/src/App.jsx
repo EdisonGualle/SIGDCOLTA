@@ -6,7 +6,7 @@ import Login from "./Pages/Login";
 import Dashboard from "./Pages/Dashboard";
 import Empleados from "./Pages/Empleados";
 import { EmpleadosProvider } from "./context/EmpleadosProvider";
-
+import Error404 from "./Pages/Error404";
 function App() {
   return (
     <BrowserRouter>
@@ -16,7 +16,7 @@ function App() {
             <Route path="/" element={<AuthLayout />}>
               <Route index element={<Login />} />
             </Route>
-
+            <Route path="*" element={<Error404 />} />
             <Route path="/" element={<RutaProtegida />}>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/empleados" element={<Empleados />} />
