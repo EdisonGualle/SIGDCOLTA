@@ -54,7 +54,7 @@ class EmpleadoController extends Controller
     {
         return response()->json($this->empleadoService->listarEmpleadosPorProvincia($provincia));
     }
-    public function listarEmpleadosPorCanton($canton)   
+    public function listarEmpleadosPorCanton($canton)
     {
         return response()->json($this->empleadoService->listarEmpleadosPorCanton($canton));
     }
@@ -64,7 +64,7 @@ class EmpleadoController extends Controller
         return response()->json($this->empleadoService->listarEmpleadosPorGenero($genero));
     }
 
-    
+
 
 
     public function crearEmpleado(Request $request)
@@ -81,4 +81,13 @@ class EmpleadoController extends Controller
     {
         return response()->json($this->empleadoService->eliminarEmpleado($id));
     }
+
+    public function listarEmpleadosPorPosicionLaboral()
+    {
+        $response = $this->empleadoService->listarEmpleadosPorPosicionLaboral();
+
+        return response()->json($response);
+    }
+
+
 }

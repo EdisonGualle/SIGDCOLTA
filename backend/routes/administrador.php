@@ -152,6 +152,7 @@ Route::get('/discapacidades/empleados-por-discapacidad/id/{idDiscapacidad}', [Di
 
 
 // EMPLEADOS routes
+Route::get('/empleados-por-posicion-laboral', [EmpleadoController::class, 'listarEmpleadosPorPosicionLaboral']);
 Route::get('/empleados', [EmpleadoController::class, 'listarEmpleados']);
 Route::get('/empleadosReporte', [EmpleadoController::class, 'EmpleadosReporte']);
 Route::get('/empleados/{id}', [EmpleadoController::class, 'mostrarEmpleadoPorId']);
@@ -168,6 +169,7 @@ Route::get('/empleados/canton/{id_canton}', [EmpleadoController::class, 'listarE
 Route::post('/empleados', [EmpleadoController::class, 'crearEmpleado']);
 Route::put('/empleados/{id}', [EmpleadoController::class, 'actualizarEmpleado']);
 Route::delete('/empleados/{id}', [EmpleadoController::class, 'eliminarEmpleado']);
+
 
 
 // PROVINCIAS routes

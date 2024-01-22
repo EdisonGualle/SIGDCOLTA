@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\Auth\RestablecerContraseñaController;
 use App\Http\Controllers\Calendario_actividades_gad_Controller;
+use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\VacacionController;
 use App\Models\Calendario_actividades_gad;
 use App\Services\ContratoService;
