@@ -28,9 +28,7 @@ const DireccionesProvider = ({ children }) => {
   
         const { data } = await clienteAxios("/direcciones", config);
         setDirecciones(data.data);
-  
-        console.log("Direcciones obtenidas:", data.data); // Agrega este console.log
-  
+    
       } catch (error) {
         console.error("Error al obtener direcciones:", error);
       } finally {
