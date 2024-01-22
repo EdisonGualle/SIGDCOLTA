@@ -19,6 +19,7 @@ const TablePosicionesLaborales = ({ posicionesLaborales }) => {
     { headerName: "Direccion", field: "nombreDireccion" },
     { headerName: "Unidad", field: "nombreUnidad" },
     { headerName: "Cargo", field: "nombreCargo" },
+    { headerName: "Estado", field: "nombreEstado" },
     // Agrega más columnas según sea necesario
   ]);
 

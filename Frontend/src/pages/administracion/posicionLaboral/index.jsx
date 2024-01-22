@@ -6,7 +6,10 @@ import withReactContent from "sweetalert2-react-content";
 
 const IndexPosicionesLaboralesAdministrador = () => {
   const { posicionesLaborales, setCargando } = usePosicionesLaborales();
-  console.log("Posiciones Laborales component - posicionesLaborales:", posicionesLaborales);
+  console.log(
+    "Posiciones Laborales component - posicionesLaborales:",
+    posicionesLaborales
+  );
 
   const MySwal = withReactContent(Swal);
 
@@ -23,7 +26,11 @@ const IndexPosicionesLaboralesAdministrador = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         // Aquí puedes realizar la lógica para eliminar la posición laboral
-        MySwal.fire("Eliminado", "La posición laboral ha sido eliminada.", "success");
+        MySwal.fire(
+          "Eliminado",
+          "La posición laboral ha sido eliminada.",
+          "success"
+        );
       }
     });
   };
@@ -40,11 +47,29 @@ const IndexPosicionesLaboralesAdministrador = () => {
     });
   };
 
+  const empleadosActivos = posicionesLaborales.filter((posicion) => posicion.nombreEstado === "activo");
+  const empleadosInactivos = posicionesLaborales.filter((posicion) => posicion.nombreEstado === "inactivo");
+  console.log("Empleados activos:", empleadosActivos);
+  console.log("Empleados inactivos:", empleadosInactivos);
+  console.log("Valores de nombreEstado:", posicionesLaborales.map(posicion => posicion.nombreEstado));
+
   return (
     <>
       <div className="uppercase bg-white py-2 font-bold rounded-lg mb-1 p-10">
         <div className="flex justify-start mb-3">
-          {/* Puedes mostrar estadísticas u otros datos relacionados con las posiciones laborales aquí */}
+          <h1 className="mx-10">
+            Total de empleados:{" "}
+            <span className="text-blue-700">{posicionesLaborales.length}</span>{" "}
+          </h1>
+                    <h1 className="">
+            Empleados Activos:{" "}
+            <span className="text-green-700">{empleadosActivos.length}</span>
+          </h1>
+          <h1 className="mx-10">
+            Empleados Inactivos:{" "}
+            <span className="text-red-700">{empleadosInactivos.length}</span>
+          </h1>
+
         </div>
         <div className="flex justify-end">
           <button
