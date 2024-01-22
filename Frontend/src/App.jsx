@@ -13,10 +13,8 @@ import IndexPermisosAdministrador from "./pages/administracion/permisos/Index";
 import { EmpleadosProvider } from "./providers/EmpleadosProvider";
 import NotFound from "./pages/NotFound";
 
-
 import IndexDireccionesAdministrador from "./pages/administracion/posicionLaboral/direcciones/Index";
 import { DireccionesProvider } from "./providers/DireccionesProvider";
-
 
 import IndexPosicionesLaboralesAdministrador from "./pages/administracion/posicionLaboral";
 import { PosicionesLaboralesProvider } from "./providers/PosicionesLaborales";
@@ -53,15 +51,36 @@ function App() {
                     </Route>
 
                     {/* RUTAS DEL ADMINISTRADOR REQUIEREN AUTENTICACION */}
-                    <Route path="/administracion" element={<AdministradorLayout />}>
+                    <Route
+                      path="/administracion"
+                      element={<AdministradorLayout />}
+                    >
                       <Route index element={<DashboardAdministrador />} />
-                      <Route path="empleados" element={<IndexEmpleadosAdministrador />} />
-                      <Route path="permisos" element={<IndexPermisosAdministrador />} />
+                      <Route
+                        path="empleados"
+                        element={<IndexEmpleadosAdministrador />}
+                      />
+                      <Route
+                        path="permisos"
+                        element={<IndexPermisosAdministrador />}
+                      />
 
-                      <Route path="posiciones-laborales" element={<IndexPosicionesLaboralesAdministrador />} />
-                      <Route path="direcciones" element={<IndexDireccionesAdministrador />} />
-                      <Route path="unidades" element={<IndexUnidadesAdministrador />} />
-                      <Route path="cargos" element={<IndexCargosAdministrador />} />
+                      <Route
+                        path="posiciones-laborales"
+                        element={<IndexPosicionesLaboralesAdministrador />}
+                      />
+                      <Route
+                        path="direcciones"
+                        element={<IndexDireccionesAdministrador />}
+                      />
+                      <Route
+                        path="unidades"
+                        element={<IndexUnidadesAdministrador />}
+                      />
+                      <Route
+                        path="cargos"
+                        element={<IndexCargosAdministrador />}
+                      />
                     </Route>
                   </Routes>
                 </CargosProvider>

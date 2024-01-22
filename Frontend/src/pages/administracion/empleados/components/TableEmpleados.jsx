@@ -10,21 +10,41 @@ const TableEmpleados = ({ empleados }) => {
 
   // Column Definitions: Defines & controls grid columns.
   const [colDefs] = useState([
-    { headerName: "Cedula", field: "cedula" },
+    {
+      headerName: "Cedula",
+      field: "cedula",
+      checkboxSelection: true,
+      headerCheckboxSelection: true,
+      suppressMenu: true,
+    },
     {
       headerName: "Nombre Completo",
+      suppressMenu: true,
       valueGetter: (params) =>
         `${params.data.primerNombre} ${params.data.segundoNombre} ${params.data.primerApellido} ${params.data.segundoApellido}`,
     },
-    { headerName: "Fecha de Nacimiento", field: "fechaNacimiento" },
-    { headerName: "Genero", field: "genero" },
-    { headerName: "Teléfono Personal", field: "telefonoPersonal" },
-    { headerName: "Teléfono Trabajo", field: "telefonoTrabajo" },
-    { headerName: "Correo", field: "correo" },
-    { headerName: "Etnia", field: "etnia" },
-    { headerName: "Estado Civil", field: "estadoCivil" },
-    { headerName: "Tipo de Sangre", field: "tipoSangre" },
-    { headerName: "Nacionalidad", field: "nacionalidad" },
+    {
+      headerName: "Fecha de Nacimiento",
+      field: "fechaNacimiento",
+      filter: "agDateColumnFilter",
+      suppressMenu: true,
+    },
+    { headerName: "Correo", field: "correo", suppressMenu: true },
+    { headerName: "Genero", field: "genero", suppressMenu: true },
+    {
+      headerName: "Teléfono Personal",
+      field: "telefonoPersonal",
+      suppressMenu: true,
+    },
+    {
+      headerName: "Teléfono Trabajo",
+      field: "telefonoTrabajo",
+      suppressMenu: true,
+    },
+    { headerName: "Etnia", field: "etnia", suppressMenu: true },
+    { headerName: "Estado Civil", field: "estadoCivil", suppressMenu: true },
+    { headerName: "Tipo de Sangre", field: "tipoSangre", suppressMenu: true },
+    { headerName: "Nacionalidad", field: "nacionalidad", suppressMenu: true },
     // Agrega más columnas según sea necesario
   ]);
 
@@ -75,6 +95,7 @@ const TableEmpleados = ({ empleados }) => {
           columnDefs={colDefs}
           defaultColDef={defaultColDef}
           pagination={true}
+          rowSelection={"multiple"}
           onFirstDataRendered={onFirstDataRendered}
         />
       </div>
