@@ -1,20 +1,19 @@
 import React from "react";
-import useDirecciones from "../../../hooks/useDirecciones";
-import TableDirecciones from "./components/TableDirecciones";
+import usePosicionesLaborales from "../../../hooks/usePosicionesLaborales";
+import TablePosicionesLaborales from "./components/TablePosicionesLaborales";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-// import FormNuevoDepartamento from "../components/FormNuevaDireccion";
 
-const  IndexDireccionesAdministrador = () => {
-  const { direcciones, setCargando } = useDirecciones();
-  console.log("Direcciones component - direcciones:", direcciones);
- // Agrega este console.log para ver el estado de las direcciones
+const IndexPosicionesLaboralesAdministrador = () => {
+  const { posicionesLaborales, setCargando } = usePosicionesLaborales();
+  console.log("Posiciones Laborales component - posicionesLaborales:", posicionesLaborales);
+
   const MySwal = withReactContent(Swal);
 
   const handleEliminarClick = () => {
     MySwal.fire({
       title: "¿Estás seguro?",
-      text: "Esta acción eliminará la dirección. ¿Quieres continuar?",
+      text: "Esta acción eliminará la posición laboral. ¿Quieres continuar?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
@@ -23,16 +22,16 @@ const  IndexDireccionesAdministrador = () => {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        // Aquí puedes realizar la lógica para eliminar la dirección
-        MySwal.fire("Eliminado", "La dirección ha sido eliminada.", "success");
+        // Aquí puedes realizar la lógica para eliminar la posición laboral
+        MySwal.fire("Eliminado", "La posición laboral ha sido eliminada.", "success");
       }
     });
   };
 
   const handleNuevaClick = () => {
     MySwal.fire({
-      title: "Nueva Dirección",
-      html: <FormNuevaDireccion />,
+      title: "Nueva Posición Laboral",
+      html: <FormNuevaPosicionLaboral />,
       showCancelButton: true,
       showConfirmButton: false,
       cancelButtonColor: "#3085d6",
@@ -43,9 +42,9 @@ const  IndexDireccionesAdministrador = () => {
 
   return (
     <>
-      <div className="uppercase  bg-white py-2 font-bold rounded-lg mb-1 p-10">
+      <div className="uppercase bg-white py-2 font-bold rounded-lg mb-1 p-10">
         <div className="flex justify-start mb-3">
-          {/* Puedes mostrar estadísticas u otros datos relacionados con las direcciones aquí */}
+          {/* Puedes mostrar estadísticas u otros datos relacionados con las posiciones laborales aquí */}
         </div>
         <div className="flex justify-end">
           <button
@@ -63,15 +62,15 @@ const  IndexDireccionesAdministrador = () => {
           </button>
         </div>
         <div className="flex justify-start">
-          {/* Puedes agregar controles adicionales o filtros relacionados con las direcciones aquí */}
+          {/* Puedes agregar controles adicionales o filtros relacionados con las posiciones laborales aquí */}
         </div>
       </div>
 
       <div className="h-full">
-        <TableDirecciones direcciones={direcciones} />
+        <TablePosicionesLaborales posicionesLaborales={posicionesLaborales} />
       </div>
     </>
   );
 };
 
-export default IndexDireccionesAdministrador;
+export default IndexPosicionesLaboralesAdministrador;
