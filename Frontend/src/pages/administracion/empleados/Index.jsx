@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React from "react";
 import TableEmpleados from "./components/TableEmpleados";
 import useEmpleados from "../../../hooks/useEmpleados";
@@ -65,17 +66,17 @@ const IndexEmpleadosAdministrador = () => {
           </button>
         </div>
         <div className="flex justify-start">
-          <div class="w-64">
+          <div className="w-64">
             <label
               htmlFor="menu"
-              class="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-gray-700"
             >
               Selecciona una opción:
             </label>
             <select
               id="menu"
               name="menu"
-              class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+              className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
             >
               <optgroup label="Usuario">
                 <option value="deshabilitar-usuario">

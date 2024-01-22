@@ -1,10 +1,12 @@
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import { AgGridReact } from "ag-grid-react";
+// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useMemo, useState, useCallback } from "react";
 import { TRANSLATIONS } from "./traduccionTableGrid";
 import { LANGUAGE_OPTIONS } from "./traduccionTableGrid";
 
+// eslint-disable-next-line react/prop-types
 const TableEmpleados = ({ empleados }) => {
   const [rowData, setRowData] = useState([]);
 
