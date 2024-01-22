@@ -32,7 +32,6 @@ const PosicionesLaboralesProvider = ({ children }) => {
                 );
                 setPosicionesLaborales(data.data);
 
-                console.log("Posiciones laborales obtenidas:", data.data); // Agrega este console.log
             } catch (error) {
                 console.error("Error al obtener posiciones laborales:", error);
             } finally {

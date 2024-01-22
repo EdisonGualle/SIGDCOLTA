@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <header className="h-[7vh] md:h-[10vh] border-b border-primary p-8 flex items-center justify-end bg-slate-700">
+    <header className="h-[7vh] md:h-[10vh] border-b border-primary p-8 flex items-center justify-end bg-gray-800">
       <nav className="flex items-center gap-2">
         <Menu
           menuButton={
