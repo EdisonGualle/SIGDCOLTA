@@ -55,7 +55,7 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="bg-secondary-900 p-8 rounded-xl shadow-2xl w-auto lg:w-[450px]">
         <h1 className="text-3xl text-center uppercase font-bold tracking-[5px] text-secondary-50 mb-8">
-          Inicia <span className="text-primary">sesión</span>
+          Iniciar <span className="text-primary">sesión</span>
         </h1>
         {msg && <Alerta alerta={alerta} />}
         <form className="mb-2" onSubmit={handleSubmit}>
