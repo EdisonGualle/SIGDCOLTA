@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Services\EmpleadoService;
 use Illuminate\Http\Request;
+require 'vendor/autoload.php';
+
 
 class EmpleadoController extends Controller
 {

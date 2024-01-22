@@ -8,12 +8,13 @@
         "php": "^8.0.2",
         "darkaonline/l5-swagger": "^8.5",
         "guzzlehttp/guzzle": "^7.2",
+        "illuminate/notifications": "^9.0",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "prettus/l5-repository": "^2.9",
         "spatie/laravel-permission": "^6.2",
-        "illuminate/notifications": "^9.0"  
+        "tavo1987/ec-validador-cedula-ruc": "^1.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
