@@ -1,16 +1,16 @@
 import React from "react";
-import useDirecciones from "../../../../../hooks/useDirecciones";
 
-
-const FormNuevaDireccion = () => {
-    const { direcciones, setCargando } = useDirecciones();
-    console.log(direcciones)  
-    return (
+const FormNuevaDireccion = ({ direcciones }) => {
+  console.log(direcciones);
+  return (
     <div className="max-w-screen-md mx-auto p-4">
       <form className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {/* Columna 1 */}
         <div className="mb-4">
-          <label htmlFor="nombre" className="block text-sm font-medium text-gray-600">
+          <label
+            htmlFor="nombre"
+            className="block text-sm font-medium text-gray-600"
+          >
             Nombre
           </label>
           <input
@@ -22,7 +22,10 @@ const FormNuevaDireccion = () => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="nombre" className="block text-sm font-medium text-gray-600">
+          <label
+            htmlFor="nombre"
+            className="block text-sm font-medium text-gray-600"
+          >
             Telefono
           </label>
           <input
@@ -32,11 +35,12 @@ const FormNuevaDireccion = () => {
             className="mt-1 p-2 w-full border border-gray-300 rounded-md"
           />
         </div>
-        
-        
 
         <div className="mb-4">
-          <label htmlFor="descripcion" className="block text-sm font-medium text-gray-600">
+          <label
+            htmlFor="descripcion"
+            className="block text-sm font-medium text-gray-600"
+          >
             Descripción
           </label>
           <textarea
@@ -47,11 +51,21 @@ const FormNuevaDireccion = () => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="descripcion" className="block text-sm font-medium text-gray-600">
+          <label
+            htmlFor="descripcion"
+            className="block text-sm font-medium text-gray-600"
+          >
             Dirección Perteneciente
           </label>
-          <select  className="mt-1 p-2 w-full border border-gray-300 rounded-md" name="direcciones" id="direcciones">
-
+          <select
+            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+            name="direcciones"
+            id="direcciones"
+          >
+            <option value="" selected disabled>Direcciones ...</option>
+            {direcciones.map((direccion) => {
+              return <option value={direccion.id}>{direccion.nombre}</option>;
+            })}
           </select>
         </div>
       </form>
