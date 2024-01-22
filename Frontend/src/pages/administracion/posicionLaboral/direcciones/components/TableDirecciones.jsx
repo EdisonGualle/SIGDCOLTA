@@ -2,22 +2,20 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import { AgGridReact } from "ag-grid-react";
 import React, { useEffect, useMemo, useState, useCallback } from "react";
-import {TRANSLATIONS} from "../../empleados/components/traduccionTableGrid";
-import { LANGUAGE_OPTIONS } from "../../empleados/components/traduccionTableGrid";
+import { TRANSLATIONS, LANGUAGE_OPTIONS } from "../../../empleados/components/traduccionTableGrid.ts"
 
 const TableDirecciones = ({ direcciones, onCreateDireccion }) => {
   const [rowData, setRowData] = useState([]);
 
   // Column Definitions
   const [colDefs] = useState([
-    { headerName: "Nombre", field: "nombre", editable: true },
+    { headerName: "Dirección", field: "nombre", editable: true },
     { headerName: "Descripción", field: "descripcion", editable: true },
     // Agrega más columnas según sea necesario
   ]);
 
   // Fetch data & update rowData state
   useEffect(() => {
-    console.log("Datos de direcciones en TableDirecciones:", direcciones);
     setRowData(direcciones);
   }, [direcciones]);
 

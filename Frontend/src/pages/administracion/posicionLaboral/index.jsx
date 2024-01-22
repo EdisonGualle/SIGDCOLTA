@@ -1,7 +1,7 @@
 import React from "react";
 import usePosicionesLaborales from "../../../hooks/usePosicionesLaborales";
 import TablePosicionesLaborales from "./components/TablePosicionesLaborales";
-import { Link, useNavigate } from "react-router-dom";
+import NavegacionPosicionesLaborales from "./components/NavegacionPosicionesLaborales";
 
 const IndexPosicionesLaboralesAdministrador = () => {
   const { posicionesLaborales, setCargando } = usePosicionesLaborales();
@@ -14,48 +14,7 @@ const IndexPosicionesLaboralesAdministrador = () => {
 
   return (
     <>
-      {/* Navbar */}
-      <nav className="pb-3 text-white rounded-lg">
-        <ul className="flex">
-          {/* Posicion Laboral */}
-          <li className="">
-            <Link
-              to="/administracion/posiciones-laborales"
-              className="bg-gray-800 hover:bg-gray-500 text-white p-2 rounded-tl-lg rounded-bl-lg  transition"
-            >
-              Posiciones Laborales
-            </Link>
-          </li>
-          {/* Departamentos */}
-          <li className="">
-            <Link
-              to="/administracion/departamentos"
-              className="bg-gray-800 hover:bg-gray-500 text-white p-2   transition"
-            >
-              Departamentos
-            </Link>
-          </li>
-          {/* Unidades */}
-          <li className="">
-            <Link
-              to="/administracion/unidades"
-              className="bg-gray-800 hover:bg-gray-500 text-white p-2  transition"
-            >
-              Unidades
-            </Link>
-          </li>
-          {/* Cargos */}
-          <li className="mr-6">
-            <Link
-              to="/administracion/cargos"
-              className="bg-gray-800 hover:bg-gray-500 text-white p-2 rounded-tr-lg rounded-br-lg  transition"
-            >
-              Cargos
-            </Link>
-          </li>
-        </ul>
-      </nav>
-
+      <NavegacionPosicionesLaborales />
       {/* Div con estadísticas de empleados */}
       <div className="uppercase bg-white py-2 font-bold rounded-lg mb-1 p-10">
         <div className="flex justify-start mb-3 mt-3 ">

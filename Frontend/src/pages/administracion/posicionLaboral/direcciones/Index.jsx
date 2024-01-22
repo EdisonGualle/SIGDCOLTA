@@ -1,15 +1,14 @@
 import React from "react";
-import useDirecciones from "../../../hooks/useDirecciones";
+import useDirecciones from "../../../../hooks/useDirecciones";
 import TableDirecciones from "./components/TableDirecciones";
 import FormNuevaDireccion from "./components/FormNuevaDireccion";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 // import FormNuevoDepartamento from "../components/FormNuevaDireccion";
 
+import NavegacionPosicionesLaborales from "../components/NavegacionPosicionesLaborales";
 const  IndexDireccionesAdministrador = () => {
   const { direcciones, setCargando } = useDirecciones();
-  console.log("Direcciones component - direcciones:", direcciones);
- // Agrega este console.log para ver el estado de las direcciones
   const MySwal = withReactContent(Swal);
 
   const handleEliminarClick = () => {
@@ -44,9 +43,13 @@ const  IndexDireccionesAdministrador = () => {
 
   return (
     <>
+     <NavegacionPosicionesLaborales />
       <div className="uppercase  bg-white py-2 font-bold rounded-lg mb-1 p-10">
-        <div className="flex justify-start mb-3">
-          {/* Puedes mostrar estadísticas u otros datos relacionados con las direcciones aquí */}
+        <div className="flex justify-start mb-3 mt-3">
+        <h1 className="mx-10">
+            Total de direcciones:{" "}
+            <span className="text-blue-700">{direcciones.length}</span>{" "}
+          </h1>
         </div>
         <div className="flex justify-end">
           <button

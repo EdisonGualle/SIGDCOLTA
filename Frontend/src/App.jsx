@@ -13,11 +13,16 @@ import IndexPermisosAdministrador from "./pages/administracion/permisos/Index";
 import { EmpleadosProvider } from "./providers/EmpleadosProvider";
 import NotFound from "./pages/NotFound";
 
-// import IndexDireccionesAdministrador from "./pages/administracion/direcciones/Index";
-// import { DireccionesProvider } from "./providers/DireccionesProvider";
+
+import IndexDireccionesAdministrador from "./pages/administracion/posicionLaboral/direcciones/Index";
+import { DireccionesProvider } from "./providers/DireccionesProvider";
+
 
 import IndexPosicionesLaboralesAdministrador from "./pages/administracion/posicionLaboral";
 import { PosicionesLaboralesProvider } from "./providers/PosicionesLaborales";
+
+import IndexUnidadesAdministrador from "./pages/administracion/posicionLaboral/unidades";
+import { UnidadesProvider } from "./providers/UnidadesProvider";
 
 function App() {
   return (
@@ -25,7 +30,8 @@ function App() {
       <AuthProvider>
         <EmpleadosProvider>
           <PosicionesLaboralesProvider>
-            {/* <DireccionesProvider> */}
+            <DireccionesProvider>
+            <UnidadesProvider>
               <Routes>
                 {/* RUTAS PARA PAGINA DE INICIO SISTEMA */}
                 <Route path="/" element={<HomeLayout />}>
@@ -48,11 +54,14 @@ function App() {
                   <Route index element={<DashboardAdministrador />} />
                   <Route path="empleados" element={<IndexEmpleadosAdministrador />} />
                   <Route path="permisos" element={<IndexPermisosAdministrador />} />
+
                   <Route path="posiciones-laborales" element={<IndexPosicionesLaboralesAdministrador />} />
-                  {/* <Route path="direcciones" element={<IndexDireccionesAdministrador />} /> */}
+                  <Route path="direcciones" element={<IndexDireccionesAdministrador />} />
+                  <Route path="unidades" element={<IndexUnidadesAdministrador />} />
                 </Route>
               </Routes>
-            {/* </DireccionesProvider> */}
+              </UnidadesProvider>
+            </DireccionesProvider>
           </PosicionesLaboralesProvider>
         </EmpleadosProvider>
       </AuthProvider>
