@@ -21,32 +21,41 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <EmpleadosProvider>
-        <DireccionesProvider>
-          <Routes>
-            {/* RUTAS PARA PAGINA DE INICIO SISTEMA */}
-            <Route path="/" element={<HomeLayout />}>
-              <Route index element={<Home />} />
-              <Route path="*" element={<NotFound />} />
-            </Route>
+          <DireccionesProvider>
+            <Routes>
+              {/* RUTAS PARA PAGINA DE INICIO SISTEMA */}
+              <Route path="/" element={<HomeLayout />}>
+                <Route index element={<Home />} />
+                <Route path="*" element={<NotFound />} />
+              </Route>
 
-            {/* RUTAS PARA LOGEO ETC */}
-            <Route path="/" element={<AuthLayout />}>
-              <Route path="login" element={<Login />} />
-            </Route>
+              {/* RUTAS PARA LOGEO ETC */}
+              <Route path="/" element={<AuthLayout />}>
+                <Route path="login" element={<Login />} />
+              </Route>
 
-            {/* RUTAS DE EMPLEADOS REQUIEREN AUTENTICACION */}
-            <Route path="/empleados" element={<EmpleadosLayout />}>
-              <Route index element={<HomeEmpleados />} />
-            </Route>
+              {/* RUTAS DE EMPLEADOS REQUIEREN AUTENTICACION */}
+              <Route path="/empleados" element={<EmpleadosLayout />}>
+                <Route index element={<HomeEmpleados />} />
+              </Route>
 
-            {/* RUTAS DEL ADMINISTRADOR REQUIEREN AUTENTICACION */}
-            <Route path="/administracion" element={<AdministradorLayout />}>
-              <Route index element={<DashboardAdministrador />} />
-              <Route path="empleados" element={<IndexEmpleadosAdministrador />} />
-              <Route path="permisos" element={<IndexPermisosAdministrador />} />
-              <Route path="direcciones" element={<IndexDireccionesAdministrador />} />
-            </Route>
-          </Routes>
+              {/* RUTAS DEL ADMINISTRADOR REQUIEREN AUTENTICACION */}
+              <Route path="/administracion" element={<AdministradorLayout />}>
+                <Route index element={<DashboardAdministrador />} />
+                <Route
+                  path="empleados"
+                  element={<IndexEmpleadosAdministrador />}
+                />
+                <Route
+                  path="permisos"
+                  element={<IndexPermisosAdministrador />}
+                />
+                <Route
+                  path="direcciones"
+                  element={<IndexDireccionesAdministrador />}
+                />
+              </Route>
+            </Routes>
           </DireccionesProvider>
         </EmpleadosProvider>
       </AuthProvider>
