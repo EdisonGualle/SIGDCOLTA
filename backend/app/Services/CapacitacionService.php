@@ -296,4 +296,20 @@ class CapacitacionService
 
         return response()->json(['successful' => true, 'capacitaciones' => $capacitacionesNoRealizadas]);
     }
+
+    //Funcion para mostar todos los empleados con sus capacitaciones
+    public function listarEmpleadosConCapacitaciones()
+    {
+        $empleadosConCapacitaciones = Empleado::with(['capacitaciones:idCapacitacion,nombre,descripcion,tipoEvento,institucion,cantidadHoras,fecha'])
+            ->get(['idEmpleado', 'cedula', 'primerNombre', 'segundoNombre', 'primerApellido', 'segundoApellido']);
+
+        // Elimina la información de "pivot" de cada capacitación
+        $empleadosConCapacitaciones->each(function ($empleado) {
+            $empleado->capacitaciones->each(function ($capacitacion) {
+                unset($capacitacion->pivot);
+            });
+        });
+
+        return response()->json(['successful' => true, 'empleados' => $empleadosConCapacitaciones], 200);
+    }
 }

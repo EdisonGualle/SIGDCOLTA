@@ -66,7 +66,8 @@ Route::delete('/capacitaciones/asignacion-empleado-capacitacion/{idEmpleado}/{id
 Route::get('/capacitaciones/capacitaciones-por-empleado/id/{idEmpleado}', [CapacitacionController::class, 'listarCapacitacionesPorEmpleadoId']);
 Route::get('/capacitaciones/capacitaciones-no-realizadas-por-empleado/id/{idEmpleado}', [CapacitacionController::class, 'listarCapacitacionesNoRealizadasPorEmpleadoId']);
 Route::get('/capacitaciones/empleados-por-capacitacion/id/{idCapacitacion}', [CapacitacionController::class, 'listarEmpleadosPorCapacitacionId']);
-
+//ruta para la funcion para mostar todos los empleados con sus capacitaciones
+Route::get('/empleados-con-capacitaciones', [CapacitacionController::class, 'listarEmpleadosConCapacitaciones']);
 
 
 // CARGOS routes
