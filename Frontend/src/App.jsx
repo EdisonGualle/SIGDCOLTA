@@ -13,11 +13,15 @@ import IndexPermisosAdministrador from "./pages/administracion/permisos/Index";
 import { EmpleadosProvider } from "./providers/EmpleadosProvider";
 import NotFound from "./pages/NotFound";
 
+import IndexDireccionesAdministrador from "./pages/administracion/direcciones/Index";
+import { DireccionesProvider } from "./providers/DireccionesProvider";
+
 function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
         <EmpleadosProvider>
+        <DireccionesProvider>
           <Routes>
             {/* RUTAS PARA PAGINA DE INICIO SISTEMA */}
             <Route path="/" element={<HomeLayout />}>
@@ -38,13 +42,12 @@ function App() {
             {/* RUTAS DEL ADMINISTRADOR REQUIEREN AUTENTICACION */}
             <Route path="/administracion" element={<AdministradorLayout />}>
               <Route index element={<DashboardAdministrador />} />
-              <Route
-                path="empleados"
-                element={<IndexEmpleadosAdministrador />}
-              />
+              <Route path="empleados" element={<IndexEmpleadosAdministrador />} />
               <Route path="permisos" element={<IndexPermisosAdministrador />} />
+              <Route path="direcciones" element={<IndexDireccionesAdministrador />} />
             </Route>
           </Routes>
+          </DireccionesProvider>
         </EmpleadosProvider>
       </AuthProvider>
     </BrowserRouter>
