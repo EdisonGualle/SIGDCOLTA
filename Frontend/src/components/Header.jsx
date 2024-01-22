@@ -28,8 +28,8 @@ const Header = () => {
           align="end"
           arrow
           transition
-          arrowClassName="bg-secondary-100"
-          menuClassName="bg-secondary-100 p-4"
+          arrowClassName="bg-gray-200"
+          menuClassName="bg-gray-200 p-4"
         >
           <h1 className="text-back text-center font-medium">
             Notificaciones (2)
@@ -38,7 +38,7 @@ const Header = () => {
           <MenuItem className="p-0 hover:bg-transparent">
             <Link
               to="/"
-              className="text-gray-300 flex flex-1 items-center gap-4 py-2 px-4 hover:bg-white transition-colors rounded-lg"
+              className="text-gray-300 flex flex-1 items-center gap-4 py-2 px-4 hover:bg-secondary-100 transition-colors rounded-lg"
             >
               <img
                 src="https://img.freepik.com/foto-gratis/feliz-optimista-guapo-gerente-ventas-latina-apuntando-lado-mirando-camara_1262-12679.jpg"
@@ -58,7 +58,7 @@ const Header = () => {
           <MenuItem className="p-0 hover:bg-transparent">
             <Link
               to="/"
-              className="text-gray-300 flex flex-1 items-center gap-4 py-2 px-4 hover:bg-white transition-colors rounded-lg"
+              className="text-gray-300 flex flex-1 items-center gap-4 py-2 px-4 hover:bg-secondary-100 transition-colors rounded-lg"
             >
               <RiThumbUpLine className="p-2 bg-blue-200 text-blue-700 box-content rounded-full" />
               <div className="text-sm flex flex-col">
@@ -75,7 +75,7 @@ const Header = () => {
           <MenuItem className="p-0 hover:bg-transparent">
             <Link
               to="/"
-              className="text-gray-300 flex flex-1 items-center gap-4 py-2 px-4 hover:bg-white transition-colors rounded-lg"
+              className="text-gray-300 flex flex-1 items-center gap-4 py-2 px-4 hover:bg-secondary-100 transition-colors rounded-lg"
             >
               <RiChat3Line className="p-2 bg-yellow-200 text-yellow-700 box-content rounded-full" />
               <div className="text-sm flex flex-col">
@@ -112,14 +112,14 @@ const Header = () => {
           }
           align="end"
           arrow
-          arrowClassName="bg-secondary-100"
+          arrowClassName="bg-gray-100"
           transition
-          menuClassName="bg-secondary-100 p-4"
+          menuClassName="bg-gray-200 p-4"
         >
           <MenuItem className="p-0 hover:bg-transparent">
             <Link
               to="/perfil"
-              className="rounded-lg transition-colors hover:bg-white flex items-center gap-x-4 py-2 px-6 flex-1"
+              className="rounded-lg transition-colors hover:bg-secondary-100 flex items-center gap-x-4 py-2 px-6 flex-1"
             >
               <img
                 src="https://img.freepik.com/foto-gratis/feliz-optimista-guapo-gerente-ventas-latina-apuntando-lado-mirando-camara_1262-12679.jpg"
@@ -135,7 +135,7 @@ const Header = () => {
           <MenuItem className="p-0 hover:bg-transparent">
             <Link
               to="/configuracion"
-              className="rounded-lg transition-colors hover:bg-white flex items-center gap-x-4 py-2 px-6 flex-1"
+              className="rounded-lg transition-colors hover:bg-secondary-100 flex items-center gap-x-4 py-2 px-6 flex-1"
             >
               <RiSettings3Line /> Configuración
             </Link>
@@ -143,7 +143,7 @@ const Header = () => {
           <MenuItem className="p-0 hover:bg-transparent">
             <Link
               to="/cerrar-sesion"
-              className="rounded-lg transition-colors hover:bg-white flex items-center gap-x-4 py-2 px-6 flex-1"
+              className="rounded-lg transition-colors hover:bg-secondary-100 flex items-center gap-x-4 py-2 px-6 flex-1"
             >
               <RiLogoutCircleRLine /> Cerrar sesión
             </Link>

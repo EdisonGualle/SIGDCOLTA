@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 // Icons
 import {
-  RiCustomerService2Line,
   RiCalendarTodoLine,
   RiLogoutCircleRLine,
   RiArrowRightSLine,
@@ -235,7 +234,7 @@ const Sidebar = () => {
               >
                 <li>
                   <Link
-                    to="/"
+                    to="/direcciones"
                     className="py-2 text-secondary-100 px-4 border-l border-gray-500 ml-6 block relative before:w-3 before:h-3 before:absolute before:bg-primary before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2 before:border-4 before:border-secondary-100 hover:text-primary transition-colors"
                   >
                     Direcciones
