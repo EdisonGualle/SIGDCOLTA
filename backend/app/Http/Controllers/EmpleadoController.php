@@ -20,6 +20,11 @@ class EmpleadoController extends Controller
     {
         return response()->json($this->empleadoService->listarEmpleados());
     }
+    public function EmpleadosReporte()
+    {
+        return $this->empleadoService->EmpleadosReporte();
+
+    }
 
     public function mostrarEmpleadoPorId($id)
     {
@@ -60,6 +65,8 @@ class EmpleadoController extends Controller
     {
         return response()->json($this->empleadoService->listarEmpleadosPorGenero($genero));
     }
+
+    
 
 
     public function crearEmpleado(Request $request)

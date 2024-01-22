@@ -171,9 +171,9 @@ class CapacitacionController extends Controller
      *     @OA\Response(response="404", description="Empleado o capacitación no encontrados"),
      * )
      */
-    public function crearAsignacionEmpleadoCapacitacion(Request $request, $idEmpleado, $idCapacitacion)
+    public function crearAsignacionEmpleadoCapacitacion(Request $request)
     {
-        $response = $this->capacitacionService->crearAsignacionEmpleadoCapacitacion($request, $idEmpleado, $idCapacitacion);
+        $response = $this->capacitacionService->crearAsignacionEmpleadoCapacitacion($request);
         return $response;
     }
 

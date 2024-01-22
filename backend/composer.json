@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "barryvdh/laravel-dompdf": "^2.0",
         "darkaonline/l5-swagger": "^8.5",
         "guzzlehttp/guzzle": "^7.2",
         "illuminate/notifications": "^9.0",
@@ -13,8 +14,12 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "prettus/l5-repository": "^2.9",
+<<<<<<< HEAD
         "spatie/laravel-permission": "^6.2",
         "tavo1987/ec-validador-cedula-ruc": "^1.0"
+=======
+        "spatie/laravel-permission": "^6.2"
+>>>>>>> 98bdca6c918efb5d60424effd4895083cec0cfa2
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

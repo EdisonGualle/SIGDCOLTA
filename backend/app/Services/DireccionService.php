@@ -53,11 +53,19 @@ class DireccionService
         return response()->json(['successful' => true, 'data' => $direccion], 201);
     }
 
-    public function actualizarDireccion(Request $request, $id)
+    public function actualizarDireccion(Request $request, $idDireccion)
     {
-        // Validar los datos de entrada
+        // Obtener la dirección existente
+        $direccion = Direccion::find($idDireccion);
+
+        // Verificar si la dirección existe
+        if (!$direccion) {
+            return response()->json(['successful' => false, 'error' => 'Dirección no encontrada'], 404);
+        }
+
+        // Validar los datos de entrada para la actualización
         $validator = $this->validator->make($request->all(), [
-            'nombre' => 'string|max:255|unique:direccion,nombre,' . $id,
+            'nombre' => 'required|string|max:255|unique:direccion,nombre,' . $idDireccion . ',idDireccion',
             'descripcion' => 'required|string',
         ], [
             'nombre.unique' => 'Ya existe una dirección con este nombre.',
@@ -68,16 +76,10 @@ class DireccionService
             return response()->json(['successful' => false, 'errors' => $validator->errors()], 422);
         }
 
-        $direccion = Direccion::find($id);
-
-        if (!$direccion) {
-            return response()->json(['successful' => false, 'error' => 'Direccion no encontrada'], 404);
-        }
-
         // Actualizar la dirección
         $direccion->update($request->all());
 
-        return response()->json(['successful' => true, 'data' => $direccion]);
+        return response()->json(['successful' => true, 'data' => $direccion], 200);
     }
 
     public function eliminarDireccion($id)
