@@ -24,6 +24,9 @@ import { UnidadesProvider } from "./providers/UnidadesProvider";
 import IndexCargosAdministrador from "./pages/administracion/posicionLaboral/cargos";
 import { CargosProvider } from "./providers/CargosProvider";
 
+import IndexJerarquiaCargosAdministrador from "./pages/administracion/posicionLaboral/jerarquiaCargos";
+import { JerarquiaCargosProvider } from "./providers/JerarquiaCargosProvider";
+
 function App() {
   return (
     <BrowserRouter>
@@ -33,6 +36,7 @@ function App() {
             <DireccionesProvider>
               <UnidadesProvider>
                 <CargosProvider>
+                <JerarquiaCargosProvider>
                   <Routes>
                     {/* RUTAS PAcdRA PAGINA DE INICIO SISTEMA */}
                     <Route path="/" element={<HomeLayout />}>
@@ -81,8 +85,13 @@ function App() {
                         path="cargos"
                         element={<IndexCargosAdministrador />}
                       />
+                      <Route
+                        path="jerarquia-cargos"
+                        element={<IndexJerarquiaCargosAdministrador />}
+                      />
                     </Route>
                   </Routes>
+                  </JerarquiaCargosProvider>
                 </CargosProvider>
               </UnidadesProvider>
             </DireccionesProvider>
