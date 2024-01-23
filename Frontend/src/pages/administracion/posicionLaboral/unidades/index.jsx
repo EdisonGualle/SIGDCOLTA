@@ -35,10 +35,18 @@ const IndexUnidadesAdministrador = () => {
       title: "Nueva Unidad",
       html: <FormNuevaUnidad direcciones={direcciones} />, // Actualiza la instancia del formulario según tus necesidades
       showCancelButton: true,
-      showConfirmButton: false,
-      cancelButtonColor: "#3085d6",
-      cancelButtonText: "Cerrar",
+      showCloseButton: true,
+      reverseButtons: true,
+      cancelButtonColor: "#d33",
+      confirmButtonColor: "#3085d6",
+      cancelButtonText: "Cancelar",
+      confirmButtonText: "Crear",
       width: "50%",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Aquí puedes realizar la lógica para eliminar la unidad
+        MySwal.fire("Success", "Unidad creada correctamente", "success");
+      }
     });
   };
 

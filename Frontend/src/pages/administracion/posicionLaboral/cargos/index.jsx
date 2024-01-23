@@ -38,6 +38,8 @@ const IndexCargosAdministrador = () => {
       showConfirmButton: false,
       cancelButtonColor: "#3085d6",
       cancelButtonText: "Cerrar",
+      cancelButtonColor: "#3085d6",
+      cancelButtonText: "Cerrar",
       width: "50%",
     });
   };
