@@ -54,7 +54,6 @@ class ComposerStaticInitfe33f98a750b8c5a51b30c78bd3fab21
             'TijsVerkoyen\\CssToInlineStyles\\' => 31,
             'Tests\\' => 6,
             'Termwind\\' => 9,
-            'Tavo\\' => 5,
         ),
         'S' => 
         array (
@@ -228,10 +227,6 @@ class ComposerStaticInitfe33f98a750b8c5a51b30c78bd3fab21
         'Termwind\\' => 
         array (
             0 => __DIR__ . '/..' . '/nunomaduro/termwind/src',
-        ),
-        'Tavo\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/tavo1987/ec-validador-cedula-ruc/src',
         ),
         'Symfony\\Polyfill\\Uuid\\' => 
         array (
@@ -647,7 +642,6 @@ class ComposerStaticInitfe33f98a750b8c5a51b30c78bd3fab21
         'App\\Http\\Controllers\\Config\\ConfiguracionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Config/ConfiguracionController.php',
         'App\\Http\\Controllers\\ContratoController' => __DIR__ . '/../..' . '/app/Http/Controllers/ContratoController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
-        'App\\Http\\Controllers\\DepartamentoController' => __DIR__ . '/../..' . '/app/Http/Controllers/DepartamentoController.php',
         'App\\Http\\Controllers\\DireccionController' => __DIR__ . '/../..' . '/app/Http/Controllers/DireccionController.php',
         'App\\Http\\Controllers\\DiscapacidadController' => __DIR__ . '/../..' . '/app/Http/Controllers/DiscapacidadController.php',
         'App\\Http\\Controllers\\EmpleadoController' => __DIR__ . '/../..' . '/app/Http/Controllers/EmpleadoController.php',
@@ -708,8 +702,6 @@ class ComposerStaticInitfe33f98a750b8c5a51b30c78bd3fab21
         'App\\Models\\Invoice' => __DIR__ . '/../..' . '/app/Models/Invoice.php',
         'App\\Models\\JerarquiaPermiso' => __DIR__ . '/../..' . '/app/Models/JerarquiaPermiso.php',
         'App\\Models\\Permiso' => __DIR__ . '/../..' . '/app/Models/Permiso.php',
-        'App\\Models\\Provincia' => __DIR__ . '/../..' . '/app/Models/Provincia.php',
-        'App\\Models\\Referencialaboral' => __DIR__ . '/../..' . '/app/Models/Referencialaboral.php',
         'App\\Models\\RegistroAsistencia' => __DIR__ . '/../..' . '/app/Models/RegistroAsistencia.php',
         'App\\Models\\Residencia' => __DIR__ . '/../..' . '/app/Models/Residencia.php',
         'App\\Models\\Rol' => __DIR__ . '/../..' . '/app/Models/Rol.php',
@@ -719,10 +711,6 @@ class ComposerStaticInitfe33f98a750b8c5a51b30c78bd3fab21
         'App\\Models\\TipoSalida' => __DIR__ . '/../..' . '/app/Models/TipoSalida.php',
         'App\\Models\\Unidad' => __DIR__ . '/../..' . '/app/Models/Unidad.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
-        'App\\Notifications\\Registro\\RegistroUsuarioNotification' => __DIR__ . '/../..' . '/app/Notifications/Registro/RegistroUsuarioNotification.php',
-        'App\\Notifications\\Roles\\CambioDeRolAdminNotification' => __DIR__ . '/../..' . '/app/Notifications/Roles/CambioDeRolAdminNotification.php',
-        'App\\Notifications\\Roles\\CambioDeRolNotification' => __DIR__ . '/../..' . '/app/Notifications/Roles/CambioDeRolNotification.php',
-        'App\\Notifications\\Roles\\EliminarRolAdminNotification' => __DIR__ . '/../..' . '/app/Notifications/Roles/EliminarRolAdminNotification.php',
         'App\\Notifications\\Roles\\EliminarRolNotification' => __DIR__ . '/../..' . '/app/Notifications/Roles/EliminarRolNotification.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
@@ -730,7 +718,6 @@ class ComposerStaticInitfe33f98a750b8c5a51b30c78bd3fab21
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'App\\Services\\AprobacionPermisoService' => __DIR__ . '/../..' . '/app/Services/AprobacionPermisoService.php',
-        'App\\Services\\CantonesService' => __DIR__ . '/../..' . '/app/Services/CantonesService.php',
         'App\\Services\\CapacitacionService' => __DIR__ . '/../..' . '/app/Services/CapacitacionService.php',
         'App\\Services\\CargoService' => __DIR__ . '/../..' . '/app/Services/CargoService.php',
         'App\\Services\\ConfiguracionService' => __DIR__ . '/../..' . '/app/Services/ConfiguracionService.php',
@@ -746,7 +733,6 @@ class ComposerStaticInitfe33f98a750b8c5a51b30c78bd3fab21
         'App\\Services\\InstruccionFormalService' => __DIR__ . '/../..' . '/app/Services/InstruccionFormalService.php',
         'App\\Services\\JerarquiaPermisoService' => __DIR__ . '/../..' . '/app/Services/JerarquiaPermisoService.php',
         'App\\Services\\PermisoService' => __DIR__ . '/../..' . '/app/Services/PermisoService.php',
-        'App\\Services\\ProvinciaService' => __DIR__ . '/../..' . '/app/Services/ProvinciaService.php',
         'App\\Services\\ReferenciaLaboralService' => __DIR__ . '/../..' . '/app/Services/ReferenciaLaboralService.php',
         'App\\Services\\RegistroAsistenciaService' => __DIR__ . '/../..' . '/app/Services/RegistroAsistenciaService.php',
         'App\\Services\\ResidenciaService' => __DIR__ . '/../..' . '/app/Services/ResidenciaService.php',
@@ -6876,7 +6862,6 @@ class ComposerStaticInitfe33f98a750b8c5a51b30c78bd3fab21
         'Symfony\\Polyfill\\Php80\\PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/PhpToken.php',
         'Symfony\\Polyfill\\Php81\\Php81' => __DIR__ . '/..' . '/symfony/polyfill-php81/Php81.php',
         'Symfony\\Polyfill\\Uuid\\Uuid' => __DIR__ . '/..' . '/symfony/polyfill-uuid/Uuid.php',
-        'Tavo\\ValidadorEc' => __DIR__ . '/..' . '/tavo1987/ec-validador-cedula-ruc/src/ValidadorEc.php',
         'Termwind\\Actions\\StyleToMethod' => __DIR__ . '/..' . '/nunomaduro/termwind/src/Actions/StyleToMethod.php',
         'Termwind\\Components\\Anchor' => __DIR__ . '/..' . '/nunomaduro/termwind/src/Components/Anchor.php',
         'Termwind\\Components\\BreakLine' => __DIR__ . '/..' . '/nunomaduro/termwind/src/Components/BreakLine.php',

@@ -153,7 +153,6 @@ return [
     | this array to grant expanded functionality to your applications.
     |
     */
-    
 
     'providers' => [
 
@@ -161,7 +160,7 @@ return [
          * Laravel Framework Service Providers...
          */
         
- 
+
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
@@ -203,7 +202,6 @@ return [
         
 
     ],
-    
 
     /*
     |--------------------------------------------------------------------------
@@ -219,6 +217,5 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
-    
 
 ];

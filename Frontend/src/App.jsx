@@ -1,35 +1,63 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { AuthProvider } from "./providers/AuthProvider";
+import AuthLayout from "./pages/layouts/AuthLayout";
+import HomeLayout from "./pages/layouts/HomeLayout";
+import EmpleadosLayout from "./pages/layouts/EmpleadosLayout";
+import AdministradorLayout from "./pages/layouts/AdministradorLayout";
+import Home from "./pages/Home";
+import Login from "./pages/auth/Login";
+import HomeEmpleados from "./pages/empleados/Home";
+import DashboardAdministrador from "./pages/administracion/Dashboard";
+import IndexEmpleadosAdministrador from "./pages/administracion/empleados/Index";
+import IndexPermisosAdministrador from "./pages/administracion/permisos/Index";
+import { EmpleadosProvider } from "./providers/EmpleadosProvider";
+import NotFound from "./pages/NotFound";
+
+// import IndexDireccionesAdministrador from "./pages/administracion/direcciones/Index";
+// import { DireccionesProvider } from "./providers/DireccionesProvider";
+
+import IndexPosicionesLaboralesAdministrador from "./pages/administracion/posicionLaboral";
+import { PosicionesLaboralesProvider } from "./providers/PosicionesLaborales";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <BrowserRouter>
+      <AuthProvider>
+        <EmpleadosProvider>
+          <PosicionesLaboralesProvider>
+            {/* <DireccionesProvider> */}
+              <Routes>
+                {/* RUTAS PARA PAGINA DE INICIO SISTEMA */}
+                <Route path="/" element={<HomeLayout />}>
+                  <Route index element={<Home />} />
+                  <Route path="*" element={<NotFound />} />
+                </Route>
+
+                {/* RUTAS PARA LOGEO ETC */}
+                <Route path="/" element={<AuthLayout />}>
+                  <Route path="login" element={<Login />} />
+                </Route>
+
+                {/* RUTAS DE EMPLEADOS REQUIEREN AUTENTICACION */}
+                <Route path="/empleados" element={<EmpleadosLayout />}>
+                  <Route index element={<HomeEmpleados />} />
+                </Route>
+
+                {/* RUTAS DEL ADMINISTRADOR REQUIEREN AUTENTICACION */}
+                <Route path="/administracion" element={<AdministradorLayout />}>
+                  <Route index element={<DashboardAdministrador />} />
+                  <Route path="empleados" element={<IndexEmpleadosAdministrador />} />
+                  <Route path="permisos" element={<IndexPermisosAdministrador />} />
+                  <Route path="posiciones-laborales" element={<IndexPosicionesLaboralesAdministrador />} />
+                  {/* <Route path="direcciones" element={<IndexDireccionesAdministrador />} /> */}
+                </Route>
+              </Routes>
+            {/* </DireccionesProvider> */}
+          </PosicionesLaboralesProvider>
+        </EmpleadosProvider>
+      </AuthProvider>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

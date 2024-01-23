@@ -19,6 +19,11 @@ class ContratoController extends Controller
         $response = $this->contratoService->listarContratos();
         return $response;
     }
+    public function listarContratos2()
+    {
+        $response = $this->contratoService->listarContratos2();
+        return $response;
+    }
 
     public function listarContratosPorCedula($cedula)
     {
@@ -41,6 +46,11 @@ class ContratoController extends Controller
     public function listarContratosPorIdTipoContrato($idTipoContrato)
     {
         $response = $this->contratoService->listarContratosPorIdTipoContrato($idTipoContrato);
+        return $response;
+    }
+    public function listarContratosPorTipo()
+    {
+        $response = $this->contratoService->listarContratosPorTipo();
         return $response;
     }
 

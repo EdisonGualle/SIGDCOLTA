@@ -107,11 +107,13 @@ Route::controller(AprobacionPermisoController::class)->group(function () {
 
 // CONTRATOS routes
 Route::get('/contratos', [ContratoController::class, 'listarContratos']);
+Route::get('/contratos2', [ContratoController::class, 'listarContratos2']);
 Route::get('/contratos/{id}', [ContratoController::class, 'mostrarContrato']);
 Route::get('/contratos/empleado/cedula/{cedula}', [ContratoController::class, 'listarContratosPorCedula']);
 Route::get('/contratos/estado/{estadoContrato}', [ContratoController::class, 'listarContratosPorEstado']);
 Route::get('/contratos/empleado/id/{idEmpleado}', [ContratoController::class, 'listarContratosPorIdEmpleado']);
 Route::get('/contratos/tipo/id/{idTipoContrato}', [ContratoController::class, 'listarContratosPorIdTipoContrato']);
+Route::get('/contratos-tipo/', [ContratoController::class, 'listarContratosPorTipo']);
 Route::get('/contratos/tipo/nombre/{nombreTipoContrato}', [ContratoController::class, 'listarContratosPorNombreTipoContrato']);
 Route::post('/contratos', [ContratoController::class, 'crearContrato']);
 Route::put('/contratos/{id}', [ContratoController::class, 'actualizarContrato']);
@@ -152,6 +154,7 @@ Route::get('/discapacidades/empleados-por-discapacidad/id/{idDiscapacidad}', [Di
 
 
 // EMPLEADOS routes
+Route::get('/empleados-por-posicion-laboral', [EmpleadoController::class, 'listarEmpleadosPorPosicionLaboral']);
 Route::get('/empleados', [EmpleadoController::class, 'listarEmpleados']);
 Route::get('/empleadosReporte', [EmpleadoController::class, 'EmpleadosReporte']);
 Route::get('/empleados/{id}', [EmpleadoController::class, 'mostrarEmpleadoPorId']);
@@ -168,6 +171,7 @@ Route::get('/empleados/canton/{id_canton}', [EmpleadoController::class, 'listarE
 Route::post('/empleados', [EmpleadoController::class, 'crearEmpleado']);
 Route::put('/empleados/{id}', [EmpleadoController::class, 'actualizarEmpleado']);
 Route::delete('/empleados/{id}', [EmpleadoController::class, 'eliminarEmpleado']);
+
 
 
 // PROVINCIAS routes

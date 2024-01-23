@@ -10,7 +10,7 @@ class UnidadService
 {
     public function listarUnidades()
     {
-        $unidades = Unidad::all();
+        $unidades = Unidad::with('direccion')->get();
         return response()->json(['successful' => true, 'data' => $unidades]);
     }
 

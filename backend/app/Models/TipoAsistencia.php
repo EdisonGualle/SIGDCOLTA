@@ -18,6 +18,12 @@ class TipoAsistencia extends Model
 
     public $timestamps = false;
     const ATRASADO = 'atrasado';
+    const PRESENTE = 'presente';
+    const FALTA = 'falta';
+    const JUSTIFICADO = 'justificado';
+
+
+
 
     protected $fillable = [
         'desde',

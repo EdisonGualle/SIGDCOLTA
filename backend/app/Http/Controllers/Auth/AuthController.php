@@ -47,7 +47,7 @@ class AuthController extends Controller
                 ? 'El usuario no existe.'
                 : 'El correo electronico no existe.';
 
-            return response()->json(['successful' => false, 'mensaje' => 'Error. ' . $mensajeError], 401);
+            return response()->json(['successful' => false, 'mensaje' => $mensajeError], 401);
         }
 
         // Verificar si el usuario está bloqueado
@@ -71,7 +71,7 @@ class AuthController extends Controller
                 $tiempoRestante = now()->diffInSeconds($bloqueadoHasta);
                 $tiempoFormateado = $this->formatoTiempo($tiempoRestante);
 
-                return response()->json(['successful' => false, 'mensaje' => "Usuario bloqueado. Intenta nuevamente en $tiempoFormateado."], 401);
+                return response()->json(['successful' => false,  'mensaje' => "Usuario bloqueado. Intenta nuevamente en $tiempoFormateado."], 401);
             }
         }
         // Verificar si el usuario existe y está activo
@@ -96,7 +96,7 @@ class AuthController extends Controller
 
                 // Generar un nuevo token de acceso
                 $token = $user->createToken('auth_token')->plainTextToken;
-                return response()->json(['successful' => true, 'mensaje' => 'Inicio de sesión exitoso', 'access_token' => $token], 200);
+                return response()->json(['successful' => true, '_id' => $user->idUsuario, 'usuario' => $user->usuario, 'correo' => $user->correo, 'mensaje' => 'Inicio de sesión exitoso', 'token' => $token], 200);
             } else {
                 // Autenticación fallida (credenciales incorrectas)
                 // Incrementar el contador de intentos fallidos
@@ -113,7 +113,7 @@ class AuthController extends Controller
                     return response()->json(['successful' => false, 'mensaje' => "Usuario bloqueado. Intenta nuevamente en $tiempoFormateado."], 401);
                 }
 
-                return response()->json(['successful' => false, 'mensaje' => 'Error. Contraseña incorrecta.'], 401);
+                return response()->json(['successful' => false, 'mensaje' => 'Contraseña incorrecta.'], 401);
             }
         } else {
             // Usuario no encontrado o inactivo

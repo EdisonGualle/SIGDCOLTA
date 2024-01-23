@@ -3,11 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-<<<<<<< HEAD
-        'reference' => '8429e900a4abcf80b7cf92c697664e37a226923d',
-=======
         'reference' => '9d4671cb425a93dc4b0dac3cd7457e3d128da922',
->>>>>>> 98bdca6c918efb5d60424effd4895083cec0cfa2
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -470,11 +466,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-<<<<<<< HEAD
-            'reference' => '8429e900a4abcf80b7cf92c697664e37a226923d',
-=======
             'reference' => '9d4671cb425a93dc4b0dac3cd7457e3d128da922',
->>>>>>> 98bdca6c918efb5d60424effd4895083cec0cfa2
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -1441,15 +1433,6 @@
             'reference' => 'deec3a812a0305a50db8ae689b183f43d915c884',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/yaml',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
-        'tavo1987/ec-validador-cedula-ruc' => array(
-            'pretty_version' => 'v1.0.2',
-            'version' => '1.0.2.0',
-            'reference' => '379b50bc5dfda20d935df2bdd3c0de94e4fc024e',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../tavo1987/ec-validador-cedula-ruc',
             'aliases' => array(),
             'dev_requirement' => false,
         ),

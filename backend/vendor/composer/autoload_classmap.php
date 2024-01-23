@@ -19,7 +19,6 @@ return array(
     'App\\Http\\Controllers\\Config\\ConfiguracionController' => $baseDir . '/app/Http/Controllers/Config/ConfiguracionController.php',
     'App\\Http\\Controllers\\ContratoController' => $baseDir . '/app/Http/Controllers/ContratoController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
-    'App\\Http\\Controllers\\DepartamentoController' => $baseDir . '/app/Http/Controllers/DepartamentoController.php',
     'App\\Http\\Controllers\\DireccionController' => $baseDir . '/app/Http/Controllers/DireccionController.php',
     'App\\Http\\Controllers\\DiscapacidadController' => $baseDir . '/app/Http/Controllers/DiscapacidadController.php',
     'App\\Http\\Controllers\\EmpleadoController' => $baseDir . '/app/Http/Controllers/EmpleadoController.php',
@@ -35,6 +34,10 @@ return array(
     'App\\Http\\Controllers\\Employee\\EmpleadoReferencialaboralController' => $baseDir . '/app/Http/Controllers/Employee/EmpleadoReferencialaboralController.php',
     'App\\Http\\Controllers\\EstadoController' => $baseDir . '/app/Http/Controllers/EstadoController.php',
     'App\\Http\\Controllers\\EstadoPermisoController' => $baseDir . '/app/Http/Controllers/EstadoPermisoController.php',
+<<<<<<< HEAD
+    'App\\Http\\Controllers\\InstruccionFormalController' => $baseDir . '/app/Http/Controllers/InstruccionFormalController.php',
+=======
+>>>>>>> main
     'App\\Http\\Controllers\\JerarquiaPermisoController' => $baseDir . '/app/Http/Controllers/JerarquiaPermisoController.php',
     'App\\Http\\Controllers\\PermisoController' => $baseDir . '/app/Http/Controllers/PermisoController.php',
     'App\\Http\\Controllers\\ProvinciaController' => $baseDir . '/app/Http/Controllers/ProvinciaController.php',
@@ -80,17 +83,28 @@ return array(
     'App\\Models\\Invoice' => $baseDir . '/app/Models/Invoice.php',
     'App\\Models\\JerarquiaPermiso' => $baseDir . '/app/Models/JerarquiaPermiso.php',
     'App\\Models\\Permiso' => $baseDir . '/app/Models/Permiso.php',
+<<<<<<< HEAD
+=======
     'App\\Models\\Provincia' => $baseDir . '/app/Models/Provincia.php',
     'App\\Models\\Referencialaboral' => $baseDir . '/app/Models/Referencialaboral.php',
+>>>>>>> main
     'App\\Models\\RegistroAsistencia' => $baseDir . '/app/Models/RegistroAsistencia.php',
     'App\\Models\\Residencia' => $baseDir . '/app/Models/Residencia.php',
     'App\\Models\\Rol' => $baseDir . '/app/Models/Rol.php',
     'App\\Models\\SalidaCampo' => $baseDir . '/app/Models/SalidaCampo.php',
     'App\\Models\\TipoAsistencia' => $baseDir . '/app/Models/TipoAsistencia.php',
+<<<<<<< HEAD
+    'App\\Models\\TipoContrato' => $baseDir . '/app/Models/TipoContrato.php',
+=======
+>>>>>>> main
     'App\\Models\\TipoPermiso' => $baseDir . '/app/Models/TipoPermiso.php',
     'App\\Models\\TipoSalida' => $baseDir . '/app/Models/TipoSalida.php',
     'App\\Models\\Unidad' => $baseDir . '/app/Models/Unidad.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
+<<<<<<< HEAD
+    'App\\Models\\Vacacion' => $baseDir . '/app/Models/Vacacion.php',
+=======
+>>>>>>> main
     'App\\Notifications\\Registro\\RegistroUsuarioNotification' => $baseDir . '/app/Notifications/Registro/RegistroUsuarioNotification.php',
     'App\\Notifications\\Roles\\CambioDeRolAdminNotification' => $baseDir . '/app/Notifications/Roles/CambioDeRolAdminNotification.php',
     'App\\Notifications\\Roles\\CambioDeRolNotification' => $baseDir . '/app/Notifications/Roles/CambioDeRolNotification.php',
@@ -102,7 +116,6 @@ return array(
     'App\\Providers\\EventServiceProvider' => $baseDir . '/app/Providers/EventServiceProvider.php',
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
     'App\\Services\\AprobacionPermisoService' => $baseDir . '/app/Services/AprobacionPermisoService.php',
-    'App\\Services\\CantonesService' => $baseDir . '/app/Services/CantonesService.php',
     'App\\Services\\CapacitacionService' => $baseDir . '/app/Services/CapacitacionService.php',
     'App\\Services\\CargoService' => $baseDir . '/app/Services/CargoService.php',
     'App\\Services\\ConfiguracionService' => $baseDir . '/app/Services/ConfiguracionService.php',
@@ -118,7 +131,6 @@ return array(
     'App\\Services\\InstruccionFormalService' => $baseDir . '/app/Services/InstruccionFormalService.php',
     'App\\Services\\JerarquiaPermisoService' => $baseDir . '/app/Services/JerarquiaPermisoService.php',
     'App\\Services\\PermisoService' => $baseDir . '/app/Services/PermisoService.php',
-    'App\\Services\\ProvinciaService' => $baseDir . '/app/Services/ProvinciaService.php',
     'App\\Services\\ReferenciaLaboralService' => $baseDir . '/app/Services/ReferenciaLaboralService.php',
     'App\\Services\\RegistroAsistenciaService' => $baseDir . '/app/Services/RegistroAsistenciaService.php',
     'App\\Services\\ResidenciaService' => $baseDir . '/app/Services/ResidenciaService.php',
@@ -6248,7 +6260,6 @@ return array(
     'Symfony\\Polyfill\\Php80\\PhpToken' => $vendorDir . '/symfony/polyfill-php80/PhpToken.php',
     'Symfony\\Polyfill\\Php81\\Php81' => $vendorDir . '/symfony/polyfill-php81/Php81.php',
     'Symfony\\Polyfill\\Uuid\\Uuid' => $vendorDir . '/symfony/polyfill-uuid/Uuid.php',
-    'Tavo\\ValidadorEc' => $vendorDir . '/tavo1987/ec-validador-cedula-ruc/src/ValidadorEc.php',
     'Termwind\\Actions\\StyleToMethod' => $vendorDir . '/nunomaduro/termwind/src/Actions/StyleToMethod.php',
     'Termwind\\Components\\Anchor' => $vendorDir . '/nunomaduro/termwind/src/Components/Anchor.php',
     'Termwind\\Components\\BreakLine' => $vendorDir . '/nunomaduro/termwind/src/Components/BreakLine.php',
