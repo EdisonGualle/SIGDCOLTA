@@ -9,8 +9,8 @@ import NavegacionPosicionesLaborales from "../components/NavegacionPosicionesLab
 import useDirecciones from "../../../../hooks/useDirecciones";
 
 const IndexUnidadesAdministrador = () => {
-  const { unidades, setCargando } = useUnidades(); 
-  const {direcciones}=useDirecciones();
+  const { unidades, setCargando } = useUnidades();
+  const { direcciones } = useDirecciones();
   const MySwal = withReactContent(Swal);
 
   const handleEliminarClick = () => {
@@ -30,11 +30,10 @@ const IndexUnidadesAdministrador = () => {
       }
     });
   };
-
   const handleNuevaClick = () => {
     MySwal.fire({
       title: "Nueva Unidad",
-      html: <FormNuevaUnidad  direcciones={direcciones}/>, // Actualiza la instancia del formulario según tus necesidades
+      html: <FormNuevaUnidad direcciones={direcciones} />, // Actualiza la instancia del formulario según tus necesidades
       showCancelButton: true,
       showConfirmButton: false,
       cancelButtonColor: "#3085d6",
