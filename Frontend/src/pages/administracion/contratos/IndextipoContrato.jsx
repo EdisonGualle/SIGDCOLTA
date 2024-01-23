@@ -1,13 +1,14 @@
 import React from "react";
 import TabletipoContrato from "./components/TabletipoContrato";
 import usetipoContratos from "../../../hooks/usetipoContratos";
-//import FormNuevoTipoContrato from "./components/FormNuevoTipoContrato";
+import FormNuevoTipoContrato from "./components/FormNuevoTipoContrato";
 
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 
 const IndextipoContratosAdministrador = () => {
   const { tiposContrato } = usetipoContratos();
+  const MySwal = withReactContent(Swal);
   console.log("Datos traídos del provider:", tiposContrato);
 
   const handleEliminarTipoContratoClick = () => {
@@ -29,15 +30,15 @@ const IndextipoContratosAdministrador = () => {
   };
 
   const handleNuevoTipoContratoClick = () => {
-    // MySwal.fire({
-    //   title: "Nuevo Tipo de Contrato",
-    //   html: <FormNuevoTipoContrato />, // Renderiza el formulario de nuevo empleado en el contenido del SweetAlert
-    //   showCancelButton: true,
-    //   showConfirmButton: false,
-    //   cancelButtonColor: "#3085d6",
-    //   cancelButtonText: "Cerrar",
-    //   width: "50%",
-    // });
+    MySwal.fire({
+      title: "Nuevo Tipo de Contrato",
+      html: <FormNuevoTipoContrato />, // Renderiza el formulario de nuevo empleado en el contenido del SweetAlert
+      showCancelButton: true,
+      showConfirmButton: false,
+      cancelButtonColor: "#3085d6",
+      cancelButtonText: "Cerrar",
+      width: "50%",
+    });
   };
   return (
     <>
@@ -47,14 +48,14 @@ const IndextipoContratosAdministrador = () => {
             className="bg-red-700 text-white mx-10 py-2 px-5 rounded-lg"
             onClick={handleEliminarTipoContratoClick}
           >
-            Eliminar Tipo de Contrato
+            Eliminar 
           </button>
 
           <button
             className="bg-blue-700 text-white py-2 px-5 rounded-lg"
             onClick={handleNuevoTipoContratoClick}
           >
-            Nuevo Tipo de Contrato
+            Nuevo 
           </button>
         </div>
       </div>

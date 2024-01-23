@@ -41,15 +41,10 @@ const IndextipoContratosAdministrador = () => {
             className="bg-red-700 text-white mx-10 py-2 px-5 rounded-lg"
             onClick={handleEliminarContratoClick}
           >
-            Eliminar Contrato
+            Eliminar 
           </button>
 
-          <button
-            className="bg-blue-700 text-white py-2 px-5 rounded-lg"
-            onClick={handleNuevoContratoClick}
-          >
-            Nuevo Contrato
-          </button>
+
         </div>
       </div>
       <div className="h-full">
