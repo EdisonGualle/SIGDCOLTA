@@ -1,10 +1,11 @@
 import { Outlet } from "react-router-dom";
+import NavbarHome from "./components/NavbarHome";
 const AuthLayout = () => {
   return (
     <>
       <main>
         <div>
-          <h1>LAYAOUT DE AUTENTICACIONES</h1>
+        <NavbarHome transparent />
           <Outlet />
         </div>
       </main>

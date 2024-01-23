@@ -5,7 +5,7 @@ export default function NavbarHome(props) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   return (
     <nav
-      className={
+      className={ 
         (props.transparent
           ? "top-0 absolute z-50 w-full"
           : "relative shadow-lg bg-white") +
