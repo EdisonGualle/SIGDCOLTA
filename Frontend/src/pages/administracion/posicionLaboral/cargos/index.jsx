@@ -35,12 +35,17 @@ const IndexCargosAdministrador = () => {
       title: "Nuevo Cargo",
       html: <FormNuevoCargo unidades={unidades} />,
       showCancelButton: true,
-      showConfirmButton: false,
-      cancelButtonColor: "#3085d6",
-      cancelButtonText: "Cerrar",
-      cancelButtonColor: "#3085d6",
-      cancelButtonText: "Cerrar",
+      showCloseButton: true,
+      reverseButtons: true,
+      cancelButtonColor: "#d33",
+      confirmButtonColor: "#3085d6",
+      cancelButtonText: "Cancelar",
+      confirmButtonText: "Crear",
       width: "50%",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        MySwal.fire("Success", "Cargo creado correctamente", "success");
+      }
     });
   };
 

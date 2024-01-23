@@ -42,10 +42,18 @@ const IndexJerarquiaCargosAdministrador = () => {
       title: "Nueva Jerarquia Cargos",
       html: <FormNuevaJerarquiaCargos direcciones={direcciones} unidades={unidades} cargos={cargos}/>,
       showCancelButton: true,
-      showConfirmButton: false,
-      cancelButtonColor: "#3085d6",
-      cancelButtonText: "Cerrar",
+      showCloseButton: true,
+      reverseButtons: true,
+      cancelButtonColor: "#d33",
+      confirmButtonColor: "#3085d6",
+      cancelButtonText: "Cancelar",
+      confirmButtonText: "Crear",
       width: "50%",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Aquí puedes realizar la lógica para eliminar la unidad
+        MySwal.fire("Success", "Jerarquia Cargos creada correctamente", "success");
+      }
     });
   };
 

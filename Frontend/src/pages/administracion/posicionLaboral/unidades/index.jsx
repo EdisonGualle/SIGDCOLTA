@@ -44,7 +44,6 @@ const IndexUnidadesAdministrador = () => {
       width: "50%",
     }).then((result) => {
       if (result.isConfirmed) {
-        // Aquí puedes realizar la lógica para eliminar la unidad
         MySwal.fire("Success", "Unidad creada correctamente", "success");
       }
     });
