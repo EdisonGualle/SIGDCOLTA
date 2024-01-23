@@ -40,7 +40,7 @@ const Login = () => {
       setAlerta({});
       localStorage.setItem("token", data.token);
       setAuth(data);
-      navigate("/empleados");
+      navigate("/administracion/empleados");
     } catch (error) {
       setAlerta({
         msg: error.response.data.mensaje,

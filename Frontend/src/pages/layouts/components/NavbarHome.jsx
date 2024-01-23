@@ -52,7 +52,9 @@ export default function NavbarHome(props) {
                     : "text-gray-800 hover:text-gray-600") +
                   " px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
                 }
-                href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit#/landing"
+                href="http://127.0.0.1:8000/api/documentation"
+                target="_blank"
+                rel="noreferrer"
               >
                 <i
                   className={
