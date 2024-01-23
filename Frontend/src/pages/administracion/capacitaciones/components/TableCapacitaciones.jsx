@@ -7,10 +7,10 @@ import { TRANSLATIONS } from "../../empleados/components/traduccionTableGrid";
 import { LANGUAGE_OPTIONS } from "../../empleados/components/traduccionTableGrid";
 
 // eslint-disable-next-line react/prop-types
-const TablePosicionesLaborales = ({ posicionesLaborales }) => {
+const TableCapacitaciones = ({ capacitaciones }) => {
   const [rowData, setRowData] = useState([]);
 
-  // Column Definitions: Defines & controls grid columns.
+  // Column Definitions: Define y controla las columnas de la cuadrícula.
   const [colDefs] = useState([
     { headerName: "Cedula", field: "cedula" },
     {
@@ -18,17 +18,21 @@ const TablePosicionesLaborales = ({ posicionesLaborales }) => {
       valueGetter: (params) =>
         `${params.data.primerNombre} ${params.data.segundoNombre} ${params.data.primerApellido} ${params.data.segundoApellido}`,
     },
-    { headerName: "Direccion", field: "nombreDireccion" },
-    { headerName: "Unidad", field: "nombreUnidad" },
-    { headerName: "Cargo", field: "nombreCargo" },
-    { headerName: "Estado", field: "nombreEstado" },
+    
+    { headerName: "ID Capacitación", field: "idCapacitacion" },
+    { headerName: "Nombre", field: "nombre" },
+    { headerName: "Descripción", field: "descripcion" },
+    { headerName: "Tipo de Evento", field: "tipoEvento" },
+    { headerName: "Institución", field: "institucion" },
+    { headerName: "Cantidad de Horas", field: "cantidadHoras" },
+    { headerName: "Fecha", field: "fecha" },
     // Agrega más columnas según sea necesario
   ]);
 
   // Fetch data & update rowData state
   useEffect(() => {
-    setRowData(posicionesLaborales);
-  }, [posicionesLaborales]);
+    setRowData(capacitaciones);
+  }, [capacitaciones]);
 
   // Apply settings across all columns
   const defaultColDef = useMemo(
@@ -51,7 +55,7 @@ const TablePosicionesLaborales = ({ posicionesLaborales }) => {
   //       cellRange: {
   //         rowStartIndex: 0,
   //         rowEndIndex: rowData.length - 1,
-  //         columns: ["cedula", "edad"],
+  //         columns: ["idCapacitacion", "cantidadHoras"],
   //       },
   //       chartType: "groupedColumn",
   //       aggFunc: "sum",
@@ -62,10 +66,7 @@ const TablePosicionesLaborales = ({ posicionesLaborales }) => {
 
   return (
     <div className="h-full">
-      <div
-        className={"ag-theme-quartz"}
-        style={{ width: "100%", height: "90%" }}
-      >
+      <div className={"ag-theme-quartz"} style={{ width: "100%", height: "90%" }}>
         <AgGridReact
           localeText={TRANSLATIONS[LANGUAGE_OPTIONS.ES]}
           rowData={rowData}
@@ -80,4 +81,4 @@ const TablePosicionesLaborales = ({ posicionesLaborales }) => {
   );
 };
 
-export default TablePosicionesLaborales;
+export default TableCapacitaciones;

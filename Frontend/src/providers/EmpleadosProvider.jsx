@@ -1,17 +1,16 @@
-import { useNavigate } from "react-router-dom";
 import { useState, useEffect, createContext } from "react";
 import clienteAxios from "../config/clienteAxios";
 import useAuth from "../hooks/useAuth";
 const EmpleadosContext = createContext();
 
+// eslint-disable-next-line react/prop-types
 const EmpleadosProvider = ({ children }) => {
   const [empleados, setEmpleados] = useState([]);
-  const [cargando, setCargando] = useState(false);
-  const [alerta, setAlerta] = useState({});
-  const [empleado, setEmpleado] = useState({});
-  const [modalEliminarEmpleado, setModalEliminarEmpleado] = useState(false);
+  const [] = useState(false);
+  const [] = useState({});
+  const [] = useState({});
+  const [] = useState(false);
 
-  const navigate = useNavigate();
   const { auth } = useAuth();
 
   useEffect(() => {

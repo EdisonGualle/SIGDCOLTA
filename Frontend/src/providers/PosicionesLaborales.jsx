@@ -5,9 +5,10 @@ import clienteAxios from "../config/clienteAxios";
 
 const PosicionesLaboralesContext = createContext();
 
+// eslint-disable-next-line react/prop-types
 const PosicionesLaboralesProvider = ({ children }) => {
     const [posicionesLaborales, setPosicionesLaborales] = useState([]);
-    const [cargando, setCargando] = useState(true); // Establece inicialmente como cargando
+    const [, setCargando] = useState(true); // Establece inicialmente como cargando
     const navigate = useNavigate();
 
     useEffect(() => {

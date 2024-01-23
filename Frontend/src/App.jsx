@@ -24,69 +24,77 @@ import { UnidadesProvider } from "./providers/UnidadesProvider";
 import IndexCargosAdministrador from "./pages/administracion/posicionLaboral/cargos";
 import { CargosProvider } from "./providers/CargosProvider";
 
+import IndexCapacitacionesAdministrador from "./pages/administracion/capacitaciones";
+import { CapacitacionesProvider } from "./providers/Capacitaciones";
+
 function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
         <EmpleadosProvider>
-          <PosicionesLaboralesProvider>
-            <DireccionesProvider>
-              <UnidadesProvider>
-                <CargosProvider>
-                  <Routes>
-                    {/* RUTAS PAcdRA PAGINA DE INICIO SISTEMA */}
-                    <Route path="/" element={<HomeLayout />}>
-                      <Route index element={<Home />} />
-                      <Route path="*" element={<NotFound />} />
-                    </Route>
+          <CapacitacionesProvider>
+            <PosicionesLaboralesProvider>
+              <DireccionesProvider>
+                <UnidadesProvider>
+                  <CargosProvider>
+                    <Routes>
+                      {/* RUTAS PAcdRA PAGINA DE INICIO SISTEMA */}
+                      <Route path="/" element={<HomeLayout />}>
+                        <Route index element={<Home />} />
+                        <Route path="*" element={<NotFound />} />
+                      </Route>
 
-                    {/* RUTAS PARA LOGEO ETC */}
-                    <Route path="/" element={<AuthLayout />}>
-                      <Route path="login" element={<Login />} />
-                    </Route>
+                      {/* RUTAS PARA LOGEO ETC */}
+                      <Route path="/" element={<AuthLayout />}>
+                        <Route path="login" element={<Login />} />
+                      </Route>
 
-                    {/* RUTAS DE EMPLEADOS REQUIEREN AUTENTICACION */}
-                    <Route path="/empleados" element={<EmpleadosLayout />}>
-                      <Route index element={<HomeEmpleados />} />
-                    </Route>
+                      {/* RUTAS DE EMPLEADOS REQUIEREN AUTENTICACION */}
+                      <Route path="/empleados" element={<EmpleadosLayout />}>
+                        <Route index element={<HomeEmpleados />} />
+                      </Route>
 
-                    {/* RUTAS DEL ADMINISTRADOR REQUIEREN AUTENTICACION */}
-                    <Route
-                      path="/administracion"
-                      element={<AdministradorLayout />}
-                    >
-                      <Route index element={<DashboardAdministrador />} />
+                      {/* RUTAS DEL ADMINISTRADOR REQUIEREN AUTENTICACION */}
                       <Route
-                        path="empleados"
-                        element={<IndexEmpleadosAdministrador />}
-                      />
-                      <Route
-                        path="permisos"
-                        element={<IndexPermisosAdministrador />}
-                      />
-
-                      <Route
-                        path="posiciones-laborales"
-                        element={<IndexPosicionesLaboralesAdministrador />}
-                      />
-                      <Route
-                        path="direcciones"
-                        element={<IndexDireccionesAdministrador />}
-                      />
-                      <Route
-                        path="unidades"
-                        element={<IndexUnidadesAdministrador />}
-                      />
-                      <Route
-                        path="cargos"
-                        element={<IndexCargosAdministrador />}
-                      />
-                    </Route>
-                  </Routes>
-                </CargosProvider>
-              </UnidadesProvider>
-            </DireccionesProvider>
-          </PosicionesLaboralesProvider>
+                        path="/administracion"
+                        element={<AdministradorLayout />}
+                      >
+                        <Route index element={<DashboardAdministrador />} />
+                        <Route
+                          path="empleados"
+                          element={<IndexEmpleadosAdministrador />}
+                        />
+                        <Route
+                          path="permisos"
+                          element={<IndexPermisosAdministrador />}
+                        />
+                        <Route
+                          path="empleados-capacitaciones"
+                          element={<IndexCapacitacionesAdministrador />}
+                        />
+                        <Route
+                          path="posiciones-laborales"
+                          element={<IndexPosicionesLaboralesAdministrador />}
+                        />
+                        <Route
+                          path="direcciones"
+                          element={<IndexDireccionesAdministrador />}
+                        />
+                        <Route
+                          path="unidades"
+                          element={<IndexUnidadesAdministrador />}
+                        />
+                        <Route
+                          path="cargos"
+                          element={<IndexCargosAdministrador />}
+                        />
+                      </Route>
+                    </Routes>
+                  </CargosProvider>
+                </UnidadesProvider>
+              </DireccionesProvider>
+            </PosicionesLaboralesProvider>
+          </CapacitacionesProvider>
         </EmpleadosProvider>
       </AuthProvider>
     </BrowserRouter>

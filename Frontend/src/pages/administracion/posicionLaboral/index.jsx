@@ -1,10 +1,11 @@
+// eslint-disable-next-line no-unused-vars
 import React from "react";
 import usePosicionesLaborales from "../../../hooks/usePosicionesLaborales";
 import TablePosicionesLaborales from "./components/TablePosicionesLaborales";
 import NavegacionPosicionesLaborales from "./components/NavegacionPosicionesLaborales";
 
 const IndexPosicionesLaboralesAdministrador = () => {
-  const { posicionesLaborales, setCargando } = usePosicionesLaborales();
+  const { posicionesLaborales } = usePosicionesLaborales();
   const empleadosActivos = posicionesLaborales.filter(
     (posicion) => posicion.nombreEstado === "activo"
   );

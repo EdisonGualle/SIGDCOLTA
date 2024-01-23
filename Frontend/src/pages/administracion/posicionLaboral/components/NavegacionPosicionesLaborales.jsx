@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function NavegacionPosicionesLaborales() {
   return (
@@ -21,7 +21,7 @@ function NavegacionPosicionesLaborales() {
               to="/administracion/direcciones"
               className="bg-gray-800 hover:bg-gray-500 text-white p-2   transition"
             >
-              Direcciones
+              Direcciones 
             </Link>
           </li>
           {/* Unidades */}
