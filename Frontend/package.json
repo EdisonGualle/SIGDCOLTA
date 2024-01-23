@@ -10,9 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "5.15.3",
     "@headlessui/tailwindcss": "^0.2.0",
     "@szhsin/react-menu": "^4.1.0",
+    "@fortawesome/fontawesome-free": "5.15.3",
     "ag-grid-react": "^31.0.2",
     "axios": "^1.6.5",
     "react": "^18.2.0",

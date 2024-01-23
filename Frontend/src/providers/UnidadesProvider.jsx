@@ -1,17 +1,17 @@
-// context/DirrecionesProvider.jsx
+// context/UnidadesProvider.jsx
 import { useState, useEffect, createContext } from "react";
 import { useNavigate } from "react-router-dom";
 import clienteAxios from "../config/clienteAxios";
 
-const DireccionesContext = createContext();
+const UnidadesContext = createContext();
 
-const DireccionesProvider = ({ children }) => {
-  const [direcciones, setDirecciones] = useState([]);
+const UnidadesProvider = ({ children }) => {
+  const [unidades, setUnidades] = useState([]);
   const [cargando, setCargando] = useState(true); // Establece inicialmente como cargando
   const navigate = useNavigate();
 
   useEffect(() => {
-    const getDirecciones = async () => {
+    const getUnidades = async () => {
       try {
         const token = localStorage.getItem("token");
         if (!token) {
@@ -26,31 +26,31 @@ const DireccionesProvider = ({ children }) => {
           },
         };
   
-        const { data } = await clienteAxios("/direcciones", config);
-        setDirecciones(data.data);
+        const { data } = await clienteAxios("/unidades", config); // Actualiza la ruta según tu API
+        setUnidades(data.data);
     
       } catch (error) {
-        console.error("Error al obtener direcciones:", error);
+        console.error("Error al obtener unidades:", error);
       } finally {
         setCargando(false);
       }
     };
   
     // Fetch data when component mounts
-    getDirecciones();
+    getUnidades();
   }, []);
   
 
   const contextValue = {
-    direcciones,
+    unidades,
   };
 
   return (
-    <DireccionesContext.Provider value={contextValue}>
+    <UnidadesContext.Provider value={contextValue}>
       {children}
-    </DireccionesContext.Provider>
+    </UnidadesContext.Provider>
   );
 };
 
-export { DireccionesProvider };
-export default DireccionesContext;
+export { UnidadesProvider };
+export default UnidadesContext;

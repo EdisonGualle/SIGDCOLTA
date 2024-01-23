@@ -1,20 +1,22 @@
 import React from "react";
-import useDirecciones from "../../../../hooks/useDirecciones";
-import TableDirecciones from "./components/TableDirecciones";
-import FormNuevaDireccion from "./components/FormNuevaDireccion";
+import useUnidades from "../../../../hooks/useUnidades"; // Actualiza la importación según la ubicación de tu hook de unidades
+import TableUnidades from "./components/TableUnidades"; // Actualiza la importación según la ubicación de tu componente de tabla de unidades
+import FormNuevaUnidad from "./components/FormNuevaUnidad"; // Actualiza la importación según la ubicación de tu formulario para nueva unidad
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-// import FormNuevoDepartamento from "../components/FormNuevaDireccion";
 
 import NavegacionPosicionesLaborales from "../components/NavegacionPosicionesLaborales";
-const  IndexDireccionesAdministrador = () => {
-  const { direcciones, setCargando } = useDirecciones();
+import useDirecciones from "../../../../hooks/useDirecciones";
+
+const IndexUnidadesAdministrador = () => {
+  const { unidades, setCargando } = useUnidades(); 
+  const {direcciones}=useDirecciones();
   const MySwal = withReactContent(Swal);
 
   const handleEliminarClick = () => {
     MySwal.fire({
       title: "¿Estás seguro?",
-      text: "Esta acción eliminará la dirección. ¿Quieres continuar?",
+      text: "Esta acción eliminará la unidad. ¿Quieres continuar?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
@@ -23,16 +25,16 @@ const  IndexDireccionesAdministrador = () => {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        // Aquí puedes realizar la lógica para eliminar la dirección
-        MySwal.fire("Eliminado", "La dirección ha sido eliminada.", "success");
+        // Aquí puedes realizar la lógica para eliminar la unidad
+        MySwal.fire("Eliminada", "La unidad ha sido eliminada.", "success");
       }
     });
   };
 
   const handleNuevaClick = () => {
     MySwal.fire({
-      title: "Nueva Dirección",
-      html: <FormNuevaDireccion />,
+      title: "Nueva Unidad",
+      html: <FormNuevaUnidad  direcciones={direcciones}/>, // Actualiza la instancia del formulario según tus necesidades
       showCancelButton: true,
       showConfirmButton: false,
       cancelButtonColor: "#3085d6",
@@ -43,12 +45,12 @@ const  IndexDireccionesAdministrador = () => {
 
   return (
     <>
-     <NavegacionPosicionesLaborales />
-      <div className="uppercase  bg-white py-2 font-bold rounded-lg mb-1 p-10">
+      <NavegacionPosicionesLaborales />
+      <div className="uppercase bg-white py-2 font-bold rounded-lg mb-1 p-10">
         <div className="flex justify-start mb-3 mt-3">
-        <h1 className="mx-10">
-            Total de direcciones:{" "}
-            <span className="text-blue-700">{direcciones.length}</span>{" "}
+          <h1 className="mx-10">
+            Total de unidades:{" "}
+            <span className="text-blue-700">{unidades.length}</span>{" "}
           </h1>
         </div>
         <div className="flex justify-end">
@@ -67,15 +69,14 @@ const  IndexDireccionesAdministrador = () => {
           </button>
         </div>
         <div className="flex justify-start">
-          {/* Puedes agregar controles adicionales o filtros relacionados con las direcciones aquí */}
+          {/* Puedes agregar controles adicionales o filtros relacionados con las unidades aquí */}
         </div>
       </div>
-
       <div className="h-full">
-        <TableDirecciones direcciones={direcciones} />
+        <TableUnidades unidades={unidades} />
       </div>
     </>
   );
 };
 
-export default IndexDireccionesAdministrador;
+export default IndexUnidadesAdministrador;

@@ -46,9 +46,8 @@ const SidebarAdministrador = () => {
   return (
     <>
       <div
-        className={`xl:h-[100vh] overflow-y-scroll fixed xl:static w-[80%] md:w-[40%] lg:w-[30%] xl:w-auto h-full top-0 bg-secondary-900 p-4 flex flex-col justify-between z-50 ${
-          showMenu ? "left-0" : "-left-full"
-        } transition-all`}
+        className={`xl:h-[100vh] overflow-y-scroll fixed xl:static w-[80%] md:w-[40%] lg:w-[30%] xl:w-auto h-full top-0 bg-secondary-900 p-4 flex flex-col justify-between z-50 ${showMenu ? "left-0" : "-left-full"
+          } transition-all`}
       >
         <div>
           <h1 className="text-center text-2xl font-bold text-primary mb-10">
@@ -102,13 +101,48 @@ const SidebarAdministrador = () => {
             </li>
             {/*Contratos */}
             <li>
-              <Link
-                to="/tickets"
-                className="flex  text-secondary-100 items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-100   hover:text-black transition-colors"
+              <button
+                onClick={() => toggleSubMenu(5)}
+                className="w-full flex text-secondary-100 items-center justify-between py-2 px-4 rounded-lg hover:bg-secondary-100 hover:text-black transition-colors"
               >
-                <LiaFileContractSolid className="text-primary" /> Contratos
-              </Link>
+                <span className="flex items-center gap-4">
+                  <LiaFileContractSolid className="text-primary" /> Contratos
+                </span>
+                <RiArrowRightSLine
+                  className={`mt-1 ${activeSubmenus.includes(5) && "rotate-90"} transition-all`}
+                />
+              </button>
+              <ul
+                className={` ${activeSubmenus.includes(5) ? "h-[130px]" : "h-0"
+                  } overflow-y-hidden transition-all`}
+              >
+                <li>
+                  <Link
+                    to="/administracion/contratos"
+                    className="flex  text-secondary-100 items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-100   hover:text-black transition-colors"
+                  >
+                    <RiUserStarLine className="text-primary" /> Todos
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/administracion/tipos-contratos"
+                    className="py-2 text-secondary-100 px-4 border-l border-gray-500 ml-6 block relative before:w-3 before:h-3 before:absolute before:bg-primary before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2 before:border-4 before:border-secondary-100 hover:text-primary transition-colors"
+                  >
+                    Tipos
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/"
+                    className="py-2  text-secondary-100 px-4 border-l border-gray-500 ml-6 block relative before:w-3 before:h-3 before:absolute before:bg-gray-500 before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2 before:border-4 before:border-secondary-100 hover:text-primary transition-colors"
+                  >
+                    Asignar
+                  </Link>
+                </li>
+              </ul>
             </li>
+
 
             {/* Capacitaciones */}
             <li>
@@ -138,15 +172,13 @@ const SidebarAdministrador = () => {
                   <BsClipboard2Check className="text-primary" /> Permisos
                 </span>
                 <RiArrowRightSLine
-                  className={`mt-1 ${
-                    activeSubmenus.includes(4) && "rotate-90"
-                  } transition-all`}
+                  className={`mt-1 ${activeSubmenus.includes(4) && "rotate-90"
+                    } transition-all`}
                 />
               </button>
               <ul
-                className={` ${
-                  activeSubmenus.includes(4) ? "h-[130px]" : "h-0"
-                } overflow-y-hidden transition-all`}
+                className={` ${activeSubmenus.includes(4) ? "h-[130px]" : "h-0"
+                  } overflow-y-hidden transition-all`}
               >
                 <li>
                   <Link
@@ -185,15 +217,13 @@ const SidebarAdministrador = () => {
                   <RiCalendarTodoLine className="text-primary" /> Horarios
                 </span>
                 <RiArrowRightSLine
-                  className={`mt-1 ${
-                    activeSubmenus.includes(6) && "rotate-90"
-                  } transition-all`}
+                  className={`mt-1 ${activeSubmenus.includes(6) && "rotate-90"
+                    } transition-all`}
                 />
               </button>
               <ul
-                className={` ${
-                  activeSubmenus.includes(6) ? "h-[100px]" : "h-0"
-                } overflow-y-hidden transition-all`}
+                className={` ${activeSubmenus.includes(6) ? "h-[100px]" : "h-0"
+                  } overflow-y-hidden transition-all`}
               >
                 <li>
                   <Link

@@ -4,20 +4,21 @@ import { AgGridReact } from "ag-grid-react";
 import React, { useEffect, useMemo, useState, useCallback } from "react";
 import { TRANSLATIONS, LANGUAGE_OPTIONS } from "../../../empleados/components/traduccionTableGrid.ts"
 
-const TableDirecciones = ({ direcciones, onCreateDireccion }) => {
+const TableUnidades = ({ unidades, onCreateUnidad }) => {
   const [rowData, setRowData] = useState([]);
 
   // Column Definitions
   const [colDefs] = useState([
-    { headerName: "Dirección", field: "nombre", editable: true },
+    { headerName: "Unidad", field: "nombre", editable: true },
+    { headerName: "Teléfono", field: "telefono", editable: true },
     { headerName: "Descripción", field: "descripcion", editable: true },
-    // Agrega más columnas según sea necesario
+    { headerName: "Direccción Perteneciente", field: "direccion.nombre", editable: true },
+    
   ]);
-
   // Fetch data & update rowData state
   useEffect(() => {
-    setRowData(direcciones);
-  }, [direcciones]);
+    setRowData(unidades);
+  }, [unidades]);
 
   // Apply settings across all columns
   const defaultColDef = useMemo(
@@ -69,4 +70,4 @@ const TableDirecciones = ({ direcciones, onCreateDireccion }) => {
   );
 };
 
-export default TableDirecciones;
+export default TableUnidades;
