@@ -45,7 +45,6 @@ function App() {
                       
                       <Route path="*" element={<NotFound />} />
                     </Route>
-                    <Route path="/dashboard" element={<Dashboard/>} />
                     {/* RUTAS PARA LOGEO ETC */}
                     <Route path="/" element={<AuthLayout />}>
                       <Route path="login" element={<Login />} />

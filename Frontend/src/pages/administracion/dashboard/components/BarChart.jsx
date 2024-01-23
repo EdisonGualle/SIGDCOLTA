@@ -1,69 +1,79 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Chart from "chart.js";
 
-export default function BarChart() {
-  React.useEffect(() => {
-    let config = {
+export default function EmployeeChart() {
+  useEffect(() => {
+    const data = {
+      provinces: ["Chimborazo", "Pichincha", "Azuay"],
+      cities: {
+        Chimborazo: ["Riobamba", "Guano", "Chambo"],
+        Pichincha: ["Quito", "Cayambe", "Sangolquí"],
+        Azuay: ["Cuenca", "Gualaceo", "Azogues"],
+      },
+      employees: {
+        Chimborazo: {
+          Riobamba: 50,
+          Guano: 30,
+          Chambo: 20,
+        },
+        Pichincha: {
+          Quito: 120,
+          Cayambe: 80,
+          Sangolquí: 60,
+        },
+        Azuay: {
+          Cuenca: 90,
+          Gualaceo: 40,
+          Azogues: 30,
+        },
+      },
+    };
+
+    const provinceLabels = data.provinces;
+    const cityLabels = data.cities[data.provinces[0]];
+    const provinceData = provinceLabels.map((province) =>
+      data.cities[province].map((city) => data.employees[province][city])
+    );
+
+    const config = {
       type: "bar",
       data: {
-        labels: [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July"
-        ],
-        datasets: [
-          {
-            label: new Date().getFullYear(),
-            backgroundColor: "#ed64a6",
-            borderColor: "#ed64a6",
-            data: [30, 78, 56, 34, 100, 45, 13],
-            fill: false,
-            barThickness: 8
-          },
-          {
-            label: new Date().getFullYear() - 1,
-            fill: false,
-            backgroundColor: "#4c51bf",
-            borderColor: "#4c51bf",
-            data: [27, 68, 86, 74, 10, 4, 87],
-            barThickness: 8
-          }
-        ]
+        labels: cityLabels,
+        datasets: provinceLabels.map((province, index) => ({
+          label: province,
+          backgroundColor: getFixedColor(index),
+          borderColor: getFixedColor(index),
+          data: provinceData[index],
+          fill: false,
+          barThickness: 8,
+        })),
       },
       options: {
         maintainAspectRatio: false,
         responsive: true,
         title: {
           display: false,
-          text: "Orders Chart"
-          
+          text: "Total de Empleados por Provincia y Ciudad",
         },
         tooltips: {
           mode: "index",
-          intersect: false
+          intersect: false,
         },
         hover: {
           mode: "nearest",
-          intersect: true
+          intersect: true,
         },
         legend: {
-          labels: {
-            fontColor: "rgba(0,0,0,.4)"
-          },
-          align: "end",
-          position: "bottom"
+          display: true,
+          position: "bottom",
         },
         scales: {
           xAxes: [
             {
-              display: false,
-              scaleLabel: {
               display: true,
-              labelString: "Month"
+              scaleLabel: {
+                display: true,
+                labelString: "Ciudad",
               },
               gridLines: {
                 borderDash: [2],
@@ -71,16 +81,16 @@ export default function BarChart() {
                 color: "rgba(33, 37, 41, 0.3)",
                 zeroLineColor: "rgba(33, 37, 41, 0.3)",
                 zeroLineBorderDash: [2],
-                zeroLineBorderDashOffset: [2]
-              }
-            }
+                zeroLineBorderDashOffset: [2],
+              },
+            },
           ],
           yAxes: [
             {
               display: true,
               scaleLabel: {
-              display: false,
-              labelString: "Value"
+                display: true,
+                labelString: "Total Empleados",
               },
               gridLines: {
                 borderDash: [2],
@@ -89,40 +99,45 @@ export default function BarChart() {
                 color: "rgba(33, 37, 41, 0.2)",
                 zeroLineColor: "rgba(33, 37, 41, 0.15)",
                 zeroLineBorderDash: [2],
-                zeroLineBorderDashOffset: [2]
-              }
-            }
-          ]
-        }
-      }
+                zeroLineBorderDashOffset: [2],
+              },
+            },
+          ],
+        },
+      },
     };
-    let ctx = document.getElementById("bar-chart").getContext("2d");
+
+    const ctx = document.getElementById("employee-chart").getContext("2d");
     window.myBar = new Chart(ctx, config);
   }, []);
+
+  const getFixedColor = (index) => {
+    const colors = ["#FF5733", "#33FF57", "#5733FF"]; // You can add more fixed colors
+    return colors[index % colors.length];
+  };
+
   return (
-    <>
-      <div className="w-full xl:w-4/12 px-4">
-        <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
-          <div className="rounded-t mb-0 px-4 py-3 bg-transparent">
-            <div className="flex flex-wrap items-center">
-              <div className="relative w-full max-w-full flex-grow flex-1">
-                <h6 className="uppercase text-blueGray-400 mb-1 text-xs font-semibold">
-                  Performance
-                </h6>
-                <h2 className="text-blueGray-700 text-xl font-semibold">
-                  Total orders
-                </h2>
-              </div>
-            </div>
-          </div>
-          <div className="p-4 flex-auto">
-            {/* Chart */}
-            <div className="relative" style={{ height: "350px" }}>
-              <canvas id="bar-chart"></canvas>
+    <div className="w-full xl:w-7/12 px-4">
+      <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+        <div className="rounded-t mb-0 px-4 py-3 bg-transparent">
+          <div className="flex flex-wrap items-center">
+            <div className="relative w-full max-w-full flex-grow flex-1">
+              <h6 className="uppercase text-blueGray-400 mb-1 text-xs font-semibold">
+                Desempeño
+              </h6>
+              <h2 className="text-blueGray-700 text-xl font-semibold">
+                Total de empleados por provincia y ciudad
+              </h2>
             </div>
           </div>
         </div>
+        <div className="p-4 flex-auto">
+          {/* Chart */}
+          <div className="relative" style={{ height: "350px" }}>
+            <canvas id="employee-chart"></canvas>
+          </div>
+        </div>
       </div>
-    </>
+    </div>
   );
 }
