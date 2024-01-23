@@ -67,24 +67,7 @@ const TableEmpleados = ({ empleados }) => {
     []
   );
 
-  const onFirstDataRendered = useCallback(
-    (params) => {
-      params.api.createRangeChart({
-        chartContainer: document.querySelector("#myChart"), // Identificador del contenedor del gráfico
-        cellRange: {
-          rowStartIndex: 0,
-          rowEndIndex: rowData.length - 1,
-          columns: ["cedula", "edad"], // Ajusta las columnas según tus datos
-        },
-        chartType: "groupedColumn",
-        aggFunc: "sum",
-      });
-    },
-    [rowData]
-  );
-
   return (
-    <div className="h-full">
       <div
         className={"ag-theme-quartz"}
         style={{ width: "100%", height: "90%" }}
@@ -96,11 +79,9 @@ const TableEmpleados = ({ empleados }) => {
           defaultColDef={defaultColDef}
           pagination={true}
           rowSelection={"multiple"}
-          onFirstDataRendered={onFirstDataRendered}
         />
       </div>
-      <div id="myChart" className="ag-theme-quartz my-chart"></div>
-    </div>
+      
   );
 };
 

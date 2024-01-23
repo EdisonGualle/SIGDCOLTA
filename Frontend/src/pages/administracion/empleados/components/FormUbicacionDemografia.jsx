@@ -1,6 +1,6 @@
 import React from "react";
 
-const FormNuevoEmpleado = ({ handleNext }) => {
+const FormUbicacionDemografia = ({ handleNext, handlePrev }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Puedes realizar lógica de validación o enviar datos al backend aquí
@@ -11,7 +11,6 @@ const FormNuevoEmpleado = ({ handleNext }) => {
 
   return (
     <div className="max-w-screen-md mx-auto p-4">
-      <h1>Nuevo Empeado</h1>
       <form
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
         onSubmit={handleSubmit}
@@ -19,45 +18,61 @@ const FormNuevoEmpleado = ({ handleNext }) => {
         {/* Columna 1 */}
         <div className="mb-4">
           <label
-            htmlFor="cedula"
+            htmlFor="entidad"
             className="block text-sm font-medium text-gray-600"
           >
-            Cédula
+            Entidad
+          </label>
+          <select
+            id="entidad"
+            name="entidad"
+            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+          >
+            {/* Opciones para entidad */}
+          </select>
+        </div>
+
+        <div className="mb-4">
+          <label
+            htmlFor="nacionalidad"
+            className="block text-sm font-medium text-gray-600"
+          >
+            Nacionalidad
           </label>
           <input
             type="text"
-            id="cedula"
-            name="cedula"
+            id="nacionalidad"
+            name="nacionalidad"
             className="mt-1 p-2 w-full border border-gray-300 rounded-md"
           />
         </div>
 
         <div className="mb-4">
           <label
-            htmlFor="nombre"
+            htmlFor="cantonNacimiento"
             className="block text-sm font-medium text-gray-600"
           >
-            Nombre
+            Cantón Nacimiento
           </label>
           <input
             type="text"
-            id="nombre"
-            name="nombre"
+            id="cantonNacimiento"
+            name="cantonNacimiento"
             className="mt-1 p-2 w-full border border-gray-300 rounded-md"
           />
         </div>
 
         <div className="mb-4">
           <label
-            htmlFor="apellido"
+            htmlFor="fechaNacimiento"
             className="block text-sm font-medium text-gray-600"
           >
-            Apellido
+            Fecha Nacimiento
           </label>
           <input
-            type="text"
-            id="apellido"
-            name="apellido"
+            type="date"
+            id="fechaNacimiento"
+            name="fechaNacimiento"
             className="mt-1 p-2 w-full border border-gray-300 rounded-md"
           />
         </div>
@@ -65,91 +80,75 @@ const FormNuevoEmpleado = ({ handleNext }) => {
         {/* Columna 2 */}
         <div className="mb-4">
           <label
-            htmlFor="genero"
+            htmlFor="provinciaNacimiento"
             className="block text-sm font-medium text-gray-600"
           >
-            Género
+            Provincia Nacimiento
           </label>
           <select
-            id="genero"
-            name="genero"
+            id="provinciaNacimiento"
+            name="provinciaNacimiento"
             className="mt-1 p-2 w-full border border-gray-300 rounded-md"
           >
-            <option value="masculino">Masculino</option>
-            <option value="femenino">Femenino</option>
-            <option value="otro">Otro</option>
+            {/* Opciones para provinciaNacimiento */}
           </select>
         </div>
 
         <div className="mb-4">
           <label
-            htmlFor="estadoCivil"
+            htmlFor="ciudadNacimiento"
             className="block text-sm font-medium text-gray-600"
           >
-            Estado Civil
+            Ciudad Nacimiento
           </label>
           <select
-            id="estadoCivil"
-            name="estadoCivil"
+            id="ciudadNacimiento"
+            name="ciudadNacimiento"
             className="mt-1 p-2 w-full border border-gray-300 rounded-md"
           >
-            <option value="soltero">Soltero</option>
-            <option value="casado">Casado</option>
-            <option value="otro">Otro</option>
+            {/* Opciones para ciudadNacimiento */}
           </select>
         </div>
 
         <div className="mb-4">
           <label
-            htmlFor="movil"
+            htmlFor="direccion"
             className="block text-sm font-medium text-gray-600"
           >
-            Móvil
+            Dirección
           </label>
           <input
             type="text"
-            id="movil"
-            name="movil"
+            id="direccion"
+            name="direccion"
             className="mt-1 p-2 w-full border border-gray-300 rounded-md"
           />
         </div>
 
-        {/* Columna 3 */}
         <div className="mb-4">
           <label
-            htmlFor="tipoSangre"
+            htmlFor="descripcionDomicilio"
             className="block text-sm font-medium text-gray-600"
           >
-            Tipo de Sangre
+            Descripción de Domicilio
           </label>
-          <select
-            id="tipoSangre"
-            name="tipoSangre"
+          <textarea
+            id="descripcionDomicilio"
+            name="descripcionDomicilio"
+            rows="3"
             className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-          >
-            <option value="a+">A+</option>
-            <option value="b+">B+</option>
-            <option value="o+">O+</option>
-          </select>
-        </div>
-
-        <div className="mb-4">
-          <label
-            htmlFor="correo"
-            className="block text-sm font-medium text-gray-600"
-          >
-            Correo
-          </label>
-          <input
-            type="email"
-            id="correo"
-            name="correo"
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-          />
+          ></textarea>
         </div>
 
         {/* Botón de Siguiente */}
         <div className="col-span-3 flex justify-end">
+          <button
+            type="button"
+            className="bg-yellow-700 text-white py-2 px-5 rounded-lg mr-5"
+            onClick={handlePrev}
+          >
+            Anterior
+          </button>
           <button
             type="submit"
             className="bg-blue-700 text-white py-2 px-5 rounded-lg"
@@ -162,4 +161,4 @@ const FormNuevoEmpleado = ({ handleNext }) => {
   );
 };
 
-export default FormNuevoEmpleado;
+export default FormUbicacionDemografia;

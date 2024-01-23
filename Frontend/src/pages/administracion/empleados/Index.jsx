@@ -1,18 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import TableEmpleados from "./components/TableEmpleados";
 import useEmpleados from "../../../hooks/useEmpleados";
-import FormNuevoEmpleado from "./components/FormNuevoEmpleado";
-import withReactContent from "sweetalert2-react-content";
+import ModalComponent from "./components/ModalComponent";
 import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 const IndexEmpleadosAdministrador = () => {
   const { empleados } = useEmpleados();
+  const [modalOpen, setModalOpen] = useState(false);
   const MySwal = withReactContent(Swal);
 
+  const handleNuevoClick = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
   const handleEliminarClick = () => {
     MySwal.fire({
       title: "¿Estás seguro?",
-      text: "Esta acción eliminará al usuario. ¿Quieres continuar?",
+      text: "Esta acción eliminará el Empleado. ¿Quieres continuar?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
@@ -21,23 +29,14 @@ const IndexEmpleadosAdministrador = () => {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        // Aquí puedes realizar la lógica para eliminar al usuario
-        MySwal.fire("Eliminado", "El usuario ha sido eliminado.", "success");
+        // Aquí puedes realizar la lógica para eliminar la unidad
+        MySwal.fire("Eliminada", "Empleado Eliminado.", "success");
       }
     });
   };
 
-  const handleNuevoClick = () => {
-    MySwal.fire({
-      title: "Nuevo Empleado",
-      html: <FormNuevoEmpleado />, // Renderiza el formulario de nuevo empleado en el contenido del SweetAlert
-      showCancelButton: true,
-      showConfirmButton: false,
-      cancelButtonColor: "#3085d6",
-      cancelButtonText: "Cerrar",
-      width: "50%",
-    });
-  };
+ 
+
   return (
     <>
       <div className="uppercase  bg-white py-2 font-bold rounded-lg mb-1 p-10">
@@ -59,23 +58,23 @@ const IndexEmpleadosAdministrador = () => {
 
           <button
             className="bg-blue-700 text-white py-2 px-5 rounded-lg"
-            onClick={handleNuevoClick} // Agrega el manejador de clic para el botón "Nuevo"
+            onClick={handleNuevoClick}
           >
             Nuevo
           </button>
         </div>
         <div className="flex justify-start">
-          <div class="w-64">
+          <div className="w-64">
             <label
               htmlFor="menu"
-              class="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-gray-700"
             >
               Selecciona una opción:
             </label>
             <select
               id="menu"
               name="menu"
-              class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+              className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
             >
               <optgroup label="Usuario">
                 <option value="deshabilitar-usuario">
@@ -97,9 +96,11 @@ const IndexEmpleadosAdministrador = () => {
           </div>
         </div>
       </div>
-      <div className="h-full">
+      {modalOpen ? (
+        <ModalComponent isOpen={modalOpen} onClose={handleCloseModal} />
+      ) : (
         <TableEmpleados empleados={empleados} />
-      </div>
+      )}
     </>
   );
 };
