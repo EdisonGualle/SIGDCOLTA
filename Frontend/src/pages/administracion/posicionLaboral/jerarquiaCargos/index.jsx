@@ -1,14 +1,22 @@
 import React from "react";
 import useJerarquiaCargos from "../../../../hooks/useJerarquiaCargos"; // Actualiza la importación según la ubicación de tu hook de jerarquía de cargos
 import TableJerarquiaCargos from "./components/TableJerarquiaCargos"; // Actualiza la importación según la ubicación de tu componente de tabla de jerarquía de cargos
-// import FormNuevaCargo from "./components/FormNuevoCargo"; // Actualiza la importación según la ubicación de tu formulario para nuevo cargo
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import FormNuevaJerarquiaCargos from "./components/FormNuevaJerarquiaCargos";
 
 import NavegacionPosicionesLaborales from "../components/NavegacionPosicionesLaborales";
-
+import useDirecciones from "../../../../hooks/useDirecciones";
+import useUnidades from "../../../../hooks/useUnidades";
+import useCargos from "../../../../hooks/useCargos";
 const IndexJerarquiaCargosAdministrador = () => {
+
   const { jerarquiaCargos, setCargando } = useJerarquiaCargos();
+
+  const {direcciones}=useDirecciones();
+  const {unidades}=useUnidades();
+  const {cargos}=useCargos();
+
   const MySwal = withReactContent(Swal);
 
   const handleEliminarClick = () => {
@@ -31,8 +39,8 @@ const IndexJerarquiaCargosAdministrador = () => {
 
   const handleNuevaClick = () => {
     MySwal.fire({
-      title: "Nuevo Cargo",
-      html: <FormNuevaCargo />, // Actualiza la instancia del formulario según tus necesidades
+      title: "Nueva Jerarquia Cargos",
+      html: <FormNuevaJerarquiaCargos direcciones={direcciones} unidades={unidades} cargos={cargos}/>,
       showCancelButton: true,
       showConfirmButton: false,
       cancelButtonColor: "#3085d6",
