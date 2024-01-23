@@ -30,6 +30,11 @@ import { ContratosProvider } from "./providers/ContratosProvider";
 import IndextipoContratosAdministrador from "./pages/administracion/contratos/IndextipoContrato";
 import { TiposContratoProvider } from "./providers/tipoContratosProvider";
 
+import IndexAgregarContratosAdministrador from "./pages/administracion/contratos/IndexAgregarContrato";
+import { AgregarContratoProvider } from "./providers/AsignarContratosProvider";
+
+
+
 
 function App() {
   return (
@@ -41,6 +46,8 @@ function App() {
               <UnidadesProvider>
                 <ContratosProvider >
                   <TiposContratoProvider>
+                    <AgregarContratoProvider>
+
                     <Routes>
                       {/* RUTAS PAcdRA PAGINA DE INICIO SISTEMA */}
                       <Route path="/" element={<HomeLayout />}>
@@ -70,8 +77,10 @@ function App() {
                         <Route path="unidades" element={<IndexUnidadesAdministrador />} />
                         <Route path="contratos" element={<IndexContratosAdministrador />} />
                         <Route path="tipos-contratos" element={<IndextipoContratosAdministrador />} />
+                        <Route path="asignar-contratos" element={<IndexAgregarContratosAdministrador />} />
                       </Route>
                     </Routes>
+                    </AgregarContratoProvider>
                   </TiposContratoProvider>
                 </ContratosProvider>
               </UnidadesProvider>
