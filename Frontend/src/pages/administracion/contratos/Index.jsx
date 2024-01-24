@@ -4,6 +4,7 @@ import useContratos from "../../../hooks/useContratos";
 //import FormNuevoContrato from "./components/FormNuevoContrato";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
+import NavegacionContratos from "./components/NavegacionContratos";
 
 const IndextipoContratosAdministrador = () => {
   const { contratos } = useContratos();
@@ -35,6 +36,7 @@ const IndextipoContratosAdministrador = () => {
 
   return (
     <>
+    <NavegacionContratos />
       <div className="uppercase bg-white py-2 font-bold rounded-lg mb-1 p-10">
         <div className="flex justify-end">
           <button
