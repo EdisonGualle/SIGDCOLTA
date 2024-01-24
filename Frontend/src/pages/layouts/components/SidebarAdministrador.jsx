@@ -94,7 +94,7 @@ const SidebarAdministrador = () => {
             {/* Usuarios */}
             <li>
               <Link
-                to="/tickets"
+                to="/administracion/usuarios"
                 className="flex  text-secondary-100 items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-100   hover:text-black transition-colors"
               >
                 <RiUser3Line className="text-primary" /> Usuarios

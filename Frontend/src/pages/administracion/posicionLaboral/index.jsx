@@ -5,9 +5,11 @@ import NavegacionPosicionesLaborales from "./components/NavegacionPosicionesLabo
 
 const IndexPosicionesLaboralesAdministrador = () => {
   const { posicionesLaborales, setCargando } = usePosicionesLaborales();
+
   const empleadosActivos = posicionesLaborales.filter(
     (posicion) => posicion.nombreEstado === "activo"
   );
+  
   const empleadosInactivos = posicionesLaborales.filter(
     (posicion) => posicion.nombreEstado === "inactivo"
   );
