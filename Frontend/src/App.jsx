@@ -33,6 +33,8 @@ import { UsuariosProvider } from "./providers/UsuariosProvider";
 
 import { RolesProvider } from "./providers/RolesProvider";
 
+import RecuperarContraseña from "./pages/auth/RecuperarContrasena";
+
 function App() {
   return (
     <BrowserRouter>
@@ -54,7 +56,8 @@ function App() {
                         </Route>
                         {/* RUTAS PARA LOGEO ETC */}
                         <Route path="/" element={<AuthLayout />}>
-                          <Route path="login" element={<Login />} />
+                          <Route path="ingresar" element={<Login />} />
+                          <Route path="recuperar-contraseña" element={<RecuperarContraseña />} />
                         </Route>
 
                         {/* RUTAS DE EMPLEADOS REQUIEREN AUTENTICACION */}

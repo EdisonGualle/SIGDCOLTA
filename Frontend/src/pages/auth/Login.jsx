@@ -91,7 +91,7 @@ const Login = () => {
             </form>
             <div className="flex flex-col items-center gap-4">
               <Link
-                to="/olvide-contraseña"
+                to="/recuperar-contraseña"
                 className=" text-gray-300 hover:text-primary transition-colors"
               >
                 ¿Olvidaste tu contraseña?
