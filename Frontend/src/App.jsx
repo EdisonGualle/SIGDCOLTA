@@ -4,6 +4,7 @@ import AuthLayout from "./pages/layouts/AuthLayout";
 import HomeLayout from "./pages/layouts/HomeLayout";
 import EmpleadosLayout from "./pages/layouts/EmpleadosLayout";
 import AdministradorLayout from "./pages/layouts/AdministradorLayout";
+import Configuracion from "./pages/layouts/components/Configuracion";
 import Home from "./pages/Home";
 import Login from "./pages/auth/Login";
 import HomeEmpleados from "./pages/empleados/Home";
@@ -34,6 +35,7 @@ import { UsuariosProvider } from "./providers/UsuariosProvider";
 import { RolesProvider } from "./providers/RolesProvider";
 
 import RecuperarContraseña from "./pages/auth/RecuperarContrasena";
+
 
 function App() {
   return (
@@ -68,6 +70,8 @@ function App() {
                         {/* RUTAS DEL ADMINISTRADOR REQUIEREN AUTENTICACION */}
                         <Route path="/administracion" element={<AdministradorLayout />} >
                           <Route index element={<Dashboard />} />
+                          <Route path="configuracion" element={< Configuracion />} />
+
                           <Route path="empleados" element={<IndexEmpleadosAdministrador />} />
                           <Route path="permisos" element={<IndexPermisosAdministrador />} />
 
