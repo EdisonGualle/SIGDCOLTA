@@ -14,7 +14,7 @@ const Configuracion = () => {
     <>
       {/* Profile */}
       <div className="bg-secondary-50 p-8 rounded-xl mb-8">
-        <h1 className="text-xl text-gray-100">Profile</h1>
+        <h1 className="text-xl ">Perfil</h1>
         <hr className="my-8 border-gray-500/30" />
         <form>
           <div className="flex items-center mb-8">
@@ -107,7 +107,7 @@ const Configuracion = () => {
         <form className="mb-8">
           <div className="flex flex-col md:flex-row md:items-center gap-y-4 justify-between">
             <div>
-              <h5 className=" text-xl mb-1">Correo electrónico</h5>
+              <h5 className=" text-xl mb-1">Correo institucional</h5>
               <p className="text-gray-500 text-sm">jorgetrejo@gmail.com</p>
             </div>
           </div>

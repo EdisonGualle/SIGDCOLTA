@@ -89,7 +89,7 @@ const IndexUsuariosAdministrador = () => {
       case "deshabilitar-usuario":
         MySwal.fire({
           title: "¿Estás seguro?",
-          text: "Esta acción deshabilitaral Usuario. ¿Quieres continuar?",
+          text: "Esta acción deshabilitara al Usuario. ¿Quieres continuar?",
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#ec4899",
