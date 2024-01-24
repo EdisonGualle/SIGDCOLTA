@@ -40,8 +40,8 @@ const IndexEmpleadosAdministrador = () => {
   return (
     <>
       <div className="uppercase  bg-white py-2 font-bold rounded-lg mb-1 p-10">
-        <div className="flex justify-start mb-3">
-          <h1 className="mx-10">
+        <div className="flex justify-start my-3">
+          <h1 className="ms-0 me-10">
             Empleados Activos: <span className="text-blue-700">12</span>{" "}
           </h1>
           <h1 className="">
