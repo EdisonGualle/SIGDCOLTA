@@ -27,7 +27,6 @@ const RolesProvider = ({ children }) => {
         };
   
         const { data } = await clienteAxios("/roles", config); 
-        console.log(data)
         setRoles(data.data);
     
       } catch (error) {
