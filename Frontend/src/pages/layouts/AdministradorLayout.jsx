@@ -9,9 +9,9 @@ const AdministradorLayout = () => {
     <>
       {auth._id ? (
         <div className="min-h-screen grid grid-cols-1 xl:grid-cols-6">
-          <SidebarAdministrador  />
+          <SidebarAdministrador />
           <div className="xl:col-span-5">
-            <HeaderAdministrador auth={auth}/>
+            <HeaderAdministrador auth={auth} />
             <div className="h-[90vh] overflow-y-scroll p-8">
               <Outlet />
             </div>

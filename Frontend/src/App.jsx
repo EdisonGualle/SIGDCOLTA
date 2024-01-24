@@ -8,9 +8,9 @@ import Home from "./pages/Home";
 import Login from "./pages/auth/Login";
 import HomeEmpleados from "./pages/empleados/Home";
 /* import DashboardAdministrador from "./pages/administracion/Dashboard";
- */import IndexEmpleadosAdministrador from "./pages/administracion/empleados/Index";
-import IndexPermisosAdministrador from "./pages/administracion/permisos/Index";
-import { EmpleadosProvider } from "./providers/EmpleadosProvider";
+ */ import IndexEmpleadosAdministrador from "./pages/administracion/empleados/Index";
+/* import IndexPermisosAdministrador from "./pages/administracion/permisos/Index";
+ */ import { EmpleadosProvider } from "./providers/EmpleadosProvider";
 import NotFound from "./pages/NotFound";
 
 import IndexDireccionesAdministrador from "./pages/administracion/posicionLaboral/direcciones/Index";
@@ -30,6 +30,7 @@ import Dashboard from "./pages/administracion/dashboard/Dashboard";
 
 import IndexUsuariosAdministrador from "./pages/administracion/usuarios";
 import { UsuariosProvider } from "./providers/UsuariosProvider";
+import IndexPerfil from "./pages/administracion/perfil/Index";
 
 function App() {
   return (
@@ -59,21 +60,48 @@ function App() {
                           <Route index element={<HomeEmpleados />} />
                         </Route>
 
-                        {/* RUTAS DEL ADMINISTRADOR REQUIEREN AUTENTICACION */}
-                        <Route path="/administracion" element={<AdministradorLayout />} >
+                        {/* RUTAS DEL ADMINSISTRADOR REQUIEREN AUTENTICACION */}
+                        <Route
+                          path="/administracion"
+                          element={<AdministradorLayout />}
+                        >
                           <Route index element={<Dashboard />} />
-                          <Route path="empleados" element={<IndexEmpleadosAdministrador />} />
-                          <Route path="permisos" element={<IndexPermisosAdministrador />} />
-
+                          <Route
+                            path="empleados"
+                            element={<IndexEmpleadosAdministrador />}
+                          />
+                          {/* <Route
+                            path="permisos"
+                            element={<IndexPermisosAdministrador />}
+                          /> */}
+                          <Route path="perfil/*" element={<IndexPerfil />} />
                           {/* Modulo Usuarios */}
-                          <Route path="usuarios" element={<IndexUsuariosAdministrador />} />
+                          <Route
+                            path="usuarios"
+                            element={<IndexUsuariosAdministrador />}
+                          />
 
                           {/* Modulo Posiciones Laborales */}
-                          <Route path="posiciones-laborales" element={<IndexPosicionesLaboralesAdministrador />} />
-                          <Route path="direcciones" element={<IndexDireccionesAdministrador />} />
-                          <Route path="unidades" element={<IndexUnidadesAdministrador />} />
-                          <Route path="cargos" element={<IndexCargosAdministrador />} />
-                          <Route path="jerarquia-cargos" element={<IndexJerarquiaCargosAdministrador />} />
+                          <Route
+                            path="posiciones-laborales"
+                            element={<IndexPosicionesLaboralesAdministrador />}
+                          />
+                          <Route
+                            path="direcciones"
+                            element={<IndexDireccionesAdministrador />}
+                          />
+                          <Route
+                            path="unidades"
+                            element={<IndexUnidadesAdministrador />}
+                          />
+                          <Route
+                            path="cargos"
+                            element={<IndexCargosAdministrador />}
+                          />
+                          <Route
+                            path="jerarquia-cargos"
+                            element={<IndexJerarquiaCargosAdministrador />}
+                          />
                         </Route>
                       </Routes>
                     </JerarquiaCargosProvider>
