@@ -26,9 +26,7 @@ const UsuariosProvider = ({ children }) => {
           },
         };
 
-        const response = await clienteAxios.get("/usuarios", config); // Cambiado a clienteAxios.get
-        console.log("Datos del backend:", response.data);
-
+        const response = await clienteAxios.get("/usuarios", config); 
         // Asegúrate de que la estructura de datos es correcta, aquí se asume que se espera un arreglo en response.data
         setUsuarios(response.data);
       } catch (error) {

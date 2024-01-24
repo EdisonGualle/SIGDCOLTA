@@ -25,11 +25,11 @@ const TableUsuarios = ({ usuarios }) => {
           `${params.data.empleado.primer_nombre} ${params.data.empleado.segundo_nombre} ${params.data.empleado.primer_apellido} ${params.data.empleado.segundo_apellido}`,
       },
     { headerName: "Correo", field: "correo", suppressMenu: true },
-
-      
+    { headerName: "Rol", field: "rol", suppressMenu: true },
+    { headerName: "Estado", field: "estado", suppressMenu: true },
     { headerName: "Intentos Fallidos", field: "intentos_fallidos", suppressMenu: true },
     { headerName: "Bloqueado Hasta", field: "bloqueado_hasta", suppressMenu: true },
-    { headerName: "Estado", field: "estado", suppressMenu: true },
+
     // Puedes agregar más columnas según tus necesidades
   ]);
 
@@ -52,7 +52,6 @@ const TableUsuarios = ({ usuarios }) => {
     []
   );
 
-  console.log("rowData actual:", rowData);
 
   return (
     <div className={"ag-theme-quartz"} style={{ width: "100%", height: "90%" }}>

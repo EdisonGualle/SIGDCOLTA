@@ -31,6 +31,8 @@ import Dashboard from "./pages/administracion/dashboard/Dashboard";
 import IndexUsuariosAdministrador from "./pages/administracion/usuarios";
 import { UsuariosProvider } from "./providers/UsuariosProvider";
 
+import { RolesProvider } from "./providers/RolesProvider";
+
 function App() {
   return (
     <BrowserRouter>
@@ -42,6 +44,7 @@ function App() {
                 <UnidadesProvider>
                   <CargosProvider>
                     <JerarquiaCargosProvider>
+                      <RolesProvider>
                       <Routes>
                         {/* RUTAS PAcdRA PAGINA DE INICIO SISTEMA */}
                         <Route path="/" element={<HomeLayout />}>
@@ -76,6 +79,7 @@ function App() {
                           <Route path="jerarquia-cargos" element={<IndexJerarquiaCargosAdministrador />} />
                         </Route>
                       </Routes>
+                      </RolesProvider>
                     </JerarquiaCargosProvider>
                   </CargosProvider>
                 </UnidadesProvider>
