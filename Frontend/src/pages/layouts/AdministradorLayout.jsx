@@ -8,11 +8,14 @@ const AdministradorLayout = () => {
   return (
     <>
       {auth._id ? (
-        <div className="min-h-screen grid grid-cols-1 xl:grid-cols-6">
+        <div
+          className="h-screen grid grid-cols-1 xl:grid-cols-6"
+        >
           <SidebarAdministrador />
           <div className="xl:col-span-5">
             <HeaderAdministrador auth={auth} />
-            <div className="h-[90vh] overflow-y-scroll p-8">
+            <div className="h-[90vh] overflow-y-scroll p-8"           style={{ zoom: "0.90" }} 
+>
               <Outlet />
             </div>
           </div>
