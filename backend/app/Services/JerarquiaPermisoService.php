@@ -10,8 +10,22 @@ class JerarquiaPermisoService
 {
     public function listarJerarquiasPermiso()
     {
-        $jerarquiasPermiso = JerarquiaPermiso::all();
+        $jerarquiasPermiso = JerarquiaPermiso::join('cargo as c1', 'jerarquiapermiso.idCargo', '=', 'c1.idCargo')
+            ->join('cargo as c2', 'jerarquiapermiso.idCargoAprobador', '=', 'c2.idCargo')
+            ->join('unidad', 'c1.idUnidad', '=', 'unidad.idUnidad')
+            ->join('direccion', 'unidad.idDireccion', '=', 'direccion.idDireccion')
+            ->select(
+                'jerarquiapermiso.idCargo',
+                'jerarquiapermiso.idCargoAprobador',
+                'c1.nombre as nombreCargo',
+                'c2.nombre as nombreCargoAprobador',
+                'unidad.nombre as nombreUnidad',
+                'direccion.nombre as nombreDireccion'
+            )
+            ->get();
+
         return response()->json(['successful' => true, 'data' => $jerarquiasPermiso]);
+
     }
 
     public function mostrarJerarquiaPermiso($idCargo, $idCargoAprobador)

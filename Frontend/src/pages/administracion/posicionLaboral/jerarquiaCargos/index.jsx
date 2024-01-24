@@ -1,22 +1,28 @@
 import React from "react";
-import useUnidades from "../../../../hooks/useUnidades"; // Actualiza la importación según la ubicación de tu hook de unidades
-import TableUnidades from "./components/TableUnidades"; // Actualiza la importación según la ubicación de tu componente de tabla de unidades
-import FormNuevaUnidad from "./components/FormNuevaUnidad"; // Actualiza la importación según la ubicación de tu formulario para nueva unidad
+import useJerarquiaCargos from "../../../../hooks/useJerarquiaCargos"; // Actualiza la importación según la ubicación de tu hook de jerarquía de cargos
+import TableJerarquiaCargos from "./components/TableJerarquiaCargos"; // Actualiza la importación según la ubicación de tu componente de tabla de jerarquía de cargos
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import FormNuevaJerarquiaCargos from "./components/FormNuevaJerarquiaCargos";
 
 import NavegacionPosicionesLaborales from "../components/NavegacionPosicionesLaborales";
 import useDirecciones from "../../../../hooks/useDirecciones";
+import useUnidades from "../../../../hooks/useUnidades";
+import useCargos from "../../../../hooks/useCargos";
+const IndexJerarquiaCargosAdministrador = () => {
 
-const IndexUnidadesAdministrador = () => {
-  const { unidades, setCargando } = useUnidades();
-  const { direcciones } = useDirecciones();
+  const { jerarquiaCargos, setCargando } = useJerarquiaCargos();
+
+  const {direcciones}=useDirecciones();
+  const {unidades}=useUnidades();
+  const {cargos}=useCargos();
+
   const MySwal = withReactContent(Swal);
 
   const handleEliminarClick = () => {
     MySwal.fire({
       title: "¿Estás seguro?",
-      text: "Esta acción eliminará la unidad. ¿Quieres continuar?",
+      text: "Esta acción eliminará la jerarquia cargos. ¿Quieres continuar?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
@@ -25,15 +31,16 @@ const IndexUnidadesAdministrador = () => {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        // Aquí puedes realizar la lógica para eliminar la unidad
-        MySwal.fire("Eliminada", "La unidad ha sido eliminada.", "success");
+        // Aquí puedes realizar la lógica para eliminar el cargo
+        MySwal.fire("Eliminado", "La jerarquia cargos ha sido eliminado.", "success");
       }
     });
   };
+
   const handleNuevaClick = () => {
     MySwal.fire({
-      title: "Nueva Unidad",
-      html: <FormNuevaUnidad direcciones={direcciones} />, // Actualiza la instancia del formulario según tus necesidades
+      title: "Nueva Jerarquia Cargos",
+      html: <FormNuevaJerarquiaCargos direcciones={direcciones} unidades={unidades} cargos={cargos}/>,
       showCancelButton: true,
       showCloseButton: true,
       reverseButtons: true,
@@ -44,7 +51,8 @@ const IndexUnidadesAdministrador = () => {
       width: "50%",
     }).then((result) => {
       if (result.isConfirmed) {
-        MySwal.fire("Success", "Unidad creada correctamente", "success");
+        // Aquí puedes realizar la lógica para eliminar la unidad
+        MySwal.fire("Success", "Jerarquia Cargos creada correctamente", "success");
       }
     });
   };
@@ -55,8 +63,8 @@ const IndexUnidadesAdministrador = () => {
       <div className="uppercase bg-white py-2 font-bold rounded-lg mb-1 p-10">
         <div className="flex justify-start mb-3 mt-3">
           <h1 className="mx-10">
-            Total de unidades:{" "}
-            <span className="text-blue-700">{unidades.length}</span>{" "}
+            Total de jerarquias cargos:{" "}
+            <span className="text-blue-700">{jerarquiaCargos.length}</span>{" "}
           </h1>
         </div>
         <div className="flex justify-end">
@@ -71,18 +79,18 @@ const IndexUnidadesAdministrador = () => {
             className="bg-blue-700 text-white py-2 px-5 rounded-lg"
             onClick={handleNuevaClick}
           >
-            Nueva
+            Nuevo
           </button>
         </div>
         <div className="flex justify-start">
-          {/* Puedes agregar controles adicionales o filtros relacionados con las unidades aquí */}
+          {/* Puedes agregar controles adicionales o filtros relacionados con los cargos aquí */}
         </div>
       </div>
       <div className="h-full">
-        <TableUnidades unidades={unidades} />
+        <TableJerarquiaCargos jerarquiaCargos={jerarquiaCargos} />
       </div>
     </>
   );
 };
 
-export default IndexUnidadesAdministrador;
+export default IndexJerarquiaCargosAdministrador;

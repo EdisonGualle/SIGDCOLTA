@@ -46,8 +46,9 @@ const SidebarAdministrador = () => {
   return (
     <>
       <div
-        className={`xl:h-[100vh] overflow-y-scroll fixed xl:static w-[80%] md:w-[40%] lg:w-[30%] xl:w-auto h-full top-0 bg-secondary-900 p-4 flex flex-col justify-between z-50 ${showMenu ? "left-0" : "-left-full"
-          } transition-all`}
+        className={`xl:h-[100vh] overflow-y-scroll fixed xl:static w-[80%] md:w-[40%] lg:w-[30%] xl:w-auto h-full top-0 bg-secondary-900 p-4 flex flex-col justify-between z-50 ${
+          showMenu ? "left-0" : "-left-full"
+        } transition-all`}
       >
         <div>
           <h1 className="text-center text-2xl font-bold text-primary mb-10">
@@ -93,7 +94,7 @@ const SidebarAdministrador = () => {
             {/* Usuarios */}
             <li>
               <Link
-                to="/tickets"
+                to="/administracion/usuarios"
                 className="flex  text-secondary-100 items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-100   hover:text-black transition-colors"
               >
                 <RiUser3Line className="text-primary" /> Usuarios
@@ -172,13 +173,15 @@ const SidebarAdministrador = () => {
                   <BsClipboard2Check className="text-primary" /> Permisos
                 </span>
                 <RiArrowRightSLine
-                  className={`mt-1 ${activeSubmenus.includes(4) && "rotate-90"
-                    } transition-all`}
+                  className={`mt-1 ${
+                    activeSubmenus.includes(4) && "rotate-90"
+                  } transition-all`}
                 />
               </button>
               <ul
-                className={` ${activeSubmenus.includes(4) ? "h-[130px]" : "h-0"
-                  } overflow-y-hidden transition-all`}
+                className={` ${
+                  activeSubmenus.includes(4) ? "h-[130px]" : "h-0"
+                } overflow-y-hidden transition-all`}
               >
                 <li>
                   <Link
@@ -217,13 +220,15 @@ const SidebarAdministrador = () => {
                   <RiCalendarTodoLine className="text-primary" /> Horarios
                 </span>
                 <RiArrowRightSLine
-                  className={`mt-1 ${activeSubmenus.includes(6) && "rotate-90"
-                    } transition-all`}
+                  className={`mt-1 ${
+                    activeSubmenus.includes(6) && "rotate-90"
+                  } transition-all`}
                 />
               </button>
               <ul
-                className={` ${activeSubmenus.includes(6) ? "h-[100px]" : "h-0"
-                  } overflow-y-hidden transition-all`}
+                className={` ${
+                  activeSubmenus.includes(6) ? "h-[100px]" : "h-0"
+                } overflow-y-hidden transition-all`}
               >
                 <li>
                   <Link

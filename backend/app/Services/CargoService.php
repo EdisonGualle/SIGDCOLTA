@@ -18,7 +18,7 @@ class CargoService
 
     public function listarCargos()
     {
-        $cargos = Cargo::all();
+        $cargos = Cargo::with('unidad')->get();
         return response()->json(['successful' => true, 'data' => $cargos]);
     }
 

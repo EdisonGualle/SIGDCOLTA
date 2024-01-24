@@ -12,7 +12,8 @@ import "@szhsin/react-menu/dist/index.css";
 import "@szhsin/react-menu/dist/transitions/slide.css";
 import { Link } from "react-router-dom";
 
-const Header = () => {
+const Header = ({auth}) => {
+  console.log(auth)
   return (
     <header className="h-[7vh] md:h-[10vh] border-b border-primary p-8 flex items-center justify-end bg-gray-800">
       <nav className="flex items-center gap-2">
@@ -46,7 +47,7 @@ const Header = () => {
               />
               <div className="text-sm flex flex-col">
                 <div className="flex text-blue-950 items-center justify-between gap-4">
-                  <span>Jorge Luis Trejo</span>{" "}
+                  <span></span>{" "}
                   <span className="text-[8px]">10/01/2024</span>
                 </div>
                 <p className="text-gray-500 text-xs">
@@ -106,7 +107,7 @@ const Header = () => {
                 src="https://img.freepik.com/foto-gratis/feliz-optimista-guapo-gerente-ventas-latina-apuntando-lado-mirando-camara_1262-12679.jpg"
                 className="w-6 h-6 object-cover rounded-full"
               />
-              <span>Edison Gualle</span>
+              <span>{auth.usuario}</span>
               <RiArrowDownSLine />
             </MenuButton>
           }
@@ -126,8 +127,8 @@ const Header = () => {
                 className="w-8 h-8 object-cover rounded-full"
               />
               <div className="flex flex-col text-sm">
-                <span className="text-sm">Edison Gualle</span>
-                <span className="text-xs text-gray-500">ed.gualle@gmail.com</span>
+                <span className="text-sm">{auth.usuario}</span>
+                <span className="text-xs text-gray-500">{auth.correo}</span>
               </div>
             </Link>
           </MenuItem>

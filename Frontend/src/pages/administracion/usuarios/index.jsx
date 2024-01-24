@@ -1,26 +1,19 @@
-import React, { useState } from "react";
-import TableEmpleados from "./components/TableEmpleados";
-import useEmpleados from "../../../hooks/useEmpleados";
-import ModalComponent from "./components/ModalComponent";
+import React from "react";
+import useUsuarios from "../../../hooks/useUsuarios";
+import TableUsuarios from "./components/TableUsuarios";
+// import FormNuevoUsuario from "./components/FormNuevoUsuario";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-const IndexEmpleadosAdministrador = () => {
-  const { empleados } = useEmpleados();
-  const [modalOpen, setModalOpen] = useState(false);
+const IndexUsuariosAdministrador = () => {
+  const { usuarios, cargandoUsuarios } = useUsuarios();
+
   const MySwal = withReactContent(Swal);
 
-  const handleNuevoClick = () => {
-    setModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setModalOpen(false);
-  };
   const handleEliminarClick = () => {
     MySwal.fire({
       title: "¿Estás seguro?",
-      text: "Esta acción eliminará el Empleado. ¿Quieres continuar?",
+      text: "Esta acción eliminará al Usuario. ¿Quieres continuar?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
@@ -29,23 +22,47 @@ const IndexEmpleadosAdministrador = () => {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        // Aquí puedes realizar la lógica para eliminar la unidad
-        MySwal.fire("Eliminada", "Empleado Eliminado.", "success");
+        // Aquí puedes realizar la lógica para eliminar al usuario
+        MySwal.fire("Eliminado", "Usuario Eliminado.", "success");
       }
     });
   };
 
- 
-
+  const handleNuevoClick = () => {
+    MySwal.fire({
+      title: "Nuevo Usuario",
+      html: <FormNuevoUsuario unidades={unidades} />,
+      showCancelButton: true,
+      showCloseButton: true,
+      reverseButtons: true,
+      cancelButtonColor: "#d33",
+      confirmButtonColor: "#3085d6",
+      cancelButtonText: "Cancelar",
+      confirmButtonText: "Crear",
+      width: "50%",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        MySwal.fire("Success", "Usuario creado correctamente", "success");
+      }
+    });
+  };
+  const usuariosActivos = usuarios.filter((usuario) => usuario.estado === 'activo');
+const usuariosInactivos = usuarios.filter((usuario) => usuario.estado === 'inactivo');
   return (
     <>
-      <div className="uppercase  bg-white py-2 font-bold rounded-lg mb-1 p-10">
-        <div className="flex justify-start mb-3">
+      <div className="uppercase bg-white py-2 font-bold rounded-lg mb-1 p-10">
+        <div className="flex justify-start mb-3 mt-3">
           <h1 className="mx-10">
-            Empleados Activos: <span className="text-blue-700">12</span>{" "}
+            Total de usuarios:{" "}
+            <span className="text-blue-700">{usuarios.length}</span>{" "}
           </h1>
           <h1 className="">
-            Empleados Inactivos: <span className="text-red-700">12</span>
+            Usuarios Activos:{" "}
+            <span className="text-green-700">{usuariosActivos.length}</span>
+          </h1>
+          <h1 className="mx-10">
+            Usuarios Inactivos:{" "}
+            <span className="text-red-700">{usuariosInactivos.length}</span>
           </h1>
         </div>
         <div className="flex justify-end">
@@ -84,25 +101,18 @@ const IndexEmpleadosAdministrador = () => {
                 <option value="eliminar-usuario">Eliminar usuario</option>
               </optgroup>
               <optgroup label="Asignar">
-                <option value="asignar-horario">Asignar horario</option>
                 <option value="asignar-rol">Asignar rol</option>
-              </optgroup>
-              <optgroup label="Posición Laboral">
-                <option value="asignar-direccion">Asignar Dirección</option>
-                <option value="asignar-unidad">Asignar unidad</option>
-                <option value="asignar-cargo">Asignar cargo</option>
+                <option value="eliminar-rol">Eliminar rol</option>
               </optgroup>
             </select>
           </div>
         </div>
       </div>
-      {modalOpen ? (
-        <ModalComponent isOpen={modalOpen} onClose={handleCloseModal} />
-      ) : (
-        <TableEmpleados empleados={empleados} />
-      )}
+      <div className="h-full">
+        <TableUsuarios usuarios={usuarios} />
+      </div>
     </>
   );
 };
 
-export default IndexEmpleadosAdministrador;
+export default IndexUsuariosAdministrador;

@@ -1,20 +1,21 @@
 import React from "react";
-import useDirecciones from "../../../../hooks/useDirecciones";
-import TableDirecciones from "./components/TableDirecciones";
-import FormNuevaDireccion from "./components/FormNuevaDireccion";
+import useCargos from "../../../../hooks/useCargos"; // Actualiza la importación según la ubicación de tu hook de cargos
+import TableCargos from "./components/TableCargos"; // Actualiza la importación según la ubicación de tu componente de tabla de cargos
+import FormNuevoCargo from "./components/FormNuevoCargo"; // Actualiza la importación según la ubicación de tu formulario para nuevo cargo
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-// import FormNuevoDepartamento from "../components/FormNuevaDireccion";
 
 import NavegacionPosicionesLaborales from "../components/NavegacionPosicionesLaborales";
-const  IndexDireccionesAdministrador = () => {
-  const { direcciones, setCargando } = useDirecciones();
+import useUnidades from "../../../../hooks/useUnidades";
+const IndexCargosAdministrador = () => {
+  const { cargos, setCargando } = useCargos();
+  const { unidades } = useUnidades();
   const MySwal = withReactContent(Swal);
 
   const handleEliminarClick = () => {
     MySwal.fire({
       title: "¿Estás seguro?",
-      text: "Esta acción eliminará la dirección. ¿Quieres continuar?",
+      text: "Esta acción eliminará el cargo. ¿Quieres continuar?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
@@ -23,16 +24,16 @@ const  IndexDireccionesAdministrador = () => {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        // Aquí puedes realizar la lógica para eliminar la dirección
-        MySwal.fire("Eliminado", "La dirección ha sido eliminada.", "success");
+        // Aquí puedes realizar la lógica para eliminar el cargo
+        MySwal.fire("Eliminado", "El cargo ha sido eliminado.", "success");
       }
     });
   };
 
   const handleNuevaClick = () => {
     MySwal.fire({
-      title: "Nueva Dirección",
-      html: <FormNuevaDireccion />,
+      title: "Nuevo Cargo",
+      html: <FormNuevoCargo unidades={unidades} />,
       showCancelButton: true,
       showCloseButton: true,
       reverseButtons: true,
@@ -43,19 +44,18 @@ const  IndexDireccionesAdministrador = () => {
       width: "50%",
     }).then((result) => {
       if (result.isConfirmed) {
-        MySwal.fire("Success", "Dirección creada correctamente", "success");
+        MySwal.fire("Success", "Cargo creado correctamente", "success");
       }
     });
   };
 
   return (
     <>
-     <NavegacionPosicionesLaborales />
-      <div className="uppercase  bg-white py-2 font-bold rounded-lg mb-1 p-10">
+      <NavegacionPosicionesLaborales />
+      <div className="uppercase bg-white py-2 font-bold rounded-lg mb-1 p-10">
         <div className="flex justify-start mb-3 mt-3">
-        <h1 className="mx-10">
-            Total de direcciones:{" "}
-            <span className="text-blue-700">{direcciones.length}</span>{" "}
+          <h1 className="mx-10">
+            Total de cargos: <span className="text-blue-700">{cargos.length}</span>{" "}
           </h1>
         </div>
         <div className="flex justify-end">
@@ -70,19 +70,18 @@ const  IndexDireccionesAdministrador = () => {
             className="bg-blue-700 text-white py-2 px-5 rounded-lg"
             onClick={handleNuevaClick}
           >
-            Nueva
+            Nuevo
           </button>
         </div>
         <div className="flex justify-start">
-          {/* Puedes agregar controles adicionales o filtros relacionados con las direcciones aquí */}
+          {/* Puedes agregar controles adicionales o filtros relacionados con los cargos aquí */}
         </div>
       </div>
-
       <div className="h-full">
-        <TableDirecciones direcciones={direcciones} />
+        <TableCargos cargos={cargos} />
       </div>
     </>
   );
 };
 
-export default IndexDireccionesAdministrador;
+export default IndexCargosAdministrador;

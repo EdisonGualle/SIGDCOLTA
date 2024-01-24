@@ -87,11 +87,11 @@ Route::controller(CargoController::class)->group(function () {
 
 // JerarquiaPermiso routes
 Route::controller(JerarquiaPermisoController::class)->group(function () {
-    Route::get('/jerarquia-permiso', 'listarJerarquiasPermiso');
-    Route::get('/jerarquia-permiso/{idCargo}/{idCargoAprobador}', 'mostrarJerarquiaPermiso');
-    Route::post('/jerarquia-permiso', 'crearJerarquiaPermiso');
-    Route::put('/jerarquia-permiso/{idCargo}/{idCargoAprobador}', 'actualizarJerarquiaPermiso');
-    Route::delete('/jerarquia-permiso/{idCargo}/{idCargoAprobador}', 'eliminarJerarquiaPermiso');
+    Route::get('/jerarquia-cargos', 'listarJerarquiasPermiso');
+    Route::get('/jerarquia-cargos/{idCargo}/{idCargoAprobador}', 'mostrarJerarquiaPermiso');
+    Route::post('/jerarquia-cargos', 'crearJerarquiaPermiso');
+    Route::put('/jerarquia-cargos/{idCargo}/{idCargoAprobador}', 'actualizarJerarquiaPermiso');
+    Route::delete('/jerarquia-cargos/{idCargo}/{idCargoAprobador}', 'eliminarJerarquiaPermiso');
 });
 
 // Rutas para AprobacionPermiso
