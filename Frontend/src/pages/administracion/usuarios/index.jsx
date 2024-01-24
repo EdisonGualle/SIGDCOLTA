@@ -89,18 +89,18 @@ const IndexUsuariosAdministrador = () => {
       case "deshabilitar-usuario":
         MySwal.fire({
           title: "¿Estás seguro?",
-          text: "Esta acción desactivara al Usuario. ¿Quieres continuar?",
+          text: "Esta acción deshabilitaral Usuario. ¿Quieres continuar?",
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#ec4899",
           cancelButtonColor: "#3085d6",
-          confirmButtonText: "Sí, desactivar",
+          confirmButtonText: "Sí, deshabilitar",
           cancelButtonText: "No, Cancelar",
           reverseButtons: true
         }).then((result) => {
           if (result.isConfirmed) {
             // Aquí puedes realizar la lógica para eliminar al usuario
-            MySwal.fire("Desactivado", "Usuario desactivado.", "success");
+            MySwal.fire("Deshabilitado", "Usuario Deshabilitar.", "success");
           }
         });
         break;
@@ -188,7 +188,7 @@ const IndexUsuariosAdministrador = () => {
             className="bg-pink-700 text-white mx-10 py-2 px-5 rounded-lg"
             onClick={handleEliminarClick}
           >
-            Desactivar
+            Deshabilitar
           </button>
 
           <button
