@@ -36,6 +36,7 @@ import IndexPerfil from "./pages/administracion/perfil/Index";
 import { RolesProvider } from "./providers/RolesProvider";
 
 import RecuperarContraseña from "./pages/auth/RecuperarContrasena";
+import IndexConfiguracionAdministrador from "./pages/administracion/configuracion";
 
 function App() {
   return (
@@ -79,10 +80,10 @@ function App() {
                             element={<AdministradorLayout />}
                           >
                             <Route index element={<Dashboard />} />
-                            <Route
+                            {/* <Route
                               path="configuracion"
                               element={<Configuracion />}
-                            />
+                            /> */}
 
                             <Route
                               path="empleados"
@@ -100,6 +101,7 @@ function App() {
                             />
 
                             {/* Modulo Posiciones Laborales */}
+
                             <Route
                               path="posiciones-laborales"
                               element={
@@ -121,6 +123,10 @@ function App() {
                             <Route
                               path="jerarquia-cargos"
                               element={<IndexJerarquiaCargosAdministrador />}
+                            />
+                            <Route
+                              path="configuracion"
+                              element={<IndexConfiguracionAdministrador />}
                             />
                              <Route
                               path="perfil/*"
