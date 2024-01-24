@@ -1,114 +1,92 @@
 import React from "react";
+import TableEmpleados from "../../../empleados/components/TableEmpleados";
+import useEmpleados from "../../../../../hooks/useEmpleados";
 
 // components
 
 export default function CardHabilidades() {
+  const { empleados } = useEmpleados();
+
   return (
     <>
-      <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
-        <div className="rounded-t bg-lime-400 text-white mb-0 px-6 py-6">
-          <div className="text-center flex justify-between">
-            <h6 className="text-blueGray-700 text-xl font-bold">
-              Formacion y Habilidades
-            </h6>
-            <button
-              className="bg-black text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-              type="button"
-            >
-              Guardar
-            </button>
+      <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg px-4">
+        <div className="px-6">
+          <div className="flex flex-wrap justify-center">
+            {/* Foto */}
+            <div className=" px-4 flex justify-start">
+              <div className="relative">
+                <img
+                  style={{ width: "300px", height: "200px" }}
+                  alt="..."
+                  src={
+                    "https://www.eltiempo.com/files/article_main_1200/uploads/2023/06/30/649eef5c5a7bc.png"
+                  }
+                  className=" max-w-100 rounded-3xl shadow-xl"
+                />
+              </div>
+            </div>
+            {/* dots de foto */}
+            <div className=" px-4 text-center mt-1">
+              <div className="flex justify-center py-1 lg:pt-4 pt-8">
+                <div className="mr-4 p-3 text-center">
+                  <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
+                    22
+                  </span>
+                  <span className="text-sm text-blueGray-400">Friends</span>
+                </div>
+                <div className="mr-4 p-3 text-center">
+                  <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
+                    10
+                  </span>
+                  <span className="text-sm text-blueGray-400">Photos</span>
+                </div>
+                <div className="lg:mr-4 p-3 text-center">
+                  <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
+                    89
+                  </span>
+                  <span className="text-sm text-blueGray-400">Comments</span>
+                </div>
+              </div>
+              <div className="text-center mt-1">
+                <h3 className="text-xl font-semibold leading-normal text-blueGray-700 mb-1">
+                  Mia Kalifa
+                </h3>
+                <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
+                  <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>{" "}
+                  Riobamba, Ecuador
+                </div>
+                <div className="mb-2 text-blueGray-600 mt-10">
+                  <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
+                  Nombre de cargo - Unidad de servicio
+                </div>
+                <div className="mb-2 text-blueGray-600">
+                  <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>
+                  Descripcion del cargo
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="flex-auto px-4 lg:px-10 py-10 pt-0 bg-lime-100">
-          <form>
-            <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-              Informacion del datos laborales
-            </h6>
-            <div className="flex flex-wrap">
-              <div className="w-full lg:w-6/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    Cargo
-                  </label>
-                  <input
-                    type="text"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue=""
-                  />
-                </div>
-              </div>
-              <div className="w-full lg:w-6/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    Direccion
-                  </label>
-                  <input
-                    type="email"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                  />
-                </div>
-              </div>
-              <div className="w-full lg:w-6/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    Unidad
-                  </label>
-                  <input
-                    type="text"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                  />
-                </div>
-              </div>
-              <div className="w-full lg:w-6/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    Puesto
-                  </label>
-                  <input
-                    type="text"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                  />
-                </div>
-              </div>
-            </div>
+          <hr className="my-5"></hr>
+          {/* Table Instruccion Formal */}
+          <div className="w-full h-screen lg:w-12/12 shadow-2xl ">
+            <h1 className="text-xl font-bold">Instruccion Formal</h1>
+            <TableEmpleados empleados={empleados} />
+          </div>
+          <hr className="my-5"></hr>
+          {/* Table experiencia laboral */}
+          <div className="w-full h-screen lg:w-12/12 shadow-2xl">
+            <h1 className="text-xl font-bold">Instruccion Formal</h1>
 
-            <hr className="mt-6 border-b-1 border-blueGray-300" />
+            <TableEmpleados empleados={empleados} />
+          </div>
+          <hr className="my-5"></hr>
+          {/* Table Referencia Laboral */}
 
-            <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-              informacion Contacto
-            </h6>
+          <div className="w-full h-screen lg:w-12/12 shadow-2xl">
+            <h1 className="text-xl font-bold">Instruccion Formal</h1>
 
-            <div className="flex flex-wrap">
-              <div className="w-full lg:w-12/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    Datos de ..
-                  </label>
-                  <textarea
-                    type="text"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="A beautiful UI Kit and Admin for React & Tailwind CSS. It is Free and Open Source."
-                    rows="4"
-                  ></textarea>
-                </div>
-              </div>
-            </div>
-          </form>
+            <TableEmpleados empleados={empleados} />
+          </div>
         </div>
       </div>
     </>

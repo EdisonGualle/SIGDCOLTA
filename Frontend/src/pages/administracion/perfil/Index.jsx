@@ -8,9 +8,9 @@ import DatosLaborales from "./DatosLaborales";
 import Asistencia from "./Asistencia";
 import useEmpleados from "../../../hooks/useEmpleados";
 import Habilidades from "./Habilidades";
+import Configuracion from "../../layouts/components/Configuracion";
 
 const IndexPerfil = () => {
-
   return (
     <>
       <Sidebar />
@@ -26,16 +26,14 @@ const IndexPerfil = () => {
 };
 
 const Perfil = () => {
- 
-
   return (
     <Routes>
       <Route path="/" element={<IndexPerfil />}>
         <Route path="datos-personales" element={<DatosPersonales />} />
         <Route path="datos-laborales" element={<DatosLaborales />} />
-        <Route path="asistencias" element={<Asistencia/>} />
-        <Route path="habilidades" element={<Habilidades/>} />
-
+        <Route path="asistencias" element={<Asistencia />} />
+        <Route path="habilidades" element={<Habilidades />} />
+        <Route path="configuracion" element={<Configuracion/>} />
       </Route>
     </Routes>
   );

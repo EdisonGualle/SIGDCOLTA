@@ -5,11 +5,8 @@ const Habilidades = () => {
   return (
     <>
       <div className="flex flex-wrap">
-        <div className="w-full lg:w-7/12 ">
+        <div className="w-full lg:w-12/12 ">
           <CardHabilidades />
-        </div>
-        <div className="w-full lg:w-5/12 px-2">
-          <CardProfile />
         </div>
       </div>
     </>
