@@ -5,7 +5,6 @@ const AuthLayout = () => {
     <>
       <main>
         <div>
-        <NavbarHome transparent />
           <Outlet />
         </div>
       </main>

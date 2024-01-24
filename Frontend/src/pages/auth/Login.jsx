@@ -40,7 +40,7 @@ const Login = () => {
       setAlerta({});
       localStorage.setItem("token", data.token);
       setAuth(data);
-      navigate("/administracion/empleados");
+      navigate("/administracion");
     } catch (error) {
       setAlerta({
         msg: error.response.data.mensaje,
@@ -53,15 +53,6 @@ const Login = () => {
 
   return (
     <div className="absolute w-full h-full">
-      <div
-        className="absolute top-0 w-full h-full bg-gray-900"
-        style={{
-          backgroundImage:
-            "url(https://i.stack.imgur.com/zIb0C.jpg)",
-          backgroundSize: "100%",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
         <div className="min-h-screen flex items-center justify-center p-4">
           <div className="bg-secondary-900 p-8 rounded-xl shadow-2xl w-auto lg:w-[450px]">
             <h1 className="text-3xl text-center uppercase font-bold tracking-[5px] text-secondary-50 mb-8">
@@ -108,7 +99,6 @@ const Login = () => {
             </div>
           </div>
         </div>
-      </div>
     </div>
   );
 };
