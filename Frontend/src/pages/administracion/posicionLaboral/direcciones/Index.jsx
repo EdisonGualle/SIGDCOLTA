@@ -52,8 +52,8 @@ const  IndexDireccionesAdministrador = () => {
     <>
      <NavegacionPosicionesLaborales />
       <div className="uppercase  bg-white py-2 font-bold rounded-lg mb-1 p-10">
-        <div className="flex justify-start mb-3 mt-3">
-        <h1 className="mx-10">
+        <div className="flex justify-start my-3">
+        <h1 className="ms-0 me-10">
             Total de direcciones:{" "}
             <span className="text-blue-700">{direcciones.length}</span>{" "}
           </h1>
