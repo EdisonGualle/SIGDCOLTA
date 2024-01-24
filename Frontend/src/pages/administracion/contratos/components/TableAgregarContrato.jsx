@@ -8,7 +8,12 @@ const TableAgregarContrato = ({ tiposContrato }) => {
 
   // Column Definitions
   const [colDefs] = useState([
-    { headerName: "Nombre", field: "nombre" },
+    {
+      headerName: "Nombre", field: "nombre",
+      checkboxSelection: true,
+      headerCheckboxSelection: true,
+      suppressMenu: true,
+    },
     { headerName: "Descripción", field: "descripcion" },
     { headerName: "Clausulas", field: "clausulas" },
     { headerName: "Duración (Meses)", field: "duracionMeses" },
@@ -30,7 +35,7 @@ const TableAgregarContrato = ({ tiposContrato }) => {
       setRowData(tiposContrato);
     }
   }, [tiposContrato]);
-  
+
   // Apply settings across all columns
   const defaultColDef = useMemo(
     () => ({

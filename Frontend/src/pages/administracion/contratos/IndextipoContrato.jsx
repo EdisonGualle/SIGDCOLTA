@@ -2,6 +2,7 @@ import React from "react";
 import TabletipoContrato from "./components/TabletipoContrato";
 import usetipoContratos from "../../../hooks/usetipoContratos";
 import FormNuevoTipoContrato from "./components/FormNuevoTipoContrato";
+import NavegacionContratos from "./components/NavegacionContratos";
 
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
@@ -42,6 +43,7 @@ const IndextipoContratosAdministrador = () => {
   };
   return (
     <>
+     <NavegacionContratos />
       <div className="uppercase bg-white py-2 font-bold rounded-lg mb-1 p-10">
         <div className="flex justify-end">
           <button
