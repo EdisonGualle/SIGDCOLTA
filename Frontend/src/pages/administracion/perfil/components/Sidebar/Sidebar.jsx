@@ -93,10 +93,7 @@ export default function Sidebar() {
                 >
                   <i
                     className={
-                      "fas fa-tv mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/dashboard") !== -1
-                        ? "opacity-75"
-                        : "text-blueGray-300")
+                      "far fa-user-circle mr-2 text-sm text-blueGray-300"
                     }
                   ></i>{" "}
                   Datos Personales
@@ -106,25 +103,25 @@ export default function Sidebar() {
               <li className="items-center">
                 <Link
                   className={
-                    "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/settings") !== -1
-                      ? "text-lightBlue-500 hover:text-lightBlue-600"
-                      : "text-blueGray-700 hover:text-blueGray-500")
+                    "text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
                   }
-                  to="/admin/settings"
+                  to="datos-laborales"
                 >
-                  <i
-                    className={
-                      "fas fa-tools mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/settings") !== -1
-                        ? "opacity-75"
-                        : "text-blueGray-300")
-                    }
-                  ></i>{" "}
+                  <i className="fas fa-briefcase mr-2 text-sm text-blueGray-300"></i>{" "}
                   Datos Laborales
                 </Link>
               </li>
-
+              <li className="items-center">
+                <Link
+                  className={
+                    "text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
+                  }
+                  to="habilidades"
+                >
+                  <i class="fas fa-graduation-cap mr-2 text-sm text-blueGray-300"></i>
+                  Formacion y habilidades
+                </Link>
+              </li>
               <li className="items-center">
                 <Link
                   className={
@@ -133,7 +130,7 @@ export default function Sidebar() {
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="/admin/tables"
+                  to="asistencias"
                 >
                   <i
                     className={
@@ -155,7 +152,7 @@ export default function Sidebar() {
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="/admin/maps"
+                  to="permisos"
                 >
                   <i
                     className={
@@ -182,17 +179,17 @@ export default function Sidebar() {
               <li className="items-center">
                 <Link
                   className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                  to="/auth/login"
+                  to="configuracion"
                 >
                   <i className="fas fa-fingerprint text-blueGray-400 mr-2 text-sm"></i>{" "}
-                  Config 1
+                  Configuracion
                 </Link>
               </li>
 
               <li className="items-center">
                 <Link
                   className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                  to="/auth/register"
+                  to="credenciales"
                 >
                   <i className="fas fa-clipboard-list text-blueGray-300 mr-2 text-sm"></i>{" "}
                   Credenciales
@@ -207,7 +204,6 @@ export default function Sidebar() {
               Otro
             </h6>
             {/* Navigation */}
-
           </div>
         </div>
       </nav>
