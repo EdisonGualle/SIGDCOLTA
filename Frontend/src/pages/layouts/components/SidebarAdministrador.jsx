@@ -226,7 +226,7 @@ const SidebarAdministrador = () => {
             {/* Configuraciones */}
             <li>
               <Link
-                to="/"
+                to="/administracion/configuraciones"
                 className="flex  text-secondary-100 items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-100   hover:text-black  transition-colors"
               >
                 <span className="text-primary hover:text-yellow-900">

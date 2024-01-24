@@ -92,7 +92,7 @@ const IndexConfiguracionAdministrador = () => {
 
               <div className="flex flex-col md:flex-row md:items-center gap-y-4">
                 <div className="w-full md:w-1/2 mb-2 md:mb-0">
-                  <p>Nmero maximo de solicitudes mensuales </p>
+                  <p>Número maximo de solicitudes mensuales </p>
                 </div>
                 <div className="flex justify-end">
                   <input

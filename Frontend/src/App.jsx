@@ -80,10 +80,10 @@ function App() {
                             element={<AdministradorLayout />}
                           >
                             <Route index element={<Dashboard />} />
-                            {/* <Route
-                              path="configuracion"
+                            <Route
+                              path="configuracion-perfil"
                               element={<Configuracion />}
-                            /> */}
+                            />
 
                             <Route
                               path="empleados"
@@ -125,7 +125,7 @@ function App() {
                               element={<IndexJerarquiaCargosAdministrador />}
                             />
                             <Route
-                              path="configuracion"
+                              path="configuraciones"
                               element={<IndexConfiguracionAdministrador />}
                             />
                              <Route
