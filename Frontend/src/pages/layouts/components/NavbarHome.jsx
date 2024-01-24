@@ -71,7 +71,7 @@ export default function NavbarHome(props) {
           <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
             <li className="flex items-center">
               <Link
-              to={'/login'}
+              to={'/ingresar'}
                 className={
                   (props.transparent
                     ? "bg-white text-gray-800 active:bg-gray-100"

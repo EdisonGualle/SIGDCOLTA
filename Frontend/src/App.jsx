@@ -4,6 +4,7 @@ import AuthLayout from "./pages/layouts/AuthLayout";
 import HomeLayout from "./pages/layouts/HomeLayout";
 import EmpleadosLayout from "./pages/layouts/EmpleadosLayout";
 import AdministradorLayout from "./pages/layouts/AdministradorLayout";
+import Configuracion from "./pages/layouts/components/Configuracion";
 import Home from "./pages/Home";
 import Login from "./pages/auth/Login";
 import HomeEmpleados from "./pages/empleados/Home";
@@ -32,6 +33,10 @@ import IndexUsuariosAdministrador from "./pages/administracion/usuarios";
 import { UsuariosProvider } from "./providers/UsuariosProvider";
 import IndexPerfil from "./pages/administracion/perfil/Index";
 
+import { RolesProvider } from "./providers/RolesProvider";
+
+import RecuperarContraseña from "./pages/auth/RecuperarContrasena";
+
 function App() {
   return (
     <BrowserRouter>
@@ -43,67 +48,87 @@ function App() {
                 <UnidadesProvider>
                   <CargosProvider>
                     <JerarquiaCargosProvider>
-                      <Routes>
-                        {/* RUTAS PAcdRA PAGINA DE INICIO SISTEMA */}
-                        <Route path="/" element={<HomeLayout />}>
-                          <Route index element={<Home />} />
+                      <RolesProvider>
+                        <Routes>
+                          {/* RUTAS PAcdRA PAGINA DE INICIO SISTEMA */}
+                          <Route path="/" element={<HomeLayout />}>
+                            <Route index element={<Home />} />
 
-                          <Route path="*" element={<NotFound />} />
-                        </Route>
-                        {/* RUTAS PARA LOGEO ETC */}
-                        <Route path="/" element={<AuthLayout />}>
-                          <Route path="login" element={<Login />} />
-                        </Route>
+                            <Route path="*" element={<NotFound />} />
+                          </Route>
+                          {/* RUTAS PARA LOGEO ETC */}
+                          <Route path="/" element={<AuthLayout />}>
+                            <Route path="ingresar" element={<Login />} />
+                            <Route
+                              path="recuperar-contraseña"
+                              element={<RecuperarContraseña />}
+                            />
+                          </Route>
 
-                        {/* RUTAS DE EMPLEADOS REQUIEREN AUTENTICACION */}
-                        <Route path="/empleados" element={<EmpleadosLayout />}>
-                          <Route index element={<HomeEmpleados />} />
-                        </Route>
+                          {/* RUTAS DE EMPLEADOS REQUIEREN AUTENTICACION */}
+                          <Route
+                            path="/empleados"
+                            element={<EmpleadosLayout />}
+                          >
+                            <Route index element={<HomeEmpleados />} />
+                          </Route>
 
-                        {/* RUTAS DEL ADMINSISTRADOR REQUIEREN AUTENTICACION */}
-                        <Route
-                          path="/administracion"
-                          element={<AdministradorLayout />}
-                        >
-                          <Route index element={<Dashboard />} />
+                          {/* RUTAS DEL ADMINSISTRADOR REQUIEREN AUTENTICACION */}
                           <Route
-                            path="empleados"
-                            element={<IndexEmpleadosAdministrador />}
-                          />
-                          {/* <Route
-                            path="permisos"
-                            element={<IndexPermisosAdministrador />}
-                          /> */}
-                          <Route path="perfil/*" element={<IndexPerfil />} />
-                          {/* Modulo Usuarios */}
-                          <Route
-                            path="usuarios"
-                            element={<IndexUsuariosAdministrador />}
-                          />
+                            path="/administracion"
+                            element={<AdministradorLayout />}
+                          >
+                            <Route index element={<Dashboard />} />
+                            <Route
+                              path="configuracion"
+                              element={<Configuracion />}
+                            />
 
-                          {/* Modulo Posiciones Laborales */}
-                          <Route
-                            path="posiciones-laborales"
-                            element={<IndexPosicionesLaboralesAdministrador />}
-                          />
-                          <Route
-                            path="direcciones"
-                            element={<IndexDireccionesAdministrador />}
-                          />
-                          <Route
-                            path="unidades"
-                            element={<IndexUnidadesAdministrador />}
-                          />
-                          <Route
-                            path="cargos"
-                            element={<IndexCargosAdministrador />}
-                          />
-                          <Route
-                            path="jerarquia-cargos"
-                            element={<IndexJerarquiaCargosAdministrador />}
-                          />
-                        </Route>
-                      </Routes>
+                            <Route
+                              path="empleados"
+                              element={<IndexEmpleadosAdministrador />}
+                            />
+                           {/*  <Route
+                              path="permisos"
+                              element={<IndexPermisosAdministrador />}
+                            /> */}
+
+                            {/* Modulo Usuarios */}
+                            <Route
+                              path="usuarios"
+                              element={<IndexUsuariosAdministrador />}
+                            />
+
+                            {/* Modulo Posiciones Laborales */}
+                            <Route
+                              path="posiciones-laborales"
+                              element={
+                                <IndexPosicionesLaboralesAdministrador />
+                              }
+                            />
+                            <Route
+                              path="direcciones"
+                              element={<IndexDireccionesAdministrador />}
+                            />
+                            <Route
+                              path="unidades"
+                              element={<IndexUnidadesAdministrador />}
+                            />
+                            <Route
+                              path="cargos"
+                              element={<IndexCargosAdministrador />}
+                            />
+                            <Route
+                              path="jerarquia-cargos"
+                              element={<IndexJerarquiaCargosAdministrador />}
+                            />
+                             <Route
+                              path="perfil/*"
+                              element={<IndexPerfil />}
+                            />
+                          </Route>
+                        </Routes>
+                      </RolesProvider>
                     </JerarquiaCargosProvider>
                   </CargosProvider>
                 </UnidadesProvider>
