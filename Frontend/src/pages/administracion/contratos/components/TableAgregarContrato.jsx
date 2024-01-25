@@ -5,7 +5,15 @@ import { LANGUAGE_OPTIONS } from "../../empleados/components/traduccionTableGrid
 
 const TableAgregarContrato = ({ tiposContrato }) => {
   const [rowData, setRowData] = useState([]);
-  const [totalEmpleados, setTotalEmpleados] = useState(0);
+ 
+  const handleRowSelection = (event) => {
+    const selectedRows = event.api.getSelectedRows();
+    if (selectedRows.length > 0) {
+      setSelectedRowData(selectedRows[0]);
+    } else {
+      setSelectedRowData(null);
+    }
+  };
 
   // Column Definitions
   const [colDefs] = useState([
@@ -67,6 +75,7 @@ const TableAgregarContrato = ({ tiposContrato }) => {
           columnDefs={colDefs}
           defaultColDef={defaultColDef}
           pagination={true}
+          onSelectionChanged={handleRowSelection}
         />
       </div>
     </div>

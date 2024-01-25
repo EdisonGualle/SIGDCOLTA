@@ -34,7 +34,7 @@ const IndextipoContratosAdministrador = () => {
     MySwal.fire({
       title: "Nuevo Tipo de Contrato",
       html: <FormNuevoTipoContrato />, // Renderiza el formulario de nuevo empleado en el contenido del SweetAlert
-      showCancelButton: true,
+      showCancelButton: false,
       showConfirmButton: false,
       cancelButtonColor: "#3085d6",
       cancelButtonText: "Cerrar",

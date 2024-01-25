@@ -1,7 +1,7 @@
 import React from "react";
 import TableAgregarContrato from "./components/TableAgregarContrato";
 import useAsignarContrato from "../../../hooks/useAsiganarContrato";
-import FormNuevoTipoContrato from "./components/FormNuevoTipoContrato";
+import FormNuevoContrato from "./components/FormNuevoContrato";
 import NavegacionContratos from "./components/NavegacionContratos";
 
 import withReactContent from "sweetalert2-react-content";
@@ -9,38 +9,17 @@ import Swal from "sweetalert2";
 
 const IndexAgregarContratosAdministrador = () => {
   const { tiposContrato } = useAsignarContrato();
-  // const empleadosHombres = tiposContrato.filter(
-  //   (posicion) => posicion.genero === "Masculino"
-  // );
-  // const empleadosMujeres = tiposContrato.filter(
-  //   (posicion) => posicion.genero === "Femenino"
-  // );
+
   const MySwal = withReactContent(Swal);
   console.log("Datos traídos del provider:", tiposContrato);
 
-  const handleEliminarTipoContratoClick = () => {
-    MySwal.fire({
-      title: "¿Estás seguro?",
-      text: "Esta acción eliminará el tipo de contrato. ¿Quieres continuar?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Sí, eliminar",
-      cancelButtonText: "Cancelar",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // Lógica para eliminar el tipo de contrato
-        MySwal.fire("Eliminado", "El tipo de contrato ha sido eliminado.", "success");
-      }
-    });
-  };
 
-  const handleNuevoTipoContratoClick = () => {
+
+  const handleNuevoContratoClick = () => {
     MySwal.fire({
       title: "Nuevo Tipo de Contrato",
-      html: <FormNuevoTipoContrato />, // Renderiza el formulario de nuevo empleado en el contenido del SweetAlert
-      showCancelButton: true,
+      html: <FormNuevoContrato />,
+      showCancelButton: false,
       showConfirmButton: false,
       cancelButtonColor: "#3085d6",
       cancelButtonText: "Cerrar",
@@ -56,16 +35,19 @@ const IndexAgregarContratosAdministrador = () => {
             Total de empleados:{" "}
             <span className="text-blue-700">{tiposContrato.length}</span>{" "}
           </h1>
-          {/* <h1 className="">
-            Empleados Hombres:{" "}
-            <span className="text-green-700">{empleadosHombres}</span>
-          </h1>
-          <h1 className="mx-10">
-            Empleados Mujeres:{" "}
-            <span className="text-red-700">{empleadosMujeres.length}</span>
-          </h1> */}
         </div>
+        <div className="flex justify-end">
+         
+          <button
+            className="bg-blue-700 text-white py-2 px-5 rounded-lg"
+            onClick={handleNuevoContratoClick}
+          >
+            Nuevo 
+          </button>
+        </div>
+        
       </div>
+      
       <div className="h-full">
         <TableAgregarContrato tiposContrato={tiposContrato} />
       </div>

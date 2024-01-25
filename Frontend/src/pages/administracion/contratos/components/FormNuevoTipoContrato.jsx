@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 const FormularioContrato = () => {
-  // Estado para almacenar los datos del formulario
   const [formData, setFormData] = useState({
     nombre: "",
     descripcion: "",
@@ -9,22 +8,19 @@ const FormularioContrato = () => {
     duracionMeses: "",
   });
 
-  // Manejar cambios en los campos del formulario
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // Manejar envío del formulario
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí puedes realizar acciones con los datos, como enviarlos a una API o hacer algo más con ellos.
     console.log("Datos del formulario:", formData);
   };
 
   return (
     <div className="max-w-screen-md mx-auto p-4">
-      <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4">
+      <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div className="mb-4">
           <label htmlFor="nombre" className="block text-sm font-medium text-gray-600">
             Nombre
@@ -79,13 +75,14 @@ const FormularioContrato = () => {
           />
         </div>
 
-        <button
+       
+      </form>
+      <button
           type="submit"
-          className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
+          className="bg-blue-700 text-white py-2 px-5 rounded-lg"
         >
           Crear Contrato
         </button>
-      </form>
     </div>
   );
 };
