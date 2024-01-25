@@ -5,27 +5,33 @@ import { LANGUAGE_OPTIONS } from "../../empleados/components/traduccionTableGrid
 
 const TableAgregarContrato = ({ tiposContrato }) => {
   const [rowData, setRowData] = useState([]);
+  const [totalEmpleados, setTotalEmpleados] = useState(0);
 
   // Column Definitions
   const [colDefs] = useState([
     {
-      headerName: "Nombre", field: "nombre",
+      headerName: "ID", field: "idEmpleado",
       checkboxSelection: true,
       headerCheckboxSelection: true,
       suppressMenu: true,
     },
-    { headerName: "Descripción", field: "descripcion" },
-    { headerName: "Clausulas", field: "clausulas" },
-    { headerName: "Duración (Meses)", field: "duracionMeses" },
-    {
-      headerName: "",
-      field: "asignar",
-      cellRendererFramework: (params) => (
-        <button style={{ color: 'white', backgroundColor: 'green' }}>
-          Asignar
-        </button>
-      ),
-    },
+    { headerName: "Cedula", field: "cedula" },
+    { headerName: "Primer Nombre", field: "primerNombre" },
+    { headerName: "Segundo Nombre", field: "segundoNombre" },
+    { headerName: "Primer Apellido", field: "primerApellido" },
+    { headerName: "Segundo Apellido", field: "segundoApellido" },
+    { headerName: "Fecha de Nacimiento", field: "fechaNacimiento" },
+    { headerName: "Género", field: "genero" },
+    { headerName: "Teléfono Personal", field: "telefonoPersonal" },
+    { headerName: "Teléfono de Trabajo", field: "telefonoTrabajo" },
+    { headerName: "Correo", field: "correo" },
+    { headerName: "Etnia", field: "etnia" },
+    { headerName: "Estado Civil", field: "estadoCivil" },
+    { headerName: "Tipo de Sangre", field: "tipoSangre" },
+    { headerName: "Nacionalidad", field: "nacionalidad" },
+    { headerName: "ID Provincia", field: "id_provincia" },
+    { headerName: "ID Cantón", field: "id_canton" },
+    { headerName: "ID Cargo", field: "idCargo" },
     // Agrega más columnas según sea necesario
   ]);
 
@@ -52,7 +58,9 @@ const TableAgregarContrato = ({ tiposContrato }) => {
 
   return (
     <div className="h-full">
+      
       <div className={"ag-theme-quartz"} style={{ width: "100%", height: "90%" }}>
+        
         <AgGridReact
           localeText={TRANSLATIONS[LANGUAGE_OPTIONS.ES]}
           rowData={rowData}

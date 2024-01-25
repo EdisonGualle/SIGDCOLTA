@@ -44,7 +44,14 @@ const IndextipoContratosAdministrador = () => {
   return (
     <>
      <NavegacionContratos />
+     
       <div className="uppercase bg-white py-2 font-bold rounded-lg mb-1 p-10">
+      <div className="flex justify-start my-3 ">
+          <h1 className="ms-0 me-10">
+            Total de Tipos de Contrato:{" "}
+            <span className="text-blue-700">{tiposContrato.length}</span>{" "}
+          </h1>
+        </div>
         <div className="flex justify-end">
           <button
             className="bg-red-700 text-white mx-10 py-2 px-5 rounded-lg"

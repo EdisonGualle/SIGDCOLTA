@@ -9,6 +9,12 @@ import Swal from "sweetalert2";
 
 const IndexAgregarContratosAdministrador = () => {
   const { tiposContrato } = useAsignarContrato();
+  // const empleadosHombres = tiposContrato.filter(
+  //   (posicion) => posicion.genero === "Masculino"
+  // );
+  // const empleadosMujeres = tiposContrato.filter(
+  //   (posicion) => posicion.genero === "Femenino"
+  // );
   const MySwal = withReactContent(Swal);
   console.log("Datos traídos del provider:", tiposContrato);
 
@@ -44,7 +50,22 @@ const IndexAgregarContratosAdministrador = () => {
   return (
     <>
      <NavegacionContratos />
-    
+     <div className="uppercase bg-white py-2 font-bold rounded-lg mb-1 p-10">
+        <div className="flex justify-start my-3 ">
+          <h1 className="ms-0 me-10">
+            Total de empleados:{" "}
+            <span className="text-blue-700">{tiposContrato.length}</span>{" "}
+          </h1>
+          {/* <h1 className="">
+            Empleados Hombres:{" "}
+            <span className="text-green-700">{empleadosHombres}</span>
+          </h1>
+          <h1 className="mx-10">
+            Empleados Mujeres:{" "}
+            <span className="text-red-700">{empleadosMujeres.length}</span>
+          </h1> */}
+        </div>
+      </div>
       <div className="h-full">
         <TableAgregarContrato tiposContrato={tiposContrato} />
       </div>
