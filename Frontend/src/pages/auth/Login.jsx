@@ -40,7 +40,7 @@ const Login = () => {
       setAlerta({});
       localStorage.setItem("token", data.token);
       setAuth(data);
-      navigate("/administracion");
+      navigate("/administracion/empleados");
     } catch (error) {
       setAlerta({
         msg: error.response.data.mensaje,
@@ -53,6 +53,15 @@ const Login = () => {
 
   return (
     <div className="absolute w-full h-full">
+      <div
+        className="absolute top-0 w-full h-full bg-gray-900"
+        style={{
+          backgroundImage:
+            "url(https://img.freepik.com/premium-vector/futuristic-background-style_23-2148503794.jpg)",
+          backgroundSize: "100%",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
         <div className="min-h-screen flex items-center justify-center p-4">
           <div className="bg-secondary-900 p-8 rounded-xl shadow-2xl w-auto lg:w-[450px]">
             <h1 className="text-3xl text-center uppercase font-bold tracking-[5px] text-secondary-50 mb-8">
@@ -91,7 +100,7 @@ const Login = () => {
             </form>
             <div className="flex flex-col items-center gap-4">
               <Link
-                to="/olvide-contraseña"
+                to="/recuperar-contraseña"
                 className=" text-gray-300 hover:text-primary transition-colors"
               >
                 ¿Olvidaste tu contraseña?
@@ -99,6 +108,7 @@ const Login = () => {
             </div>
           </div>
         </div>
+      </div>
     </div>
   );
 };

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 
 
 use App\Notifications\Registro\RegistroUsuarioNotification;
@@ -39,6 +40,8 @@ class UsuarioService
         ->get();
     
         $usuariosTransformados = $usuarios->map(function ($usuario) {
+            $roles = $usuario->getRoleNames(); // Obtener los nombres de los roles asociados a cada usuario
+    
             return [
                 'idUsuario' => $usuario->idUsuario,
                 'usuario' => $usuario->usuario,
@@ -55,6 +58,7 @@ class UsuarioService
                 ],
                 'idTipoEstado' => $usuario->idTipoEstado,
                 'estado' => $usuario->nombre_tipo_estado,
+                'rol' => $roles,
             ];
         });
     

@@ -46,7 +46,7 @@ const SidebarAdministrador = () => {
   return (
     <>
       <div
-        className={`xl:h-[100vh] overflow-y-scroll fixed xl:static w-[80%] md:w-[40%] lg:w-[30%] xl:w-auto h-full top-0 bg-secondary-900 p-4 flex flex-col justify-between z-50 ${
+        className={`xl:h-[100vh] absolute overflow-y-scroll fixed xl:static w-[80%] md:w-[40%] lg:w-[30%] xl:w-auto h-full top-0 bg-secondary-900 p-4 flex flex-col justify-between z-50 ${
           showMenu ? "left-0" : "-left-full"
         } transition-all`}
       >
@@ -67,7 +67,7 @@ const SidebarAdministrador = () => {
             {/* Mi Perfil */}
             <li>
               <Link
-                to="/tickets"
+                to="/administracion/perfil"
                 className="flex  text-secondary-100 items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-100   hover:text-black transition-colors"
               >
                 <RiUser3Line className="text-primary" /> Mi Perfil
@@ -76,7 +76,7 @@ const SidebarAdministrador = () => {
             {/* Asistencia */}
             <li>
               <Link
-                to="/tickets"
+                to="/administracion/asistencia"
                 className="flex  text-secondary-100 items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-100   hover:text-black transition-colors"
               >
                 <GoChecklist className="text-primary" /> Asistencia
@@ -261,7 +261,7 @@ const SidebarAdministrador = () => {
             {/* Configuraciones */}
             <li>
               <Link
-                to="/"
+                to="/administracion/configuraciones"
                 className="flex  text-secondary-100 items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-100   hover:text-black  transition-colors"
               >
                 <span className="text-primary hover:text-yellow-900">

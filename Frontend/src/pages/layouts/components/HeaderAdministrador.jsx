@@ -11,9 +11,16 @@ import { Menu, MenuItem, MenuButton } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/index.css";
 import "@szhsin/react-menu/dist/transitions/slide.css";
 import { Link } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
 
 const Header = ({auth}) => {
-  console.log(auth)
+  const { cerrarSesionAuth } = useAuth();
+
+  const handleCerrarSesion = () => {
+    cerrarSesionAuth();
+    localStorage.removeItem("token");
+  };
+
   return (
     <header className="h-[7vh] md:h-[10vh] border-b border-primary p-8 flex items-center justify-end bg-gray-800">
       <nav className="flex items-center gap-2">
@@ -47,7 +54,7 @@ const Header = ({auth}) => {
               />
               <div className="text-sm flex flex-col">
                 <div className="flex text-blue-950 items-center justify-between gap-4">
-                  <span></span>{" "}
+                  <span>Usuario123</span>{" "}
                   <span className="text-[8px]">10/01/2024</span>
                 </div>
                 <p className="text-gray-500 text-xs">
@@ -135,7 +142,7 @@ const Header = ({auth}) => {
           <hr className="my-4 border-gray-500" />
           <MenuItem className="p-0 hover:bg-transparent">
             <Link
-              to="/configuracion"
+              to="/administracion/configuracion-perfil"
               className="rounded-lg transition-colors hover:bg-secondary-100 flex items-center gap-x-4 py-2 px-6 flex-1"
             >
               <RiSettings3Line /> Configuración
@@ -143,8 +150,9 @@ const Header = ({auth}) => {
           </MenuItem>
           <MenuItem className="p-0 hover:bg-transparent">
             <Link
-              to="/cerrar-sesion"
+              to="/"
               className="rounded-lg transition-colors hover:bg-secondary-100 flex items-center gap-x-4 py-2 px-6 flex-1"
+              onClick={handleCerrarSesion}
             >
               <RiLogoutCircleRLine /> Cerrar sesión
             </Link>

@@ -1,29 +1,34 @@
 import React from "react";
+import { useState } from "react";
 import useUsuarios from "../../../hooks/useUsuarios";
 import TableUsuarios from "./components/TableUsuarios";
 // import FormNuevoUsuario from "./components/FormNuevoUsuario";
+import useRoles from "../../../hooks/useRoles";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
+import FormEditarRol from "./components/FromEditarRol";
+
 const IndexUsuariosAdministrador = () => {
   const { usuarios, cargandoUsuarios } = useUsuarios();
+  const { roles } = useRoles();
 
   const MySwal = withReactContent(Swal);
 
   const handleEliminarClick = () => {
     MySwal.fire({
       title: "¿Estás seguro?",
-      text: "Esta acción eliminará al Usuario. ¿Quieres continuar?",
+      text: "Esta acción desactivara al Usuario. ¿Quieres continuar?",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#d33",
+      confirmButtonColor: "#ec4899",
       cancelButtonColor: "#3085d6",
-      confirmButtonText: "Sí, eliminar",
-      cancelButtonText: "Cancelar",
+      confirmButtonText: "Sí, desactivar",
+      cancelButtonText: "No, Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
         // Aquí puedes realizar la lógica para eliminar al usuario
-        MySwal.fire("Eliminado", "Usuario Eliminado.", "success");
+        MySwal.fire("Desactivado", "Usuario desactivado.", "success");
       }
     });
   };
@@ -46,8 +51,121 @@ const IndexUsuariosAdministrador = () => {
       }
     });
   };
+
+  const [opcionSeleccionada, setOpcionSeleccionada] = useState("");
+
+  const handleOpcionChange = (event) => {
+    setOpcionSeleccionada(event.target.value);
+    mostrarAlerta(event.target.value); // Llamar a la función mostrarAlerta directamente
+  };
+
+  const mostrarAlerta = (opcion) => {
+    switch (opcion) {
+      case "eliminar-usuario":
+        const swalWithButtons = Swal.mixin({
+          confirmButtonColor: "#d33",
+          cancelButtonColor: "#3085d6",
+          buttonsStyling: true
+        });
+        swalWithButtons.fire({
+          title: "¿Estás seguro de que quieres eliminar este usuario?",
+          text: "¡Todos los datos relacionados con el usuario se eliminaran definitivamente de nuestros registros y no se podran recuperar!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Si, eliminar !",
+          cancelButtonText: "No, cancelar!",
+          reverseButtons: true
+        }).then((result) => {
+          if (result.isConfirmed) {
+            swalWithButtons.fire({
+              title: "¡Eliminado!",
+              text: "El usuario se ha eliminado correctamente",
+              icon: "success"
+            });
+          }
+        });
+        break;
+        
+      case "deshabilitar-usuario":
+        MySwal.fire({
+          title: "¿Estás seguro?",
+          text: "Esta acción deshabilitara al Usuario. ¿Quieres continuar?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#ec4899",
+          cancelButtonColor: "#3085d6",
+          confirmButtonText: "Sí, deshabilitar",
+          cancelButtonText: "No, Cancelar",
+          reverseButtons: true
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Aquí puedes realizar la lógica para eliminar al usuario
+            MySwal.fire("Deshabilitado", "Usuario Deshabilitar.", "success");
+          }
+        });
+        break;
+        case "habilitar-usuario":
+          MySwal.fire({
+            title: "¿Estás seguro?",
+            text: "Esta acción habilitara al Usuario. ¿Quieres continuar?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#655cc9",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Sí, activar",
+            cancelButtonText: "No, Cancelar",
+            reverseButtons: true
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Aquí puedes realizar la lógica para eliminar al usuario
+              MySwal.fire("Activado", "Usuario Activado.", "success");
+            }
+          });
+          break;
+      case "editar-rol":
+        MySwal.fire({
+          title: "Editar Rol",
+          html: <FormEditarRol roles={roles} />,
+          showCancelButton: true,
+          showCloseButton: true,
+          reverseButtons: true,
+          cancelButtonColor: "#d33",
+          confirmButtonColor: "#3085d6",
+          cancelButtonText: "Cancelar",
+          confirmButtonText: "Guardar",
+          width: "50%",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Lógica para guardar el rol
+            Swal.fire("Guardado", "Rol editado correctamente", "success");
+          }
+        });
+        break;
+      case "eliminar-rol":
+        MySwal.fire({
+          title: "¿Estás seguro?",
+          text: "Esta acción eliminará el rol del usuario. ¿Quieres continuar?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#d33",
+          cancelButtonColor: "#3085d6",
+          confirmButtonText: "Sí, eliminar",
+          cancelButtonText: "Cancelar",
+          reverseButtons: true
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Aquí puedes realizar la lógica para eliminar la unidad
+            MySwal.fire("Eliminado", "El rol del usuario se ha eliminado.", "success");
+          }
+        });
+        break;
+      default:
+        break;
+    }
+  };
+
   const usuariosActivos = usuarios.filter((usuario) => usuario.estado === 'activo');
-const usuariosInactivos = usuarios.filter((usuario) => usuario.estado === 'inactivo');
+  const usuariosInactivos = usuarios.filter((usuario) => usuario.estado === 'inactivo');
   return (
     <>
       <div className="uppercase bg-white py-2 font-bold rounded-lg mb-1 p-10">
@@ -67,10 +185,10 @@ const usuariosInactivos = usuarios.filter((usuario) => usuario.estado === 'inact
         </div>
         <div className="flex justify-end">
           <button
-            className="bg-red-700 text-white mx-10 py-2 px-5 rounded-lg"
+            className="bg-pink-700 text-white mx-10 py-2 px-5 rounded-lg"
             onClick={handleEliminarClick}
           >
-            Eliminar
+            Deshabilitar
           </button>
 
           <button
@@ -91,6 +209,8 @@ const usuariosInactivos = usuarios.filter((usuario) => usuario.estado === 'inact
             <select
               id="menu"
               name="menu"
+              onChange={handleOpcionChange}
+              value={opcionSeleccionada}
               className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
             >
               <optgroup label="Usuario">
@@ -100,8 +220,8 @@ const usuariosInactivos = usuarios.filter((usuario) => usuario.estado === 'inact
                 <option value="habilitar-usuario">Habilitar usuario</option>
                 <option value="eliminar-usuario">Eliminar usuario</option>
               </optgroup>
-              <optgroup label="Asignar">
-                <option value="asignar-rol">Asignar rol</option>
+              <optgroup label="Rol">
+                <option value="editar-rol">Editar rol</option>
                 <option value="eliminar-rol">Eliminar rol</option>
               </optgroup>
             </select>
