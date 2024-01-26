@@ -6,7 +6,8 @@ import {
   RiErrorWarningLine,
 } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import { Switch } from "@headlessui/react";
+// import { Switch } from "@headlessui/react";
+
 
 const Configuracion = () => {
   const [enabled, setEnabled] = useState(false);
