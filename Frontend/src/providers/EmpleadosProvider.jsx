@@ -1,7 +1,8 @@
+import React, { useState, useEffect, createContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect, createContext } from "react";
 import clienteAxios from "../config/clienteAxios";
 import useAuth from "../hooks/useAuth";
+
 const EmpleadosContext = createContext();
 
 const EmpleadosProvider = ({ children }) => {
@@ -35,8 +36,91 @@ const EmpleadosProvider = ({ children }) => {
     obtenerEmpleados();
   }, [auth]);
 
+  const agregarEmpleado = async (nuevoEmpleado) => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await clienteAxios.post(
+        "/empleados",
+        nuevoEmpleado,
+        config
+      );
+      setEmpleados([...empleados, data.data]);
+      setAlerta({
+        tipo: "success",
+        mensaje: "Empleado agregado correctamente",
+      });
+    } catch (error) {
+      console.log(error);
+      setAlerta({ tipo: "error", mensaje: "Error al agregar empleado" });
+    }
+  };
+
+  const actualizarEmpleado = async (id, nuevoEmpleado) => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await clienteAxios.put(
+        `/empleados/${id}`,
+        nuevoEmpleado,
+        config
+      );
+      setEmpleados(empleados.map((e) => (e._id === id ? data.data : e)));
+      setAlerta({
+        tipo: "success",
+        mensaje: "Empleado actualizado correctamente",
+      });
+    } catch (error) {
+      console.log(error);
+      setAlerta({ tipo: "error", mensaje: "Error al actualizar empleado" });
+    }
+  };
+
+  const eliminarEmpleado = async (id) => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      await clienteAxios.delete(`/empleados/${id}`, config);
+      setEmpleados(empleados.filter((empleado) => empleado.idEmpleado !== id));
+      setAlerta({
+        tipo: "success",
+        mensaje: "Empleado eliminado correctamente",
+      });
+    } catch (error) {
+      console.log(error);
+      setAlerta({ tipo: "error", mensaje: "Error al eliminar empleado" });
+    }
+  };
+
   const contextValue = {
     empleados,
+    agregarEmpleado,
+    actualizarEmpleado,
+    eliminarEmpleado,
   };
 
   return (
@@ -45,6 +129,7 @@ const EmpleadosProvider = ({ children }) => {
     </EmpleadosContext.Provider>
   );
 };
+
 export { EmpleadosProvider };
 
 export default EmpleadosContext;
