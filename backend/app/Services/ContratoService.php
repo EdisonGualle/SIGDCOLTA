@@ -263,4 +263,14 @@ class ContratoService
 
         return response()->json(['successful' => true, 'message' => 'Contrato eliminado correctamente']);
     }
+
+    public function listarEmpleadosContratos()
+    {
+        // Obtener todos los empleados que no tienen contrato
+        $empleadosSinContrato = Empleado::whereDoesntHave('contratos')->get();
+
+        return response()->json(['successful' => true, 'data' => $empleadosSinContrato]);
+        
+    }
+
 }

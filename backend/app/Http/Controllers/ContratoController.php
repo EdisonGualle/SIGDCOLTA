@@ -84,4 +84,10 @@ class ContratoController extends Controller
         $response = $this->contratoService->eliminarContrato($id);
         return $response;
     }
+    public function listarEmpleadosContratos()
+    {
+        $response = $this->contratoService->listarEmpleadosContratos();
+        return $response;
+    }
+
 }

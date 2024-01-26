@@ -119,6 +119,9 @@ Route::post('/contratos', [ContratoController::class, 'crearContrato']);
 Route::put('/contratos/{id}', [ContratoController::class, 'actualizarContrato']);
 Route::delete('/contratos/{id}', [ContratoController::class, 'eliminarContrato']);
 
+//
+Route::get('/contratos-empleados', [ContratoController::class, 'listarEmpleadosContratos']);
+
 
 // DATOS BANCARIOS routes
 Route::get('/datos-bancarios', [DatoBancarioController::class, 'listarDatosBancarios']);

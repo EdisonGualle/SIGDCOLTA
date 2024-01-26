@@ -81,6 +81,7 @@ const TableContratos = ({ contratos }) => {
           defaultColDef={defaultColDef}
           pagination={true}
           onFirstDataRendered={onFirstDataRendered}
+          rowSelection={"multiple"}
         />
       </div>
       <div id="myChart" className="ag-theme-quartz my-chart"></div>

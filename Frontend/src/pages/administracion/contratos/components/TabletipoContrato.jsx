@@ -49,6 +49,7 @@ const TableTipoContrato = ({ tiposContrato }) => {
           columnDefs={colDefs}
           defaultColDef={defaultColDef}
           pagination={true}
+          rowSelection={"multiple"}
         />
       </div>
     </div>

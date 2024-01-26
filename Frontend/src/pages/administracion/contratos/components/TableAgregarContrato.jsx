@@ -76,6 +76,7 @@ const TableAgregarContrato = ({ tiposContrato }) => {
           defaultColDef={defaultColDef}
           pagination={true}
           onSelectionChanged={handleRowSelection}
+          rowSelection={"multiple"}
         />
       </div>
     </div>

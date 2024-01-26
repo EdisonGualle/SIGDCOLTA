@@ -30,7 +30,7 @@ const AgregarContratoProvider = ({ children }) => {
           },
         };
 
-        const { data } = await clienteAxios("/empleados", config);
+        const { data } = await clienteAxios("/contratos-empleados", config);
 
        setTiposContrato(data.data); // Intenta acceder a la propiedad correcta
 
