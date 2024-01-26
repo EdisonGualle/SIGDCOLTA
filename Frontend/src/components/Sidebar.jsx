@@ -13,6 +13,7 @@ import {
   RiBriefcase2Line,
   RiSettings3Line,
 } from "react-icons/ri";
+import useAuth from "../hooks/useAuth";
 
 import { GoChecklist } from "react-icons/go";
 import { LiaFileContractSolid } from "react-icons/lia";
@@ -20,15 +21,13 @@ import { BsClipboard2Check } from "react-icons/bs";
 import { MdOutlineAssessment } from "react-icons/md";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 
-import useAuth from "../../../hooks/useAuth";
-
-const SidebarAdministrador = () => {
-  const { auth, cerrarSesionAuth } = useAuth();
+const Sidebar = () => {
+  const { cerrarSesionAuth } = useAuth();
+  const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
-  const [showSubmenu, setShowSubmenu] = useState(false);
-  const handleCerrarSesion = () => {
+  const cerrarSesion = () => {
+    console.log("asd");
     cerrarSesionAuth();
-    localStorage.removeItem("token");
   };
 
   const [activeSubmenus, setActiveSubmenus] = useState([]);
@@ -46,7 +45,7 @@ const SidebarAdministrador = () => {
   return (
     <>
       <div
-        className={`xl:h-[100vh] absolute overflow-y-scroll fixed xl:static w-[80%] md:w-[40%] lg:w-[30%] xl:w-auto h-full top-0 bg-secondary-900 p-4 flex flex-col justify-between z-50 ${
+        className={`xl:h-[100vh] overflow-y-scroll fixed xl:static w-[80%] md:w-[40%] lg:w-[30%] xl:w-auto h-full top-0 bg-secondary-900 p-4 flex flex-col justify-between z-50 ${
           showMenu ? "left-0" : "-left-full"
         } transition-all`}
       >
@@ -57,17 +56,16 @@ const SidebarAdministrador = () => {
           <ul>
             <li>
               <Link
-                to="/administracion"
+                to="/"
                 className="flex text-secondary-100  items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-100   hover:text-black transition-colors"
               >
                 <RiDashboardLine className="text-primary" /> Dashboard
               </Link>
             </li>
-
             {/* Mi Perfil */}
             <li>
               <Link
-                to="/administracion/perfil"
+                to="/tickets"
                 className="flex  text-secondary-100 items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-100   hover:text-black transition-colors"
               >
                 <RiUser3Line className="text-primary" /> Mi Perfil
@@ -76,7 +74,7 @@ const SidebarAdministrador = () => {
             {/* Asistencia */}
             <li>
               <Link
-                to="/administracion/asistencia"
+                to="/tickets"
                 className="flex  text-secondary-100 items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-100   hover:text-black transition-colors"
               >
                 <GoChecklist className="text-primary" /> Asistencia
@@ -85,7 +83,7 @@ const SidebarAdministrador = () => {
             {/* Empleados */}
             <li>
               <Link
-                to="/administracion/empleados"
+                to="/empleados"
                 className="flex  text-secondary-100 items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-100   hover:text-black transition-colors"
               >
                 <RiUserStarLine className="text-primary" /> Empleados
@@ -94,7 +92,7 @@ const SidebarAdministrador = () => {
             {/* Usuarios */}
             <li>
               <Link
-                to="/administracion/usuarios"
+                to="/tickets"
                 className="flex  text-secondary-100 items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-100   hover:text-black transition-colors"
               >
                 <RiUser3Line className="text-primary" /> Usuarios
@@ -102,15 +100,13 @@ const SidebarAdministrador = () => {
             </li>
             {/*Contratos */}
             <li>
-            <Link
-                    to="/administracion/contratos"
-                    className="flex  text-secondary-100 items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-100   hover:text-black transition-colors"
-                  >
-                    <LiaFileContractSolid className="text-primary" /> Contratos
-                  </Link>
-             
+              <Link
+                to="/tickets"
+                className="flex  text-secondary-100 items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-100   hover:text-black transition-colors"
+              >
+                <LiaFileContractSolid className="text-primary" /> Contratos
+              </Link>
             </li>
-
 
             {/* Capacitaciones */}
             <li>
@@ -119,15 +115,6 @@ const SidebarAdministrador = () => {
                 className="flex  text-secondary-100 items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-100   hover:text-black transition-colors"
               >
                 <RiBriefcase2Line className="text-primary" /> Capacitaciones
-              </Link>
-            </li>
-            {/* Posicion laboral */}
-            <li>
-              <Link
-                to="/administracion/posiciones-laborales"
-                className="flex  text-secondary-100 items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-100   hover:text-black transition-colors"
-              >
-                <RiUser3Line className="text-primary" /> Posiciones laborales
               </Link>
             </li>
             {/* Permisos */}
@@ -224,11 +211,57 @@ const SidebarAdministrador = () => {
                 <MdOutlineAssessment className="text-primary" /> Evaluaciones
               </Link>
             </li>
-
+            {/* Posicion laboral */}
+            <li>
+              <button
+                onClick={() => toggleSubMenu(8)}
+                className="w-full flex text-secondary-100 items-center justify-between py-2 px-4 rounded-lg hover:bg-secondary-100    hover:text-black transition-colors"
+              >
+                <span className="flex items-center gap-4">
+                  <HiOutlineBuildingOffice2 className="text-primary" /> Posicion
+                  laboral
+                </span>
+                <RiArrowRightSLine
+                  className={`mt-1 ${
+                    activeSubmenus.includes(8) && "rotate-90"
+                  } transition-all`}
+                />
+              </button>
+              <ul
+                className={` ${
+                  activeSubmenus.includes(8) ? "h-[130px]" : "h-0"
+                } overflow-y-hidden transition-all`}
+              >
+                <li>
+                  <Link
+                    to="/direcciones"
+                    className="py-2 text-secondary-100 px-4 border-l border-gray-500 ml-6 block relative before:w-3 before:h-3 before:absolute before:bg-primary before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2 before:border-4 before:border-secondary-100 hover:text-primary transition-colors"
+                  >
+                    Direcciones
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/"
+                    className="py-2   text-secondary-100 px-4 border-l border-gray-500 ml-6 block relative before:w-3 before:h-3 before:absolute before:bg-gray-500 before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2 before:border-4 before:border-secondary-100 hover:text-primary transition-colors"
+                  >
+                    Unidades
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/"
+                    className="py-2   text-secondary-100 px-4 border-l border-gray-500 ml-6 block relative before:w-3 before:h-3 before:absolute before:bg-gray-500 before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2 before:border-4 before:border-secondary-100 hover:text-primary transition-colors"
+                  >
+                    Cargos
+                  </Link>
+                </li>
+              </ul>
+            </li>
             {/* Configuraciones */}
             <li>
               <Link
-                to="/administracion/configuraciones"
+                to="/"
                 className="flex  text-secondary-100 items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-100   hover:text-black  transition-colors"
               >
                 <span className="text-primary hover:text-yellow-900">
@@ -241,7 +274,7 @@ const SidebarAdministrador = () => {
         </div>
         <nav>
           <button
-            onClick={handleCerrarSesion}
+            onClick={cerrarSesion}
             className="flex  text-secondary-100   hover:text-black items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-100 transition-colors"
           >
             <RiLogoutCircleRLine className="text-primary" /> Cerrar sesión
@@ -258,4 +291,4 @@ const SidebarAdministrador = () => {
   );
 };
 
-export default SidebarAdministrador;
+export default Sidebar;

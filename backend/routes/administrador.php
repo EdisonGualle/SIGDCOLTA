@@ -107,15 +107,20 @@ Route::controller(AprobacionPermisoController::class)->group(function () {
 
 // CONTRATOS routes
 Route::get('/contratos', [ContratoController::class, 'listarContratos']);
+Route::get('/contratos2', [ContratoController::class, 'listarContratos2']);
 Route::get('/contratos/{id}', [ContratoController::class, 'mostrarContrato']);
 Route::get('/contratos/empleado/cedula/{cedula}', [ContratoController::class, 'listarContratosPorCedula']);
 Route::get('/contratos/estado/{estadoContrato}', [ContratoController::class, 'listarContratosPorEstado']);
 Route::get('/contratos/empleado/id/{idEmpleado}', [ContratoController::class, 'listarContratosPorIdEmpleado']);
 Route::get('/contratos/tipo/id/{idTipoContrato}', [ContratoController::class, 'listarContratosPorIdTipoContrato']);
+Route::get('/contratos-tipo/', [ContratoController::class, 'listarContratosPorTipo']);
 Route::get('/contratos/tipo/nombre/{nombreTipoContrato}', [ContratoController::class, 'listarContratosPorNombreTipoContrato']);
 Route::post('/contratos', [ContratoController::class, 'crearContrato']);
 Route::put('/contratos/{id}', [ContratoController::class, 'actualizarContrato']);
 Route::delete('/contratos/{id}', [ContratoController::class, 'eliminarContrato']);
+
+//
+Route::get('/contratos-empleados', [ContratoController::class, 'listarEmpleadosContratos']);
 
 
 // DATOS BANCARIOS routes
