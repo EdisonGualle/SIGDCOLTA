@@ -120,6 +120,7 @@ const TableEmpleados = ({ empleados }) => {
         suppressMenu: true,
         checkboxSelection: true,
         headerCheckboxSelection: true,
+        chartDataType: "category",
       },
       {
         headerName: "Acciones",
