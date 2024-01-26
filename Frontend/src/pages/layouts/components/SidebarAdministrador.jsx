@@ -108,20 +108,7 @@ const SidebarAdministrador = () => {
                   >
                     <LiaFileContractSolid className="text-primary" /> Contratos
                   </Link>
-              {/* <ul
-                className={` ${activeSubmenus.includes(5) ? "h-[130px]" : "h-0"
-                  } overflow-y-hidden transition-all`}
-              >
-                <li>
-                  <Link
-                    to="/administracion/contratos"
-                    className="flex  text-secondary-100 items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-100   hover:text-black transition-colors"
-                  >
-                    <LiaFileContractSolid className="text-primary" /> Todos
-                  </Link>
-                </li>
-               
-              </ul> */}
+             
             </li>
 
 
