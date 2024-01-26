@@ -170,7 +170,8 @@ Route::post('/empleados', [EmpleadoController::class, 'crearEmpleado']);
 Route::put('/empleados/{id}', [EmpleadoController::class, 'actualizarEmpleado']);
 Route::delete('/empleados/{id}', [EmpleadoController::class, 'eliminarEmpleado']);
 
-
+//ruta para la funcion para mostar todos los empleados con sus capacitaciones
+Route::get('/empleados-con-capacitaciones', [CapacitacionController::class, 'listarEmpleadosConCapacitaciones']);
 
 // PROVINCIAS routes
 Route::get('/provincia', [ProvinciaController::class, 'listarProvincia']);

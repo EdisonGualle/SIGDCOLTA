@@ -18,28 +18,28 @@ const DireccionesProvider = ({ children }) => {
           setCargando(false);
           return navigate("/");
         }
-  
+
         const config = {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         };
-  
+
         const { data } = await clienteAxios("/direcciones", config);
         setDirecciones(data.data);
-    
+
       } catch (error) {
         console.error("Error al obtener direcciones:", error);
       } finally {
         setCargando(false);
       }
     };
-  
+
     // Fetch data when component mounts
     getDirecciones();
   }, []);
-  
+
 
   const contextValue = {
     direcciones,
