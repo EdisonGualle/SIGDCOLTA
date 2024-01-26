@@ -87,11 +87,11 @@ Route::controller(CargoController::class)->group(function () {
 
 // JerarquiaPermiso routes
 Route::controller(JerarquiaPermisoController::class)->group(function () {
-    Route::get('/jerarquia-permiso', 'listarJerarquiasPermiso');
-    Route::get('/jerarquia-permiso/{idCargo}/{idCargoAprobador}', 'mostrarJerarquiaPermiso');
-    Route::post('/jerarquia-permiso', 'crearJerarquiaPermiso');
-    Route::put('/jerarquia-permiso/{idCargo}/{idCargoAprobador}', 'actualizarJerarquiaPermiso');
-    Route::delete('/jerarquia-permiso/{idCargo}/{idCargoAprobador}', 'eliminarJerarquiaPermiso');
+    Route::get('/jerarquia-cargos', 'listarJerarquiasPermiso');
+    Route::get('/jerarquia-cargos/{idCargo}/{idCargoAprobador}', 'mostrarJerarquiaPermiso');
+    Route::post('/jerarquia-cargos', 'crearJerarquiaPermiso');
+    Route::put('/jerarquia-cargos/{idCargo}/{idCargoAprobador}', 'actualizarJerarquiaPermiso');
+    Route::delete('/jerarquia-cargos/{idCargo}/{idCargoAprobador}', 'eliminarJerarquiaPermiso');
 });
 
 // Rutas para AprobacionPermiso
@@ -152,6 +152,7 @@ Route::get('/discapacidades/empleados-por-discapacidad/id/{idDiscapacidad}', [Di
 
 
 // EMPLEADOS routes
+Route::get('/empleados-por-posicion-laboral', [EmpleadoController::class, 'listarEmpleadosPorPosicionLaboral']);
 Route::get('/empleados', [EmpleadoController::class, 'listarEmpleados']);
 Route::get('/empleadosReporte', [EmpleadoController::class, 'EmpleadosReporte']);
 Route::get('/empleados/{id}', [EmpleadoController::class, 'mostrarEmpleadoPorId']);
@@ -168,6 +169,7 @@ Route::get('/empleados/canton/{id_canton}', [EmpleadoController::class, 'listarE
 Route::post('/empleados', [EmpleadoController::class, 'crearEmpleado']);
 Route::put('/empleados/{id}', [EmpleadoController::class, 'actualizarEmpleado']);
 Route::delete('/empleados/{id}', [EmpleadoController::class, 'eliminarEmpleado']);
+
 
 
 // PROVINCIAS routes

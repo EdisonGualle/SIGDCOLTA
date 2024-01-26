@@ -1,32 +1,146 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AuthProvider } from "./context/AuthProvider";
-import AuthLayout from "./layouts/AuthLayout";
-import RutaProtegida from "./layouts/RutaProtegida";
-import Login from "./Pages/Login";
-import Dashboard from "./Pages/Dashboard";
-import Empleados from "./Pages/Empleados";
-import { EmpleadosProvider } from "./context/EmpleadosProvider";
-import Error404 from "./Pages/Error404";
-import Direcciones from "./Pages/Direcciones";
-import { DireccionesProvider } from "./context/DireccionesProvider";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { AuthProvider } from "./providers/AuthProvider";
+import AuthLayout from "./pages/layouts/AuthLayout";
+import HomeLayout from "./pages/layouts/HomeLayout";
+import EmpleadosLayout from "./pages/layouts/EmpleadosLayout";
+import AdministradorLayout from "./pages/layouts/AdministradorLayout";
+import Configuracion from "./pages/layouts/components/Configuracion";
+import Home from "./pages/Home";
+import Login from "./pages/auth/Login";
+import HomeEmpleados from "./pages/empleados/Home";
+/* import DashboardAdministrador from "./pages/administracion/Dashboard";
+ */ import IndexEmpleadosAdministrador from "./pages/administracion/empleados/Index";
+/* import IndexPermisosAdministrador from "./pages/administracion/permisos/Index";
+ */ import { EmpleadosProvider } from "./providers/EmpleadosProvider";
+import NotFound from "./pages/NotFound";
+
+import IndexDireccionesAdministrador from "./pages/administracion/posicionLaboral/direcciones/Index";
+import { DireccionesProvider } from "./providers/DireccionesProvider";
+
+import IndexPosicionesLaboralesAdministrador from "./pages/administracion/posicionLaboral";
+import { PosicionesLaboralesProvider } from "./providers/PosicionesLaborales";
+
+import IndexUnidadesAdministrador from "./pages/administracion/posicionLaboral/unidades";
+import { UnidadesProvider } from "./providers/UnidadesProvider";
+import IndexCargosAdministrador from "./pages/administracion/posicionLaboral/cargos";
+import { CargosProvider } from "./providers/CargosProvider";
+
+import IndexJerarquiaCargosAdministrador from "./pages/administracion/posicionLaboral/jerarquiaCargos";
+import { JerarquiaCargosProvider } from "./providers/JerarquiaCargosProvider";
+import Dashboard from "./pages/administracion/dashboard/Dashboard";
+
+import IndexUsuariosAdministrador from "./pages/administracion/usuarios";
+import { UsuariosProvider } from "./providers/UsuariosProvider";
+import IndexPerfil from "./pages/administracion/perfil/Index";
+
+import { RolesProvider } from "./providers/RolesProvider";
+
+import RecuperarContraseña from "./pages/auth/RecuperarContrasena";
+import IndexConfiguracionAdministrador from "./pages/administracion/configuracion";
+
 function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
         <EmpleadosProvider>
-        <DireccionesProvider>
-          <Routes>
-            <Route path="/" element={<AuthLayout />}>
-              <Route index element={<Login />} />
-            </Route>
-            <Route path="*" element={<Error404 />} />
-            <Route path="/" element={<RutaProtegida />}>
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/empleados" element={<Empleados />} />
-              <Route path="/direcciones" element={<Direcciones />} />
-            </Route>
-          </Routes>
-          </DireccionesProvider>
+          <UsuariosProvider>
+            <PosicionesLaboralesProvider>
+              <DireccionesProvider>
+                <UnidadesProvider>
+                  <CargosProvider>
+                    <JerarquiaCargosProvider>
+                      <RolesProvider>
+                        <Routes>
+                          {/* RUTAS PAcdRA PAGINA DE INICIO SISTEMA */}
+                          <Route path="/" element={<HomeLayout />}>
+                            <Route index element={<Home />} />
+
+                            <Route path="*" element={<NotFound />} />
+                          </Route>
+                          {/* RUTAS PARA LOGEO ETC */}
+                          <Route path="/" element={<AuthLayout />}>
+                            <Route path="ingresar" element={<Login />} />
+                            <Route
+                              path="recuperar-contraseña"
+                              element={<RecuperarContraseña />}
+                            />
+                          </Route>
+
+                          {/* RUTAS DE EMPLEADOS REQUIEREN AUTENTICACION */}
+                          <Route
+                            path="/empleados"
+                            element={<EmpleadosLayout />}
+                          >
+                            <Route index element={<HomeEmpleados />} />
+                          </Route>
+
+                          {/* RUTAS DEL ADMINSISTRADOR REQUIEREN AUTENTICACION */}
+                          <Route
+                            path="/administracion"
+                            element={<AdministradorLayout />}
+                          >
+                            <Route index element={<Dashboard />} />
+                            <Route
+                              path="configuracion-perfil"
+                              element={<Configuracion />}
+                            />
+
+                            <Route
+                              path="empleados"
+                              element={<IndexEmpleadosAdministrador />}
+                            />
+                           {/*  <Route
+                              path="permisos"
+                              element={<IndexPermisosAdministrador />}
+                            /> */}
+
+                            {/* Modulo Usuarios */}
+                            <Route
+                              path="usuarios"
+                              element={<IndexUsuariosAdministrador />}
+                            />
+
+                            {/* Modulo Posiciones Laborales */}
+
+                            <Route
+                              path="posiciones-laborales"
+                              element={
+                                <IndexPosicionesLaboralesAdministrador />
+                              }
+                            />
+                            <Route
+                              path="direcciones"
+                              element={<IndexDireccionesAdministrador />}
+                            />
+                            <Route
+                              path="unidades"
+                              element={<IndexUnidadesAdministrador />}
+                            />
+                            <Route
+                              path="cargos"
+                              element={<IndexCargosAdministrador />}
+                            />
+                            <Route
+                              path="jerarquia-cargos"
+                              element={<IndexJerarquiaCargosAdministrador />}
+                            />
+                            <Route
+                              path="configuraciones"
+                              element={<IndexConfiguracionAdministrador />}
+                            />
+                             <Route
+                              path="perfil/*"
+                              element={<IndexPerfil />}
+                            />
+                          </Route>
+                        </Routes>
+                      </RolesProvider>
+                    </JerarquiaCargosProvider>
+                  </CargosProvider>
+                </UnidadesProvider>
+              </DireccionesProvider>
+            </PosicionesLaboralesProvider>
+          </UsuariosProvider>
         </EmpleadosProvider>
       </AuthProvider>
     </BrowserRouter>
