@@ -47,7 +47,7 @@ class EmpleadoDatosPersonalesController extends Controller
                 'informacionAdicional'=>[
                     'nacionalidad' => $empleado->nacionalidad,
                     'etnia' =>$empleado->etnia,
-                    'estadoCivi'=>$empleado->estadoCivil,
+                    'estadoCivil'=>$empleado->estadoCivil,
                     'tipoSangre'=>$empleado->tipoSangre
                 ],
                 'ubicacionGeografica' =>[
