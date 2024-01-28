@@ -32,7 +32,6 @@ const ContratosProvider = ({ children }) => {
 
         const { data } = await clienteAxios("/contratos2", config);
 
-        console.log(data); // Verifica la estructura de la respuesta
         setContratos(data); // Intenta acceder a la propiedad correcta
 
       } catch (error) {

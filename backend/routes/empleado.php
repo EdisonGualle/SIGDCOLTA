@@ -17,7 +17,7 @@ Route::get('mis-capacitaciones', [EmpleadoCapacitacionController::class, 'listar
 Route::get('total-capacitaciones', [EmpleadoCapacitacionController::class, 'obtenerTotalCapacitacionesPorEmpleadoAuth']);
 
 //Rutas Cargo
-Route::get('/mi-cargo', [EmpleadoCargoController::class, 'mostrarInformacionEmpleadoCargoDepartamento']);
+Route::get('/mi-cargo', [EmpleadoCargoController::class, 'miCargo']);
 
 //Rutas Contrato
 Route::get('/mis-contratos', [EmpleadoContratoController::class, 'listarContratosPorEmpleadoAuth']);

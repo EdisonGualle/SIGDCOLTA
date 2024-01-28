@@ -49,6 +49,7 @@ import { RolesProvider } from "./providers/RolesProvider";
 
 import RecuperarContraseña from "./pages/auth/RecuperarContrasena";
 import IndexConfiguracionAdministrador from "./pages/administracion/configuracion";
+import { AuthEmpleadoProvider } from "./providers/AuthEmpleadoProvider";
 
 
 
@@ -67,6 +68,7 @@ function App() {
                         <ContratosProvider >
                           <TiposContratoProvider>
                             <AgregarContratoProvider>
+                              <AuthEmpleadoProvider>
                               <Routes>
                                 {/* RUTAS PAcdRA PAGINA DE INICIO SISTEMA */}
                                 <Route path="/" element={<HomeLayout />}>
@@ -152,6 +154,7 @@ function App() {
                                 </Route>
                                 
                               </Routes>
+                              </AuthEmpleadoProvider>
                             </AgregarContratoProvider>
                           </TiposContratoProvider>
                         </ContratosProvider>
