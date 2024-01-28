@@ -8,7 +8,7 @@ export default function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
   return (
     <>
-      <nav className=" md:block md:fixed  md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-4">
+      <nav className=" md:block md:fixed  md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden  bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-4 rounded-tl-lg rounded-bl-lg">
         <div className="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
           {/* Toggler */}
           <button
@@ -21,7 +21,7 @@ export default function Sidebar() {
           {/* Brand */}
           <Link
             className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-            to="/administracion/perfil"
+            to="/administracion/perfil/dashboard"
           >
             Perfil Empleado
           </Link>
@@ -140,7 +140,7 @@ export default function Sidebar() {
                         : "text-blueGray-300")
                     }
                   ></i>{" "}
-                  Asistencias
+                  Asistencia y Tiempo
                 </Link>
               </li>
 

@@ -5,20 +5,20 @@ import React from "react";
 export default function CardSettings() {
   return (
     <>
-      <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
-        <div className="rounded-t bg-red-500 text-white mb-0 px-6 py-6">
+      <div className="relative flex flex-col min-w-0 break-words w-full  rounded-lg bg-blueGray-100 border-0">
+        <div className="rounded-tr-lg bg-blue-200	 mb-0 px-6 py-6">
           <div className="text-center flex justify-between">
-            <h6 className="text-blueGray-700 text-xl font-bold">Datos</h6>
-            <button
+            <h6 className="text-sm font-bold text-gray-900 uppercase ps-8  py-1">Datos Personales</h6>
+            {/* <button
               className="bg-black text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
               type="button"
             >
               Guardar
-            </button>
+            </button> */}
           </div>
         </div>
         <div
-          className="flex-auto px-4 lg:px-10 py-10 pt-0 bg-red-100"
+          className="flex-auto px-4 lg:px-10 py-10 pt-0 bg-indigo-100 rounded-br-lg"
         >
           <form>
             <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">

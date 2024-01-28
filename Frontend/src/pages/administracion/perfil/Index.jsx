@@ -9,17 +9,14 @@ import Asistencia from "./Asistencia";
 import useEmpleados from "../../../hooks/useEmpleados";
 import Habilidades from "./Habilidades";
 import Configuracion from "../../layouts/components/Configuracion";
+import Dashboard from "./Dasboard";
 
 const IndexPerfil = () => {
   return (
     <>
       <Sidebar />
-      <div className="md:ml-64 bg-indigo-500 h-64">
-        <Navbar />
-        <HeaderStats />
-        <div className="px-4 md:px-10 mx-auto -m-24">
+      <div className=" h-64">
           <Outlet /> {/* Renderiza las rutas secundarias aquí */}
-        </div>
       </div>
     </>
   );
@@ -29,6 +26,7 @@ const Perfil = () => {
   return (
     <Routes>
       <Route path="/" element={<IndexPerfil />}>
+        <Route path="dashboard" element={<Dashboard />} />
         <Route path="datos-personales" element={<DatosPersonales />} />
         <Route path="datos-laborales" element={<DatosLaborales />} />
         <Route path="asistencias" element={<Asistencia />} />
