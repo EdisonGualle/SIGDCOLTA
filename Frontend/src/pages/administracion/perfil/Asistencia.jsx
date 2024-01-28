@@ -1,5 +1,4 @@
 import React from "react";
-import CardProfile from "./components/Cards/CardProfile";
 import CardAsistencia from "./components/Cards/CardAsistencia";
 const Asistencia = () => {
   return (

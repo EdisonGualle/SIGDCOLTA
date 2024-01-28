@@ -10,7 +10,7 @@ export default function CardAsistencia() {
     return (
         <>
             <div className="relative flex flex-col min-w-0 break-words bg-indigo-100 w-full  rounded-br-lg rounded-tr-lg">
-                <div className="rounded-tr-lg  bg-red-200	  mb-0 px-6 py-6 w-full">
+                <div className="rounded-tr-lg  bg-green-200		  mb-0 px-6 py-6 w-full">
                     <div className="text-center flex justify-between">
                         <h6 className="text-sm font-bold uppercase ps-8 py-1">Asistencia y Tiempo</h6>
                         {/* <button

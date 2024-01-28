@@ -1,5 +1,5 @@
 import React from "react";
-import CardProfile from "./components/Cards/CardProfile";
+
 import CardHabilidades from "./components/Cards/CardHabilidades";
 const Habilidades = () => {
   return (

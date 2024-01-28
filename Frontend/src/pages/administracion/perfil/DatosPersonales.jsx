@@ -1,8 +1,5 @@
 import React from "react";
 
-// components
-
-import CardProfile from "./components/Cards/CardProfile";
 import CardSettings from "./components/Cards/CardSettings";
 
 export default function DatosPersonales() {

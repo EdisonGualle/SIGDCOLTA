@@ -1,14 +1,11 @@
 import React from "react";
 import { Routes, Route, Outlet } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar";
-import Navbar from "./components/Navbars/AdminNavbar";
-import HeaderStats from "./components/Headers/HeaderStats";
 import DatosPersonales from "./DatosPersonales";
 import DatosLaborales from "./DatosLaborales";
 import Asistencia from "./Asistencia";
-import useEmpleados from "../../../hooks/useEmpleados";
 import Habilidades from "./Habilidades";
-import Configuracion from "../../layouts/components/Configuracion";
+import ConfiguracionPerfil from "./Configuracion";
 import Dashboard from "./Dasboard";
 
 const IndexPerfil = () => {
@@ -31,7 +28,7 @@ const Perfil = () => {
         <Route path="datos-laborales" element={<DatosLaborales />} />
         <Route path="asistencias" element={<Asistencia />} />
         <Route path="habilidades" element={<Habilidades />} />
-        <Route path="configuracion" element={<Configuracion/>} />
+        <Route path="configuracion" element={<ConfiguracionPerfil/>} />
       </Route>
     </Routes>
   );
