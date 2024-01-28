@@ -19,6 +19,7 @@ use Illuminate\Http\JsonResponse;
 
 include('administrador.php');
 
+
 // Ingreso
 Route::post('/ingresar', [AuthController::class, 'ingresar']);
 

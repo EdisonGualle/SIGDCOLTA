@@ -1,20 +1,15 @@
 import React from "react";
 
-// components
-
-import CardProfile from "./components/Cards/CardProfile";
 import CardSettings from "./components/Cards/CardSettings";
 
 export default function DatosPersonales() {
   return (
     <>
-      <div className="flex flex-wrap">
-        <div className="w-full lg:w-7/12 ">
+      <div className="flex flex-wrap md:ml-64">
+        <div className="w-full">
           <CardSettings />
         </div>
-        <div className="w-full lg:w-5/12 px-2">
-          <CardProfile />
-        </div>
+        
       </div>
     </>
   );

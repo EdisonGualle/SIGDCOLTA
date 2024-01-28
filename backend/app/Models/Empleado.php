@@ -130,4 +130,14 @@ class Empleado extends Model
     {
         return $this->primerNombre . ' ' . $this->segundoNombre . ' ' . $this->primerApellido . ' ' . $this->segundoApellido;
     }
+
+    public function provincia()
+    {
+        return $this->belongsTo(Provincia::class, 'id_provincia');
+    }
+
+    public function canton()
+    {
+        return $this->belongsTo(Canton::class, 'id_canton');
+    }
 }

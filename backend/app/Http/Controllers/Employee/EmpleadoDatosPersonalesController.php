@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Employee;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class EmpleadoCargoController extends Controller
+class EmpleadoDatosPersonalesController extends Controller
 {
-    public function miCargo()
+    public function misDatosPersonales()
     {
         try {
             // Verificar si el usuario está autenticado
@@ -27,31 +27,36 @@ class EmpleadoCargoController extends Controller
             // Obtener información del cargo y de la unidad del empleado
             $cargo = $empleado->cargo;
 
-            // Crear la respuesta JSON con información reducida
+            // Crear la respuesta JSON con la información requerida
             $datos = [
-                'empleado' => [
+    
+                'informacionPersonal' => [
+                    'usuario' => $usuarioAutenticado->usuario,
                     'cedula' => $empleado->cedula,
                     'nombre' => $empleado->primerNombre . ' ' . $empleado->segundoNombre,
                     'apellido' => $empleado->primerApellido . ' ' . $empleado->segundoApellido,
+                    'fechaNacimiento' => $empleado->fechaNacimiento,
+                    'genero' => $empleado->genero,  
                 ],
-                'cargo' => $cargo ? $cargo->toArray() : null,
+                'informacionContacto' => [
+                    'telefonoPesonal' => $empleado->telefonoPersonal,
+                    'telefonoTrabajo' => $empleado->telefonoTrabajo,
+                    'correoPersonal' => $empleado->correo,
+                    'correoInstitucional' => $usuarioAutenticado->correo
+                ],
+                'informacionAdicional'=>[
+                    'nacionalidad' => $empleado->nacionalidad,
+                    'etnia' =>$empleado->etnia,
+                    'estadoCivil'=>$empleado->estadoCivil,
+                    'tipoSangre'=>$empleado->tipoSangre
+                ],
+                'ubicacionGeografica' =>[
+                    'provincia'=>$empleado->provincia->nombre_provincia,
+                    'canton'=>$empleado->canton->nombre_canton,
+                ]
             ];
 
-            // Validar la existencia del cargo
-            if (!$cargo) {
-                $datos['mensaje_cargo'] = 'El empleado no tiene asignado un cargo aún.';
-            }
-
-            // Si hay cargo, obtener información de la unidad a través del cargo
-            if ($cargo) {
-                $unidad = $cargo->unidad;
-                $datos['unidad'] = $unidad ? $unidad->toArray() : null;
-
-                // Validar la existencia de la unidad
-                if (!$unidad) {
-                    $datos['mensaje_unidad'] = 'El empleado no tiene asignada una unidad aún.';
-                }
-            }
+           
 
             return $this->successResponse('Datos obtenidos correctamente', $datos);
         } catch (\Exception $e) {

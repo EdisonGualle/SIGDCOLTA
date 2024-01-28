@@ -46,7 +46,7 @@ const SidebarAdministrador = () => {
   return (
     <>
       <div
-        className={`xl:h-[100vh] absolute overflow-y-scroll fixed xl:static w-[80%] md:w-[40%] lg:w-[30%] xl:w-auto h-full top-0 bg-secondary-900 p-4 flex flex-col justify-between z-50 ${
+        className={`xl:h-[100vh] absolute overflow-y-scroll fixed xl:static w-[80%] md:w-[40%] lg:w-[30%] xl:w-auto h-full top-0 bg-secondary-900 p-4 flex flex-col justify-between z-50  ${
           showMenu ? "left-0" : "-left-full"
         } transition-all`}
       >
@@ -67,7 +67,7 @@ const SidebarAdministrador = () => {
             {/* Mi Perfil */}
             <li>
               <Link
-                to="/administracion/perfil"
+                to="/administracion/perfil/dashboard"
                 className="flex  text-secondary-100 items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-100   hover:text-black transition-colors"
               >
                 <RiUser3Line className="text-primary" /> Mi Perfil
@@ -134,7 +134,7 @@ const SidebarAdministrador = () => {
             <li>
               <button
                 onClick={() => toggleSubMenu(4)}
-                className="w-full flex text-secondary-100 items-center justify-between py-2 px-4 rounded-lg hover:bg-secondary-100    hover:text-black transition-colors"
+                className="w-full flex text-secondary-100  items-center justify-between py-2 px-4 rounded-lg hover:bg-secondary-100    hover:text-black transition-colors"
               >
                 <span className="flex items-center gap-4">
                   <BsClipboard2Check className="text-primary" /> Permisos
