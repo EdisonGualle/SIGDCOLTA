@@ -196,6 +196,7 @@ Route::delete('/estados/{id}', [EstadoController::class, 'eliminarEstado']);
 
 // EVALUACIONES DESEMPEÑO routes
 Route::get('/evaluaciones-desempeno', [EvaluacionDesempenoController::class, 'listarEvaluacionesDesempeno']);
+Route::get('/sin-evaluaciones-desempeno', [EvaluacionDesempenoController::class, 'listarSinEvaluacionesDesempeno']);
 Route::get('/evaluaciones-desempeno/{id}', [EvaluacionDesempenoController::class, 'mostrarEvaluacionDesempenoPorId']);
 Route::post('/evaluaciones-desempeno', [EvaluacionDesempenoController::class, 'crearEvaluacionDesempeno']);
 Route::put('/evaluaciones-desempeno/{id}', [EvaluacionDesempenoController::class, 'actualizarEvaluacionDesempeno']);

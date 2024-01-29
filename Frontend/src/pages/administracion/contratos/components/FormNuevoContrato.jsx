@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-const FormularioContrato = ({ selectedRowData }) => {
+const FormularioContrato = ({ tipoContratos, selectedEmployeeId }) => {
   const [formData, setFormData] = useState({
     fechaInicio: "",
     fechaFin: "",
-    idEmpleado: "",
+    idEmpleado: selectedEmployeeId || "",
     idTipoContrato: "",
     archivo: null,
     salario: "",
@@ -66,21 +66,51 @@ const FormularioContrato = ({ selectedRowData }) => {
             value={formData.idEmpleado}
             onChange={handleInputChange}
             className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+            disabled // Deshabilita la entrada para que no sea modificable manualmente
+          />
+
+        </div>
+        <div className="mb-4">
+          <label htmlFor="nombreEmpleado" className="block text-sm font-medium text-gray-600">
+            Empleado
+          </label>
+          <input
+            type="text"
+            id="nombreEmpleado"
+            name="nombreEmpleado"
+            value={formData.nombreEmpleado}
+            onChange={handleInputChange}
+            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
           />
         </div>
 
         <div className="mb-4">
-          <label htmlFor="idTipoContrato" className="block text-sm font-medium text-gray-600">
-            ID de Tipo de Contrato
+          <label
+            htmlFor="descripcion"
+            className="block text-sm font-medium text-gray-600"
+          >
+            Tipos de Contratos
           </label>
-          <input
-            type="text"
-            id="idTipoContrato"
-            name="idTipoContrato"
-            value={formData.idTipoContrato}
-            onChange={handleInputChange}
+          <select
             className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-          />
+            name="tiposContratos"
+            id="tiposContratos"
+            defaultValue={undefined}
+          >
+            <option value="" hidden>
+              Tipos de Contratos
+            </option>
+            {tipoContratos && tipoContratos.map((tipoContrato) => {
+              return (
+                <option key={tipoContrato.idTipoContrato} value={tipoContrato.idTipoContrato}>
+                  {tipoContrato.nombre}
+                </option>
+              );
+            })}
+
+
+
+          </select>
         </div>
 
         <div className="mb-4">
@@ -126,12 +156,7 @@ const FormularioContrato = ({ selectedRowData }) => {
           </select>
         </div>
       </form>
-      <button
-          type="submit"
-          className="bg-blue-700 text-white py-2 px-5 rounded-lg"
-        >
-          Crear Contrato
-        </button>
+
     </div>
   );
 };

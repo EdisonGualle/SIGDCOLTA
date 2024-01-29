@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from 'react';
+
 import TableAgregarContrato from "./components/TableAgregarContrato";
 import useAsignarContrato from "../../../hooks/useAsiganarContrato";
 import FormNuevoContrato from "./components/FormNuevoContrato";
@@ -11,14 +12,14 @@ const IndexAgregarContratosAdministrador = () => {
   const { tiposContrato } = useAsignarContrato();
 
   const MySwal = withReactContent(Swal);
-  console.log("Datos traídos del provider:", tiposContrato);
-
+  const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
+  
 
 
   const handleNuevoContratoClick = () => {
     MySwal.fire({
       title: "Nuevo Tipo de Contrato",
-      html: <FormNuevoContrato />,
+      html: <FormNuevoContrato selectedEmployeeId={selectedEmployeeId} />,
       showCancelButton: false,
       showConfirmButton: false,
       cancelButtonColor: "#3085d6",
@@ -49,7 +50,8 @@ const IndexAgregarContratosAdministrador = () => {
       </div>
       
       <div className="h-full">
-        <TableAgregarContrato tiposContrato={tiposContrato} />
+      <TableAgregarContrato tiposContrato={tiposContrato} setSelectedEmployeeId={setSelectedEmployeeId} />
+
       </div>
     </>
   );

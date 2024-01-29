@@ -51,6 +51,16 @@ class EvaluacionDesempenoService
         
         return response()->json(['successful' => true, 'data' => $data]);
     }
+    public function listarSinEvaluacionesDesempeno()
+    {
+        // Obtiene todos los IDs de empleados con evaluaciones de desempeño
+        $empleadosConEvaluaciones = EvaluacionDesempeno::pluck('idEmpleado')->unique()->toArray();
+
+        // Obtiene los empleados que no están en la lista de IDs de empleados con evaluaciones de desempeño
+        $empleadosSinEvaluaciones = Empleado::whereNotIn('idEmpleado', $empleadosConEvaluaciones)->get();
+        return response()->json(['successful' => true, 'data' => $empleadosSinEvaluaciones]);
+        
+    }
      
     
 

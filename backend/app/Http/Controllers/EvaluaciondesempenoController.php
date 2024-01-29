@@ -18,6 +18,10 @@ class EvaluacionDesempenoController extends Controller
     {
         return $this->evaluacionDesempenoService->listarEvaluacionesDesempeno();
     }
+    public function listarSinEvaluacionesDesempeno()
+    {
+        return $this->evaluacionDesempenoService->listarSinEvaluacionesDesempeno();
+    }
 
     public function mostrarEvaluacionDesempenoPorId($id)
     {

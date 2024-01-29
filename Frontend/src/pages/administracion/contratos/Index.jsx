@@ -1,6 +1,7 @@
 import React from "react";
 import TableContrato from "./components/TableContrato";
 import useContratos from "../../../hooks/useContratos";
+import usetipoContratos from "../../../hooks/usetipoContratos";
 import FormNuevoContrato from "./components/FormNuevoContrato";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
@@ -8,8 +9,10 @@ import NavegacionContratos from "./components/NavegacionContratos";
 
 const IndextipoContratosAdministrador = () => {
   const { contratos } = useContratos();
+  const { tipoContratos } = usetipoContratos();
 
-  console.log("Datos traídos del provider:", contratos);
+    console.log("Datos de tipoContratos:", tipoContratos);
+  
   const MySwal = withReactContent(Swal);
 
   const handleEliminarContratoClick = () => {
@@ -33,11 +36,19 @@ const IndextipoContratosAdministrador = () => {
   const handleNuevoContratoClick = () => {
     MySwal.fire({
       title: "Nuevo Contrato",
-      html: <FormNuevoContrato />, // Renderiza el formulario de nuevo empleado en el contenido del SweetAlert
-      showCancelButton: false,
-      showConfirmButton: false,
-      cancelButtonColor: "#3085d6",
+      html: <FormNuevoContrato tipoContratos = {tipoContratos} />, // Renderiza el formulario de nuevo empleado en el contenido del SweetAlert
+      showCancelButton: true,
+      showCloseButton: true,
+      reverseButtons: true,
+      cancelButtonColor: "#d33",
+      confirmButtonColor: "#3085d6",
+      cancelButtonText: "Cancelar",
+      confirmButtonText: "Crear",
       width: "50%",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        MySwal.fire("Success", "Contrato creado correctamente", "success");
+      }
     });
   };
 
