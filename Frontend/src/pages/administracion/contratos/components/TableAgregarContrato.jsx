@@ -5,6 +5,7 @@ import { LANGUAGE_OPTIONS } from "../../empleados/components/traduccionTableGrid
 
 const TableAgregarContrato = ({ tiposContrato, setSelectedEmployeeId, setSelectedEmployeeName }) => {
   const [rowData, setRowData] = useState([]);
+  const [selectedRowCount, setSelectedRowCount] = useState(0);
  
   const handleRowSelection = (event) => {
     const selectedRows = event.api.getSelectedRows();
@@ -16,6 +17,7 @@ const TableAgregarContrato = ({ tiposContrato, setSelectedEmployeeId, setSelecte
       setSelectedEmployeeId(null);
       setSelectedEmployeeName(null);
     }
+    setSelectedRowCount(selectedRows.length);
   };
   
   
@@ -71,7 +73,9 @@ const TableAgregarContrato = ({ tiposContrato, setSelectedEmployeeId, setSelecte
 
   return (
     <div className="h-full">
-      
+      {selectedRowCount !== 1 && (
+        <p className="text-red-500">Seleccione Solo un empleado para agregar un nuevo contrato.</p>
+      )}
       <div className={"ag-theme-quartz"} style={{ width: "100%", height: "90%" }}>
         
         <AgGridReact

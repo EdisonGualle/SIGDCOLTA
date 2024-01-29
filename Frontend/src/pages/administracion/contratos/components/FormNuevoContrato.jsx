@@ -29,6 +29,20 @@ const FormularioContrato = ({ tipoContratos, selectedEmployeeId, selectedEmploye
   return (
     <div className="max-w-screen-md mx-auto p-4">
       <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="mb-4">
+          <label htmlFor="nombreEmpleado" className="block text-sm font-medium text-gray-600">
+            Empleado
+          </label>
+          <input
+            type="text"
+            id="nombreEmpleado"
+            name="nombreEmpleado"
+            value={formData.nombreEmpleado}
+            onChange={handleInputChange}
+            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+            disabled // Deshabilita la entrada para que no sea modificable manualmente
+          />
+        </div>
         <div className="mb-4">
           <label htmlFor="fechaInicio" className="block text-sm font-medium text-gray-600">
             Fecha de Inicio
@@ -70,22 +84,10 @@ const FormularioContrato = ({ tipoContratos, selectedEmployeeId, selectedEmploye
             className="mt-1 p-2 w-full border border-gray-300 rounded-md"
             disabled // Deshabilita la entrada para que no sea modificable manualmente
           />
+          
 
         </div>
-        <div className="mb-4">
-          <label htmlFor="nombreEmpleado" className="block text-sm font-medium text-gray-600">
-            Empleado
-          </label>
-          <input
-            type="text"
-            id="nombreEmpleado"
-            name="nombreEmpleado"
-            value={formData.nombreEmpleado}
-            onChange={handleInputChange}
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-            disabled // Deshabilita la entrada para que no sea modificable manualmente
-          />
-        </div>
+        
 
         <div className="mb-4">
           <label

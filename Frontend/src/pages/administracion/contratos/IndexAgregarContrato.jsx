@@ -14,19 +14,32 @@ const IndexAgregarContratosAdministrador = () => {
   const MySwal = withReactContent(Swal);
   const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
   const [selectedEmployeeName, setSelectedEmployeeName] = useState(null);
+  const [selectedRowCount, setSelectedRowCount] = useState(0); // State for selected row count
+
 
 
 
   const handleNuevoContratoClick = () => {
-    MySwal.fire({
-      title: "Nuevo Tipo de Contrato",
-      html: <FormNuevoContrato selectedEmployeeId={selectedEmployeeId} selectedEmployeeName={selectedEmployeeName} />,
-      showCancelButton: false,
-      showConfirmButton: false,
-      cancelButtonColor: "#3085d6",
-      cancelButtonText: "Cerrar",
-      width: "50%",
-    });
+    if (selectedEmployeeId === null || selectedRowCount !== 1) {
+      MySwal.fire({
+        icon: "error",
+        title: "Error",
+        text: selectedRowCount === 0 ? "Seleccione un empleado para agregar un nuevo contrato." : "Seleccione solo un empleado para agregar un nuevo contrato.",
+      });
+    } else (selectedEmployeeId === 1); {
+      MySwal.fire({
+        title: "Nuevo Tipo de Contrato",
+        html: <FormNuevoContrato selectedEmployeeId={selectedEmployeeId} selectedEmployeeName={selectedEmployeeName} />,
+        showCancelButton: true,
+        showCloseButton: true,
+        reverseButtons: true,
+        cancelButtonColor: "#d33",
+        confirmButtonColor: "#3085d6",
+        cancelButtonText: "Cancelar",
+        confirmButtonText: "Crear",
+        width: "50%",
+      });
+    }
   };
   return (
     <>
@@ -51,7 +64,7 @@ const IndexAgregarContratosAdministrador = () => {
       </div>
       
       <div className="h-full">
-        <TableAgregarContrato tiposContrato={tiposContrato} setSelectedEmployeeId={setSelectedEmployeeId} setSelectedEmployeeName={setSelectedEmployeeName}/>
+        <TableAgregarContrato tiposContrato={tiposContrato} setSelectedEmployeeId={setSelectedEmployeeId} setSelectedEmployeeName={setSelectedEmployeeName} setSelectedRowCount={setSelectedRowCount}/>
 
       </div>
     </>
