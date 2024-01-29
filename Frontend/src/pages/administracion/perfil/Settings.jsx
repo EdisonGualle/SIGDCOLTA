@@ -19,7 +19,6 @@ export default function Settings() {
           <CardProfile />
         </div>
       </div>
-      asd
     </>
   );
 }

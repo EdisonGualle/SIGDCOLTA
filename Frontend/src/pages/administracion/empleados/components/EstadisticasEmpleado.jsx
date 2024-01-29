@@ -1,14 +1,10 @@
 import React from "react";
-
-// components
-
-import CardStats from "../Cards/CardStats";
-
-export default function HeaderStats() {
+import CardStats from "../../perfil/components/Cards/CardStats";
+const EstadisticasEmpleado = () => {
   return (
     <>
       {/* Header */}
-      <div className="relative bg-lightBlue-600  pt-2">
+      <div className="relative bg-lightBlue-600 pb-32 pt-2">
         <div className="px-4 md:px-10 mx-auto w-full">
           <div>
             {/* Card stats */}
@@ -65,11 +61,8 @@ export default function HeaderStats() {
           </div>
         </div>
       </div>
-      <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg px-4">
-        <div className="px-6">
-          <div></div>
-        </div>
-      </div>
     </>
   );
-}
+};
+
+export default EstadisticasEmpleado;

@@ -17,6 +17,8 @@ const IndexEmpleadosAdministrador = () => {
   const handleCloseModal = () => {
     setModalOpen(false);
   };
+
+  /* Libera un modal */
   const handleEliminarClick = () => {
     MySwal.fire({
       title: "¿Estás seguro?",
@@ -35,10 +37,9 @@ const IndexEmpleadosAdministrador = () => {
     });
   };
 
- 
-
   return (
     <>
+      {/* Seccion de encabezado */}
       <div className="uppercase  bg-white py-2 font-bold rounded-lg mb-1 p-10">
         <div className="flex justify-start my-3">
           <h1 className="ms-0 me-10">
@@ -99,7 +100,11 @@ const IndexEmpleadosAdministrador = () => {
       {modalOpen ? (
         <ModalComponent isOpen={modalOpen} onClose={handleCloseModal} />
       ) : (
-        <TableEmpleados empleados={empleados} />
+        <TableEmpleados
+          isOpen={modalOpen}
+          onClose={handleCloseModal}
+          empleados={empleados}
+        />
       )}
     </>
   );

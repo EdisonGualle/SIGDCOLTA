@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ag-grid-community/core": "^31.0.3",
+    "@ag-grid-enterprise/charts": "^31.0.3",
+    "@ag-grid-enterprise/range-selection": "^31.0.3",
     "@fortawesome/fontawesome-free": "5.15.3",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
@@ -29,7 +32,8 @@
     "react-router-dom": "^6.21.2",
     "socket.io-client": "^4.7.4",
     "sweetalert2": "^11.10.3",
-    "sweetalert2-react-content": "^5.0.7"
+    "sweetalert2-react-content": "^5.0.7",
+    "tailwind-scrollbar-hide": "^1.1.7"
   },
   "devDependencies": {
     "@types/react": "^18.2.37",

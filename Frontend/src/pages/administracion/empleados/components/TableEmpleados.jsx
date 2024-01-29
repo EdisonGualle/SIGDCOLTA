@@ -1,29 +1,19 @@
-import "ag-grid-community/styles/ag-grid.css";
+/* import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import { AgGridReact } from "ag-grid-react";
-import React, { useEffect, useMemo, useState, useCallback } from "react";
-import { TRANSLATIONS } from "./traduccionTableGrid";
-import { LANGUAGE_OPTIONS } from "./traduccionTableGrid";
-import Tippy from "@tippyjs/react";
-import "tippy.js/dist/tippy.css"; // optional
+import React, { useEffect, useMemo, useState } from "react";
+import OptionsRenderer from "./OptionsRenderer";
+// Constants
+import { TRANSLATIONS, LANGUAGE_OPTIONS } from "./traduccionTableGrid";
 
-const TableEmpleados = ({ empleados }) => {
+const TableEmpleados = ({ empleados, handleEliminarClick }) => {
   const [rowData, setRowData] = useState([]);
-  const [modalVerOpen, setModalVerOpen] = useState(false);
-  const handleNuevoClick = () => {
-    setModalVerOpen(true);
-  };
-  
-  const handleCloseModal = () => {
-    setModalOpen(false);
-  };
-  // Fetch data & update rowData state
+
   useEffect(() => {
     setRowData(empleados);
   }, [empleados]);
 
-  // Column Definitions: Defines & controls grid columns.
-  const [colDefs] = useState([
+  const colDefs = useMemo(() => [
     {
       headerName: "Cedula",
       field: "cedula",
@@ -34,12 +24,11 @@ const TableEmpleados = ({ empleados }) => {
     {
       headerName: "Opciones",
       cellRenderer: OptionsRenderer,
-      checkboxSelection: false, // Evita que la columna sea seleccionable
-      filter: false, // Evita que la columna tenga funcionalidad de búsqueda
+      checkboxSelection: false,
+      filter: false,
       suppressMenu: true,
       width: 150,
     },
-
     {
       headerName: "Nombre Completo",
       suppressMenu: true,
@@ -71,7 +60,6 @@ const TableEmpleados = ({ empleados }) => {
     // Agrega más columnas según sea necesario
   ]);
 
-  // Apply settings across all columns
   const defaultColDef = useMemo(
     () => ({
       filter: "agTextColumnFilter",
@@ -85,64 +73,164 @@ const TableEmpleados = ({ empleados }) => {
     []
   );
 
-  // Definir el renderer personalizado para la columna de opciones
-  const frameworkComponents = {
-    optionsRenderer: OptionsRenderer,
-  };
   return (
-    <div className={"ag-theme-quartz"} style={{ width: "100%", height: "90%" }}>
+    <div className="ag-theme-quartz" style={{ width: "100%", height: "90%" }}>
       <AgGridReact
         localeText={TRANSLATIONS[LANGUAGE_OPTIONS.ES]}
         rowData={rowData}
         columnDefs={colDefs}
         defaultColDef={defaultColDef}
-        frameworkComponents={frameworkComponents}
+        frameworkComponents={{
+          optionsRenderer: (props) => <OptionsRenderer {...props} />,
+        }}
         pagination={true}
-        rowSelection={"multiple"}
+        rowSelection="multiple"
       />
     </div>
   );
 };
 
-// Nuevo componente para renderizar las opciones en la columna correspondiente
-const OptionsRenderer = (props) => {
-  const { data } = props.node;
+export default TableEmpleados;
+ */
+import React, { useEffect, useState } from "react";
+import { AgGridReact } from "ag-grid-react";
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-community/styles/ag-theme-alpine.css";
 
-  const handleVerClick = () => {
-    // Lógica para ver el empleado
-    console.log("Ver empleado:", data);
-  };
+import OptionsRenderer from "./OptionsRenderer";
+const TableEmpleados = ({ empleados }) => {
+  const [rowData, setRowData] = useState([]);
 
-  const handleEditarClick = () => {
-    // Lógica para editar el empleado
-    console.log("Editar empleado:", data);
-  };
+  useEffect(() => {
+    setRowData(empleados);
+  }, [empleados]);
 
-  const handleEliminarClick = () => {
-    // Lógica para eliminar el empleado
-    console.log("Eliminar empleado:", data);
-  };
+  const [gridOptions] = useState({
+    suppressClickEdit: true,
+    onCellClicked: handleCellClicked,
+    onRowEditingStarted: handleRowEditingStarted,
+    onRowEditingStopped: handleRowEditingStopped,
+    editType: "fullRow",
+    columnDefs: [
+      {
+        field: "cedula",
+        headerName: "cedula",
+        minWidth: 150,
+        editable: true,
+        suppressMenu: true,
+        checkboxSelection: true,
+        headerCheckboxSelection: true,
+        chartDataType: "category",
+      },
+      {
+        headerName: "Acciones",
+        minWidth: 150,
+        cellRenderer: OptionsRenderer,
+        editable: false,
+        colId: "acciones",
+        checkboxSelection: false,
+        filter: false,
+      },
+      {
+        headerName: "Nombre Completo",
+        suppressMenu: true,
+        valueGetter: (params) =>
+          `${params.data.primerNombre} ${params.data.segundoNombre} ${params.data.primerApellido} ${params.data.segundoApellido}`,
+      },
+      {
+        headerName: "Fecha de Nacimiento",
+        field: "fechaNacimiento",
+        filter: "agDateColumnFilter",
+        suppressMenu: true,
+      },
+      { headerName: "Correo", field: "correo", suppressMenu: true },
+      { headerName: "Genero", field: "genero", suppressMenu: true },
+      {
+        headerName: "Teléfono Personal",
+        field: "telefonoPersonal",
+        suppressMenu: true,
+      },
+      {
+        headerName: "Teléfono Trabajo",
+        field: "telefonoTrabajo",
+        suppressMenu: true,
+      },
+      { headerName: "Etnia", field: "etnia", suppressMenu: true },
+      { headerName: "Estado Civil", field: "estadoCivil", suppressMenu: true },
+      { headerName: "Tipo de Sangre", field: "tipoSangre", suppressMenu: true },
+      { headerName: "Nacionalidad", field: "nacionalidad", suppressMenu: true },
+    ],
+    defaultColDef: {
+      editable: true,
+      filter: "agTextColumnFilter",
+      filterParams: {
+        filterOptions: ["contains"],
+        defaultFilterOption: "contains",
+        suppressAndOrCondition: true,
+      },
+      floatingFilter: true,
+    },
+  });
+
+
+  function handleCellClicked(params) {
+    if (
+      params.column.colId === "acciones" &&
+      params.event.target.dataset.action
+    ) {
+      const action = params.event.target.dataset.action;
+
+      if (action === "edit") {
+        params.api.startEditingCell({
+          rowIndex: params.node.rowIndex,
+          colKey: "cedula", // Puedes especificar la columna que deseas editar aquí
+        });
+      }
+
+      if (action === "delete") {
+        params.api.applyTransaction({
+          remove: [params.node.data],
+        });
+      }
+
+      if (action === "update") {
+        params.api.stopEditing(false);
+      }
+
+      if (action === "cancel") {
+        params.api.stopEditing(true);
+      }
+    }
+  }
+
+  function handleRowEditingStarted(params) {
+    params.api.refreshCells({
+      columns: ["acciones"],
+      rowNodes: [params.node],
+      force: true,
+    });
+  }
+
+  function handleRowEditingStopped(params) {
+    params.api.refreshCells({
+      columns: ["acciones"],
+      rowNodes: [params.node],
+      force: true,
+    });
+  }
 
   return (
-    <div>
-      <Tippy placement="left" content="Ver Perfil del empleado">
-        <button data-tippy-content="Ver" title="Ver">
-          <i className="fas fa-eye mr-2 text-indigo-600"></i>
-        </button>
-      </Tippy>
-
-      <Tippy placement="left" content="Editar informacion del empleado">
-        <button>
-          <i className="fas fa-edit mr-2 text-lime-800"></i>
-        </button>
-      </Tippy>
-
-      <Tippy placement="left" content="Eliminar Empleados">
-        <button>
-          <i className="fas fa-trash-alt mr-2 text-red-600"></i>
-        </button>
-      </Tippy>
+    <div className="ag-theme-quartz" style={{ width: "100%", height: "90%" }}>
+      <AgGridReact
+        pagination={true}
+        gridOptions={gridOptions}
+        rowData={rowData}
+        rowSelection="multiple"
+        enableCharts={true}
+        enableRangeSelection={true}
+      />
     </div>
   );
 };
+
 export default TableEmpleados;

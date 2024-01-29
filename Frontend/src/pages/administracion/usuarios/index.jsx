@@ -65,27 +65,29 @@ const IndexUsuariosAdministrador = () => {
         const swalWithButtons = Swal.mixin({
           confirmButtonColor: "#d33",
           cancelButtonColor: "#3085d6",
-          buttonsStyling: true
+          buttonsStyling: true,
         });
-        swalWithButtons.fire({
-          title: "¿Estás seguro de que quieres eliminar este usuario?",
-          text: "¡Todos los datos relacionados con el usuario se eliminaran definitivamente de nuestros registros y no se podran recuperar!",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonText: "Si, eliminar !",
-          cancelButtonText: "No, cancelar!",
-          reverseButtons: true
-        }).then((result) => {
-          if (result.isConfirmed) {
-            swalWithButtons.fire({
-              title: "¡Eliminado!",
-              text: "El usuario se ha eliminado correctamente",
-              icon: "success"
-            });
-          }
-        });
+        swalWithButtons
+          .fire({
+            title: "¿Estás seguro de que quieres eliminar este usuario?",
+            text: "¡Todos los datos relacionados con el usuario se eliminaran definitivamente de nuestros registros y no se podran recuperar!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Si, eliminar !",
+            cancelButtonText: "No, cancelar!",
+            reverseButtons: true,
+          })
+          .then((result) => {
+            if (result.isConfirmed) {
+              swalWithButtons.fire({
+                title: "¡Eliminado!",
+                text: "El usuario se ha eliminado correctamente",
+                icon: "success",
+              });
+            }
+          });
         break;
-        
+
       case "deshabilitar-usuario":
         MySwal.fire({
           title: "¿Estás seguro?",
@@ -96,7 +98,7 @@ const IndexUsuariosAdministrador = () => {
           cancelButtonColor: "#3085d6",
           confirmButtonText: "Sí, deshabilitar",
           cancelButtonText: "No, Cancelar",
-          reverseButtons: true
+          reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
             // Aquí puedes realizar la lógica para eliminar al usuario
@@ -104,24 +106,24 @@ const IndexUsuariosAdministrador = () => {
           }
         });
         break;
-        case "habilitar-usuario":
-          MySwal.fire({
-            title: "¿Estás seguro?",
-            text: "Esta acción habilitara al Usuario. ¿Quieres continuar?",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#655cc9",
-            cancelButtonColor: "#3085d6",
-            confirmButtonText: "Sí, activar",
-            cancelButtonText: "No, Cancelar",
-            reverseButtons: true
-          }).then((result) => {
-            if (result.isConfirmed) {
-              // Aquí puedes realizar la lógica para eliminar al usuario
-              MySwal.fire("Activado", "Usuario Activado.", "success");
-            }
-          });
-          break;
+      case "habilitar-usuario":
+        MySwal.fire({
+          title: "¿Estás seguro?",
+          text: "Esta acción habilitara al Usuario. ¿Quieres continuar?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#655cc9",
+          cancelButtonColor: "#3085d6",
+          confirmButtonText: "Sí, activar",
+          cancelButtonText: "No, Cancelar",
+          reverseButtons: true,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Aquí puedes realizar la lógica para eliminar al usuario
+            MySwal.fire("Activado", "Usuario Activado.", "success");
+          }
+        });
+        break;
       case "editar-rol":
         MySwal.fire({
           title: "Editar Rol",
@@ -151,11 +153,15 @@ const IndexUsuariosAdministrador = () => {
           cancelButtonColor: "#3085d6",
           confirmButtonText: "Sí, eliminar",
           cancelButtonText: "Cancelar",
-          reverseButtons: true
+          reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
             // Aquí puedes realizar la lógica para eliminar la unidad
-            MySwal.fire("Eliminado", "El rol del usuario se ha eliminado.", "success");
+            MySwal.fire(
+              "Eliminado",
+              "El rol del usuario se ha eliminado.",
+              "success"
+            );
           }
         });
         break;
@@ -164,8 +170,12 @@ const IndexUsuariosAdministrador = () => {
     }
   };
 
-  const usuariosActivos = usuarios.filter((usuario) => usuario.estado === 'activo');
-  const usuariosInactivos = usuarios.filter((usuario) => usuario.estado === 'inactivo');
+  const usuariosActivos = usuarios.filter(
+    (usuario) => usuario.estado === "activo"
+  );
+  const usuariosInactivos = usuarios.filter(
+    (usuario) => usuario.estado === "inactivo"
+  );
   return (
     <>
       <div className="uppercase bg-white py-2 font-bold rounded-lg mb-1 p-10">

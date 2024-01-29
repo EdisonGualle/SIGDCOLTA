@@ -1,24 +1,26 @@
 import React from "react";
+import useAuthEmpleado from "../../../../../hooks/useAuthEmpleado";
 
 // components
 
 export default function CardSettings() {
+  const { obtenerMiInformacion } = useAuthEmpleado();
+  const informacionPersonal = obtenerMiInformacion?.informacionPersonal || {};
+  const informacionContacto = obtenerMiInformacion?.informacionContacto || {};
+  const informacionAdicional = obtenerMiInformacion?.informacionAdicional || {};
+  const ubicacionGeografica = obtenerMiInformacion?.ubicacionGeografica || {};
+
+
   return (
     <>
-      <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
-        <div className="rounded-t bg-red-500 text-white mb-0 px-6 py-6">
+      <div className="relative flex flex-col min-w-0 break-words w-full  rounded-lg bg-blueGray-100 border-0">
+        <div className="rounded-tr-lg bg-blue-200	 mb-0 px-6 py-6">
           <div className="text-center flex justify-between">
-            <h6 className="text-blueGray-700 text-xl font-bold">Datos</h6>
-            <button
-              className="bg-black text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-              type="button"
-            >
-              Guardar
-            </button>
+            <h6 className="text-sm font-bold text-gray-900 uppercase ps-8  py-1">Datos Personales</h6>
           </div>
         </div>
         <div
-          className="flex-auto px-4 lg:px-10 py-10 pt-0 bg-red-100"
+          className="flex-auto px-4 lg:px-10 py-10 pt-0 bg-indigo-100 rounded-br-lg"
         >
           <form>
             <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
@@ -35,8 +37,9 @@ export default function CardSettings() {
                   </label>
                   <input
                     type="text"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="lucky.jesse"
+                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-gray-300 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    value={informacionPersonal.usuario || ""}
+                    disabled
                   />
                 </div>
               </div>
@@ -46,15 +49,17 @@ export default function CardSettings() {
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Correo
+                    Cedula
                   </label>
                   <input
-                    type="email"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="jesse@example.com"
+                    type="text"
+                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-gray-300 after:rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    value={informacionPersonal.cedula || ""}
+                    disabled
                   />
                 </div>
               </div>
+              {/* Nombres */}
               <div className="w-full lg:w-6/12 px-4">
                 <div className="relative w-full mb-3">
                   <label
@@ -65,11 +70,13 @@ export default function CardSettings() {
                   </label>
                   <input
                     type="text"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="Lucky"
+                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-gray-300 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    value={informacionPersonal.nombre || ""}
+                    disabled
                   />
                 </div>
               </div>
+              {/* Apellidos */}
               <div className="w-full lg:w-6/12 px-4">
                 <div className="relative w-full mb-3">
                   <label
@@ -80,50 +87,201 @@ export default function CardSettings() {
                   </label>
                   <input
                     type="text"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="Jesse"
+                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-gray-300 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    value={informacionPersonal.apellido || ""}
+                    disabled
+                  />
+                </div>
+              </div>
+              {/* Fecha */}
+              <div className="w-full lg:w-6/12 px-4">
+                <div className="relative w-full mb-3">
+                  <label
+                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                    htmlFor="grid-password"
+                  >
+                    Fecha de nacimiento
+                  </label>
+                  <input
+                    type="date"
+                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-gray-300 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    value={informacionPersonal.fechaNacimiento || ""}
+                    disabled
+                  />
+                </div>
+              </div>
+              {/* Genero */}
+              <div className="w-full lg:w-6/12 px-4">
+                <div className="relative w-full mb-3">
+                  <label
+                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                    htmlFor="grid-password"
+                  >
+                    Genero
+                  </label>
+                  <input
+                    type="text"
+                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-gray-300 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    value={informacionPersonal.genero || ""}
+                    disabled
                   />
                 </div>
               </div>
             </div>
-
             <hr className="mt-6 border-b-1 border-blueGray-300" />
-
+            {/* Informaicon de contacto */}
             <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
               informacion Contacto
             </h6>
             <div className="flex flex-wrap">
-              <div className="w-full lg:w-12/12 px-4">
+              <div className="w-full lg:w-6/12 px-4">
                 <div className="relative w-full mb-3">
                   <label
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Direccion
+                    Teléfono Personal
                   </label>
                   <input
-                    type="text"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
+                    type="tel"
+                    pattern="[0-9]{10}"
+                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-gray-300 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    value={informacionContacto.telefonoPesonal || ""}
+                    disabled
                   />
                 </div>
               </div>
-              <div className="w-full lg:w-4/12 px-4">
+              <div className="w-full lg:w-6/12 px-4">
                 <div className="relative w-full mb-3">
                   <label
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Ciudad
+                    Teléfono Trabajo
+                  </label>
+                  <input
+                    type="tel"
+                    pattern="[0-9]{10}"
+                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-gray-300 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    value={informacionContacto.telefonoTrabajo || ""}
+                    disabled
+                  />
+                </div>
+              </div>
+              {/* Nombres */}
+              <div className="w-full lg:w-6/12 px-4">
+                <div className="relative w-full mb-3">
+                  <label
+                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                    htmlFor="grid-password"
+                  >
+                    Correo Personal
                   </label>
                   <input
                     type="email"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="New York"
+                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-gray-300 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    value={informacionContacto.correoPersonal || ""}
+                    disabled
                   />
                 </div>
               </div>
-              <div className="w-full lg:w-4/12 px-4">
+              {/* Apellidos */}
+              <div className="w-full lg:w-6/12 px-4">
+                <div className="relative w-full mb-3">
+                  <label
+                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                    htmlFor="grid-password"
+                  >
+                    Correo institucional
+                  </label>
+                  <input
+                    type="email"
+                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-gray-300 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    value={informacionContacto.correoInstitucional || ""}
+                    disabled
+                  />
+                </div>
+              </div>
+            </div>
+            {/* Informacion adicional */}
+            <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
+              informacion adicional
+            </h6>
+            <div className="flex flex-wrap">
+              <div className="w-full lg:w-6/12 px-4">
+                <div className="relative w-full mb-3">
+                  <label
+                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                    htmlFor="grid-password"
+                  >
+                    Nacionalidad
+                  </label>
+                  <input
+                    type="text"
+                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-gray-300 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    value={informacionAdicional.nacionalidad || ""}
+                    disabled
+                  />
+                </div>
+              </div>
+              <div className="w-full lg:w-6/12 px-4">
+                <div className="relative w-full mb-3">
+                  <label
+                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                    htmlFor="grid-password"
+                  >
+                    Etnia
+                  </label>
+                  <input
+                    type="text"
+                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-gray-300 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    value={informacionAdicional.etnia || ""}
+                    disabled
+                  />
+                </div>
+              </div>
+              {/* Estado civil*/}
+              <div className="w-full lg:w-6/12 px-4">
+                <div className="relative w-full mb-3">
+                  <label
+                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                    htmlFor="grid-password"
+                  >
+                    Estado civil
+                  </label>
+                  <input
+                    type="text"
+                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-gray-300 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    value={informacionAdicional.estadoCivi || ""}
+                    disabled
+                  />
+                </div>
+              </div>
+              {/* Tipo de sangre */}
+              <div className="w-full lg:w-6/12 px-4">
+                <div className="relative w-full mb-3">
+                  <label
+                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                    htmlFor="grid-password"
+                  >
+                    Tipo de sangre
+                  </label>
+                  <input
+                    type="text"
+                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-gray-300 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    value={informacionAdicional.tipoSangre || ""}
+                    disabled
+                  />
+                </div>
+              </div>
+
+            </div>
+            {/* Ubicacion Geografica */}
+            <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
+              ubicación geográfica
+            </h6>
+            <div className="flex flex-wrap">
+              <div className="w-full lg:w-6/12 px-4">
                 <div className="relative w-full mb-3">
                   <label
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -133,48 +291,26 @@ export default function CardSettings() {
                   </label>
                   <input
                     type="text"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="United States"
+                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-gray-300 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    value={ubicacionGeografica.provincia || ""}
+                    disabled
                   />
                 </div>
               </div>
-              <div className="w-full lg:w-4/12 px-4">
+              <div className="w-full lg:w-6/12 px-4">
                 <div className="relative w-full mb-3">
                   <label
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Telefono
+                    Cantón
                   </label>
                   <input
                     type="text"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="Postal Code"
+                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-gray-300 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    value={ubicacionGeografica.canton || ""}
+                    disabled
                   />
-                </div>
-              </div>
-            </div>
-
-            <hr className="mt-6 border-b-1 border-blueGray-300" />
-
-            <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-              Datos
-            </h6>
-            <div className="flex flex-wrap">
-              <div className="w-full lg:w-12/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    Datos de ..
-                  </label>
-                  <textarea
-                    type="text"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="A beautiful UI Kit and Admin for React & Tailwind CSS. It is Free and Open Source."
-                    rows="4"
-                  ></textarea>
                 </div>
               </div>
             </div>

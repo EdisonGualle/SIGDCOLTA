@@ -161,7 +161,7 @@ const OptionsRenderer = (props) => {
 
   const handleEditarClick = () => {
     // Lógica para editar el empleado
-    console.log("Editar empleado:", data);
+    console.log("Editar evaluacion:", data);
   };
 
   const handleEliminarClick = () => {
@@ -179,13 +179,13 @@ const OptionsRenderer = (props) => {
         </button>
       </Tippy>
 
-      <Tippy placement="left" content="Editar informacion del empleado">
+      <Tippy placement="left" content="Editar Evaluacion">
         <button>
           <i className="fas fa-edit mr-2 text-lime-800"></i>
         </button>
       </Tippy>
 
-      <Tippy placement="left" content="Eliminar Empleados">
+      <Tippy placement="left" content="Eliminar Evaluacion">
         <button>
           <i className="fas fa-trash-alt mr-2 text-red-600"></i>
         </button>
