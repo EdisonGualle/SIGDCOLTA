@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const FormularioContrato = ({ tipoContratos, selectedEmployeeId, selectedEmployeeName }) => {
+const FormularioContrato = ({  selectedEmployeeId, selectedEmployeeName }) => {
   const [formData, setFormData] = useState({
     fechaInicio: "",
     fechaFin: "",
@@ -90,29 +90,17 @@ const FormularioContrato = ({ tipoContratos, selectedEmployeeId, selectedEmploye
 
 
         <div className="mb-4">
-          <label
-            htmlFor="descripcion"
-            className="block text-sm font-medium text-gray-600"
-          >
-            Tipos de Contratos
+          <label htmlFor="tiposContratos" className="block text-sm font-medium text-gray-600">
+          Tipos Contratos
           </label>
-          <select
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-            name="tiposContratos"
+          <input
+            type="text"
             id="tiposContratos"
-            defaultValue={undefined}
-          >
-            <option value="" hidden>
-              Tipos de Contratos
-            </option>
-            {tipoContratos && tipoContratos.map((tipoContrato) => {
-              return (
-                <option key={tipoContrato.idTipoContrato} value={tipoContrato.idTipoContrato}>
-                  {tipoContrato.nombre}
-                </option>
-              );
-            })}
-          </select>
+            name="tiposContratos"
+            value={formData.idTipoContrato}
+            onChange={handleInputChange}
+            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+          />
         </div>
 
         <div className="mb-4">
