@@ -107,7 +107,6 @@ const FormUbicacionDemografia = ({
           </div>
 
           {/* Nacionalidad */}
-
           <div className="mb-4">
             <label
               htmlFor="nacionalidad"
@@ -126,7 +125,6 @@ const FormUbicacionDemografia = ({
           </div>
 
           {/* Provincia */}
-
           <div className="mb-4">
             <label
               htmlFor="provinciaNacimiento"
@@ -141,7 +139,7 @@ const FormUbicacionDemografia = ({
               onChange={handleProvinciaChange}
               value={formDemografia.id_provincia}
             >
-              <option value="">Selecciona una provincia</option>
+              <option value={""} >Selecciona una provincia</option>
               {provincias.map((provincia) => (
                 <option
                   key={provincia.id_provincia}
@@ -152,6 +150,7 @@ const FormUbicacionDemografia = ({
               ))}
             </select>
           </div>
+
           {/* Canton */}
           <div className="mb-4">
             <label
@@ -167,7 +166,7 @@ const FormUbicacionDemografia = ({
               value={formDemografia.id_canton}
               onChange={handleChange}
             >
-              <option value="">Selecciona un cantón</option>
+              <option value={""} >Selecciona un cantón</option>
               {cantonesFiltrados.map((canton) => (
                 <option key={canton.id_canton} value={canton.id_canton}>
                   {canton.nombre_canton}
@@ -175,6 +174,7 @@ const FormUbicacionDemografia = ({
               ))}
             </select>
           </div>
+
           {/* FechaNacimiento */}
           <div className="mb-4">
             <label

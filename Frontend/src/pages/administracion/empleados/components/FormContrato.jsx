@@ -48,15 +48,35 @@ const FormContrato = ({
     });
   };
 
-  const unidadesFilt = unidades.filter(
-    (unidad) => unidad.idDireccion === parseInt(formContrato.idDireccion)
-  );
-  setUnidadesFiltrados(unidadesFilt);
+  const handleDireccionChange = (e) => {
+    const idDireccion = e.target.value;
 
-  const cargosFilt = cargos.filter(
-    (cargo) => cargo.idUnidad === parseInt(formContrato.idUnidad)
-  );
-  setCargosFiltrados(cargosFilt);
+    setFormDemografia({
+      ...formDemografia,
+      idDireccion: idDireccion,
+    });
+
+    // Filtrar cantones por la provincia seleccionada
+    const unidadesFilt = unidades.filter(
+      (unidad) => unidad.idDireccion === parseInt(formContrato.idDireccion)
+    );
+    setUnidadesFiltrados(unidadesFilt);
+  };
+
+  const handleUnidadnChange = (e) => {
+    const idUnidad = e.target.value;
+
+    setFormDemografia({
+      ...formDemografia,
+      idUnidad: idUnidad,
+    });
+
+    // Filtrar cantones por la provincia seleccionada
+    const cargosFilt = cargos.filter(
+      (cargo) => cargo.idUnidad === parseInt(formContrato.idUnidad)
+    );
+    setCargosFiltrados(cargosFilt);
+  };
 
   return (
     <div className="max-w-screen-md mx-auto p-4">
