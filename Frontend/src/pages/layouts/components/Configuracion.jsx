@@ -1,16 +1,19 @@
 import React, { useState } from "react";
-// Icons
 import {
   RiEdit2Line,
   RiShieldCheckLine,
-  RiErrorWarningLine,
 } from "react-icons/ri";
-import { Link } from "react-router-dom";
-// import { Switch } from "@headlessui/react";
+
+import useAuthEmpleado from "../../../hooks/useAuthEmpleado";
+
 
 
 const Configuracion = () => {
+  const {obtenerMisDatosUsuario} = useAuthEmpleado();
+  const perfil = obtenerMisDatosUsuario?.perfil || {}
+
   const [enabled, setEnabled] = useState(false);
+
   return (
     <>
       {/* Profile */}
@@ -51,15 +54,17 @@ const Configuracion = () => {
               <div className="w-full">
                 <input
                   type="text"
-                  className="w-full py-2 px-4 outline-none rounded-lg bg-gray-200 border border-gray-300"
-                  placeholder="Nombre(s)"
+                  className="w-full py-2 px-4 outline-none rounded-lg bg-gray-200 border border-gray-300 tex-black"
+                  value={perfil.nombre || ""}
+                  disabled
                 />
               </div>
               <div className="w-full">
                 <input
                   type="text"
                   className="w-full py-2 px-4 outline-none rounded-lg bg-gray-200 border border-gray-300"
-                  placeholder="Apellido(s)"
+                  value={perfil.apellido || ""}
+                  disabled
                 />
               </div>
             </div>
@@ -74,7 +79,8 @@ const Configuracion = () => {
               <input
                 type="email"
                 className="w-full py-2 px-4 outline-none rounded-lg bg-gray-200 border border-gray-300"
-                placeholder="example@.com"
+                value={perfil.correoPersonal || ""}
+             
               />
             </div>
           </div>
@@ -89,7 +95,7 @@ const Configuracion = () => {
                 type="tel"
                 pattern="[0-9]{10}"
                 className="w-full py-2 px-4 outline-none rounded-lg  bg-gray-200 border border-gray-300"
-                placeholder="0999984945"
+                value={perfil.telefonoPersonal || ""}
               />
             </div>
             </div>
@@ -109,7 +115,7 @@ const Configuracion = () => {
           <div className="flex flex-col md:flex-row md:items-center gap-y-4 justify-between">
             <div>
               <h5 className=" text-xl mb-1">Correo institucional</h5>
-              <p className="text-gray-500 text-sm">jorgetrejo@gmail.com</p>
+              <p className="text-gray-500 text-sm">{perfil.correoInstitucional}</p>
             </div>
           </div>
           <hr className="my-8 border-gray-500/30 border-dashed" />

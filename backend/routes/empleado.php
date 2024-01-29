@@ -23,6 +23,8 @@ Route::get('/mi-cargo', [EmpleadoCargoController::class, 'miCargo']);
 // Datos Personales 
 Route::get('/mis-datos-personales', [EmpleadoDatosController::class, 'misDatosPersonales']);
 Route::get('/mis-datos-laborales', [EmpleadoDatosController::class, 'misDatoslaborales']);
+Route::get('/mis-datos-usuario', [EmpleadoDatosController::class, 'misDatosUsuario']);
+
 
 //Rutas Contrato
 Route::get('/mis-contratos', [EmpleadoContratoController::class, 'listarContratosPorEmpleadoAuth']);

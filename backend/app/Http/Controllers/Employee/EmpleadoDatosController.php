@@ -116,6 +116,53 @@ class EmpleadoDatosController extends Controller
         }
     }
 
+    public function misDatosUsuario()
+    {
+        try {
+            // Verificar si el usuario está autenticado
+            $usuarioAutenticado = Auth::user();
+            if (!$usuarioAutenticado) {
+                return $this->errorResponse('Usuario no autenticado', 401);
+            }
+
+            // Obtener el empleado asociado al usuario autenticado
+            $empleado = $usuarioAutenticado->empleado;
+
+            // Verificar si el empleado existe
+            if (!$empleado) {
+                return $this->errorResponse('Empleado no encontrado', 404);
+            }
+
+            $contratoActivo = null;
+            // Obtener el contrato activo del empleado
+            $contratoActivo = $empleado->contratos->where('estadoContrato', 'activo')->first();
+
+            // Verificar si hay un contrato activo
+            if (!$contratoActivo) {
+                return $this->errorResponse('Contrato activo no encontrado', 404);
+            }
+
+            // Crear la respuesta JSON con la información requerida
+            $datos = [
+                'perfil' => [
+                    'idUsuario'=>$usuarioAutenticado->idUsuario,
+                    'usuario' => $usuarioAutenticado->usuario,
+                    'idEmpleado'=>$empleado->idEmpleado,
+                    'nombre' => $empleado->primerNombre . ' ' . $empleado->segundoNombre,
+                    'apellido' => $empleado->primerApellido . ' ' . $empleado->segundoApellido,
+                    'correoPersonal'=>$empleado->correo,
+                    'telefonoPersonal' =>$empleado->telefonoPersonal,
+                    'correoInstitucional' =>$usuarioAutenticado->correo,
+                    'contrasena' => $usuarioAutenticado->password,
+                ]
+            ];
+            return $this->successResponse('Datos obtenidos correctamente', $datos);
+        } catch (\Exception $e) {
+            return $this->errorResponse('Error interno del servidor', 500);
+        }
+    }
+
+
     private function successResponse($message, $data = null)
     {
         return response()->json(['successful' => true, 'message' => $message, 'datos' => $data]);

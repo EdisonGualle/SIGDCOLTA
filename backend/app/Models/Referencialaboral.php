@@ -24,7 +24,6 @@ class Referencialaboral extends Model
         'idExperienciaLaboral',
 
 
-        // Agrega aquí los demás campos de tu tabla cargo
     ];
 
     // Define las relaciones con otras entidades si es necesario
