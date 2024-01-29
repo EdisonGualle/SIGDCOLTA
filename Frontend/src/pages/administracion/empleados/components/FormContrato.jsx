@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useDirecciones from "../../../../hooks/useDirecciones";
+import useContratos from "../../../../hooks/useContratos";
 
 const FormContrato = ({
   handleNext,
@@ -10,8 +11,13 @@ const FormContrato = ({
   const [error, setError] = useState(false);
 
   const { direcciones, unidades, cargos } = useDirecciones();
+  const { getTiposContrato, tiposContratos } = useContratos();
   const [unidadesFiltrados, setUnidadesFiltrados] = useState([]);
   const [cargosFiltrados, setCargosFiltrados] = useState([]);
+
+  useEffect(() => {
+    getTiposContrato();
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,14 +27,13 @@ const FormContrato = ({
       "idCargo",
       "fechaInicio",
       "fechaFin",
-      "idEmpleado",
       "idTipoContrato",
       "archivo",
       "salario",
       "estadoContrato",
     ];
     for (const campo of camposObligatorios) {
-      if (formContrato[campo].trim() === "") {
+      if (formContrato[campo] === "") {
         setError(true);
 
         setTimeout(() => {
@@ -51,8 +56,8 @@ const FormContrato = ({
   const handleDireccionChange = (e) => {
     const idDireccion = e.target.value;
 
-    setFormDemografia({
-      ...formDemografia,
+    setFormContrato({
+      ...formContrato,
       idDireccion: idDireccion,
     });
 
@@ -66,8 +71,8 @@ const FormContrato = ({
   const handleUnidadnChange = (e) => {
     const idUnidad = e.target.value;
 
-    setFormDemografia({
-      ...formDemografia,
+    setFormContrato({
+      ...formContrato,
       idUnidad: idUnidad,
     });
 
@@ -77,7 +82,6 @@ const FormContrato = ({
     );
     setCargosFiltrados(cargosFilt);
   };
-
   return (
     <div className="max-w-screen-md mx-auto p-4">
       <form onSubmit={handleSubmit}>
@@ -86,7 +90,6 @@ const FormContrato = ({
             Por favor, completa todos los campos obligatorios.
           </div>
         )}
-        {/* Columna 1 */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {/* Direccion */}
           <div className="mb-4">
@@ -100,7 +103,7 @@ const FormContrato = ({
               id="direccion"
               name="idDireccion"
               className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-              onChange={hanldeChange}
+              onChange={handleDireccionChange}
               value={formContrato.idDireccion}
             >
               {direcciones.map((direccion) => (
@@ -125,7 +128,7 @@ const FormContrato = ({
               id="unidad"
               name="idUnidad"
               className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-              onChange={hanldeChange}
+              onChange={handleUnidadnChange}
               value={formContrato.idUnidad}
             >
               <option value="">Selecciona una Unidad</option>
@@ -146,12 +149,17 @@ const FormContrato = ({
             </label>
             <select
               id="idCargo"
-              name="cargo"
+              name="idCargo"
               className="mt-1 p-2 w-full border border-gray-300 rounded-md"
               onChange={hanldeChange}
               value={formContrato.idCargo}
             >
-              {/* Opciones para cargo */}
+              <option value="">Selecciona una Unidad</option>
+              {cargosFiltrados.map((cargo) => (
+                <option key={cargo.idCargo} value={cargo.idCargo}>
+                  {cargo.nombre}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -170,7 +178,15 @@ const FormContrato = ({
               onChange={hanldeChange}
               value={formContrato.idTipoContrato}
             >
-              {/* Opciones para tipoContrato */}
+              <option value="">Selecciona un Tipo de contrato</option>
+              {tiposContratos.map((tipoContrato) => (
+                <option
+                  key={tipoContrato.idTipoContrato}
+                  value={tipoContrato.idTipoContrato}
+                >
+                  {tipoContrato.nombre}
+                </option>
+              ))}
             </select>
           </div>
           {/* Fecha Inicial contrato */}
