@@ -1,7 +1,7 @@
 import React from "react";
 import useAuthEmpleado from "../../../../../hooks/useAuthEmpleado";
 
-// components
+
 
 export default function CardSettings() {
   const { obtenerMiInformacion } = useAuthEmpleado();
@@ -20,7 +20,7 @@ export default function CardSettings() {
           </div>
         </div>
         <div
-          className="flex-auto px-4 lg:px-10 py-10 pt-0 bg-indigo-100 rounded-br-lg"
+          className="flex-auto px-4 lg:px-10 py-10 pt-0 bg-indigo-100 rounded-br-lg max-h-screen overflow-y-auto"
         >
           <form>
             <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
@@ -252,7 +252,7 @@ export default function CardSettings() {
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-gray-300 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    value={informacionAdicional.estadoCivi || ""}
+                    value={informacionAdicional.estadoCivil || ""}
                     disabled
                   />
                 </div>

@@ -8,12 +8,13 @@ const useAuthEmpleado = () => {
     throw new Error("useAuthEmpleado debe ser utilizado dentro de AuthEmpleadoProvider");
   }
 
-  const { obtenerMiCargo, obtenerMiInformacion } = context;
-
+  const { obtenerMiCargo, obtenerMiInformacion, obtenerMisDatosLaborales, obtenerMisDatosUsuario } = context;
+  
   return {
     obtenerMiCargo,
     obtenerMiInformacion,
-    // Puedes agregar más funciones aquí si es necesario
+    obtenerMisDatosLaborales,
+    obtenerMisDatosUsuario
   };
 };
 

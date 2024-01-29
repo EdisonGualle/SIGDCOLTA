@@ -2,15 +2,16 @@ import { useState, useEffect, createContext } from "react";
 import { useNavigate } from "react-router-dom";
 import clienteAxios from "../config/clienteAxios";
 
-const CargosContext = createContext();
+const DemografiaContext = createContext();
 
-const CargosProvider = ({ children }) => {
-  const [cargos, setCargos] = useState([]);
+const DemografiaProvider = ({ children }) => {
+  const [provincias, setProvincias] = useState([]);
+  const [cantones, setCantones] = useState([]);
   const [cargando, setCargando] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const getCargos = async () => {
+    const getProvinciasCantones = async () => {
       try {
         const token = localStorage.getItem("token");
         if (!token) {
@@ -25,8 +26,13 @@ const CargosProvider = ({ children }) => {
           },
         };
 
-        const { data } = await clienteAxios("/cargos", config); // Actualiza la ruta según tu API
-        setCargos(data.data);
+        const [provinciasResponse, cantonesResponse] = await Promise.all([
+          clienteAxios("/provincia", config),
+          clienteAxios("/cantones", config),
+        ]);
+
+        setProvincias(provinciasResponse.data.data);
+        setCantones(cantonesResponse.data.data);
       } catch (error) {
         //console.error("Error al obtener cargos:", error);
       } finally {
@@ -35,19 +41,20 @@ const CargosProvider = ({ children }) => {
     };
 
     // Fetch data when component mounts
-    getCargos();
+    getProvinciasCantones();
   }, []);
 
   const contextValue = {
-    cargos,
+    provincias,
+    cantones,
   };
 
   return (
-    <CargosContext.Provider value={contextValue}>
+    <DemografiaContext.Provider value={contextValue}>
       {children}
-    </CargosContext.Provider>
+    </DemografiaContext.Provider>
   );
 };
 
-export { CargosProvider };
-export default CargosContext;
+export { DemografiaProvider };
+export default DemografiaContext;

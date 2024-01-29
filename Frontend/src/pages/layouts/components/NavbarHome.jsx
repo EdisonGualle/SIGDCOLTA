@@ -81,7 +81,7 @@ export default function NavbarHome(props) {
                 type="button"
                 style={{ transition: "all .15s ease" }}
               >
-                <i class="fas fa-sign-in-alt"></i> Iniciar Sesion
+                <i className="fas fa-sign-in-alt"></i> Iniciar Sesion
               </Link>
             </li>
           </ul>

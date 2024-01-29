@@ -7,6 +7,9 @@ const AuthEmpleadoContext = createContext();
 const AuthEmpleadoProvider = ({ children }) => {
   const [obtenerMiCargo, setObtenerMiCargo] = useState({});
   const [obtenerMiInformacion, setObtenerMiInformacion] = useState({});
+  const [obtenerMisDatosLaborales, setObtenerMisDatosLaborales] = useState({});
+  const [obtenerMisDatosUsuario, setObtenerMisDatosUsuario] = useState({});
+
   const { auth } = useAuth();
 
   useEffect(() => {
@@ -42,26 +45,67 @@ const AuthEmpleadoProvider = ({ children }) => {
           },
         };
 
-        const { data } = await clienteAxios("administrador/mis-datos-personales", config);
+        const { data } = await clienteAxios(
+          "administrador/mis-datos-personales",
+          config
+        );
         setObtenerMiInformacion(data.datos);
-        console.log(data.datos);
       } catch (error) {
         console.log(error);
         // Puedes manejar errores según tus necesidades
       }
     };
 
+    const obtenerMisDatosLaborales = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) return;
 
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        };
+
+        const { data } = await clienteAxios("administrador/mis-datos-laborales", config);
+        setObtenerMisDatosLaborales(data.datos);
+      } catch (error) {
+        console.log(error);
+        // Puedes manejar errores según tus necesidades
+      }
+    };
+
+    const obtenerMisDatosUsuario = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        };
+
+        const { data } = await clienteAxios("administrador/mis-datos-usuario", config);
+        setObtenerMisDatosUsuario(data.datos);
+      } catch (error) {
+        console.log(error);
+        // Puedes manejar errores según tus necesidades
+      }
+    };
+    obtenerMisDatosUsuario(),
+    obtenerMisDatosLaborales();
     obtenerMiCargo();
     obtenerMiInformacion();
   }, [auth]);
 
-
-
   const contextValue = {
     obtenerMiCargo,
     obtenerMiInformacion,
-    // Puedes agregar más funciones aquí
+    obtenerMisDatosLaborales,
+    obtenerMisDatosUsuario
   };
 
   return (

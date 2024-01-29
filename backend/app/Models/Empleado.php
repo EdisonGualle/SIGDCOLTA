@@ -91,12 +91,17 @@ class Empleado extends Model
         return $this->belongsTo(Cargo::class, 'idCargo');
     }
 
-
+    
     //Relacion Empleado-Contratos
     public function contratos()
     {
         return $this->hasMany(Contrato::class, 'idEmpleado');
     }
+
+    public function contratoActivo()
+{
+    return $this->contratos()->where('estadoContrato', 'activo')->first();
+}
     //Relacion Empleado-Departamento ya definido
 
 

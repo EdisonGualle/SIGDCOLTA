@@ -8,9 +8,38 @@ import FormDatosBancarios from "./FormDatosbancarios";
 
 const ModalComponent = ({ isOpen, onClose }) => {
   const [step, setStep] = useState(1);
-  const [formData1, setFormData1] = useState({});
-  const [formData2, setFormData2] = useState({});
-  const [formData3, setFormData3] = useState({});
+  const [formDatosPersonales, setFormDatosPersonales] = useState({
+    cedula: "",
+    primerNombre: "",
+    segundoNombre: "",
+    primerApellido: "",
+    segundoApellido: "",
+    genero: "Masculino",
+    estadoCivil: "Soltero",
+    tipoSangre: "O+",
+    telefonoTrabajo: "",
+    telefonoPersonal: "",
+  });
+  const [formDemografia, setFormDemografia] = useState({
+    etnia: "Mestizo",
+    nacionalidad: "Ecuatoriano",
+    fechaNacimiento: "",
+    id_provincia: "",
+    id_canton: "",
+    fechaNacimiento: "",
+  });
+  const [formContrato, setFormContrato] = useState({
+    idDireccion: "",
+    idUnidad: "",
+    idCargo: "",
+    fechaInicio: "",
+    fechaFin: "",
+    idEmpleado: "",
+    idTipoContrato: "",
+    archivo: null,
+    salario: "",
+    estadoContrato: "Activo",
+  });
   const [formData4, setFormData4] = useState({});
 
   const handleNext = () => {
@@ -82,15 +111,28 @@ const ModalComponent = ({ isOpen, onClose }) => {
         <h1 className="text-center text-3xl font-bold mb-1">NUEVO EMPLEADO</h1>
         <hr className="mb-5"></hr>
         {renderStepIndicator()}
-        {step === 1 && <FormNuevoEmpleado handleNext={handleNext} />}
+        {step === 1 && (
+          <FormNuevoEmpleado
+            formDatosPersonales={formDatosPersonales}
+            setFormDatosPersonales={setFormDatosPersonales}
+            handleNext={handleNext}
+          />
+        )}
         {step === 2 && (
           <FormUbicacionDemografia
+            setFormDemografia={setFormDemografia}
+            formDemografia={formDemografia}
             handleNext={handleNext}
             handlePrev={handlePrev}
           />
         )}
         {step === 3 && (
-          <FormContrato handleNext={handleNext} handlePrev={handlePrev} />
+          <FormContrato
+            formContrato={formContrato}
+            setFormContrato={setFormContrato}
+            handleNext={handleNext}
+            handlePrev={handlePrev}
+          />
         )}
         {step === 4 && <FormDatosBancarios handlePrev={handlePrev} />}
       </div>

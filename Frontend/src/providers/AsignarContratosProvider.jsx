@@ -19,7 +19,6 @@ const AgregarContratoProvider = ({ children }) => {
       try {
         const token = localStorage.getItem("token");
         if (!token) {
-          console.log("No hay token, no se cargaron los datos.");
           return;
         }
 
@@ -32,8 +31,7 @@ const AgregarContratoProvider = ({ children }) => {
 
         const { data } = await clienteAxios("/contratos-empleados", config);
 
-       setTiposContrato(data.data); // Intenta acceder a la propiedad correcta
-
+        setTiposContrato(data.data); // Intenta acceder a la propiedad correcta
       } catch (error) {
         console.error("Error al cargar los datos:", error);
       } finally {
