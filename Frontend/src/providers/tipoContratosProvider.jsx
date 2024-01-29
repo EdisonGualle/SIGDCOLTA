@@ -19,7 +19,6 @@ const TiposContratoProvider = ({ children }) => {
       try {
         const token = localStorage.getItem("token");
         if (!token) {
-          console.log("No hay token, no se cargaron los datos.");
           return;
         }
 

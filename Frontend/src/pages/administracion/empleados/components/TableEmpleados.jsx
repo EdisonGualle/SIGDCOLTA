@@ -96,8 +96,8 @@ import React, { useEffect, useState } from "react";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
-import OptionsRenderer from "./OptionsRenderer";
 
+import OptionsRenderer from "./OptionsRenderer";
 const TableEmpleados = ({ empleados }) => {
   const [rowData, setRowData] = useState([]);
 
@@ -172,48 +172,6 @@ const TableEmpleados = ({ empleados }) => {
     },
   });
 
-  function actionCellRenderer(params) {
-    const isCurrentRowEditing = params.api
-      .getEditingCells()
-      .some((cell) => cell.rowIndex === params.node.rowIndex);
-
-    return (
-      <div>
-        {isCurrentRowEditing ? (
-          <>
-            <button
-              className="bg-blue-400 text-white px-4  mr-2"
-              data-action="update"
-            >
-              Actualizar
-            </button>
-
-            <button
-              className="bg-gray-100 text-black px-4 border border-gray-300"
-              data-action="cancel"
-            >
-              Cancelar
-            </button>
-          </>
-        ) : (
-          <>
-            <button
-              className="bg-green-400 hover:bg-green-500 text-white px-4  mr-2"
-              data-action="edit"
-            >
-              Editar
-            </button>
-            <button
-              className="bg-red-500 text-white px-4 "
-              data-action="delete"
-            >
-              Eliminar
-            </button>
-          </>
-        )}
-      </div>
-    );
-  }
 
   function handleCellClicked(params) {
     if (
@@ -265,10 +223,11 @@ const TableEmpleados = ({ empleados }) => {
     <div className="ag-theme-quartz" style={{ width: "100%", height: "90%" }}>
       <AgGridReact
         pagination={true}
-        enableRangeSelection={true}
         gridOptions={gridOptions}
         rowData={rowData}
         rowSelection="multiple"
+        enableCharts={true}
+        enableRangeSelection={true}
       />
     </div>
   );
