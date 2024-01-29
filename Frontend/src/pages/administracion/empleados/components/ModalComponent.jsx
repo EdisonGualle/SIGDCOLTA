@@ -34,7 +34,7 @@ const ModalComponent = ({ isOpen, onClose }) => {
     idCargo: "",
     fechaInicio: "",
     fechaFin: "",
-    idEmpleado: "",
+    //    idEmpleado: "",
     idTipoContrato: "",
     archivo: null,
     salario: "",
