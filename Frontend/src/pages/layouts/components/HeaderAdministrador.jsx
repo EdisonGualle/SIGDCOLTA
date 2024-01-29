@@ -12,9 +12,13 @@ import "@szhsin/react-menu/dist/index.css";
 import "@szhsin/react-menu/dist/transitions/slide.css";
 import { Link } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
+import useAuthEmpleado from "../../../hooks/useAuthEmpleado";
 
 const Header = ({auth}) => {
   const { cerrarSesionAuth } = useAuth();
+
+  const {obtenerMisDatosUsuario} = useAuthEmpleado();
+  const perfil = obtenerMisDatosUsuario?.perfil || {}
 
   const handleCerrarSesion = () => {
     cerrarSesionAuth();
@@ -114,7 +118,7 @@ const Header = ({auth}) => {
                 src="https://img.freepik.com/foto-gratis/feliz-optimista-guapo-gerente-ventas-latina-apuntando-lado-mirando-camara_1262-12679.jpg"
                 className="w-6 h-6 object-cover rounded-full"
               />
-              <span>{auth.usuario}</span>
+              <span>{perfil.usuario || ""}</span>
               <RiArrowDownSLine />
             </MenuButton>
           }
@@ -126,7 +130,7 @@ const Header = ({auth}) => {
         >
           <MenuItem className="p-0 hover:bg-transparent">
             <Link
-              to="/perfil"
+              to="/administracion/perfil/dashboard"
               className="rounded-lg transition-colors hover:bg-secondary-100 flex items-center gap-x-4 py-2 px-6 flex-1"
             >
               <img
@@ -134,8 +138,8 @@ const Header = ({auth}) => {
                 className="w-8 h-8 object-cover rounded-full"
               />
               <div className="flex flex-col text-sm">
-                <span className="text-sm">{auth.usuario}</span>
-                <span className="text-xs text-gray-500">{auth.correo}</span>
+                <span className="text-sm">{perfil.usuario || ""}</span>
+                <span className="text-xs text-gray-500">{perfil.correoInstitucional || ""}</span>
               </div>
             </Link>
           </MenuItem>
