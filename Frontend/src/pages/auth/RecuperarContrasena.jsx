@@ -23,19 +23,24 @@ const RecuperarContraseña = () => {
       });
       return;
     }
-    console.log("ok");
 
     try {
       const { data } = await clienteAxios.post("/recuperar-contraseña", {
         correo,
       });
-      setAlerta({});
-      localStorage.setItem("token", data.token);
-      setAuth(data);
-      setAlerta({
-        msg: `Se ha enviado un correo electronico para recuperar la contrasena, revisa tu correo electronico: ${correo}`,
-        error: true,
-      });
+
+      console.log(data);
+      if (data.success) {
+        setAlerta({
+          msg: `Se ha enviado un correo electronico para recuperar la contrasena, revisa tu correo electronico: ${correo}`,
+          error: true,
+        });
+      } else {
+        setAlerta({
+          msg: data.msg,
+          error: true,
+        });
+      }
     } catch (error) {
       setAlerta({
         msg: error.response.data.mensaje || "Ocurrio un error",
