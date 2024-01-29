@@ -9,7 +9,7 @@ function NavegacionEvaluaciones() {
           {/* Posicion Laboral */}
           <li className="border-r border-gray-300 ">
             <Link
-              to="/administracion/posiciones-laborales"
+              to="/administracion/evaluaciones"
               className="bg-gray-800 hover:bg-gray-500 text-white p-2 rounded-tl-lg rounded-bl-lg  transition"
             >
               Todos
@@ -18,7 +18,7 @@ function NavegacionEvaluaciones() {
           {/* Direcciones */}
           <li className=" border-r  border-gray-300 ">
             <Link
-              to="/administracion/direcciones"
+              to="/administracion/sin-evaluaciones"
               className="bg-gray-800 hover:bg-gray-500 text-white p-2   transition"
             >
               Sin Evaluar

@@ -1,22 +1,16 @@
-import React, { useState } from "react";
-import TableEvaluaciones from "./components/TableEvaluaciones";
-import useEvaluaciones from "../../../../hooks/useEvaluaciones";
-import ModalComponent from "../empleados/components/ModalComponent";
-import Swal from "sweetalert2";
+import React, { useState } from 'react';
+
+import TableSinEvaluaciones from "./components/TableSinEvaluaciones";
+import useSinEvaluaciones from "../../../../hooks/useSinEvaluaciones";
+
+import NavegacionEvaluaciones from "../components/NavegacionEvaluaciones";
 import withReactContent from "sweetalert2-react-content";
-import NavegacionEvaluaciones from "./components/NavegacionEvaluaciones";
 
+import Swal from "sweetalert2";
 
-const IndexEvaluacionesAdministrador = () => {
-  const { evaluaciones, setCargado} = useEvaluaciones();
-  const evaluacionesAprobadas = evaluaciones.filter(
-    (posicion) => posicion.estadoEvaluacion === "Aprobada"
-  );
+const IndexSinEvaluacionesAdministrador = () => {
+  const { sinevaluaciones} = useSinEvaluaciones();
   
-  const EvaluacionesRechazadas = evaluaciones.filter(
-    (posicion) => posicion.estadoEvaluacion === "Rechazada"
-  );
-  // const [modalOpen, setModalOpen] = useState(false);
   const MySwal = withReactContent(Swal);
 
   const handleNuevoClick = () => {
@@ -49,31 +43,32 @@ const IndexEvaluacionesAdministrador = () => {
   return (
     <>
       <NavegacionEvaluaciones />
-      {/* Div con estadísticas de empleados */}
+      
       <div className="uppercase bg-white py-2 font-bold rounded-lg mb-1 p-10">
         <div className="flex justify-start my-3 ">
           <h1 className="ms-0 me-10">
             Total de Evaluaciones{" "}
-            <span className="text-blue-700">{evaluaciones.length}</span>{" "}
+            <span className="text-blue-700">{sinevaluaciones ? sinevaluaciones.length : 0}</span>
+
           </h1>
-          <h1 className="">
+          {/* <h1 className="">
             Evaluciones Aprobadas:{" "}
             <span className="text-green-700">{evaluacionesAprobadas.length}</span>
           </h1>
           <h1 className="mx-10">
             Evaluaciones Rechadazas:{" "}
             <span className="text-red-700">{EvaluacionesRechazadas.length}</span>
-          </h1>
+          </h1> */}
 
         </div>
       </div>
 
       <div className="h-full">
-        <TableEvaluaciones evaluaciones={evaluaciones} />
+        <TableSinEvaluaciones sinevaluaciones={sinevaluaciones} />
       </div>
     </>
   );
 };
 
 
-export default IndexEvaluacionesAdministrador;
+export default IndexSinEvaluacionesAdministrador;

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import TableEvaluaciones from "./components/TableEvaluaciones";
 import useEvaluaciones from "../../../hooks/useEvaluaciones";
-import ModalComponent from "../empleados/components/ModalComponent";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import NavegacionEvaluaciones from "./components/NavegacionEvaluaciones";
