@@ -42,21 +42,20 @@ const AuthEmpleadoProvider = ({ children }) => {
           },
         };
 
-        const { data } = await clienteAxios("administrador/mis-datos-personales", config);
+        const { data } = await clienteAxios(
+          "administrador/mis-datos-personales",
+          config
+        );
         setObtenerMiInformacion(data.datos);
-        console.log(data.datos);
       } catch (error) {
         console.log(error);
         // Puedes manejar errores según tus necesidades
       }
     };
 
-
     obtenerMiCargo();
     obtenerMiInformacion();
   }, [auth]);
-
-
 
   const contextValue = {
     obtenerMiCargo,
