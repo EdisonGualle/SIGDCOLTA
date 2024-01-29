@@ -7,20 +7,23 @@ import { LANGUAGE_OPTIONS } from "../../components/traduccionTableGrid"
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css"; // optional
 
-const TableSinEvaluaciones = ({ sinevaluaciones }) => {
+const TableSinEvaluaciones = ({ sinevaluaciones, setSelectedEmployeeId, setSelectedEmployeeName }) => {
   const [rowData, setRowData] = useState([]);
-  const [modalVerOpen, setModalVerOpen] = useState(false);
-  const handleNuevoClick = () => {
-    setModalVerOpen(true);
+  const [selectedRowCount, setSelectedRowCount] = useState(0);
+
+  const handleRowSelection = (event) => {
+    const selectedRows = event.api.getSelectedRows();
+    if (selectedRows.length > 0) {
+      setSelectedEmployeeId(selectedRows[0].idEmpleado);
+      const fullName = `${selectedRows[0].primerNombre} ${selectedRows[0].segundoNombre} ${selectedRows[0].primerApellido} ${selectedRows[0].segundoApellido}`;
+      setSelectedEmployeeName(fullName);
+    } else {
+      setSelectedEmployeeId(null);
+      setSelectedEmployeeName(null);
+    }
+    setSelectedRowCount(selectedRows.length);
   };
 
-  const handleCloseModal = () => {
-    setModalOpen(false);
-  };
-  // Fetch data & update rowData state
-  useEffect(() => {
-    setRowData(sinevaluaciones);
-  }, [sinevaluaciones]);
 
   // Column Definitions: Defines & controls grid columns.
   const [colDefs] = useState([
@@ -36,45 +39,27 @@ const TableSinEvaluaciones = ({ sinevaluaciones }) => {
     },
     {
       headerName: "Nombre Completo",
-      valueGetter: function(params) {
-        return params.data.primerNombre + ' ' + 
-               params.data.segundoNombre + ' ' + 
-               params.data.primerApellido + ' ' + 
-               params.data.segundoApellido;
+      valueGetter: function (params) {
+        return params.data.primerNombre + ' ' +
+          params.data.segundoNombre + ' ' +
+          params.data.primerApellido + ' ' +
+          params.data.segundoApellido;
       },
     },
-    {
-      headerName: "Fecha de Nacimiento",
-      field: "fechaNacimiento",
-    },
-    {
-      headerName: "Teléfono Personal",
-      field: "telefonoPersonal",
-    },
-    {
-      headerName: "Teléfono de Trabajo",
-      field: "telefonoTrabajo",
-    },
-    {
-      headerName: "Correo",
-      field: "correo",
-    },
-    {
-      headerName: "Tipo de Sangre",
-      field: "tipoSangre",
-    },
-    {
-      headerName: "Nacionalidad",
-      field: "nacionalidad",
-    },
-    {
-      headerName: "ID Cargo",
-      field: "idCargo",
-    },
-]);
-
-
-
+    { headerName: "Fecha de Nacimiento", field: "fechaNacimiento", },
+    { headerName: "Teléfono Personal", field: "telefonoPersonal", },
+    { headerName: "Teléfono de Trabajo", field: "telefonoTrabajo", },
+    { headerName: "Correo", field: "correo", },
+    { headerName: "Tipo de Sangre", field: "tipoSangre", },
+    { headerName: "Nacionalidad", field: "nacionalidad", },
+    { headerName: "ID Cargo", field: "idCargo", },
+  ]);
+  // Fetch data & update rowData state
+  useEffect(() => {
+    if (Array.isArray(sinevaluaciones)) {
+      setRowData(sinevaluaciones);
+    }
+  }, [sinevaluaciones]);
 
   // Apply settings across all columns
   const defaultColDef = useMemo(
@@ -90,95 +75,25 @@ const TableSinEvaluaciones = ({ sinevaluaciones }) => {
     []
   );
 
-  // Definir el renderer personalizado para la columna de opciones
-  // const frameworkComponents = {
-  //   optionsRenderer: OptionsRenderer,
-  // };
   return (
-    <div className={"ag-theme-quartz"} style={{ width: "100%", height: "90%" }}>
-      <AgGridReact
-        localeText={TRANSLATIONS[LANGUAGE_OPTIONS.ES]}
-        rowData={rowData}
-        columnDefs={colDefs}
-        defaultColDef={defaultColDef}
-        // frameworkComponents={frameworkComponents}
-        pagination={true}
-        rowSelection={"multiple"}
-      />
+    <div className="h-full">
+       {selectedRowCount !== 1 && (
+          <p className="text-red-500">Seleccione Solo un empleado para Evaluar.</p>
+        )}
+      <div className={"ag-theme-quartz"} style={{ width: "100%", height: "90%" }}>
+       
+        <AgGridReact
+          localeText={TRANSLATIONS[LANGUAGE_OPTIONS.ES]}
+          rowData={rowData}
+          columnDefs={colDefs}
+          defaultColDef={defaultColDef}
+          pagination={true}
+          onSelectionChanged={handleRowSelection}
+          rowSelection={"multiple"}
+        />
+      </div>
     </div>
   );
 };
-// const EstadoEvaluacionRenderer = (props) => {
-//   const { value } = props;
 
-  // Determina qué icono mostrar según el estado de la evaluación
-//   const getIconByState = (estado) => {
-//     switch (estado) {
-//       case 'Aprobada':
-//         return <i className="fas fa-check-circle text-green-500"></i>;
-//       case 'Pendiente':
-//         return <i className="fas fa-clock text-yellow-500"></i>;
-//       case 'Rechazada':
-//         return <i className="fas fa-times-circle text-red-500"></i>;
-//       default:
-//         return null;
-//     }
-//   };
-
-//   return (
-//     <div>
-//       {getIconByState(value)}&nbsp;
-//       <span>{value}</span>
-      
-//     </div>
-//   );
-// };
-
-// Nuevo componente para renderizar las opciones en la columna correspondiente
-// const OptionsRenderer = (props) => {
-//   const { data } = props.node;
-
-
-
-//   const handleVerClick = () => {
-//     // Lógica para ver el empleado
-//     console.log("Ver empleado:", data);
-//   };
-
-//   const handleEditarClick = () => {
-//     // Lógica para editar el empleado
-//     console.log("Editar evaluacion:", data);
-//   };
-
-//   const handleEliminarClick = () => {
-//     // Lógica para eliminar el empleado
-//     console.log("Eliminar empleado:", data);
-//   };
-
-
-
-//   return (
-//     <div>
-//       <Tippy placement="left" content="Ver Perfil del empleado">
-//         <button data-tippy-content="Ver" title="Ver">
-//           <i className="fas fa-eye mr-2 text-indigo-600"></i>
-//         </button>
-//       </Tippy>
-
-//       <Tippy placement="left" content="Editar Evaluacion">
-//         <button>
-//           <i className="fas fa-edit mr-2 text-lime-800"></i>
-//         </button>
-//       </Tippy>
-
-//       <Tippy placement="left" content="Eliminar Evaluacion">
-//         <button>
-//           <i className="fas fa-trash-alt mr-2 text-red-600"></i>
-//         </button>
-//       </Tippy>
-     
-
-//     </div>
-//   );
-// };
 export default TableSinEvaluaciones;

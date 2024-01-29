@@ -1,7 +1,11 @@
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-community/styles/ag-theme-quartz.css";
 import React, { useEffect, useState, useMemo } from "react";
 import { AgGridReact } from "ag-grid-react";
 import { TRANSLATIONS } from "../../empleados/components/traduccionTableGrid";
 import { LANGUAGE_OPTIONS } from "../../empleados/components/traduccionTableGrid";
+
+import "tippy.js/dist/tippy.css"; // optional
 
 const TableAgregarContrato = ({ tiposContrato, setSelectedEmployeeId, setSelectedEmployeeName }) => {
   const [rowData, setRowData] = useState([]);
