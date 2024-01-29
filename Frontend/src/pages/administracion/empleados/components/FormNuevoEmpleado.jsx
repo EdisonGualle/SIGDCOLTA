@@ -70,7 +70,7 @@ const FormNuevoEmpleado = ({
               className="mt-1 p-2 w-full border border-gray-300 rounded-md"
             />
           </div>
-
+          {/* nombre */}
           <div className="mb-4">
             <label
               htmlFor="primer nombre"
@@ -87,6 +87,7 @@ const FormNuevoEmpleado = ({
               value={formDatosPersonales.primerNombre}
             />
           </div>
+          {/* nombre */}
 
           <div className="mb-4">
             <label
@@ -104,6 +105,7 @@ const FormNuevoEmpleado = ({
               value={formDatosPersonales.segundoNombre}
             />
           </div>
+          {/* apellido */}
 
           <div className="mb-4">
             <label
@@ -121,6 +123,7 @@ const FormNuevoEmpleado = ({
               value={formDatosPersonales.primerApellido}
             />
           </div>
+          {/* apellido */}
 
           <div className="mb-4">
             <label
@@ -138,6 +141,7 @@ const FormNuevoEmpleado = ({
               value={formDatosPersonales.segundoApellido}
             />
           </div>
+          {/* genero */}
 
           <div className="mb-4">
             <label
@@ -158,6 +162,7 @@ const FormNuevoEmpleado = ({
               <option value="otro">Otro</option>
             </select>
           </div>
+          {/* estado civil */}
 
           <div className="mb-4">
             <label
@@ -178,6 +183,7 @@ const FormNuevoEmpleado = ({
               <option value="otro">Otro</option>
             </select>
           </div>
+          {/* telefono */}
 
           <div className="mb-4">
             <label
@@ -195,6 +201,7 @@ const FormNuevoEmpleado = ({
               onChange={handleChange}
             />
           </div>
+          {/* telefono */}
 
           <div className="mb-4">
             <label
@@ -212,6 +219,7 @@ const FormNuevoEmpleado = ({
               onChange={handleChange}
             />
           </div>
+          {/* sangre */}
 
           <div className="mb-4">
             <label
