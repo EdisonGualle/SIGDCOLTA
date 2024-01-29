@@ -4,6 +4,9 @@ import useEmpleados from "../../../hooks/useEmpleados";
 import ModalComponent from "./components/ModalComponent";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import Modal from "react-modal";
+
+Modal.setAppElement("#root"); // Aquí estableces el elemento principal
 
 const IndexEmpleadosAdministrador = () => {
   const { empleados } = useEmpleados();

@@ -21,11 +21,25 @@ const ModalComponent = ({ isOpen, onClose }) => {
     telefonoPersonal: "",
   });
   const [formDemografia, setFormDemografia] = useState({
-    etnia:"mestizo",
-    nacionalidad:"Ecuatoriano",
-    
+    etnia: "Mestizo",
+    nacionalidad: "Ecuatoriano",
+    fechaNacimiento: "",
+    id_provincia: "",
+    id_canton: "",
+    fechaNacimiento: "",
   });
-  const [formData3, setFormData3] = useState({});
+  const [formContrato, setFormContrato] = useState({
+    idDireccion: "",
+    idUnidad: "",
+    idCargo: "",
+    fechaInicio: "",
+    fechaFin: "",
+    idEmpleado: "",
+    idTipoContrato: "",
+    archivo: null,
+    salario: "",
+    estadoContrato: "Activo",
+  });
   const [formData4, setFormData4] = useState({});
 
   const handleNext = () => {
@@ -113,7 +127,12 @@ const ModalComponent = ({ isOpen, onClose }) => {
           />
         )}
         {step === 3 && (
-          <FormContrato handleNext={handleNext} handlePrev={handlePrev} />
+          <FormContrato
+            formContrato={formContrato}
+            setFormContrato={setFormContrato}
+            handleNext={handleNext}
+            handlePrev={handlePrev}
+          />
         )}
         {step === 4 && <FormDatosBancarios handlePrev={handlePrev} />}
       </div>

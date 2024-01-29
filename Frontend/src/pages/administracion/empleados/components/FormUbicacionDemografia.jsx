@@ -8,7 +8,7 @@ const FormUbicacionDemografia = ({
   formDemografia,
 }) => {
   const { provincias, cantones } = useDemografia();
-
+  const [error, setError] = useState(false);
   const etnias = [
     "Mestizo",
     "Montubio",
@@ -21,10 +21,19 @@ const FormUbicacionDemografia = ({
 
   const [provinciaSeleccionada, setProvinciaSeleccionada] = useState("");
   const [cantonesFiltrados, setCantonesFiltrados] = useState([]);
-
+  const handleChange = (e) => {
+    setFormDemografia({
+      ...formDemografia,
+      [e.target.name]: e.target.value,
+    });
+  };
   const handleProvinciaChange = (e) => {
     const provinciaSeleccionada = e.target.value;
     setProvinciaSeleccionada(provinciaSeleccionada);
+    setFormDemografia({
+      ...formDemografia,
+      id_provincia: provinciaSeleccionada,
+    });
 
     // Filtrar cantones por la provincia seleccionada
     const cantonesFiltrados = cantones.filter(
@@ -33,23 +42,29 @@ const FormUbicacionDemografia = ({
     setCantonesFiltrados(cantonesFiltrados);
   };
 
-  console.log(cantones);
   const handleSubmit = (e) => {
     e.preventDefault();
-    e.preventDefault();
+
     const camposObligatorios = [
-      "cedula",
-      "primerNombre",
-      "segundoNombre",
-      "primerApellido",
-      "segundoApellido",
-      "genero",
-      "estadoCivil",
-      "telefonoTrabajo",
-      "telefonoPersonal",
-      "tipoSangre",
+      "etnia",
+      "nacionalidad",
+      "fechaNacimiento",
+      "id_provincia",
+      "id_canton",
+      "fechaNacimiento",
     ];
 
+    for (const campo of camposObligatorios) {
+      if (formDemografia[campo].trim() === "") {
+        setError(true);
+
+        setTimeout(() => {
+          setError(false);
+        }, 3000);
+
+        return;
+      }
+    }
     // Llama a la función onNext para pasar al siguiente formulario
     handleNext();
   };
@@ -57,8 +72,13 @@ const FormUbicacionDemografia = ({
   return (
     <div className="max-w-screen-md mx-auto p-4">
       <form onSubmit={handleSubmit}>
+        {error && (
+          <div className="bg-red-500 py-1 px-3 text-white font-bold rounded-md text-center mt-2 mb-5">
+            Por favor, completa todos los campos obligatorios.
+          </div>
+        )}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {/* Columna 1 */}
+          {/* Etnia */}
           <div className="mb-4">
             <label
               htmlFor="etnia"
@@ -70,6 +90,8 @@ const FormUbicacionDemografia = ({
               id="etnia"
               name="etnia"
               className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+              value={formDemografia.etnia}
+              onChange={handleChange}
             >
               <option value="" disabled selected>
                 Seleccione una etnia
@@ -84,6 +106,8 @@ const FormUbicacionDemografia = ({
             </select>
           </div>
 
+          {/* Nacionalidad */}
+
           <div className="mb-4">
             <label
               htmlFor="nacionalidad"
@@ -96,8 +120,12 @@ const FormUbicacionDemografia = ({
               id="nacionalidad"
               name="nacionalidad"
               className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+              value={formDemografia.nacionalidad}
+              onChange={handleChange}
             />
           </div>
+
+          {/* Provincia */}
 
           <div className="mb-4">
             <label
@@ -108,9 +136,10 @@ const FormUbicacionDemografia = ({
             </label>
             <select
               id="provinciaNacimiento"
-              name="provinciaNacimiento"
+              name="id_provincia"
               className="mt-1 p-2 w-full border border-gray-300 rounded-md"
               onChange={handleProvinciaChange}
+              value={formDemografia.id_provincia}
             >
               <option value="">Selecciona una provincia</option>
               {provincias.map((provincia) => (
@@ -123,7 +152,7 @@ const FormUbicacionDemografia = ({
               ))}
             </select>
           </div>
-
+          {/* Canton */}
           <div className="mb-4">
             <label
               htmlFor="cantonNacimiento"
@@ -133,8 +162,10 @@ const FormUbicacionDemografia = ({
             </label>
             <select
               id="cantonNacimiento"
-              name="cantonNacimiento"
+              name="id_canton"
               className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+              value={formDemografia.id_canton}
+              onChange={handleChange}
             >
               <option value="">Selecciona un cantón</option>
               {cantonesFiltrados.map((canton) => (
@@ -144,7 +175,7 @@ const FormUbicacionDemografia = ({
               ))}
             </select>
           </div>
-
+          {/* FechaNacimiento */}
           <div className="mb-4">
             <label
               htmlFor="fechaNacimiento"
@@ -157,70 +188,9 @@ const FormUbicacionDemografia = ({
               id="fechaNacimiento"
               name="fechaNacimiento"
               className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+              value={formDemografia.fechaNacimiento}
+              onChange={handleChange}
             />
-          </div>
-
-          {/* Columna 2 */}
-          <div className="mb-4">
-            <label
-              htmlFor="provinciaNacimiento"
-              className="block text-sm font-medium text-gray-600"
-            >
-              Provincia Nacimiento
-            </label>
-            <select
-              id="provinciaNacimiento"
-              name="provinciaNacimiento"
-              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-            >
-              {/* Opciones para provinciaNacimiento */}
-            </select>
-          </div>
-
-          <div className="mb-4">
-            <label
-              htmlFor="ciudadNacimiento"
-              className="block text-sm font-medium text-gray-600"
-            >
-              Ciudad Nacimiento
-            </label>
-            <select
-              id="ciudadNacimiento"
-              name="ciudadNacimiento"
-              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-            >
-              {/* Opciones para ciudadNacimiento */}
-            </select>
-          </div>
-
-          <div className="mb-4">
-            <label
-              htmlFor="direccion"
-              className="block text-sm font-medium text-gray-600"
-            >
-              Dirección
-            </label>
-            <input
-              type="text"
-              id="direccion"
-              name="direccion"
-              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label
-              htmlFor="descripcionDomicilio"
-              className="block text-sm font-medium text-gray-600"
-            >
-              Descripción de Domicilio
-            </label>
-            <textarea
-              id="descripcionDomicilio"
-              name="descripcionDomicilio"
-              rows="3"
-              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-            ></textarea>
           </div>
         </div>
 
