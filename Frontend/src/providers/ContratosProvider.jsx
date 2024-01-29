@@ -19,7 +19,6 @@ const ContratosProvider = ({ children }) => {
       try {
         const token = localStorage.getItem("token");
         if (!token) {
-          console.log("No hay token, no se cargaron los datos.");
           return;
         }
 
@@ -33,7 +32,6 @@ const ContratosProvider = ({ children }) => {
         const { data } = await clienteAxios("/contratos2", config);
 
         setContratos(data); // Intenta acceder a la propiedad correcta
-
       } catch (error) {
         console.error("Error al cargar los datos:", error);
       } finally {
@@ -44,7 +42,6 @@ const ContratosProvider = ({ children }) => {
     setCargando(true);
     obtenerContratos();
   }, [auth]);
-
 
   const contextValue = {
     contratos,

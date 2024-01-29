@@ -28,7 +28,7 @@ const CargosProvider = ({ children }) => {
         const { data } = await clienteAxios("/cargos", config); // Actualiza la ruta según tu API
         setCargos(data.data);
       } catch (error) {
-        console.error("Error al obtener cargos:", error);
+        //console.error("Error al obtener cargos:", error);
       } finally {
         setCargando(false);
       }
