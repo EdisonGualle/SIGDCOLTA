@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import useEmpleados from "../../../../hooks/useEmpleados";
 const FormNuevoEmpleado = ({
   handleNext,
   formDatosPersonales,
@@ -11,8 +11,11 @@ const FormNuevoEmpleado = ({
       [e.target.name]: e.target.value,
     });
   };
-  const [error, setError] = useState(false);
 
+  const { validarCedulas } = useEmpleados();
+
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
   const handleSubmit = (e) => {
     e.preventDefault();
     const camposObligatorios = [
@@ -27,19 +30,54 @@ const FormNuevoEmpleado = ({
       "telefonoPersonal",
       "tipoSangre",
     ];
-
+    /* FULL VALIDACIONES */
     // Realiza la validación para cada campo
-    /* for (const campo of camposObligatorios) {
+    for (const campo of camposObligatorios) {
       if (formDatosPersonales[campo].trim() === "") {
         setError(true);
-
+        setErrorMessage("Por favor, completa todos los campos obligatorios");
         setTimeout(() => {
           setError(false);
         }, 3000);
 
         return;
       }
-    } */
+    }
+    /* Validar Cedula */
+    if (validarCedulas(formDatosPersonales.cedula)) {
+      setError(true);
+      setErrorMessage(
+        "Esta cedula ya es de un epleado, por favor ingrese una diferente."
+      );
+      setTimeout(() => {
+        setError(false);
+      }, 3000);
+      return;
+    }
+
+    /* validar telefonos */
+    const validateTelefono = (telefono) => {
+      const telefonoRegex = /^[0-9]+$/;
+      return (
+        telefono.length >= 10 &&
+        telefono.length <= 11 &&
+        telefonoRegex.test(telefono)
+      );
+    };
+    /* validacion tlf */
+    if (
+      !validateTelefono(formDatosPersonales.telefonoTrabajo) &&
+      !validateTelefono(formDatosPersonales.telefonoPersonal)
+    ) {
+      setError(true);
+      setErrorMessage(
+        "Telefono de trabajo o personal debe contener solo números y tener entre 10 y 11 caracteres."
+      );
+      setTimeout(() => {
+        setError(false);
+      }, 3000);
+      return;
+    }
 
     handleNext();
   };
@@ -49,11 +87,11 @@ const FormNuevoEmpleado = ({
       <form className="" onSubmit={handleSubmit}>
         {error && (
           <div className="bg-red-500 py-1 px-3 text-white font-bold rounded-md text-center mt-2 mb-5">
-            Por favor, completa todos los campos obligatorios.
+            {errorMessage}
           </div>
         )}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {/* Columna 1 */}
+          {/* Cedula */}
           <div className="mb-4">
             <label
               htmlFor="cedula"
@@ -236,8 +274,13 @@ const FormNuevoEmpleado = ({
               value={formDatosPersonales.tipoSangre}
             >
               <option value="a+">A+</option>
+              <option value="a-">A-</option>
               <option value="b+">B+</option>
+              <option value="b-">B-</option>
+              <option value="ab+">AB+</option>
+              <option value="ab-">AB-</option>
               <option value="o+">O+</option>
+              <option value="o-">O-</option>
             </select>
           </div>
         </div>

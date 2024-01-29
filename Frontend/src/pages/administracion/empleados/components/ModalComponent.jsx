@@ -40,7 +40,11 @@ const ModalComponent = ({ isOpen, onClose }) => {
     salario: "",
     estadoContrato: "Activo",
   });
-  const [formData4, setFormData4] = useState({});
+  const [formDatosBancarios, setFormDatosBancarios] = useState({
+    nombreBanco: "",
+    numeroCuenta: "",
+    tipoCuenta: "",
+  });
 
   const handleNext = () => {
     // Realizar validación específica para cada paso
@@ -134,7 +138,13 @@ const ModalComponent = ({ isOpen, onClose }) => {
             handlePrev={handlePrev}
           />
         )}
-        {step === 4 && <FormDatosBancarios handlePrev={handlePrev} />}
+        {step === 4 && (
+          <FormDatosBancarios
+            formDatosbancarios={formDatosBancarios}
+            setFormDatosBancarios={setFormDatosBancarios}
+            handlePrev={handlePrev}
+          />
+        )}
       </div>
     </Modal>
   );

@@ -9,7 +9,6 @@ const FormContrato = ({
   setFormContrato,
 }) => {
   const [error, setError] = useState(false);
-
   const { direcciones, unidades, cargos } = useDirecciones();
   const { getTiposContrato, tiposContratos } = useContratos();
   const [unidadesFiltrados, setUnidadesFiltrados] = useState([]);
@@ -19,33 +18,6 @@ const FormContrato = ({
     getTiposContrato();
   }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const camposObligatorios = [
-      "idDireccion",
-      "idUnidad",
-      "idCargo",
-      "fechaInicio",
-      "fechaFin",
-      "idTipoContrato",
-      "archivo",
-      "salario",
-      "estadoContrato",
-    ];
-    for (const campo of camposObligatorios) {
-      if (formContrato[campo] === "") {
-        setError(true);
-
-        setTimeout(() => {
-          setError(false);
-        }, 3000);
-
-        return;
-      }
-    }
-    handleNext();
-  };
-
   const hanldeChange = (e) => {
     setFormContrato({
       ...formContrato,
@@ -54,7 +26,7 @@ const FormContrato = ({
   };
 
   const handleDireccionChange = (e) => {
-    const idDireccion = e.target.value;
+    let idDireccion = e.target.value;
 
     setFormContrato({
       ...formContrato,
@@ -63,7 +35,7 @@ const FormContrato = ({
 
     // Filtrar cantones por la provincia seleccionada
     const unidadesFilt = unidades.filter(
-      (unidad) => unidad.idDireccion === parseInt(formContrato.idDireccion)
+      (unidad) => unidad.idDireccion === parseInt(idDireccion)
     );
     setUnidadesFiltrados(unidadesFilt);
   };
@@ -78,10 +50,38 @@ const FormContrato = ({
 
     // Filtrar cantones por la provincia seleccionada
     const cargosFilt = cargos.filter(
-      (cargo) => cargo.idUnidad === parseInt(formContrato.idUnidad)
+      (cargo) => cargo.idUnidad === parseInt(idUnidad)
     );
     setCargosFiltrados(cargosFilt);
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const camposObligatorios = [
+      "idDireccion",
+      "idUnidad",
+      "idCargo",
+      "fechaInicio",
+      "fechaFin",
+      "idTipoContrato",
+      "archivo",
+      "salario",
+      "estadoContrato",
+    ];
+   /*  for (const campo of camposObligatorios) {
+      if (formContrato[campo] === "") {
+        setError(true);
+
+        setTimeout(() => {
+          setError(false);
+        }, 3000);
+
+        return;
+      }
+    } */
+    handleNext();
+  };
+
   return (
     <div className="max-w-screen-md mx-auto p-4">
       <form onSubmit={handleSubmit}>

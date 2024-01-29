@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import useDemografia from "../../../../hooks/useDemografia";
 
-const FormUbicacionDemografia = ({
+const FormUbicacionDemografia = ({ 
   handleNext,
   handlePrev,
   setFormDemografia,
@@ -54,7 +54,7 @@ const FormUbicacionDemografia = ({
       "fechaNacimiento",
     ];
 
-    for (const campo of camposObligatorios) {
+    /* for (const campo of camposObligatorios) {
       if (formDemografia[campo].trim() === "") {
         setError(true);
 
@@ -64,7 +64,7 @@ const FormUbicacionDemografia = ({
 
         return;
       }
-    }
+    } */
     // Llama a la función onNext para pasar al siguiente formulario
     handleNext();
   };
