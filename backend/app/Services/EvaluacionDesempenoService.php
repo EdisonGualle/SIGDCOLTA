@@ -11,9 +11,48 @@ class EvaluacionDesempenoService
 {
     public function listarEvaluacionesDesempeno()
     {
-        $evaluacionesDesempeno = EvaluacionDesempeno::all();
-        return response()->json(['successful' => true, 'data' => $evaluacionesDesempeno]);
+        // Obtener las evaluaciones de desempeño con la información relacionada
+        $evaluaciones = EvaluacionDesempeno::with(['empleado', 'evaluador'])->get();
+
+        // Formatear los datos según lo requerido
+        $data = $evaluaciones->map(function ($evaluacion) {
+            return [
+                'idEvaluacionDesempeno' => $evaluacion->idEvaluacionDesempeno,
+                'idEmpleado' => [
+                    'id' => $evaluacion->empleado->idEmpleado,
+                    'primerNombre' => $evaluacion->empleado->primerNombre,
+                    'segundoNombre' => $evaluacion->empleado->segundoNombre,
+                    'primerApellido' => $evaluacion->empleado->primerApellido,
+                    'segundoApellido' => $evaluacion->empleado->segundoApellido,
+                ],
+                'idEvaluador' => [
+                    'id' => $evaluacion->evaluador->idEmpleado,
+                    'primerNombre' => $evaluacion->evaluador->primerNombre,
+                    'segundoNombre' => $evaluacion->evaluador->segundoNombre,
+                    'primerApellido' => $evaluacion->evaluador->primerApellido,
+                    'segundoApellido' => $evaluacion->evaluador->segundoApellido,
+                ],
+                'fechaEvaluacion' => $evaluacion->fechaEvaluacion,
+                'ObjetivosMetas' => $evaluacion->ObjetivosMetas,
+                'cumplimientoObjetivos' => $evaluacion->cumplimientoObjetivos,
+                'competencias' => $evaluacion->competencias,
+                'calificacionGeneral' => $evaluacion->calificacionGeneral,
+                'comentarios' => $evaluacion->comentarios,
+                'areasMejora' => $evaluacion->areasMejora,
+                'reconocimientosLogros' => $evaluacion->reconocimientosLogros,
+                'desarrolloProfesional' => $evaluacion->desarrolloProfesional,
+                'feedbackEmpleado' => $evaluacion->feedbackEmpleado,
+                'estadoEvaluacion' => $evaluacion->estadoEvaluacion,
+                'archivo' => $evaluacion->archivo,
+            ];
+        });
+
+        // Devolver la respuesta JSON con los datos formateados
+        
+        return response()->json(['successful' => true, 'data' => $data]);
     }
+     
+    
 
 
     public function mostrarEvaluacionDesempenoPorId($id)
