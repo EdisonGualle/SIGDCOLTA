@@ -11,7 +11,7 @@ const FormularioContrato = ({ tipoContratos, selectedEmployeeId, selectedEmploye
     salario: "",
     estadoContrato: "",
   });
-  
+
 
   const handleInputChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -29,7 +29,7 @@ const FormularioContrato = ({ tipoContratos, selectedEmployeeId, selectedEmploye
   return (
     <div className="max-w-screen-md mx-auto p-4">
       <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div className="mb-4">
+        <div className="mb-4">
           <label htmlFor="nombreEmpleado" className="block text-sm font-medium text-gray-600">
             Empleado
           </label>
@@ -84,10 +84,10 @@ const FormularioContrato = ({ tipoContratos, selectedEmployeeId, selectedEmploye
             className="mt-1 p-2 w-full border border-gray-300 rounded-md"
             disabled // Deshabilita la entrada para que no sea modificable manualmente
           />
-          
+
 
         </div>
-        
+
 
         <div className="mb-4">
           <label
@@ -112,9 +112,6 @@ const FormularioContrato = ({ tipoContratos, selectedEmployeeId, selectedEmploye
                 </option>
               );
             })}
-
-
-
           </select>
         </div>
 
