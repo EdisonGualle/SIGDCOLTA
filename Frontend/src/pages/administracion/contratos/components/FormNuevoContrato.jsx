@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 
-const FormularioContrato = ({ tipoContratos, selectedEmployeeId }) => {
+const FormularioContrato = ({ tipoContratos, selectedEmployeeId, selectedEmployeeName }) => {
   const [formData, setFormData] = useState({
     fechaInicio: "",
     fechaFin: "",
     idEmpleado: selectedEmployeeId || "",
+    nombreEmpleado: selectedEmployeeName || "", // Nuevo campo para el nombre completo
     idTipoContrato: "",
     archivo: null,
     salario: "",
     estadoContrato: "",
   });
+  
 
   const handleInputChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -81,6 +83,7 @@ const FormularioContrato = ({ tipoContratos, selectedEmployeeId }) => {
             value={formData.nombreEmpleado}
             onChange={handleInputChange}
             className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+            disabled // Deshabilita la entrada para que no sea modificable manualmente
           />
         </div>
 

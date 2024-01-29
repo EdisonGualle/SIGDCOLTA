@@ -3,17 +3,21 @@ import { AgGridReact } from "ag-grid-react";
 import { TRANSLATIONS } from "../../empleados/components/traduccionTableGrid";
 import { LANGUAGE_OPTIONS } from "../../empleados/components/traduccionTableGrid";
 
-const TableAgregarContrato = ({ tiposContrato, setSelectedEmployeeId }) => {
+const TableAgregarContrato = ({ tiposContrato, setSelectedEmployeeId, setSelectedEmployeeName }) => {
   const [rowData, setRowData] = useState([]);
  
   const handleRowSelection = (event) => {
     const selectedRows = event.api.getSelectedRows();
     if (selectedRows.length > 0) {
       setSelectedEmployeeId(selectedRows[0].idEmpleado);
+      const fullName = `${selectedRows[0].primerNombre} ${selectedRows[0].segundoNombre} ${selectedRows[0].primerApellido} ${selectedRows[0].segundoApellido}`;
+    setSelectedEmployeeName(fullName);
     } else {
       setSelectedEmployeeId(null);
+      setSelectedEmployeeName(null);
     }
   };
+  
   
   // Column Definitions
   const [colDefs] = useState([
@@ -24,13 +28,10 @@ const TableAgregarContrato = ({ tiposContrato, setSelectedEmployeeId }) => {
       suppressMenu: true,
     },
     { headerName: "Cedula", field: "cedula" },
-    { 
-      headerName: "Nombre Completo", 
-      field: "nombreCompleto", 
-      valueGetter: function(params) {
-        return params.data.primerNombre + ' ' + params.data.segundoNombre + ' ' + 
-               params.data.primerApellido + ' ' + params.data.segundoApellido;
-      } 
+    {
+      headerName: "Nombre Completo", field: "nombreCompleto",
+      valueGetter: (params) =>
+        `${params.data.primerNombre} ${params.data.segundoNombre} ${params.data.primerApellido} ${params.data.segundoApellido}`,
     },
     { headerName: "Fecha de Nacimiento", field: "fechaNacimiento" },
     { headerName: "Género", field: "genero" },

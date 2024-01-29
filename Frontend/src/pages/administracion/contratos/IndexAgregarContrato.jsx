@@ -13,13 +13,14 @@ const IndexAgregarContratosAdministrador = () => {
 
   const MySwal = withReactContent(Swal);
   const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
-  
+  const [selectedEmployeeName, setSelectedEmployeeName] = useState(null);
+
 
 
   const handleNuevoContratoClick = () => {
     MySwal.fire({
       title: "Nuevo Tipo de Contrato",
-      html: <FormNuevoContrato selectedEmployeeId={selectedEmployeeId} />,
+      html: <FormNuevoContrato selectedEmployeeId={selectedEmployeeId} selectedEmployeeName={selectedEmployeeName} />,
       showCancelButton: false,
       showConfirmButton: false,
       cancelButtonColor: "#3085d6",
@@ -50,7 +51,7 @@ const IndexAgregarContratosAdministrador = () => {
       </div>
       
       <div className="h-full">
-      <TableAgregarContrato tiposContrato={tiposContrato} setSelectedEmployeeId={setSelectedEmployeeId} />
+        <TableAgregarContrato tiposContrato={tiposContrato} setSelectedEmployeeId={setSelectedEmployeeId} setSelectedEmployeeName={setSelectedEmployeeName}/>
 
       </div>
     </>
