@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Employee;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class EmpleadoDatosPersonalesController extends Controller
+class EmpleadoDatosController extends Controller
 {
     public function misDatosPersonales()
     {
@@ -53,6 +53,58 @@ class EmpleadoDatosPersonalesController extends Controller
                 'ubicacionGeografica' =>[
                     'provincia'=>$empleado->provincia->nombre_provincia,
                     'canton'=>$empleado->canton->nombre_canton,
+                ]
+            ];
+
+           
+
+            return $this->successResponse('Datos obtenidos correctamente', $datos);
+        } catch (\Exception $e) {
+            return $this->errorResponse('Error interno del servidor', 500);
+        }
+    }
+
+    public function misDatosLaborales()
+    {
+        try {
+            // Verificar si el usuario está autenticado
+            $usuarioAutenticado = Auth::user();
+            if (!$usuarioAutenticado) {
+                return $this->errorResponse('Usuario no autenticado', 401);
+            }
+
+            // Obtener el empleado asociado al usuario autenticado
+            $empleado = $usuarioAutenticado->empleado;
+
+            // Verificar si el empleado existe
+            if (!$empleado) {
+                return $this->errorResponse('Empleado no encontrado', 404);
+            }
+
+            $contratoActivo = null;
+            // Obtener el contrato activo del empleado
+            $contratoActivo = $empleado->contratos->where('estadoContrato', 'activo')->first();
+
+            // Verificar si hay un contrato activo
+            if (!$contratoActivo) {
+                return $this->errorResponse('Contrato activo no encontrado', 404);
+            }
+
+            // Crear la respuesta JSON con la información requerida
+            $datos = [
+    
+                'informacionDatosLaborales' => [
+                    'direccion' => $empleado->cargo->unidad->direccion->nombre,
+                    'unidad' => $empleado->cargo->unidad->nombre,
+                    'cargo'=> $empleado->cargo->nombre,
+                    'salario'=>$contratoActivo->salario,
+                    'fechaIngreso' => $contratoActivo->fechaInicio,
+                    'fechaTermino' => $contratoActivo->fechaFin,
+                    'tipoContrato'=>$contratoActivo->tipoContrato->nombre,
+                ],
+                'informacionTipoContrato' => [
+                    'descripcion' => $contratoActivo->tipoContrato->descripcion,
+                    'clausulas' => $contratoActivo->tipoContrato->clausulas,
                 ]
             ];
 

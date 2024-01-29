@@ -1,7 +1,7 @@
 import React from "react";
 import useAuthEmpleado from "../../../../../hooks/useAuthEmpleado";
 
-// components
+
 
 export default function CardSettings() {
   const { obtenerMiInformacion } = useAuthEmpleado();
@@ -20,7 +20,7 @@ export default function CardSettings() {
           </div>
         </div>
         <div
-          className="flex-auto px-4 lg:px-10 py-10 pt-0 bg-indigo-100 rounded-br-lg"
+          className="flex-auto px-4 lg:px-10 py-10 pt-0 bg-indigo-100 rounded-br-lg max-h-screen overflow-y-auto"
         >
           <form>
             <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">

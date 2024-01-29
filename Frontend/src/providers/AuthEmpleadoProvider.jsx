@@ -7,6 +7,7 @@ const AuthEmpleadoContext = createContext();
 const AuthEmpleadoProvider = ({ children }) => {
   const [obtenerMiCargo, setObtenerMiCargo] = useState({});
   const [obtenerMiInformacion, setObtenerMiInformacion] = useState({});
+  const [obtenerMisDatosLaborales, setObtenerMisDatosLaborales] = useState({});
   const { auth } = useAuth();
 
   useEffect(() => {
@@ -44,14 +45,32 @@ const AuthEmpleadoProvider = ({ children }) => {
 
         const { data } = await clienteAxios("administrador/mis-datos-personales", config);
         setObtenerMiInformacion(data.datos);
-        console.log(data.datos);
       } catch (error) {
         console.log(error);
         // Puedes manejar errores según tus necesidades
       }
     };
 
+    const obtenerMisDatosLaborales = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) return;
 
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        };
+
+        const { data } = await clienteAxios("administrador/mis-datos-laborales", config);
+        setObtenerMisDatosLaborales(data.datos);
+      } catch (error) {
+        console.log(error);
+        // Puedes manejar errores según tus necesidades
+      }
+    };
+    obtenerMisDatosLaborales();
     obtenerMiCargo();
     obtenerMiInformacion();
   }, [auth]);
@@ -61,6 +80,7 @@ const AuthEmpleadoProvider = ({ children }) => {
   const contextValue = {
     obtenerMiCargo,
     obtenerMiInformacion,
+    obtenerMisDatosLaborales,
     // Puedes agregar más funciones aquí
   };
 

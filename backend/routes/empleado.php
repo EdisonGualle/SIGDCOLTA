@@ -6,7 +6,7 @@ use App\Http\Controllers\Employee\EmpleadoCargoController;
 use App\Http\Controllers\Employee\EmpleadoContratoController;
 use App\Http\Controllers\Employee\EmpleadoDepartamentoController;
 use App\Http\Controllers\Employee\EmpleadoDatoBancarioController;
-use App\Http\Controllers\Employee\EmpleadoDatosPersonalesController;
+use App\Http\Controllers\Employee\EmpleadoDatosController;
 use App\Http\Controllers\Employee\EmpleadoEvaluaciondesempenoController;
 use App\Http\Controllers\Employee\EmpleadoExperiencialaboralController;
 use App\Http\Controllers\Employee\EmpleadoInstruccionformalController;
@@ -21,7 +21,8 @@ Route::get('total-capacitaciones', [EmpleadoCapacitacionController::class, 'obte
 Route::get('/mi-cargo', [EmpleadoCargoController::class, 'miCargo']);
 
 // Datos Personales 
-Route::get('/mis-datos-personales', [EmpleadoDatosPersonalesController::class, 'misDatosPersonales']);
+Route::get('/mis-datos-personales', [EmpleadoDatosController::class, 'misDatosPersonales']);
+Route::get('/mis-datos-laborales', [EmpleadoDatosController::class, 'misDatoslaborales']);
 
 //Rutas Contrato
 Route::get('/mis-contratos', [EmpleadoContratoController::class, 'listarContratosPorEmpleadoAuth']);
