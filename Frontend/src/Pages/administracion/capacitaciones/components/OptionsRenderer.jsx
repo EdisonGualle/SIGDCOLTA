@@ -1,15 +1,14 @@
-
 import React, { useState } from "react";
-// import Modal from "react-modal";
+import Modal from "react-modal";
 // import PerfilEmpleado from "./PerfilEmpleado";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css"; // optional
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import useCapacitaciones from "../../../../hooks/useCapacitaciones";
+// import useEmpleados from "../../../../hooks/useEmpleados";
 
 const OptionsRenderer = (params) => {
-  const { eliminarCapacitacion } = useCapacitaciones();
+//   const { eliminarEmpleado, actualizarEmpleado } = useEmpleados();
   const MySwal = withReactContent(Swal);
   const { data } = params;
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -33,13 +32,32 @@ const OptionsRenderer = (params) => {
   const closeModal = () => {
     setModalIsOpen(false);
   };
-  const onEditarClick = (data) => {
-    console.log(data);
+//   const onEditarClick = (data) => {
+//     console.log(data);
+//   };
+
+  const handleActualizar = () => {
+    MySwal.fire({
+      title: "¿Estás seguro?",
+      text: "Esta acción actualizará la asignación. ¿Quieres continuar?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, actualizar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        actualizarEmpleado(data.idEmpleado, data);
+        MySwal.fire("Actualizado", "Empleado Actualizado.", "success");
+      }
+    });
   };
+
   const onEliminarClick = () => {
     MySwal.fire({
       title: "¿Estás seguro?",
-      text: "Esta acción eliminará la asignación de la capacitación. ¿Quieres continuar?",
+      text: "Esta acción eliminará el Empleado. ¿Quieres continuar?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
@@ -48,8 +66,8 @@ const OptionsRenderer = (params) => {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        eliminarCapacitacion(data.idEmpleado);
-        MySwal.fire("Eliminada", "Empleado Eliminado.", "success");
+        /*         eliminarEmpleado(data.idEmpleado);
+         */ MySwal.fire("Eliminada", "Empleado Eliminado.", "success");
       }
     });
   };
@@ -62,6 +80,7 @@ const OptionsRenderer = (params) => {
             <button
               className="bg-blue-400 text-white px-4  mr-2"
               data-action="update"
+              onClick={handleActualizar}
             >
               Actualizar
             </button>
@@ -101,17 +120,16 @@ const OptionsRenderer = (params) => {
         )}
       </div>
 
-      {/* <Modal
+      <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         contentLabel="Ver Empleado Modal"
         style={customStyles}
       >
-        <PerfilEmpleado empleado={data} />
+        {/* <PerfilEmpleado empleado={data} /> */}
         <button onClick={closeModal}>Cerrar</button>
-      </Modal> */}
+      </Modal>
     </>
   );
 };
 export default OptionsRenderer;
-

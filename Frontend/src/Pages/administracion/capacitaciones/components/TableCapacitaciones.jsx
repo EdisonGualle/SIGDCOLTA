@@ -79,61 +79,124 @@ const TableCapacitaciones = ({ capacitaciones }) => {
 };
 
 export default TableCapacitaciones;*/
-import React, { useEffect, useState } from "react";
-import { AgGridReact } from "ag-grid-react";
-import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-alpine.css";
 
+// TableCapacitaciones.jsx
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-community/styles/ag-theme-quartz.css";
+import { AgGridReact } from "ag-grid-react";
+import React, { useEffect, useMemo, useState } from "react";
+import { TRANSLATIONS } from "../../empleados/components/traduccionTableGrid";
+import { LANGUAGE_OPTIONS } from "../../empleados/components/traduccionTableGrid";
+import { RiEyeLine, RiEditLine, RiDeleteBinLine } from 'react-icons/ri';
 import OptionsRenderer from "./OptionsRenderer";
+
 
 const TableCapacitaciones = ({ capacitaciones }) => {
   const [rowData, setRowData] = useState([]);
 
+
+  // Definir funciones de manejo para los botones
+  const handleVerClick = (capacitacion) => {
+    // Lógica para manejar el clic en "Ver"
+    console.log("Ver", capacitacion);
+  };
+
+  const handleEditarClick = (capacitacion) => {
+    // Lógica para manejar el clic en "Editar"
+    console.log("Editar", capacitacion);
+  };
+
+  const handleEliminarClick = (capacitacion) => {
+    // Lógica para manejar el clic en "Eliminar"
+    console.log("Eliminar", capacitacion);
+  };
+
+  /*const estadoCellStyle = (params) => {
+    let backgroundColor = "";
+ 
+    switch (params.value) {
+      case "activo":
+        backgroundColor = "#bbf7d0"; // Puedes cambiar esto al color que desees para el estado activo
+        break;
+      case "inactivo":
+        backgroundColor = "#fecaca"; // Puedes cambiar esto al color que desees para el estado inactivo
+        break;
+      case "pendiente":
+        backgroundColor = "#fef9c3"; // Puedes cambiar esto al color que desees para el estado pendiente
+        break;
+      default:
+        break;
+    }
+ 
+    return { backgroundColor };
+  };*/
+
+  // Register the framework component
+  const frameworkComponents = {
+    accionesRenderer: (params) => (
+      <div>
+        <button onClick={() => handleVerClick(params.data)}>
+          <RiEyeLine />
+        </button>
+        <button onClick={() => handleEditarClick(params.data)}>
+          <RiEditLine />
+        </button>
+        <button onClick={() => handleEliminarClick(params.data)}>
+          <RiDeleteBinLine />
+        </button>
+      </div>
+    ),
+  };
+
+  // Column Definitions: Defines & controls grid columns.
+  const [colDefs] = useState([
+    {
+      headerName: "Cédula",
+      field: "cedula",
+      checkboxSelection: true,
+      headerCheckboxSelection: true,
+      suppressMenu: true,
+      width: 150,
+    },
+    {
+      headerName: "Nombre Completo",
+      valueGetter: (params) =>
+        `${params.data.primerNombre} ${params.data.segundoNombre} ${params.data.primerApellido} ${params.data.segundoApellido}`,
+    },
+    { headerName: "Capacitación", field: "nombre", suppressMenu: true },
+    { headerName: "Descripción", field: "descripcion", suppressMenu: true },
+    /*{
+      headerName: "Estado",
+      field: "estado",
+      suppressMenu: true,
+      cellStyle: estadoCellStyle, // Aplicar el estilo condicional
+    },*/
+    { headerName: "Tipo de Evento", field: "tipoEvento", suppressMenu: true },
+    { headerName: "Institución", field: "institucion", suppressMenu: true },
+    { headerName: "Cantidad de Horas", field: "cantidadHoras" },
+    { headerName: "Fecha", field: "fecha", filter: "agDateColumnFilter", suppressMenu: true },
+    {
+      headerName: "Acciones",
+      minWidth: 150,
+      cellRenderer: OptionsRenderer,
+      editable: false,
+      colId: "acciones",
+      checkboxSelection: false,
+      filter: false,
+      pinned: "right",  // esta a a la derecha
+    },
+
+    // Puedes agregar más columnas según tus necesidades
+  ]);
+
+  // Fetch data & update rowData state
   useEffect(() => {
     setRowData(capacitaciones);
   }, [capacitaciones]);
 
-  const [gridOptions] = useState({
-    suppressClickEdit: true,
-    onCellClicked: handleCellClicked,
-    onRowEditingStarted: handleRowEditingStarted,
-    onRowEditingStopped: handleRowEditingStopped,
-    editType: "fullRow",
-    columnDefs: [
-      {
-        field: "cedula",
-        headerName: "cedula",
-        minWidth: 150,
-        editable: true,
-        suppressMenu: true,
-        checkboxSelection: true,
-        headerCheckboxSelection: true,
-        chartDataType: "category",
-      },
-      {
-        headerName: "Acciones",
-        minWidth: 150,
-        cellRenderer: OptionsRenderer,
-        editable: false,
-        colId: "acciones",
-        checkboxSelection: false,
-        filter: false,
-      },
-      {
-        headerName: "Nombre Completo",
-        suppressMenu: true,
-        valueGetter: (params) =>
-          `${params.data.primerNombre} ${params.data.segundoNombre} ${params.data.primerApellido} ${params.data.segundoApellido}`,
-      },
-      { headerName: "Capacitación", field: "nombre" },
-      { headerName: "Descripción", field: "descripcion" },
-      { headerName: "Tipo de Evento", field: "tipoEvento" },
-      { headerName: "Institución", field: "institucion" },
-      { headerName: "Cantidad de Horas", field: "cantidadHoras" },
-      { headerName: "Fecha", field: "fecha", filter: "agDateColumnFilter", suppressMenu: true,}, 
-    ],
-    defaultColDef: {
-      editable: true,
+  // Apply settings across all columns
+  const defaultColDef = useMemo(
+    () => ({
       filter: "agTextColumnFilter",
       filterParams: {
         filterOptions: ["contains"],
@@ -141,66 +204,58 @@ const TableCapacitaciones = ({ capacitaciones }) => {
         suppressAndOrCondition: true,
       },
       floatingFilter: true,
-    },
-  });
+    }),
+    []
+  );
 
-  function handleCellClicked(params) {
-    if (
-      params.column.colId === "acciones" &&
-      params.event.target.dataset.action
-    ) {
-      const action = params.event.target.dataset.action;
-
-      if (action === "edit") {
-        params.api.startEditingCell({
-          rowIndex: params.node.rowIndex,
-          colKey: "cedula", // Puedes especificar la columna que deseas editar aquí
-        });
-      }
-
-      if (action === "delete") {
-        params.api.applyTransaction({
-          remove: [params.node.data],
-        });
-      }
-
-      if (action === "update") {
-        params.api.stopEditing(false);
-      }
-
-      if (action === "cancel") {
-        params.api.stopEditing(true);
-      }
-    }
-  }
-
-  function handleRowEditingStarted(params) {
-    params.api.refreshCells({
-      columns: ["acciones"],
-      rowNodes: [params.node],
-      force: true,
-    });
-  }
-
-  function handleRowEditingStopped(params) {
-    params.api.refreshCells({
-      columns: ["acciones"],
-      rowNodes: [params.node],
-      force: true,
-    });
-  }
 
   return (
-    <div className="ag-theme-quartz" style={{ width: "100%", height: "90%" }}>
+    <div className={"ag-theme-quartz"} style={{ width: "100%", height: "90%" }}>
       <AgGridReact
-        pagination={true}
-        gridOptions={gridOptions}
+        localeText={TRANSLATIONS[LANGUAGE_OPTIONS.ES]}
         rowData={rowData}
-        rowSelection="multiple"
+        columnDefs={colDefs}
+        defaultColDef={defaultColDef}
+        frameworkComponents={frameworkComponents}
+        pagination={true}
+        rowSelection={"multiple"}
+        domLayout='autoHeight'
       />
     </div>
   );
- 
 };
-
 export default TableCapacitaciones;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
