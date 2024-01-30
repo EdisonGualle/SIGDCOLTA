@@ -79,14 +79,22 @@ const EmpleadosProvider = ({ children }) => {
         nuevoEmpleado,
         config
       );
-      setEmpleados([...empleados, data.data]);
-      setAlerta({
-        tipo: "success",
-        mensaje: "Empleado agregado correctamente",
-      });
+      if (!data.original.errors) {
+        setAlerta({
+          error: false,
+          mensaje: "Empleado agregado correctamente",
+        });
+      } else {
+        setAlerta({
+          mensajes: data.original.errors,
+          error: true,
+        });
+      }
     } catch (error) {
-      console.log(error);
-      setAlerta({ tipo: "error", mensaje: "Error al agregar empleado" });
+      setAlerta({
+        mensaje: error.data.original.errors,
+        error: true,
+      });
     }
   };
 
@@ -150,6 +158,7 @@ const EmpleadosProvider = ({ children }) => {
     validarCedulas,
     datosBancarios,
     getDatosBancarios,
+    alerta,
   };
 
   return (

@@ -5,18 +5,21 @@ import FormNuevoEmpleado from "./FormNuevoEmpleado";
 import FormContrato from "./FormContrato";
 import FormUbicacionDemografia from "./FormUbicacionDemografia";
 import FormDatosBancarios from "./FormDatosbancarios";
+import useEmpleados from "../../../../hooks/useEmpleados";
 
 const ModalComponent = ({ isOpen, onClose }) => {
+  const {agregarEmpleado}=useEmpleados();
   const [step, setStep] = useState(1);
   const [formDatosPersonales, setFormDatosPersonales] = useState({
     cedula: "",
+    correo: "",
     primerNombre: "",
     segundoNombre: "",
     primerApellido: "",
     segundoApellido: "",
     genero: "Masculino",
     estadoCivil: "Soltero",
-    tipoSangre: "O+",
+    tipoSangre: "A+",
     telefonoTrabajo: "",
     telefonoPersonal: "",
   });
@@ -45,6 +48,30 @@ const ModalComponent = ({ isOpen, onClose }) => {
     numeroCuenta: "",
     tipoCuenta: "",
   });
+
+  const completarFormulario = () => {
+    const newEmpleado = {
+      cedula: formDatosPersonales.cedula,
+      correo: formDatosPersonales.correo,
+      primerNombre: formDatosPersonales.primerNombre,
+      segundoNombre: formDatosPersonales.segundoNombre,
+      primerApellido: formDatosPersonales.primerApellido,
+      segundoApellido: formDatosPersonales.segundoApellido,
+      genero: formDatosPersonales.genero,
+      estadoCivil: formDatosPersonales.estadoCivil,
+      telefonoTrabajo: formDatosPersonales.telefonoTrabajo,
+      telefonoPersonal: formDatosPersonales.telefonoPersonal,
+      fechaNacimiento: formDemografia.fechaNacimiento,
+      etnia: formDemografia.etnia,
+      tipoSangre: formDatosPersonales.tipoSangre,
+      nacionalidad: formDemografia.nacionalidad,
+      id_canton: formDemografia.id_canton,
+      id_provincia: formDemografia.id_provincia,
+      idCargo: formContrato.idCargo,
+    };
+    console.log(newEmpleado);
+    agregarEmpleado(newEmpleado);
+  };
 
   const handleNext = () => {
     // Realizar validación específica para cada paso
@@ -143,6 +170,7 @@ const ModalComponent = ({ isOpen, onClose }) => {
             formDatosbancarios={formDatosBancarios}
             setFormDatosBancarios={setFormDatosBancarios}
             handlePrev={handlePrev}
+            completarFormulario={completarFormulario}
           />
         )}
       </div>

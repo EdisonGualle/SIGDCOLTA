@@ -5,10 +5,11 @@ const FormDatosBancarios = ({
   handlePrev,
   formDatosbancarios,
   setFormDatosBancarios,
+  completarFormulario,
 }) => {
   const [error, setError] = useState(false);
-  const { datosBancarios, getDatosBancarios } = useEmpleados();
-/* 
+  const { datosBancarios, getDatosBancarios, alerta } = useEmpleados();
+  /* 
   useEffect(() => {
     getDatosBancarios();
   }, []);
@@ -23,7 +24,7 @@ const FormDatosBancarios = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const camposObligatorios = ["nombreBanco", "numeroCuenta", "tipoCuenta"];
+    const camposObligatorios = ["nombreBanco", "numeroCuenta"];
     for (const campo of camposObligatorios) {
       if (formDatosbancarios[campo] === "") {
         setError(true);
@@ -35,7 +36,8 @@ const FormDatosBancarios = ({
         return;
       }
     }
-    console.log("submit");
+    completarFormulario();
+    navigate("/empleados");
   };
 
   return (
@@ -99,8 +101,6 @@ const FormDatosBancarios = ({
               <option value="">Selecciona una opción</option>
               <option value="">Ahorros</option>
               <option value="">Corriente</option>
-              
-
             </select>
           </div>
         </div>
@@ -120,6 +120,11 @@ const FormDatosBancarios = ({
           </button>
         </div>
       </form>
+      {alerta.error ? (
+        <p className="text-red-500">{alerta.mensaje}</p>
+      ) : (
+        <p className="text-center font-bold text-green-500">{alerta.mensaje}</p>
+      )}
     </div>
   );
 };
