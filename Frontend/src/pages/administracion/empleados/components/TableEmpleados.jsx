@@ -5,9 +5,6 @@ import "ag-grid-community/styles/ag-theme-alpine.css";
 
 import OptionsRenderer from "./OptionsRenderer";
 const TableEmpleados = ({ empleados }) => {
-
-
-  
   const [rowData, setRowData] = useState([]);
 
   useEffect(() => {
@@ -44,12 +41,41 @@ const TableEmpleados = ({ empleados }) => {
         checkboxSelection: false,
         filter: false,
       },
+
       {
+        headerName: "1er Nombre",
+        field: "primerNombre",
+        suppressMenu: true,
+      },
+      {
+        headerName: "2do Nombre",
+        field: "segundoNombre",
+        suppressMenu: true,
+      },
+      {
+        headerName: "1er Apellido",
+        field: "primerApellido",
+        suppressMenu: true,
+      },
+      {
+        headerName: "2do Apellido",
+        field: "segundoApellido",
+        suppressMenu: true,
+      },
+
+      {
+        headerName: "Estado",
+        field: "tipoEstado",
+        suppressMenu: true,
+      },
+
+      /* {
         headerName: "Nombre Completo",
         suppressMenu: true,
         valueGetter: (params) =>
           `${params.data.primerNombre} ${params.data.segundoNombre} ${params.data.primerApellido} ${params.data.segundoApellido}`,
-      },
+      }, */
+
       {
         headerName: "Fecha de Nacimiento",
         field: "fechaNacimiento",

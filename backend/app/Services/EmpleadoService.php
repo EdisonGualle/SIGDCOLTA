@@ -19,7 +19,12 @@ class EmpleadoService
 {
     public function listarEmpleados()
     {
-        $empleados = Empleado::all();
+
+        $empleados = DB::table('empleado')
+            ->join('usuario', 'empleado.idEmpleado', '=', 'usuario.idEmpleado')
+            ->join('estadousuario', 'usuario.idTipoEstado', '=', 'estadousuario.idEstado')
+            ->select('empleado.*', 'estadousuario.tipoEstado', "estadousuario.idEstado as idTipoEstado")
+            ->get();
         return ['successful' => true, 'data' => $empleados];
     }
     public function EmpleadosReporte()
