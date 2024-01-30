@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import TableAgregarContrato from "./components/TableAgregarContrato";
 import useAsignarContrato from "../../../hooks/useAsiganarContrato";
 import FormNuevoContrato from "./components/FormNuevoContrato";
@@ -7,9 +6,12 @@ import NavegacionContratos from "./components/NavegacionContratos";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import usetipoContratos from '../../../hooks/usetipoContratos';
+import useAuthEmpleado from '../../../hooks/useAuthEmpleado';
+
 const IndexAgregarContratosAdministrador = () => {
   const { tiposContrato } = useAsignarContrato();
   const { ContratoTipo } = usetipoContratos();
+  const { Auth} = useAuthEmpleado();
 
   const MySwal = withReactContent(Swal);
   const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
@@ -29,7 +31,7 @@ const IndexAgregarContratosAdministrador = () => {
     } else (selectedEmployeeId === 1); {
       MySwal.fire({
         title: "Nuevo Tipo de Contrato",
-        html: <FormNuevoContrato selectedEmployeeId={selectedEmployeeId} selectedEmployeeName={selectedEmployeeName} ContratoTipo={ContratoTipo}/>,
+        html: <FormNuevoContrato selectedEmployeeId={selectedEmployeeId} selectedEmployeeName={selectedEmployeeName} ContratoTipo={ContratoTipo} Auth= {Auth}/>,
         showCancelButton: true,
         showCloseButton: true,
         reverseButtons: true,

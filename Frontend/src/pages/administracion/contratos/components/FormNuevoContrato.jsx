@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
-const FormularioContrato = ({ selectedEmployeeId, selectedEmployeeName, ContratoTipo }) => {
+const FormularioContrato = ({ selectedEmployeeId, selectedEmployeeName, ContratoTipo, Auth }) => {
   const [formData, setFormData] = useState({
     fechaInicio: "",
-    fechaFin: "",
+    fechaFin: "", 
     idEmpleado: selectedEmployeeId || "",
     nombreEmpleado: selectedEmployeeName || "", // Nuevo campo para el nombre completo
     idTipoContrato: "",

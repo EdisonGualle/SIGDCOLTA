@@ -9,11 +9,10 @@ import NavegacionContratos from "./components/NavegacionContratos";
 
 const IndextipoContratosAdministrador = () => {
   const { contratos } = useContratos();
-  const { tipoContratos } = usetipoContratos();
-
-    console.log("Datos de tipoContratos:", tipoContratos);
-  
+  const { tiposContrato } = usetipoContratos();
+  console.log("Index:", tiposContrato);
   const MySwal = withReactContent(Swal);
+  
 
   const handleEliminarContratoClick = () => {
     MySwal.fire({

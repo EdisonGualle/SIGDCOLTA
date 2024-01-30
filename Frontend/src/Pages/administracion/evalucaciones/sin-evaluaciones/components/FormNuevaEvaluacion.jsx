@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import useEvaluaciones from "../../../../../hooks/useEvaluaciones";
 
 
-const FormularioEvaluacion = ({ selectedEmployeeId, selectedEmployeeName }) => {
+const FormularioEvaluacion = ({ selectedEmployeeId, selectedEmployeeName,  }) => {
   const [formData, setFormData] = useState({
     idEmpleado: selectedEmployeeId || "",
     nombreEmpleado: selectedEmployeeName || "",
