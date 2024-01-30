@@ -7,6 +7,7 @@ const EmpleadosContext = createContext();
 
 const EmpleadosProvider = ({ children }) => {
   const [empleados, setEmpleados] = useState([]);
+  const [datosBancarios, setDatosBancarios] = useState();
   const [cargando, setCargando] = useState(false);
   const [alerta, setAlerta] = useState({});
   const [empleado, setEmpleado] = useState({});
@@ -35,6 +36,31 @@ const EmpleadosProvider = ({ children }) => {
     };
     obtenerEmpleados();
   }, [auth]);
+
+  const validarCedulas = async (cedula) => {
+    const cedulaExistente = empleados.some(
+      (empleado) => empleado.cedula === cedula
+    );
+    // Retorna false si la cédula ya existe en un empleado
+    return !cedulaExistente;
+  };
+  const getDatosBancarios = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const { data } = await clienteAxios("/datos-bancarios", config);
+      setDatosBancarios(data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const agregarEmpleado = async (nuevoEmpleado) => {
     try {
@@ -121,6 +147,9 @@ const EmpleadosProvider = ({ children }) => {
     agregarEmpleado,
     actualizarEmpleado,
     eliminarEmpleado,
+    validarCedulas,
+    datosBancarios,
+    getDatosBancarios,
   };
 
   return (

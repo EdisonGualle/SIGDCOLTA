@@ -1,129 +1,248 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import useDirecciones from "../../../../hooks/useDirecciones";
+import useContratos from "../../../../hooks/useContratos";
 
-const FormContrato = ({ handleNext, handlePrev }) => {
+const FormContrato = ({
+  handleNext,
+  handlePrev,
+  formContrato,
+  setFormContrato,
+}) => {
+  const [error, setError] = useState(false);
+  const { direcciones, unidades, cargos } = useDirecciones();
+  const { getTiposContrato, tiposContratos } = useContratos();
+  const [unidadesFiltrados, setUnidadesFiltrados] = useState([]);
+  const [cargosFiltrados, setCargosFiltrados] = useState([]);
+
+  useEffect(() => {
+    getTiposContrato();
+  }, []);
+
+  const hanldeChange = (e) => {
+    setFormContrato({
+      ...formContrato,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleDireccionChange = (e) => {
+    let idDireccion = e.target.value;
+
+    setFormContrato({
+      ...formContrato,
+      idDireccion: idDireccion,
+    });
+
+    // Filtrar cantones por la provincia seleccionada
+    const unidadesFilt = unidades.filter(
+      (unidad) => unidad.idDireccion === parseInt(idDireccion)
+    );
+    setUnidadesFiltrados(unidadesFilt);
+  };
+
+  const handleUnidadnChange = (e) => {
+    const idUnidad = e.target.value;
+
+    setFormContrato({
+      ...formContrato,
+      idUnidad: idUnidad,
+    });
+
+    // Filtrar cantones por la provincia seleccionada
+    const cargosFilt = cargos.filter(
+      (cargo) => cargo.idUnidad === parseInt(idUnidad)
+    );
+    setCargosFiltrados(cargosFilt);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Puedes realizar lógica de validación o enviar datos al backend aquí
-    // Llama a la función onNext para pasar al siguiente formulario
+    const camposObligatorios = [
+      "idDireccion",
+      "idUnidad",
+      "idCargo",
+      "fechaInicio",
+      "fechaFin",
+      "idTipoContrato",
+      "archivo",
+      "salario",
+      "estadoContrato",
+    ];
+   /*  for (const campo of camposObligatorios) {
+      if (formContrato[campo] === "") {
+        setError(true);
+
+        setTimeout(() => {
+          setError(false);
+        }, 3000);
+
+        return;
+      }
+    } */
     handleNext();
   };
 
   return (
     <div className="max-w-screen-md mx-auto p-4">
-      <form
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
-        onSubmit={handleSubmit}
-      >
-        {/* Columna 1 */}
-        <div className="mb-4">
-          <label
-            htmlFor="direccion"
-            className="block text-sm font-medium text-gray-600"
-          >
-            Dirección
-          </label>
-          <select
-            id="direccion"
-            name="direccion"
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-          >
-            {/* Opciones para dirección */}
-          </select>
-        </div>
+      <form onSubmit={handleSubmit}>
+        {error && (
+          <div className="bg-red-500 py-1 px-3 text-white font-bold rounded-md text-center mt-2 mb-5">
+            Por favor, completa todos los campos obligatorios.
+          </div>
+        )}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {/* Direccion */}
+          <div className="mb-4">
+            <label
+              htmlFor="direccion"
+              className="block text-sm font-medium text-gray-600"
+            >
+              Dirección
+            </label>
+            <select
+              id="direccion"
+              name="idDireccion"
+              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+              onChange={handleDireccionChange}
+              value={formContrato.idDireccion}
+            >
+              {direcciones.map((direccion) => (
+                <option
+                  key={direccion.idDireccion}
+                  value={direccion.idDireccion}
+                >
+                  {direccion.nombre}
+                </option>
+              ))}
+            </select>
+          </div>
+          {/* Unidad */}
+          <div className="mb-4">
+            <label
+              htmlFor="unidad"
+              className="block text-sm font-medium text-gray-600"
+            >
+              Unidad
+            </label>
+            <select
+              id="unidad"
+              name="idUnidad"
+              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+              onChange={handleUnidadnChange}
+              value={formContrato.idUnidad}
+            >
+              <option value="">Selecciona una Unidad</option>
+              {unidadesFiltrados.map((unidad) => (
+                <option key={unidad.idUnidad} value={unidad.idUnidad}>
+                  {unidad.nombre}
+                </option>
+              ))}
+            </select>
+          </div>
+          {/* Cargo */}
+          <div className="mb-4">
+            <label
+              htmlFor="cargo"
+              className="block text-sm font-medium text-gray-600"
+            >
+              Cargo
+            </label>
+            <select
+              id="idCargo"
+              name="idCargo"
+              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+              onChange={hanldeChange}
+              value={formContrato.idCargo}
+            >
+              <option value="">Selecciona una Unidad</option>
+              {cargosFiltrados.map((cargo) => (
+                <option key={cargo.idCargo} value={cargo.idCargo}>
+                  {cargo.nombre}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        <div className="mb-4">
-          <label
-            htmlFor="unidad"
-            className="block text-sm font-medium text-gray-600"
-          >
-            Unidad
-          </label>
-          <select
-            id="unidad"
-            name="unidad"
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-          >
-            {/* Opciones para unidad */}
-          </select>
-        </div>
+          {/* TipoContrato */}
+          <div className="mb-4">
+            <label
+              htmlFor="tipoContrato"
+              className="block text-sm font-medium text-gray-600"
+            >
+              Tipo de Contrato
+            </label>
+            <select
+              id="tipoContrato"
+              name="idTipoContrato"
+              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+              onChange={hanldeChange}
+              value={formContrato.idTipoContrato}
+            >
+              <option value="">Selecciona un Tipo de contrato</option>
+              {tiposContratos.map((tipoContrato) => (
+                <option
+                  key={tipoContrato.idTipoContrato}
+                  value={tipoContrato.idTipoContrato}
+                >
+                  {tipoContrato.nombre}
+                </option>
+              ))}
+            </select>
+          </div>
+          {/* Fecha Inicial contrato */}
 
-        <div className="mb-4">
-          <label
-            htmlFor="cargo"
-            className="block text-sm font-medium text-gray-600"
-          >
-            Cargo
-          </label>
-          <select
-            id="cargo"
-            name="cargo"
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-          >
-            {/* Opciones para cargo */}
-          </select>
-        </div>
+          <div className="mb-4">
+            <label
+              htmlFor="fechaInicioContrato"
+              className="block text-sm font-medium text-gray-600"
+            >
+              Fecha de Inicio del Contrato
+            </label>
+            <input
+              type="date"
+              id="fechaInicio"
+              name="fechaInicio"
+              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+              onChange={hanldeChange}
+              value={formContrato.fechaInicio}
+            />
+          </div>
+          {/* Fecha Final contrato */}
 
-        {/* Columna 2 */}
-        <div className="mb-4">
-          <label
-            htmlFor="tipoContrato"
-            className="block text-sm font-medium text-gray-600"
-          >
-            Tipo de Contrato
-          </label>
-          <select
-            id="tipoContrato"
-            name="tipoContrato"
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-          >
-            {/* Opciones para tipoContrato */}
-          </select>
-        </div>
+          <div className="mb-4">
+            <label
+              htmlFor="fechaFinContrato"
+              className="block text-sm font-medium text-gray-600"
+            >
+              Fecha de Fin del Contrato
+            </label>
+            <input
+              type="date"
+              id="fechaFin"
+              name="fechaFin"
+              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+              onChange={hanldeChange}
+              value={formContrato.fechaFin}
+            />
+          </div>
 
-        <div className="mb-4">
-          <label
-            htmlFor="fechaInicioContrato"
-            className="block text-sm font-medium text-gray-600"
-          >
-            Fecha de Inicio del Contrato
-          </label>
-          <input
-            type="date"
-            id="fechaInicioContrato"
-            name="fechaInicioContrato"
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label
-            htmlFor="fechaFinContrato"
-            className="block text-sm font-medium text-gray-600"
-          >
-            Fecha de Fin del Contrato
-          </label>
-          <input
-            type="date"
-            id="fechaFinContrato"
-            name="fechaFinContrato"
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-          />
-        </div>
-
-        {/* Columna 3 */}
-        <div className="mb-4">
-          <label
-            htmlFor="salario"
-            className="block text-sm font-medium text-gray-600"
-          >
-            Salario
-          </label>
-          <input
-            type="text"
-            id="salario"
-            name="salario"
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-          />
+          {/* salario */}
+          <div className="mb-4">
+            <label
+              htmlFor="salario"
+              className="block text-sm font-medium text-gray-600"
+            >
+              Salario
+            </label>
+            <input
+              type="text"
+              id="salario"
+              name="salario"
+              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+              onChange={hanldeChange}
+              value={formContrato.salario}
+            />
+          </div>
         </div>
 
         {/* Botón de Siguiente */}

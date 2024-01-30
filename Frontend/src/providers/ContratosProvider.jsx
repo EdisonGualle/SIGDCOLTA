@@ -7,13 +7,14 @@ const ContratosContext = createContext();
 const ContratosProvider = ({ children }) => {
   const [contratos, setContratos] = useState([]);
   const [cargando, setCargando] = useState(false);
+  const [tiposContratos, setTiposContratos] = useState([]);
   const [alerta, setAlerta] = useState({});
   const [contrato, setContrato] = useState({});
   const [modalEliminarContrato, setModalEliminarContrato] = useState(false);
   // Puedes agregar más estados según tus necesidades
 
   const { auth } = useAuth();
-
+  ``;
   useEffect(() => {
     const obtenerContratos = async () => {
       try {
@@ -43,8 +44,34 @@ const ContratosProvider = ({ children }) => {
     obtenerContratos();
   }, [auth]);
 
+  const getTiposContrato = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        return;
+      }
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await clienteAxios("/tipos-contrato", config);
+
+      setTiposContratos(data.data); // Intenta acceder a la propiedad correcta
+    } catch (error) {
+      console.error("Error al cargar los datos:", error);
+    } finally {
+      setCargando(false); // Asegúrate de ajustar el estado según tus necesidades
+    }
+  };
+
   const contextValue = {
     contratos,
+    tiposContratos,
+    getTiposContrato,
     // Puedes agregar más datos al contexto según tus necesidades
   };
 
