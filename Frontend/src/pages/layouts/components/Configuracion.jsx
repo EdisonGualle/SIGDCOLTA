@@ -23,6 +23,7 @@ const Configuracion = () => {
   const [cancelado, setCancelado] = useState(false);
 
   const [enabled, setEnabled] = useState(false);
+
   const handleCorreoChange = (e) => {
     setCorreoPersonal(e.target.value);
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -64,6 +65,8 @@ const Configuracion = () => {
     setCorreoPersonal(perfil.correoPersonal || "");
     setTelefonoPersonal(perfil.telefonoPersonal || "");
   }, [perfil.correoPersonal, perfil.telefonoPersonal]);
+
+
   return (
     <>
       {/* Profile */}
@@ -178,7 +181,7 @@ const Configuracion = () => {
               Guardar
             </button>
             <button
-              className="bg-gray-300 py-3 px-4 rounded-lg ml-4 hover:bg-gray-400 transition-colors"
+              className="bg-red-300 py-3 px-4 rounded-lg ml-4 hover:bg-red-400 transition-colors"
               onClick={handleCancelarClick}
             >
               Cancelar
