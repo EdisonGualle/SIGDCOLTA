@@ -232,8 +232,8 @@ class EmpleadoService
                     }
                 },
             ], */
-            'telefonoTrabajo' => 'required|string|unique:empleado',
-            'correo' => 'required|email|unique:empleado',
+            /*             'telefonoTrabajo' => 'required|string|unique:empleado',
+ */            'correo' => 'required|email|unique:empleado',
             'etnia' => 'required|string',
             'estadoCivil' => 'required|string',
             'tipoSangre' => 'required|string',
@@ -265,7 +265,7 @@ class EmpleadoService
              'segundoApellido' => 'string',
              'fechaNacimiento' => 'date',*/
             'Genero' => 'string',
-            'telefonoPersonal' => [
+            /*  'telefonoPersonal' => [
                 'required',
                 'string',
                 'unique:empleado,telefonoPersonal,' . $id . ',idEmpleado',
@@ -275,7 +275,7 @@ class EmpleadoService
                         $fail("El formato del teléfono personal no es válido. Debe seguir el formato '09XXXXXXXX'.");
                     }
                 },
-            ],
+            ], */
             'telefonoTrabajo' => 'nullable|string',
             'correo' => 'email|unique:empleado,correo,' . $id . ',idEmpleado',
             'etnia' => 'nullable|string',
