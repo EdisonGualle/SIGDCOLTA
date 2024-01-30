@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
-import PerfilEmpleado from "./PerfilEmpleado";
+// import PerfilEmpleado from "./PerfilEmpleado";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css"; // optional
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import useEmpleados from "../../../../hooks/useEmpleados";
+// import useEmpleados from "../../../../hooks/useEmpleados";
 
 const OptionsRenderer = (params) => {
-  const { eliminarEmpleado, actualizarEmpleado } = useEmpleados();
+//   const { eliminarEmpleado, actualizarEmpleado } = useEmpleados();
   const MySwal = withReactContent(Swal);
   const { data } = params;
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -32,9 +32,9 @@ const OptionsRenderer = (params) => {
   const closeModal = () => {
     setModalIsOpen(false);
   };
-  const onEditarClick = (data) => {
-    console.log(data);
-  };
+//   const onEditarClick = (data) => {
+//     console.log(data);
+//   };
 
   const handleActualizar = () => {
     MySwal.fire({
@@ -78,14 +78,14 @@ const OptionsRenderer = (params) => {
         {isCurrentRowEditing ? (
           <>
             <button
-              className="bg-blue-400 hover:bg-blue-500 rounded-xl text-white px-2  mr-2"
+              className="bg-blue-400 text-white px-4  mr-2"
               data-action="update"
               onClick={handleActualizar}
             >
               Actualizar
             </button>
             <button
-              className="bg-gray-400 hover:bg-gray-500 rounded-xl text-white px-2 "
+              className="bg-gray-100 text-black px-4 border border-gray-300"
               data-action="cancel"
             >
               Cancelar
@@ -126,7 +126,7 @@ const OptionsRenderer = (params) => {
         contentLabel="Ver Empleado Modal"
         style={customStyles}
       >
-        <PerfilEmpleado empleado={data} />
+        {/* <PerfilEmpleado empleado={data} /> */}
         <button onClick={closeModal}>Cerrar</button>
       </Modal>
     </>
