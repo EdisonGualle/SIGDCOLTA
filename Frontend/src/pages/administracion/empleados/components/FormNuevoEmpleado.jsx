@@ -25,6 +25,7 @@ const FormNuevoEmpleado = ({
       "primerApellido",
       "segundoApellido",
       "genero",
+      "correo",
       "estadoCivil",
       "telefonoTrabajo",
       "telefonoPersonal",
@@ -32,6 +33,14 @@ const FormNuevoEmpleado = ({
     ];
     /* FULL VALIDACIONES */
     // Realiza la validación para cada campo
+    const validateTelefono = (telefono) => {
+      const telefonoRegex = /^[0-9]+$/;
+      return (
+        telefono.length >= 10 &&
+        telefono.length <= 11 &&
+        telefonoRegex.test(telefono)
+      );
+    };
     for (const campo of camposObligatorios) {
       if (formDatosPersonales[campo].trim() === "") {
         setError(true);
@@ -44,7 +53,7 @@ const FormNuevoEmpleado = ({
       }
     }
     /* Validar Cedula */
-    if (validarCedulas(formDatosPersonales.cedula)) {
+    if (!validarCedulas(formDatosPersonales.cedula)) {
       setError(true);
       setErrorMessage(
         "Esta cedula ya es de un epleado, por favor ingrese una diferente."
@@ -55,15 +64,19 @@ const FormNuevoEmpleado = ({
       return;
     }
 
-    /* validar telefonos */
-    const validateTelefono = (telefono) => {
-      const telefonoRegex = /^[0-9]+$/;
-      return (
-        telefono.length >= 10 &&
-        telefono.length <= 11 &&
-        telefonoRegex.test(telefono)
+    if (!validateTelefono(formDatosPersonales.cedula)) {
+      setError(true);
+      setErrorMessage(
+        "Igresar una cedula valida, debe contener solo números y tener entre 10 y 11 caracteres. "
       );
-    };
+      setTimeout(() => {
+        setError(false);
+      }, 3000);
+      return;
+    }
+
+    /* validar telefonos */
+
     /* validacion tlf */
     if (
       !validateTelefono(formDatosPersonales.telefonoTrabajo) &&
@@ -105,6 +118,24 @@ const FormNuevoEmpleado = ({
               name="cedula"
               onChange={handleChange}
               value={formDatosPersonales.cedula}
+              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+            />
+          </div>
+
+          {/* Correo*/}
+          <div className="mb-4">
+            <label
+              htmlFor="correo"
+              className="block text-sm font-medium text-gray-600"
+            >
+              Correo
+            </label>
+            <input
+              type="email"
+              id="correo"
+              name="correo"
+              onChange={handleChange}
+              value={formDatosPersonales.correo}
               className="mt-1 p-2 w-full border border-gray-300 rounded-md"
             />
           </div>
@@ -218,6 +249,8 @@ const FormNuevoEmpleado = ({
             >
               <option value="soltero">Soltero</option>
               <option value="casado">Casado</option>
+              <option value="divorciado">Divorciado</option>
+              <option value="viudo">Viudo</option>
               <option value="otro">Otro</option>
             </select>
           </div>

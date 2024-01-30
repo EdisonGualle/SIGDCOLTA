@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import useDemografia from "../../../../hooks/useDemografia";
 
-const FormUbicacionDemografia = ({ 
+const FormUbicacionDemografia = ({
   handleNext,
   handlePrev,
   setFormDemografia,
@@ -54,7 +54,7 @@ const FormUbicacionDemografia = ({
       "fechaNacimiento",
     ];
 
-    /* for (const campo of camposObligatorios) {
+    for (const campo of camposObligatorios) {
       if (formDemografia[campo].trim() === "") {
         setError(true);
 
@@ -64,7 +64,7 @@ const FormUbicacionDemografia = ({
 
         return;
       }
-    } */
+    }
     // Llama a la función onNext para pasar al siguiente formulario
     handleNext();
   };
@@ -139,7 +139,7 @@ const FormUbicacionDemografia = ({
               onChange={handleProvinciaChange}
               value={formDemografia.id_provincia}
             >
-              <option value={""} >Selecciona una provincia</option>
+              <option value={""}>Selecciona una provincia</option>
               {provincias.map((provincia) => (
                 <option
                   key={provincia.id_provincia}
@@ -166,7 +166,7 @@ const FormUbicacionDemografia = ({
               value={formDemografia.id_canton}
               onChange={handleChange}
             >
-              <option value={""} >Selecciona un cantón</option>
+              <option value={""}>Selecciona un cantón</option>
               {cantonesFiltrados.map((canton) => (
                 <option key={canton.id_canton} value={canton.id_canton}>
                   {canton.nombre_canton}
