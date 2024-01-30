@@ -18,46 +18,52 @@ const Configuracion = () => {
   const [editMode, setEditMode] = useState(false);
   const [correoValido, setCorreoValido] = useState(true);
   const [telefonoValido, setTelefonoValido] = useState(true);
+  const [intentadoGuardar, setIntentadoGuardar] = useState(false);
+  const [cancelado, setCancelado] = useState(false);
 
   const [enabled, setEnabled] = useState(false);
 
-
   const handleCorreoChange = (e) => {
     setCorreoPersonal(e.target.value);
-    // Validar el formato del correo electrónico
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     setCorreoValido(regex.test(e.target.value));
   };
 
   const handleTelefonoChange = (e) => {
     setTelefonoPersonal(e.target.value);
-    // Validar el formato del número de teléfono
     const regex = /^[0-9]{10}$/;
     setTelefonoValido(regex.test(e.target.value));
   };
 
   const handleEditarClick = () => {
+    setIntentadoGuardar(false);
+    setCancelado(false); // Reiniciar el estado cancelado
     setEditMode(true);
   };
 
   const handleGuardarClick = () => {
-    // Validar antes de guardar
+    setIntentadoGuardar(true);
     if (correoValido && telefonoValido) {
-      // Aquí deberías llamar a la función para actualizar la información
       actualizarMisDatosUsuario({ correoPersonal, telefonoPersonal });
-      // Desactivar el modo de edición después de guardar
       setEditMode(false);
     } else {
       alert("Por favor, corrige los campos antes de guardar.");
     }
   };
 
+  const handleCancelarClick = () => {
+    // Resetear los estados y desactivar el modo de edición
+    setIntentadoGuardar(false);
+    setCancelado(true);
+    setCorreoPersonal(perfil.correoPersonal || "");
+    setTelefonoPersonal(perfil.telefonoPersonal || "");
+    setEditMode(false);
+  };
+
   useEffect(() => {
-    // Actualizar el estado del correo y el teléfono cuando cambian en el perfil
     setCorreoPersonal(perfil.correoPersonal || "");
     setTelefonoPersonal(perfil.telefonoPersonal || "");
   }, [perfil.correoPersonal, perfil.telefonoPersonal]);
-
 
   return (
     <>
@@ -150,7 +156,7 @@ const Configuracion = () => {
             className={`w-full py-2 px-4 outline-none rounded-lg border ${
               (editMode && !telefonoValido) ? "border-red-500" : ""
             } ${
-              editMode ? "bg-white border-gray-300" : "bg-gray-200 border-gray-300"
+              editMode ? "bg-white " : "bg-gray-200 border-gray-300"
             }`}
             value={telefonoPersonal}
             onChange={handleTelefonoChange}
