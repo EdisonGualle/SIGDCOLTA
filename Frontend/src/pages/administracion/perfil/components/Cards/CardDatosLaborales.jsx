@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import useAuthEmpleado from "../../../../../hooks/useAuthEmpleado";
 
 
 export default function CardDatosLaborales() {
-  const { obtenerMisDatosLaborales } = useAuthEmpleado();
-  const informacionDatosLaborales =obtenerMisDatosLaborales?.informacionDatosLaborales || {}
-  const informacionTipoContrato =obtenerMisDatosLaborales?.informacionTipoContrato || {}
+  const { misDatosLaborales, obtenerMisDatosLaborales } = useAuthEmpleado();
+  const informacionDatosLaborales =misDatosLaborales?.informacionDatosLaborales || {}
+  const informacionTipoContrato =misDatosLaborales?.informacionTipoContrato || {}
 
+  useEffect(() => {
+    obtenerMisDatosLaborales();
+  }, []);
 
   const salarioFormateado = new Intl.NumberFormat("en-US", {
     style: "currency",
