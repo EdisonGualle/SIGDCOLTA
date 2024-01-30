@@ -40,6 +40,7 @@ const TableEmpleados = ({ empleados }) => {
         colId: "acciones",
         checkboxSelection: false,
         filter: false,
+        pinned: "right",
       },
 
       {
@@ -164,6 +165,7 @@ const TableEmpleados = ({ empleados }) => {
         gridOptions={gridOptions}
         rowData={rowData}
         rowSelection="multiple"
+        domLayout='autoHeight'
       />
     </div>
   );

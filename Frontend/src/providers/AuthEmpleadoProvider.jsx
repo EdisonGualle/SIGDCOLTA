@@ -1,3 +1,4 @@
+// AuthEmpleadoProvider.jsx
 import React, { useState, useEffect, createContext } from "react";
 import clienteAxios from "../config/clienteAxios";
 import useAuth from "../hooks/useAuth";
@@ -11,9 +12,13 @@ const AuthEmpleadoProvider = ({ children }) => {
   const [misDatosUsuario, setMisDatosUsuario] = useState({});
   const { auth } = useAuth();
 
-  /* useEffect(() => {
+  useEffect(() => {
     obtenerMisDatosUsuario();
-  }, []); */
+    obtenerMiCargo();
+    obtenerMiInformacion();
+    obtenerMisDatosLaborales();
+  }, []); // El arreglo de dependencias vacío hace que useEffect se ejecute solo una vez al montar el componente
+
   const obtenerMisDatosUsuario = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -36,6 +41,7 @@ const AuthEmpleadoProvider = ({ children }) => {
       // Puedes manejar errores según tus necesidades
     }
   };
+
   const obtenerMiCargo = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -55,6 +61,7 @@ const AuthEmpleadoProvider = ({ children }) => {
       // Puedes manejar errores según tus necesidades
     }
   };
+
   const actualizarMisDatosUsuario = async (nuevosDatos) => {
     try {
       const token = localStorage.getItem("token");
@@ -77,7 +84,7 @@ const AuthEmpleadoProvider = ({ children }) => {
       console.log(data);
 
       // Actualizar los datos en el estado local si es necesario
-      setObtenerMisDatosUsuario(data.datos);
+      setMisDatosUsuario(data.datos);
     } catch (error) {
       console.log(error);
       // Puedes manejar errores según tus necesidades
@@ -142,12 +149,13 @@ const AuthEmpleadoProvider = ({ children }) => {
         obtenerMiInformacion,
         obtenerMisDatosLaborales,
         actualizarMisDatosUsuario,
-        obtenerMisDatosUsuario
+        obtenerMisDatosUsuario,
       }}
     >
       {children}
     </AuthEmpleadoContext.Provider>
   );
 };
+
 export { AuthEmpleadoProvider };
 export default AuthEmpleadoContext;
