@@ -265,4 +265,13 @@ class CapacitacionController extends Controller
         $response = $this->capacitacionService->listarCapacitacionesNoRealizadasPorEmpleadoId($idEmpleado);
         return $response;
     }
+     //Funcion para mostar todos los empleados con sus capacitaciones
+     public function listarEmpleadosConCapacitaciones()
+     {
+         // Llama a la función correspondiente en el servicio
+         $response = $this->capacitacionService->listarEmpleadosConCapacitaciones();
+ 
+         // Devuelve la respuesta en formato JSON
+         return $response;
+     }
 }

@@ -76,7 +76,6 @@ const FormularioEvaluacion = ({ selectedEmployeeId, selectedEmployeeName }) => {
             value={formData.fechaEvaluacion}
             onChange={handleInputChange}
             className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-            readOnly // Hace que el campo sea de solo lectura
           />
         </div>
 

@@ -296,4 +296,39 @@ class CapacitacionService
 
         return response()->json(['successful' => true, 'capacitaciones' => $capacitacionesNoRealizadas]);
     }
+     ////Funcion para mostar todos los empleados con sus capacitaciones
+     public function listarEmpleadosConCapacitaciones()
+     {
+         $empleadosConCapacitaciones = Empleado::has('capacitaciones')
+             ->with(['capacitaciones:idCapacitacion,nombre,descripcion,tipoEvento,institucion,cantidadHoras,fecha'])
+             ->get(['idEmpleado', 'cedula', 'primerNombre', 'segundoNombre', 'primerApellido', 'segundoApellido']);
+ 
+         $formattedData = collect();
+ 
+         foreach ($empleadosConCapacitaciones as $empleado) {
+             $capacitacionesData = $empleado->capacitaciones->map(function ($capacitacion) use ($empleado) {
+                 return array_merge(
+                     [
+                         'cedula' => $empleado->cedula,
+                         'primerNombre' => $empleado->primerNombre,
+                         'segundoNombre' => $empleado->segundoNombre,
+                         'primerApellido' => $empleado->primerApellido,
+                         'segundoApellido' => $empleado->segundoApellido,
+                     ],
+                     [
+                         'nombre' => $capacitacion->nombre,
+                         'descripcion' => $capacitacion->descripcion,
+                         'tipoEvento' => $capacitacion->tipoEvento,
+                         'institucion' => $capacitacion->institucion,
+                         'cantidadHoras' => $capacitacion->cantidadHoras,
+                         'fecha' => $capacitacion->fecha,
+                     ]
+                 );
+             });
+ 
+             $formattedData = $formattedData->merge($capacitacionesData);
+         }
+ 
+         return response()->json(['successful' => true, 'data' => $formattedData], 200);
+     }
 }
