@@ -1,30 +1,36 @@
 import React, { useState, useEffect } from "react";
 import useAuthEmpleado from "../../../../../hooks/useAuthEmpleado";
-export default function CardSettings() {
-  const { miInformacion,obtenerMiInformacion } = useAuthEmpleado();
-  
+export default function CardSettings({ empleado }) {
+  const { miInformacion, obtenerMiInformacion } = useAuthEmpleado();
   useEffect(() => {
     obtenerMiInformacion();
   }, []);
-
-
   const informacionPersonal = miInformacion?.informacionPersonal || {};
   const informacionContacto = miInformacion?.informacionContacto || {};
   const informacionAdicional = miInformacion?.informacionAdicional || {};
   const ubicacionGeografica = miInformacion?.ubicacionGeografica || {};
-
 
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words w-full  rounded-lg bg-blueGray-100 border-0">
         <div className="rounded-tr-lg bg-blue-200	 mb-0 px-6 py-6">
           <div className="text-center flex justify-between">
-            <h6 className="text-sm font-bold text-gray-900 uppercase ps-8  py-1">Datos Personales</h6>
+            <h6 className="text-sm font-bold text-gray-900 uppercase ps-8  py-1">
+              Datos Personales{" "}
+              {empleado ? (
+                <div>
+                  <p>EMPLEADO SELECIONADO</p>
+                  <div>Cedual: {empleado.cedula}</div>
+                  <div>Correo: {empleado.correo}</div>
+                  <div>ID EMPLEADOSs: {empleado.idEmpleado}</div>
+
+
+                </div>
+              ) : null}
+            </h6>
           </div>
         </div>
-        <div
-          className="flex-auto px-4 lg:px-10 py-10 pt-0 bg-indigo-100 rounded-br-lg max-h-screen overflow-y-auto"
-        >
+        <div className="flex-auto px-4 lg:px-10 py-10 pt-0 bg-indigo-100 rounded-br-lg max-h-screen overflow-y-auto">
           <form>
             <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
               Informacion del empleado
@@ -41,7 +47,11 @@ export default function CardSettings() {
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-gray-300 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    value={informacionPersonal.usuario || ""}
+                    value={
+                      empleado
+                        ? empleado.cedula
+                        : informacionPersonal.usuario || ""
+                    }
                     disabled
                   />
                 </div>
@@ -277,7 +287,6 @@ export default function CardSettings() {
                   />
                 </div>
               </div>
-
             </div>
             {/* Ubicacion Geografica */}
             <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
