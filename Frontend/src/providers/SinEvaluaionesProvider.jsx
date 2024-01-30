@@ -38,7 +38,7 @@ const SinEvaluacionesProvider = ({ children }) => {
 
     // Llamamos a la función para obtener las evaluaciones sin desempeño
     obtenerSinEvaluaciones();
-  }, [auth]);
+  }, []);
 
   // Definimos el valor del contexto que será accesible por los componentes hijos
   const contextValue = {

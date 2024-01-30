@@ -95,7 +95,7 @@ const CapacitacionesProvider = ({ children }) => {
       }
     };
     obtenerCapacitaciones();
-  }, [auth]);
+  }, []);
 
   const agregarCapacitacion = async (nuevoCapacitacion) => {
     try {
