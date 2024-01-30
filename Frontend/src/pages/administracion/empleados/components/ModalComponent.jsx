@@ -69,7 +69,7 @@ const ModalComponent = ({ isOpen, onClose }) => {
       id_provincia: formDemografia.id_provincia,
       idCargo: formContrato.idCargo,
     };
-    console.log(newEmpleado);
+   
     agregarEmpleado(newEmpleado);
     onClose();
   };

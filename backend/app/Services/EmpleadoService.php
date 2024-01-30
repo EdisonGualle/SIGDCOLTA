@@ -253,10 +253,22 @@ class EmpleadoService
             return response()->json(['successful' => false, 'errors' => $validator->errors()], 422);
         }
 
-        // Crear el empleado
         $empleado = Empleado::create($request->all());
 
-        return response()->json(['successful' => true, 'true' => 'Empleado creado'], 201);
+      /*   // Crear una instancia de UsuarioService
+        $usuarioService = new UsuarioService();
+
+        // Crear un objeto para los datos del usuario
+        $usuarioData = (object)[
+            'idEmpleado' => $empleado->idEmpleado,
+            'correo' => $empleado->correo,
+            'idTipoEstado' => 11
+        ];
+ */
+        // Llamar a la función para crear el nuevo usuario
+        //$usuarioService->crearUsuario($request, $usuarioData);
+
+        return response()->json(['successful' => true, 'true' => 'Empleado creado', "empleado"=>$empleado], 201);
     }
 
     public function actualizarEmpleado(Request $request, $id)

@@ -4,8 +4,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 
 
-const FormularioEvaluacion = ({ selectedEmployeeId, selectedEmployeeName }) => {
-
+const FormularioEvaluacion = ({ selectedEmployeeId, selectedEmployeeName,  }) => {
   const [formData, setFormData] = useState({
     idEmpleado: selectedEmployeeId || "",
     nombreEmpleado: selectedEmployeeName || "",
