@@ -5,63 +5,16 @@ import useAuth from "../hooks/useAuth";
 const AuthEmpleadoContext = createContext();
 
 const AuthEmpleadoProvider = ({ children }) => {
-  const [obtenerMiCargo, setObtenerMiCargo] = useState({});
-  const [obtenerMiInformacion, setObtenerMiInformacion] = useState({});
-  const [setObtenerMisDatosLaborales] = useState({});
-
+  const [miCargo, setMiCargo] = useState({});
+  const [miInformacion, setMiInformacion] = useState({});
+  const [misDatosLaborales, setMisDatosLaborales] = useState({});
+  const [misDatosUsuario, setMisDatosUsuario] = useState({});
   const { auth } = useAuth();
 
-  useEffect(() => {
-    const obtenerMiCargo = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        if (!token) return;
-
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        };
-
-        const { data } = await clienteAxios("administrador/mi-cargo", config)
-        setObtenerMiCargo(data.datos);
-      } catch (error) {
-        console.log(error);
-        // Puedes manejar errores según tus necesidades
-      }
-    };
-
-    const obtenerMiInformacion = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        if (!token) return;
-
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        };
-
-        const { data } = await clienteAxios(
-          "administrador/mis-datos-personales",
-          config
-        );
-        setObtenerMiInformacion(data.datos);
-      } catch (error) {
-        console.log(error);
-        // Puedes manejar errores según tus necesidades
-      }
-    };
-
-
-
-    obtenerMiCargo();
-    obtenerMiInformacion();
-  }, [auth]);
-
-  const obtenerMisDatosLaborales = async () => {
+  /* useEffect(() => {
+    obtenerMisDatosUsuario();
+  }, []); */
+  const obtenerMisDatosUsuario = async () => {
     try {
       const token = localStorage.getItem("token");
       if (!token) return;
@@ -73,8 +26,30 @@ const AuthEmpleadoProvider = ({ children }) => {
         },
       };
 
-      const { data } = await clienteAxios("administrador/mis-datos-laborales", config);
-      setObtenerMisDatosLaborales(data.datos);
+      const { data } = await clienteAxios(
+        "administrador/mis-datos-usuario",
+        config
+      );
+      setMisDatosUsuario(data.datos);
+    } catch (error) {
+      console.log(error);
+      // Puedes manejar errores según tus necesidades
+    }
+  };
+  const obtenerMiCargo = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await clienteAxios("administrador/mi-cargo", config);
+      setMiCargo(data.datos);
     } catch (error) {
       console.log(error);
       // Puedes manejar errores según tus necesidades
@@ -109,7 +84,7 @@ const AuthEmpleadoProvider = ({ children }) => {
     }
   };
 
-  const obtenerMisDatosUsuario = async () => {
+  const obtenerMiInformacion = async () => {
     try {
       const token = localStorage.getItem("token");
       if (!token) return;
@@ -121,26 +96,58 @@ const AuthEmpleadoProvider = ({ children }) => {
         },
       };
 
-      const { data } = await clienteAxios("administrador/mis-datos-usuario", config);
-      setObtenerMisDatosUsuario(data.datos);
+      const { data } = await clienteAxios(
+        "administrador/mis-datos-personales",
+        config
+      );
+      setMiInformacion(data.datos);
     } catch (error) {
       console.log(error);
       // Puedes manejar errores según tus necesidades
     }
-
-    const contextValue = {
-      obtenerMiCargo,
-      obtenerMiInformacion,
-      obtenerMisDatosLaborales,
-      obtenerMisDatosUsuario,
-      actualizarMisDatosUsuario,
-    };
-
-    return (
-      <AuthEmpleadoContext.Provider value={contextValue}>
-        {children}
-      </AuthEmpleadoContext.Provider>
-    );
   };
 
-  export { AuthEmpleadoProvider, AuthEmpleadoContext };
+  const obtenerMisDatosLaborales = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await clienteAxios(
+        "administrador/mis-datos-laborales",
+        config
+      );
+      setMisDatosLaborales(data.datos);
+    } catch (error) {
+      console.log(error);
+      // Puedes manejar errores según tus necesidades
+    }
+  };
+
+  return (
+    <AuthEmpleadoContext.Provider
+      value={{
+        misDatosUsuario,
+        miCargo,
+        misDatosLaborales,
+        miInformacion,
+        misDatosUsuario,
+        obtenerMiCargo,
+        obtenerMiInformacion,
+        obtenerMisDatosLaborales,
+        actualizarMisDatosUsuario,
+        obtenerMisDatosUsuario
+      }}
+    >
+      {children}
+    </AuthEmpleadoContext.Provider>
+  );
+};
+export { AuthEmpleadoProvider };
+export default AuthEmpleadoContext;

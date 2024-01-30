@@ -9,6 +9,7 @@ const FormDatosBancarios = ({
 }) => {
   const [error, setError] = useState(false);
   const { datosBancarios, getDatosBancarios, alerta } = useEmpleados();
+  
   /* 
   useEffect(() => {
     getDatosBancarios();

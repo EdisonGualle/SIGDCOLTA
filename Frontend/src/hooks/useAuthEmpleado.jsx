@@ -1,4 +1,4 @@
-import { useContext } from "react";
+/* import { useContext } from "react";
 import { AuthEmpleadoContext } from "../providers/AuthEmpleadoProvider";
 
 const useAuthEmpleado = () => {
@@ -16,6 +16,16 @@ const useAuthEmpleado = () => {
     obtenerMisDatosUsuario,
     actualizarMisDatosUsuario 
   };
+};
+
+export default useAuthEmpleado;
+ */
+
+import { useContext } from "react";
+import AuthEmpleadoContext from "../providers/AuthEmpleadoProvider";
+
+const useAuthEmpleado = () => {
+  return useContext(AuthEmpleadoContext);
 };
 
 export default useAuthEmpleado;
