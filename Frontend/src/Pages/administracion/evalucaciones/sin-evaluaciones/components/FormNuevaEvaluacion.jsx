@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import axios from 'axios';
-
-import useEvaluaciones from "../../../../../hooks/useEvaluaciones";
+// import { useHistory } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 
 const FormularioEvaluacion = ({ selectedEmployeeId, selectedEmployeeName }) => {
-  // const history = useHistory();
 
   const [formData, setFormData] = useState({
     idEmpleado: selectedEmployeeId || "",
@@ -26,6 +25,8 @@ const FormularioEvaluacion = ({ selectedEmployeeId, selectedEmployeeName }) => {
   });
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+  // const history = useHistory();
+
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -57,14 +58,37 @@ const FormularioEvaluacion = ({ selectedEmployeeId, selectedEmployeeName }) => {
         "http://127.0.0.1:8000/api/evaluaciones-desempeno",
         formData
       );
-      console.log("Evaluacion creada:", response.data);
-      history.push("/administracion/sin-evaluaciones"); // Redirección después de la creación exitosa
+      if (response.status === 200) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Éxito',
+          text: 'La evaluación se ha creado correctamente',
+        }).then((result) => {
+          if (result.isConfirmed || result.isDismissed) {
+            // Aquí puedes hacer lo que necesites después de que se crea la evaluación
+            // Por ejemplo, cerrar el formulario, limpiar los campos, etc.
+          }
+        });
+      }
+      Swal.fire({
+        icon: 'success',
+        title: 'Éxito',
+        text: 'La evaluación se ha creado correctamente',
+      })
+      console.log('Evaluación creada correctamente');
+      
+      
     } catch (error) {
       console.error("Error al crear la evaluacion:", error);
       console.log(
         "Detalles del error:",
         error.response?.data || "No hay detalles disponibles"
       );
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Hubo un error al crear la evaluación',
+      });
     }
   };
   
