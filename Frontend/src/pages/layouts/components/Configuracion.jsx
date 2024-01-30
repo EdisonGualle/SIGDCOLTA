@@ -16,16 +16,24 @@ const Configuracion = () => {
   const [correoPersonal, setCorreoPersonal] = useState(perfil.correoPersonal || "");
   const [telefonoPersonal, setTelefonoPersonal] = useState(perfil.telefonoPersonal || "");
   const [editMode, setEditMode] = useState(false);
+  const [correoValido, setCorreoValido] = useState(true);
+  const [telefonoValido, setTelefonoValido] = useState(true);
 
   const [enabled, setEnabled] = useState(false);
 
 
   const handleCorreoChange = (e) => {
     setCorreoPersonal(e.target.value);
+    // Validar el formato del correo electrónico
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    setCorreoValido(regex.test(e.target.value));
   };
 
   const handleTelefonoChange = (e) => {
     setTelefonoPersonal(e.target.value);
+    // Validar el formato del número de teléfono
+    const regex = /^[0-9]{10}$/;
+    setTelefonoValido(regex.test(e.target.value));
   };
 
   const handleEditarClick = () => {
@@ -33,10 +41,15 @@ const Configuracion = () => {
   };
 
   const handleGuardarClick = () => {
-    // Aquí deberías llamar a la función para actualizar la información
-    actualizarMisDatosUsuario({ correoPersonal, telefonoPersonal });
-    // Desactivar el modo de edición después de guardar
-    setEditMode(false);
+    // Validar antes de guardar
+    if (correoValido && telefonoValido) {
+      // Aquí deberías llamar a la función para actualizar la información
+      actualizarMisDatosUsuario({ correoPersonal, telefonoPersonal });
+      // Desactivar el modo de edición después de guardar
+      setEditMode(false);
+    } else {
+      alert("Por favor, corrige los campos antes de guardar.");
+    }
   };
 
   useEffect(() => {
@@ -108,16 +121,21 @@ const Configuracion = () => {
               </p>
             </div>
             <div className="flex-1">
-              <input
+          <input
             type="email"
             className={`w-full py-2 px-4 outline-none rounded-lg border ${
-              editMode ? "bg-white" : "bg-gray-200"
+              (editMode && !correoValido) ? "border-red-500" : ""
+            } ${
+              editMode ? "bg-white border-gray-300" : "bg-gray-200 border-gray-300"
             }`}
             value={correoPersonal}
             onChange={handleCorreoChange}
             disabled={!editMode}
           />
-            </div>
+          {editMode && !correoValido && (
+            <p className="text-red-500 text-sm">Por favor, ingresa un correo válido.</p>
+          )}
+        </div>
           </div>
           <div className="flex flex-col md:flex-row md:items-center gap-y-2 mb-8">
             <div className="w-full md:w-1/4">
@@ -126,17 +144,22 @@ const Configuracion = () => {
               </p>
             </div>
             <div className="flex-1">
-            <input
+          <input
             type="tel"
             pattern="[0-9]{10}"
             className={`w-full py-2 px-4 outline-none rounded-lg border ${
-              editMode ? "bg-white" : "bg-gray-200"
+              (editMode && !telefonoValido) ? "border-red-500" : ""
+            } ${
+              editMode ? "bg-white border-gray-300" : "bg-gray-200 border-gray-300"
             }`}
             value={telefonoPersonal}
             onChange={handleTelefonoChange}
             disabled={!editMode}
           />
-            </div>
+          {editMode && !telefonoValido && (
+            <p className="text-red-500 text-sm">Por favor, ingresa un número de teléfono válido (10 dígitos numéricos).</p>
+          )}
+        </div>
             </div>
         </form>
         <hr className="my-8 border-gray-500/30" />

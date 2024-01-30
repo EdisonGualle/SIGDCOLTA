@@ -90,7 +90,6 @@ const AuthEmpleadoProvider = ({ children }) => {
 
         const { data } = await clienteAxios("administrador/mis-datos-usuario", config);
         setObtenerMisDatosUsuario(data.datos);
-
       } catch (error) {
         console.log(error);
         // Puedes manejar errores según tus necesidades
