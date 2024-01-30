@@ -32,7 +32,7 @@ const SinEvaluacionesProvider = ({ children }) => {
       } catch (error) {
         console.error("Error al cargar los datos:", error);
       } finally {
-        setCargando(false); // Asegúrate de ajustar el estado según tus necesidades
+        setCargandoSinEvaluaciones(false); // Asegúrate de ajustar el estado según tus necesidades
       }
     };
 

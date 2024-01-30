@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import useEvaluaciones from "../../../../../hooks/useEvaluaciones";
+import axios from 'axios';
+// import { useHistory } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 
 const FormularioEvaluacion = ({ selectedEmployeeId, selectedEmployeeName }) => {
+
   const [formData, setFormData] = useState({
     idEmpleado: selectedEmployeeId || "",
     nombreEmpleado: selectedEmployeeName || "",
@@ -22,6 +25,8 @@ const FormularioEvaluacion = ({ selectedEmployeeId, selectedEmployeeName }) => {
   });
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+  // const history = useHistory();
+
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -30,52 +35,63 @@ const FormularioEvaluacion = ({ selectedEmployeeId, selectedEmployeeName }) => {
       [name]: type === "file" ? files[0] : value,
     });
   };
+  
 
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     // Validación de campos obligatorios
-    const camposObligatorios = [
-      "idEmpleado",
-      "nombreEmpleado",
-      "idEvaluador",
-      "fechaEvaluacion",
-      "ObjetivosMetas",
-      "cumplimientoObjetivos",
-      "competencias",
-      "calificacionGeneral",
-      "comentarios",
-      "areasMejora",
-      "reconocimientosLogros",
-      "desarrolloProfesional",
-      "feedbackEmpleado",
-      "estadoEvaluacion",
-    ];
-
-    for (const campo of camposObligatorios) {
-      const valorCampo = formData[campo];
-      if (typeof valorCampo === 'string' && valorCampo.trim() === "") {
-        setError(true);
-        setErrorMessage("Por favor, completa todos los campos obligatorios");
-        setTimeout(() => {
-          setError(false);
-          setErrorMessage("");
-        }, 3000);
-        return;
-      }
+    if (Object.values(formData).some(value => typeof value === 'string' && value.trim() === '')) {
+      setError(true);
+      setErrorMessage("Por favor, completa todos los campos obligatorios");
+      setTimeout(() => {
+        setError(false);
+        setErrorMessage("");
+      }, 3000);
+      return;
     }
-
-    // Si todos los campos obligatorios están completos, llamamos a agregarEvaluacion
+    
     try {
-      await agregarEvaluacion(formData);
-      // Manejar éxito, por ejemplo, redirigir a una página de éxito
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/evaluaciones-desempeno",
+        formData
+      );
+      if (response.status === 200) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Éxito',
+          text: 'La evaluación se ha creado correctamente',
+        }).then((result) => {
+          if (result.isConfirmed || result.isDismissed) {
+            // Aquí puedes hacer lo que necesites después de que se crea la evaluación
+            // Por ejemplo, cerrar el formulario, limpiar los campos, etc.
+          }
+        });
+      }
+      Swal.fire({
+        icon: 'success',
+        title: 'Éxito',
+        text: 'La evaluación se ha creado correctamente',
+      })
+      console.log('Evaluación creada correctamente');
+      
+      
     } catch (error) {
-      // Manejar error, mostrar mensaje al usuario o realizar otra acción
+      console.error("Error al crear la evaluacion:", error);
+      console.log(
+        "Detalles del error:",
+        error.response?.data || "No hay detalles disponibles"
+      );
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Hubo un error al crear la evaluación',
+      });
     }
   };
-
+  
 
 
   // const { alerta } = useEvaluaciones();
@@ -294,11 +310,7 @@ const FormularioEvaluacion = ({ selectedEmployeeId, selectedEmployeeName }) => {
         </button>
 
       </form>
-      {/* {alerta.error ? (
-          <p className="text-red-500">{alerta.mensaje}</p>
-        ) : (
-          <p className="text-center font-bold text-green-500">{alerta.mensaje}</p>
-        )} */}
+    
     </div>
   );
 };
