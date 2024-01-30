@@ -37,15 +37,15 @@ const EmpleadosProvider = ({ children }) => {
     obtenerEmpleados();
   }, [auth]);
 
-  const validarCedulas = async (cedula) => {
-    const cedulaExistente = empleados.some(
+  const validarCedulas = (cedula) => {
+    let cedulaExistente = empleados.some(
       (empleado) => empleado.cedula === cedula
     );
     return cedulaExistente;
   };
 
-  const validarCorreo= async (correo) => {
-    const correoExistente = empleados.some(
+  const validarCorreo = (correo) => {
+    let correoExistente = empleados.some(
       (empleado) => empleado.correo === correo
     );
     // Retorna false si la cédula ya existe en un empleado
@@ -72,7 +72,13 @@ const EmpleadosProvider = ({ children }) => {
   const agregarEmpleado = async (nuevoEmpleado) => {
     try {
       const token = localStorage.getItem("token");
-      if (!token) return;
+      if (!token) {
+        setAlerta({
+          mensaje: "Token not available. Please log in.",
+          error: true,
+        });
+        return;
+      }
 
       const config = {
         headers: {
@@ -81,27 +87,35 @@ const EmpleadosProvider = ({ children }) => {
         },
       };
 
-      const { data } = await clienteAxios.post(
+      const response = await clienteAxios.post(
         "/empleados",
         nuevoEmpleado,
         config
       );
-      if (!data.original.errors) {
+      const { data } = response;
+
+      if (!data.original.successful) {
+        // Si la solicitud no fue exitosa, mostrar mensajes de error
+        const errors = data.original.errors;
+        Object.keys(errors).forEach((campo) => {
+          const mensajesError = errors[campo].join(", ");
+          /*           console.error(`${campo}: ${mensajesError}`); */
+        });
         setAlerta({
-          error: false,
-          mensaje: "Empleado agregado correctamente",
+          tipo: "error",
+          mensaje: `Error al agregar el empleado: ${mensajesError}`,
         });
       } else {
         setAlerta({
-          mensajes: data.original.errors,
-          error: true,
+          tipo: "success",
+          mensaje: "Empleado agregado exitosamente",
         });
+        navigate("/administracion/empleados");
+
+        // La solicitud fue exitosa, puedes manejarlo de acuerdo a tus necesidades
       }
     } catch (error) {
-      setAlerta({
-        mensaje: error.data.original.errors,
-        error: true,
-      });
+      console.error("Error al agregar empleado:", error);
     }
   };
 

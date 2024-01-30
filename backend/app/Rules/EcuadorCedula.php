@@ -13,7 +13,7 @@ class EcuadorCedula implements Rule
 
     public function message()
     {
-        return 'La cédula no es válida.';
+        return 'La cédula no es válida, ingrese una cedula del Ecuador';
     }
 
     private function verificaIdentificacion($identificacion)
