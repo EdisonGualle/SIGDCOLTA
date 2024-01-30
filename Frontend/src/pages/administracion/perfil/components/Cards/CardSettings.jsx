@@ -10,8 +10,6 @@ export default function CardSettings({ empleado }) {
   const informacionAdicional = miInformacion?.informacionAdicional || {};
   const ubicacionGeografica = miInformacion?.ubicacionGeografica || {};
 
-  console.log(empleado);
-
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words w-full  rounded-lg bg-blueGray-100 border-0">
