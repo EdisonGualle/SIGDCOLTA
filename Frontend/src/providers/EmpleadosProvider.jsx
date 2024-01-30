@@ -41,8 +41,15 @@ const EmpleadosProvider = ({ children }) => {
     const cedulaExistente = empleados.some(
       (empleado) => empleado.cedula === cedula
     );
+    return cedulaExistente;
+  };
+
+  const validarCorreo= async (correo) => {
+    const correoExistente = empleados.some(
+      (empleado) => empleado.correo === correo
+    );
     // Retorna false si la cédula ya existe en un empleado
-    return !cedulaExistente;
+    return correoExistente;
   };
   const getDatosBancarios = async () => {
     try {
@@ -158,6 +165,7 @@ const EmpleadosProvider = ({ children }) => {
     validarCedulas,
     datosBancarios,
     getDatosBancarios,
+    validarCorreo,
     alerta,
   };
 
