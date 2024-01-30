@@ -1,67 +1,45 @@
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import { AgGridReact } from "ag-grid-react";
-import React, { useEffect, useMemo, useState, useCallback } from "react";
+import React, { useEffect, useState, useMemo } from "react";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css"; 
+import axios from "axios";
 import { TRANSLATIONS } from "./traduccionTableGrid";
 import { LANGUAGE_OPTIONS } from "./traduccionTableGrid";
-import Tippy from "@tippyjs/react";
-import "tippy.js/dist/tippy.css"; // optional
 
 const TableEvaluaciones = ({ evaluaciones }) => {
   const [rowData, setRowData] = useState([]);
   const [modalVerOpen, setModalVerOpen] = useState(false);
-  const handleNuevoClick = () => {
-    setModalVerOpen(true);
-  };
 
-  const handleCloseModal = () => {
-    setModalOpen(false);
-  };
-  // Fetch data & update rowData state
   useEffect(() => {
     setRowData(evaluaciones);
   }, [evaluaciones]);
 
-  // Column Definitions: Defines & controls grid columns.
-  const [colDefs] = useState([
+  const colDefs = useMemo(() => [
+    { headerName: "ID", field: "idEvaluacionDesempeno" },
     {
-      headerName: "ID Empleado",
+      headerName: "Nombre Completo",
       field: "idEmpleado",
-      valueGetter: function(params) {
-        return params.data.idEmpleado.id;
-      },
-      checkboxSelection: true,
-      headerCheckboxSelection: true,
-      suppressMenu: true,
+      valueGetter: function (params) {
+        const empleado = params.data.idEmpleado;
+        return `${empleado.primerNombre} ${empleado.segundoNombre} ${empleado.primerApellido} ${empleado.segundoApellido}`;
+      }
     },
-    {
-      headerName: "Nombre Competo",
-      field: "idEmpleado",
-      valueGetter: function(params) {
-        return params.data.idEmpleado.primerNombre + ' ' + 
-               params.data.idEmpleado.segundoNombre + ' ' + 
-               params.data.idEmpleado.primerApellido + ' ' + 
-               params.data.idEmpleado.segundoApellido;
-      },
-    },
-
     {
       headerName: "Opciones",
       cellRenderer: OptionsRenderer,
-      checkboxSelection: false, // Evita que la columna sea seleccionable
-      filter: false, // Evita que la columna tenga funcionalidad de búsqueda
+      checkboxSelection: false,
+      filter: false,
       suppressMenu: true,
       width: 150,
     },
-
     {
       headerName: "Nombre Evaluador",
       field: "idEvaluador",
-      valueGetter: function(params) {
-        return params.data.idEvaluador.primerNombre + ' ' + 
-               params.data.idEvaluador.segundoNombre + ' ' + 
-               params.data.idEvaluador.primerApellido + ' ' + 
-               params.data.idEvaluador.segundoApellido;
+      valueGetter: function (params) {
+        const evaluador = params.data.idEvaluador;
+        return `${evaluador.primerNombre} ${evaluador.segundoNombre} ${evaluador.primerApellido} ${evaluador.segundoApellido}`;
       },
       suppressMenu: true,
     },
@@ -85,29 +63,19 @@ const TableEvaluaciones = ({ evaluaciones }) => {
     { headerName: "Reconocimientos/Logros", field: "reconocimientosLogros" },
     { headerName: "Desarrollo Profesional", field: "desarrolloProfesional" },
     { headerName: "Feedback del Empleado", field: "feedbackEmpleado" },
-
-  ]);
-
+], []);
 
 
-  // Apply settings across all columns
-  const defaultColDef = useMemo(
-    () => ({
-      filter: "agTextColumnFilter",
-      filterParams: {
-        filterOptions: ["contains"],
-        defaultFilterOption: "contains",
-        suppressAndOrCondition: true,
-      },
-      floatingFilter: true,
-    }),
-    []
-  );
+  const defaultColDef = useMemo(() => ({
+    filter: "agTextColumnFilter",
+    filterParams: {
+      filterOptions: ["contains"],
+      defaultFilterOption: "contains",
+      suppressAndOrCondition: true,
+    },
+    floatingFilter: true,
+  }), []);
 
-  // Definir el renderer personalizado para la columna de opciones
-  const frameworkComponents = {
-    optionsRenderer: OptionsRenderer,
-  };
   return (
     <div className={"ag-theme-quartz"} style={{ width: "100%", height: "90%" }}>
       <AgGridReact
@@ -115,17 +83,16 @@ const TableEvaluaciones = ({ evaluaciones }) => {
         rowData={rowData}
         columnDefs={colDefs}
         defaultColDef={defaultColDef}
-        frameworkComponents={frameworkComponents}
         pagination={true}
         rowSelection={"multiple"}
       />
     </div>
   );
 };
+
 const EstadoEvaluacionRenderer = (props) => {
   const { value } = props;
 
-  // Determina qué icono mostrar según el estado de la evaluación
   const getIconByState = (estado) => {
     switch (estado) {
       case 'Aprobada':
@@ -143,33 +110,26 @@ const EstadoEvaluacionRenderer = (props) => {
     <div>
       {getIconByState(value)}&nbsp;
       <span>{value}</span>
-      
     </div>
   );
 };
 
-// Nuevo componente para renderizar las opciones en la columna correspondiente
 const OptionsRenderer = (props) => {
   const { data } = props.node;
+  const idEvaluacionDesempeno = data.idEvaluacionDesempeno;
 
-
-
-  const handleVerClick = () => {
-    // Lógica para ver el empleado
-    console.log("Ver empleado:", data);
+  const handleEliminarClick = async () => {
+    try {
+      const response = await axios.delete(`http://127.0.0.1:8000/api/administrador/evaluaciones-desempeno/${idEvaluacionDesempeno}`);
+      console.log(`Evaluacion con id ${idEvaluacionDesempeno} eliminada`);
+      
+      if (response.data && response.data.message) {
+        console.log(response.data.message);
+      }
+    } catch (error) {
+      console.error(`Error al eliminar evaluacion con id ${idEvaluacionDesempeno}:`, error);
+    }
   };
-
-  const handleEditarClick = () => {
-    // Lógica para editar el empleado
-    console.log("Editar evaluacion:", data);
-  };
-
-  const handleEliminarClick = () => {
-    // Lógica para eliminar el empleado
-    console.log("Eliminar empleado:", data);
-  };
-
-
 
   return (
     <div>
@@ -186,13 +146,12 @@ const OptionsRenderer = (props) => {
       </Tippy>
 
       <Tippy placement="left" content="Eliminar Evaluacion">
-        <button>
+        <button onClick={handleEliminarClick}>
           <i className="fas fa-trash-alt mr-2 text-red-600"></i>
         </button>
       </Tippy>
-     
-
     </div>
   );
 };
+
 export default TableEvaluaciones;

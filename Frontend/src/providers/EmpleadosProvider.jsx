@@ -29,7 +29,7 @@ const EmpleadosProvider = ({ children }) => {
           },
         };
         const { data } = await clienteAxios("/empleados", config);
-        console.log(data);
+ 
         setEmpleados(data.data);
       } catch (error) {
         console.log(error);
