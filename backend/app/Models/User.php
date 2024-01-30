@@ -9,6 +9,9 @@ use Illuminate\Contracts\Auth\CanResetPassword;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Concerns\HasAttributes; // Agregado
+
+
 
 
 class User extends Authenticatable implements CanResetPassword
