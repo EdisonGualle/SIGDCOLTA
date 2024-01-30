@@ -54,11 +54,6 @@ import { EvaluacionesProvider } from "./providers/EvaluacionesProvider";
 
 import IndexSinEvaluacionesAdministrador from "./pages/administracion/evalucaciones/sin-evaluaciones/Index";
 import { SinEvaluacionesProvider } from "./providers/SinEvaluaionesProvider";
-
-
-
-
-
 import AsitenciaAdministrador from "./pages/asistencia/AsitenciaAdministrador";
 import { DemografiaProvider } from "./providers/DemografiaProvider";
 
@@ -134,7 +129,7 @@ function App() {
                                               />
 
                                               <Route
-                                                path="empleados/*"
+                                                path="empleados"
                                                 element={
                                                   <IndexEmpleadosAdministrador />
                                                 }
