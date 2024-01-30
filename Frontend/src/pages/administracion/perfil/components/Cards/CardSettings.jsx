@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import useAuthEmpleado from "../../../../../hooks/useAuthEmpleado";
 export default function CardSettings() {
-  const { obtenerMiInformacion } = useAuthEmpleado();
+  const { miInformacion,obtenerMiInformacion } = useAuthEmpleado();
   
+  useEffect(() => {
+    obtenerMiInformacion();
+  }, []);
 
 
-  const informacionPersonal = obtenerMiInformacion?.informacionPersonal || {};
-  const informacionContacto = obtenerMiInformacion?.informacionContacto || {};
-  const informacionAdicional = obtenerMiInformacion?.informacionAdicional || {};
-  const ubicacionGeografica = obtenerMiInformacion?.ubicacionGeografica || {};
+  const informacionPersonal = miInformacion?.informacionPersonal || {};
+  const informacionContacto = miInformacion?.informacionContacto || {};
+  const informacionAdicional = miInformacion?.informacionAdicional || {};
+  const ubicacionGeografica = miInformacion?.ubicacionGeografica || {};
 
 
   return (

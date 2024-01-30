@@ -1,18 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./components/Navbars/AdminNavbar";
 import HeaderStats from "./components/Headers/HeaderStats";
 import useAuthEmpleado from "../../../hooks/useAuthEmpleado";
 
 const Dashboard = () => {
 
-  const { obtenerMiCargo } = useAuthEmpleado();
+  const { miCargo ,obtenerMiCargo } = useAuthEmpleado();
+  useEffect(() => {
+    obtenerMiCargo();
+  }, []);
 
   // Asegúrate de que la respuesta de la API se haya recibido antes de intentar acceder a los datos
-  if (!obtenerMiCargo || !obtenerMiCargo.empleado) {
+  if (!miCargo || !miCargo.empleado) {
     return null; // Puedes renderizar un mensaje de carga o manejar de otra manera
   }
 
-  const { nombre, apellido, } = obtenerMiCargo.empleado;
+  const { nombre, apellido, } = miCargo.empleado;
   return (
     <>
       <div className="md:ml-64  bg-indigo-100   rounded-tr-lg rounded-br-lg ">
@@ -45,15 +48,15 @@ const Dashboard = () => {
                 </div>
                 <div className="mb-2 text-blueGray-600 mt-5">
                   <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
-                  <span className="font-semibold">Unidad:</span> {obtenerMiCargo?.unidad?.nombre} {/* Nombre de la unidad */}
+                  <span className="font-semibold">Unidad:</span> {miCargo?.unidad?.nombre} {/* Nombre de la unidad */}
                 </div>
                 <div className="mb-2 text-blueGray-600 mt-2">
                   <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400 "></i>
-                  <span className="font-semibold">Cargo:</span> {obtenerMiCargo?.cargo?.nombre} {/* Nombre del cargo */}
+                  <span className="font-semibold">Cargo:</span> {miCargo?.cargo?.nombre} {/* Nombre del cargo */}
                 </div>
                 <div className="mb-2 text-blueGray-600 mt-2 max-w-[275px]">
                   <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>
-                  <span className="font-semibold">Descripción del cargo:</span>  {obtenerMiCargo?.cargo?.descripcion}
+                  <span className="font-semibold">Descripción del cargo:</span>  {miCargo?.cargo?.descripcion}
                 {/* Descripcion del cargo */}
                 </div>
               </div>
