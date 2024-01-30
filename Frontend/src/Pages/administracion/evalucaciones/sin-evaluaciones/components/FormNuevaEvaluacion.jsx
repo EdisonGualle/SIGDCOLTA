@@ -1,8 +1,12 @@
 import React, { useState } from "react";
+import axios from 'axios';
+
 import useEvaluaciones from "../../../../../hooks/useEvaluaciones";
 
 
 const FormularioEvaluacion = ({ selectedEmployeeId, selectedEmployeeName }) => {
+  // const history = useHistory();
+
   const [formData, setFormData] = useState({
     idEmpleado: selectedEmployeeId || "",
     nombreEmpleado: selectedEmployeeName || "",
@@ -30,52 +34,40 @@ const FormularioEvaluacion = ({ selectedEmployeeId, selectedEmployeeName }) => {
       [name]: type === "file" ? files[0] : value,
     });
   };
+  
 
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     // Validación de campos obligatorios
-    const camposObligatorios = [
-      "idEmpleado",
-      "nombreEmpleado",
-      "idEvaluador",
-      "fechaEvaluacion",
-      "ObjetivosMetas",
-      "cumplimientoObjetivos",
-      "competencias",
-      "calificacionGeneral",
-      "comentarios",
-      "areasMejora",
-      "reconocimientosLogros",
-      "desarrolloProfesional",
-      "feedbackEmpleado",
-      "estadoEvaluacion",
-    ];
-
-    for (const campo of camposObligatorios) {
-      const valorCampo = formData[campo];
-      if (typeof valorCampo === 'string' && valorCampo.trim() === "") {
-        setError(true);
-        setErrorMessage("Por favor, completa todos los campos obligatorios");
-        setTimeout(() => {
-          setError(false);
-          setErrorMessage("");
-        }, 3000);
-        return;
-      }
+    if (Object.values(formData).some(value => typeof value === 'string' && value.trim() === '')) {
+      setError(true);
+      setErrorMessage("Por favor, completa todos los campos obligatorios");
+      setTimeout(() => {
+        setError(false);
+        setErrorMessage("");
+      }, 3000);
+      return;
     }
-
-    // Si todos los campos obligatorios están completos, llamamos a agregarEvaluacion
+    
     try {
-      await agregarEvaluacion(formData);
-      // Manejar éxito, por ejemplo, redirigir a una página de éxito
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/evaluaciones-desempeno",
+        formData
+      );
+      console.log("Evaluacion creada:", response.data);
+      history.push("/administracion/sin-evaluaciones"); // Redirección después de la creación exitosa
     } catch (error) {
-      // Manejar error, mostrar mensaje al usuario o realizar otra acción
+      console.error("Error al crear la evaluacion:", error);
+      console.log(
+        "Detalles del error:",
+        error.response?.data || "No hay detalles disponibles"
+      );
     }
   };
-
+  
 
 
   // const { alerta } = useEvaluaciones();
@@ -294,11 +286,7 @@ const FormularioEvaluacion = ({ selectedEmployeeId, selectedEmployeeName }) => {
         </button>
 
       </form>
-      {/* {alerta.error ? (
-          <p className="text-red-500">{alerta.mensaje}</p>
-        ) : (
-          <p className="text-center font-bold text-green-500">{alerta.mensaje}</p>
-        )} */}
+    
     </div>
   );
 };
