@@ -120,16 +120,30 @@ const OptionsRenderer = (props) => {
 
   const handleEliminarClick = async () => {
     try {
-      const response = await axios.delete(`http://127.0.0.1:8000/api/administrador/evaluaciones-desempeno/${idEvaluacionDesempeno}`);
-      console.log(`Evaluacion con id ${idEvaluacionDesempeno} eliminada`);
-      
-      if (response.data && response.data.message) {
-        console.log(response.data.message);
-      }
+        const token = localStorage.getItem("token");
+        if (!token) {
+            // Maneja la situación donde el token no está disponible en localStorage
+            return;
+        }
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
+
+        const response = await axios.delete(`http://127.0.0.1:8000/api/administrador/evaluaciones-desempeno/${idEvaluacionDesempeno}`, config);
+        console.log(`Evaluacion con id ${idEvaluacionDesempeno} eliminada`);
+
+        if (response.data && response.data.message) {
+            console.log(response.data.message);
+        }
     } catch (error) {
-      console.error(`Error al eliminar evaluacion con id ${idEvaluacionDesempeno}:`, error);
+        console.error(`Error al eliminar evaluacion con id ${idEvaluacionDesempeno}:`, error);
     }
-  };
+};
+
+
 
   return (
     <div>

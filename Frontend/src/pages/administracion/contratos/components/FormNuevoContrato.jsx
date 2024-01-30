@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const FormularioContrato = ({ selectedEmployeeId, selectedEmployeeName, ContratoTipo, Auth }) => {
+const FormularioContrato = ({ selectedEmployeeId, selectedEmployeeName, ContratoTipo, }) => {
   const [formData, setFormData] = useState({
     fechaInicio: "",
     fechaFin: "", 
