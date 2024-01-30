@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect, createContext } from "react";
 import clienteAxios from "../config/clienteAxios";
 import useAuth from "../hooks/useAuth";
+
 const EvaluacionesContext = createContext();
 
 const EvaluacionesProvider = ({ children }) => {
@@ -10,6 +11,7 @@ const EvaluacionesProvider = ({ children }) => {
   const [alerta, setAlerta] = useState({});
   const [empleado, setEmpleado] = useState({});
   const [modalEliminarEmpleado, setModalEliminarEmpleado] = useState(false);
+  const [evaluacionesCargadas, setEvaluacionesCargadas] = useState(false);
 
   const navigate = useNavigate();
   const { auth } = useAuth();
@@ -26,14 +28,20 @@ const EvaluacionesProvider = ({ children }) => {
             Authorization: `Bearer ${token}`,
           },
         };
+
         const { data } = await clienteAxios("/evaluaciones-desempeno", config);
         setEvaluaciones(data.data);
+        setEvaluacionesCargadas(true); // Marcamos que las evaluaciones han sido cargadas
       } catch (error) {
         console.log(error);
       }
     };
-    obtenerEvaluaciones();
-  }, [auth]);
+
+    // Solo llamamos a obtenerEvaluaciones si las evaluaciones no han sido cargadas
+    if (!evaluacionesCargadas && auth) {
+      obtenerEvaluaciones();
+    }
+  }, [auth, evaluacionesCargadas]);
 
   const agregarEvaluacion = async (nuevaEvaluacion) => {
     try {
@@ -52,6 +60,7 @@ const EvaluacionesProvider = ({ children }) => {
         nuevaEvaluacion, 
         config
       );
+
       if (!data.original.errors) {
         setAlerta({
           error: false,
@@ -71,7 +80,6 @@ const EvaluacionesProvider = ({ children }) => {
     }
   };
 
-
   const contextValue = {
     evaluaciones,
     agregarEvaluacion,
@@ -84,6 +92,6 @@ const EvaluacionesProvider = ({ children }) => {
     </EvaluacionesContext.Provider>
   );
 };
-export { EvaluacionesProvider };
 
+export { EvaluacionesProvider };
 export default EvaluacionesContext;
