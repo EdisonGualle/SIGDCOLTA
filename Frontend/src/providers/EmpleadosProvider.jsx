@@ -100,10 +100,10 @@ const EmpleadosProvider = ({ children }) => {
         Object.keys(errors).forEach((campo) => {
           const mensajesError = errors[campo].join(", ");
           /*           console.error(`${campo}: ${mensajesError}`); */
-        });
-        setAlerta({
-          tipo: "error",
-          mensaje: `Error al agregar el empleado: ${mensajesError}`,
+          setAlerta({
+            tipo: "error",
+            mensaje: `Error al agregar el empleado: ${mensajesError}`,
+          });
         });
       } else {
         setAlerta({

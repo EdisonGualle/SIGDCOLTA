@@ -71,6 +71,7 @@ const ModalComponent = ({ isOpen, onClose }) => {
     };
     console.log(newEmpleado);
     agregarEmpleado(newEmpleado);
+    onClose();
   };
 
   const handleNext = () => {
