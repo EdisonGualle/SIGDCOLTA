@@ -35,8 +35,47 @@ const EvaluacionesProvider = ({ children }) => {
     obtenerEvaluaciones();
   }, [auth]);
 
+  const agregarEvaluacion = async (nuevaEvaluacion) => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await clienteAxios.post(
+        "evaluaciones-desempeno",
+        nuevaEvaluacion, 
+        config
+      );
+      if (!data.original.errors) {
+        setAlerta({
+          error: false,
+          mensaje: "Evaluacion agregada correctamente",
+        });
+      } else {
+        setAlerta({
+          mensajes: data.original.errors,
+          error: true,
+        });
+      }
+    } catch (error) {
+      setAlerta({
+        mensaje: error.data.original.errors,
+        error: true,
+      });
+    }
+  };
+
+
   const contextValue = {
     evaluaciones,
+    agregarEvaluacion,
+    alerta,
   };
 
   return (
