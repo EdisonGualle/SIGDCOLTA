@@ -56,6 +56,8 @@ const TableSinEvaluaciones = ({ sinevaluaciones, setSelectedEmployeeId, setSelec
   ]);
   // Fetch data & update rowData state
   useEffect(() => {
+    // Aquí podrías realizar cualquier lógica necesaria para actualizar rowData
+    // Por ejemplo, podrías realizar una solicitud de datos al servidor y actualizar rowData con los resultados.
     if (Array.isArray(sinevaluaciones)) {
       setRowData(sinevaluaciones);
     }

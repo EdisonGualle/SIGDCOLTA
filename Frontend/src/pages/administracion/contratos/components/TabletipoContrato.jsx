@@ -8,11 +8,11 @@ const TableTipoContrato = ({ tiposContrato }) => {
 
   // Column Definitions
   const [colDefs] = useState([
-    
-    { headerName: "Nombre", field: "nombre", 
+    { headerName: "ID", field: "idTipoContrato",
     checkboxSelection: true,
     headerCheckboxSelection: true,
-    suppressMenu: true,},
+    suppressMenu: true, },
+    { headerName: "Nombre", field: "nombre",  },
     { headerName: "Descripción", field: "descripcion" },
     { headerName: "Clausulas", field: "clausulas" },
     { headerName: "Duración (Meses)", field: "duracionMeses" },

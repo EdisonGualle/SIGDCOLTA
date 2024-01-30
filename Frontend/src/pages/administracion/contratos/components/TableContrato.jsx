@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState, useCallback } from "react";
 import { AgGridReact } from "ag-grid-react";
 import { TRANSLATIONS } from "../../empleados/components/traduccionTableGrid";
 import { LANGUAGE_OPTIONS } from "../../empleados/components/traduccionTableGrid";
+
 const TableContratos = ({ contratos }) => {
   const [rowData, setRowData] = useState([]);
 
@@ -55,21 +56,7 @@ const TableContratos = ({ contratos }) => {
     []
   );
 
-  const onFirstDataRendered = useCallback(
-    (params) => {
-      params.api.createRangeChart({
-        chartContainer: document.querySelector("#myChart"),
-        cellRange: {
-          rowStartIndex: 0,
-          rowEndIndex: rowData.length - 1,
-          columns: ["cedula", "edad"],
-        },
-        chartType: "groupedColumn",
-        aggFunc: "sum",
-      });
-    },
-    [rowData]
-  );
+  
 
   return (
     <div className="h-full">
@@ -80,7 +67,6 @@ const TableContratos = ({ contratos }) => {
           columnDefs={colDefs}
           defaultColDef={defaultColDef}
           pagination={true}
-          onFirstDataRendered={onFirstDataRendered}
           rowSelection={"multiple"}
         />
       </div>

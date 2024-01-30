@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
-const FormularioContrato = ({  selectedEmployeeId, selectedEmployeeName }) => {
+const FormularioContrato = ({ selectedEmployeeId, selectedEmployeeName, ContratoTipo, }) => {
   const [formData, setFormData] = useState({
     fechaInicio: "",
-    fechaFin: "",
+    fechaFin: "", 
     idEmpleado: selectedEmployeeId || "",
     nombreEmpleado: selectedEmployeeName || "", // Nuevo campo para el nombre completo
     idTipoContrato: "",
@@ -90,17 +90,32 @@ const FormularioContrato = ({  selectedEmployeeId, selectedEmployeeName }) => {
 
 
         <div className="mb-4">
-          <label htmlFor="tiposContratos" className="block text-sm font-medium text-gray-600">
-          Tipos Contratos
+          <label
+            htmlFor="Contrato"
+            className="block text-sm font-medium text-gray-600"
+          >
+            Tipo de Cotrato
           </label>
-          <input
-            type="text"
-            id="tiposContratos"
-            name="tiposContratos"
-            value={formData.idTipoContrato}
-            onChange={handleInputChange}
+          
+          <select
             className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-          />
+            name="Contrato"
+            id="Contrato"
+            defaultValue={undefined}
+            
+          >
+            <option value="" hidden>
+              Seleccionar Contrato
+            </option>
+            {ContratoTipo && ContratoTipo.map((Contrato) => {
+              return (
+                <option key={Contrato.id} value={Contrato.id}>
+                  {Contrato.nombre}
+                </option>
+              );
+            })}
+
+          </select>
         </div>
 
         <div className="mb-4">
