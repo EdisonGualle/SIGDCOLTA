@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useEmpleados from "../../../../hooks/useEmpleados";
+import { useNavigate } from "react-router-dom";
 
 const FormDatosBancarios = ({
   handlePrev,
@@ -9,6 +10,8 @@ const FormDatosBancarios = ({
 }) => {
   const [error, setError] = useState(false);
   const { datosBancarios, getDatosBancarios, alerta } = useEmpleados();
+  const navigate = useNavigate();
+
   /* 
   useEffect(() => {
     getDatosBancarios();
@@ -37,7 +40,6 @@ const FormDatosBancarios = ({
       }
     }
     completarFormulario();
-    navigate("/empleados");
   };
 
   return (
@@ -120,8 +122,10 @@ const FormDatosBancarios = ({
           </button>
         </div>
       </form>
-      {alerta.error ? (
-        <p className="text-red-500">{alerta.mensaje}</p>
+      {alerta.tipo === "error" ? (
+        <p className="bg-red-500 text-white font-bold text-center mt-4 mx-2 my-2 rounded-lg">
+          {alerta.mensaje}
+        </p>
       ) : (
         <p className="text-center font-bold text-green-500">{alerta.mensaje}</p>
       )}

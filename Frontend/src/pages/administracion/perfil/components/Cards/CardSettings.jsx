@@ -1,10 +1,10 @@
 import React from "react";
 import useAuthEmpleado from "../../../../../hooks/useAuthEmpleado";
-
-
-
 export default function CardSettings() {
   const { obtenerMiInformacion } = useAuthEmpleado();
+  
+
+
   const informacionPersonal = obtenerMiInformacion?.informacionPersonal || {};
   const informacionContacto = obtenerMiInformacion?.informacionContacto || {};
   const informacionAdicional = obtenerMiInformacion?.informacionAdicional || {};

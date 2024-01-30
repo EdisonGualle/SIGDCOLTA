@@ -1,59 +1,71 @@
 import React, { useState, useEffect } from "react";
-import {
-  RiEdit2Line,
-  RiShieldCheckLine,
-} from "react-icons/ri";
+import { RiEdit2Line, RiShieldCheckLine } from "react-icons/ri";
 
 import useAuthEmpleado from "../../../hooks/useAuthEmpleado";
 
-
-
 const Configuracion = () => {
-  const {obtenerMisDatosUsuario, actualizarMisDatosUsuario} = useAuthEmpleado();
-  const perfil = obtenerMisDatosUsuario?.perfil || {}
+  const { misDatosUsuario, obtenerMisDatosUsuario, actualizarMisDatosUsuario } =
+    useAuthEmpleado();
 
+  useEffect(() => {
+    obtenerMisDatosUsuario();
+  }, []);
 
-  const [correoPersonal, setCorreoPersonal] = useState(perfil.correoPersonal || "");
-  const [telefonoPersonal, setTelefonoPersonal] = useState(perfil.telefonoPersonal || "");
+  const perfil = misDatosUsuario?.perfil || {};
+
+  const [correoPersonal, setCorreoPersonal] = useState(
+    perfil.correoPersonal || ""
+  );
+  const [telefonoPersonal, setTelefonoPersonal] = useState(
+    perfil.telefonoPersonal || ""
+  );
   const [editMode, setEditMode] = useState(false);
   const [correoValido, setCorreoValido] = useState(true);
   const [telefonoValido, setTelefonoValido] = useState(true);
+  const [intentadoGuardar, setIntentadoGuardar] = useState(false);
+  const [cancelado, setCancelado] = useState(false);
+
 
   const [enabled, setEnabled] = useState(false);
 
-
   const handleCorreoChange = (e) => {
     setCorreoPersonal(e.target.value);
-    // Validar el formato del correo electrónico
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     setCorreoValido(regex.test(e.target.value));
   };
 
   const handleTelefonoChange = (e) => {
     setTelefonoPersonal(e.target.value);
-    // Validar el formato del número de teléfono
     const regex = /^[0-9]{10}$/;
     setTelefonoValido(regex.test(e.target.value));
   };
 
   const handleEditarClick = () => {
+    setIntentadoGuardar(false);
+    setCancelado(false); // Reiniciar el estado cancelado
     setEditMode(true);
   };
 
   const handleGuardarClick = () => {
-    // Validar antes de guardar
+    setIntentadoGuardar(true);
     if (correoValido && telefonoValido) {
-      // Aquí deberías llamar a la función para actualizar la información
       actualizarMisDatosUsuario({ correoPersonal, telefonoPersonal });
-      // Desactivar el modo de edición después de guardar
       setEditMode(false);
     } else {
       alert("Por favor, corrige los campos antes de guardar.");
     }
   };
 
+  const handleCancelarClick = () => {
+    // Resetear los estados y desactivar el modo de edición
+    setIntentadoGuardar(false);
+    setCancelado(true);
+    setCorreoPersonal(perfil.correoPersonal || "");
+    setTelefonoPersonal(perfil.telefonoPersonal || "");
+    setEditMode(false);
+  };
+
   useEffect(() => {
-    // Actualizar el estado del correo y el teléfono cuando cambian en el perfil
     setCorreoPersonal(perfil.correoPersonal || "");
     setTelefonoPersonal(perfil.telefonoPersonal || "");
   }, [perfil.correoPersonal, perfil.telefonoPersonal]);
@@ -91,9 +103,7 @@ const Configuracion = () => {
           </div>
           <div className="flex flex-col gap-y-2 md:flex-row md:items-center mb-8">
             <div className="w-full md:w-1/4">
-              <p>
-                Nombre completo
-              </p>
+              <p>Nombre completo</p>
             </div>
             <div className="flex-1 flex items-center gap-4">
               <div className="w-full">
@@ -116,61 +126,70 @@ const Configuracion = () => {
           </div>
           <div className="flex flex-col md:flex-row md:items-center gap-y-2 mb-8">
             <div className="w-full md:w-1/4">
-              <p>
-                Correo personal
-              </p>
+              <p>Correo personal</p>
             </div>
             <div className="flex-1">
-          <input
-            type="email"
-            className={`w-full py-2 px-4 outline-none rounded-lg border ${
-              (editMode && !correoValido) ? "border-red-500" : ""
-            } ${
-              editMode ? "bg-white border-gray-300" : "bg-gray-200 border-gray-300"
-            }`}
-            value={correoPersonal}
-            onChange={handleCorreoChange}
-            disabled={!editMode}
-          />
-          {editMode && !correoValido && (
-            <p className="text-red-500 text-sm">Por favor, ingresa un correo válido.</p>
-          )}
-        </div>
+              <input
+                type="email"
+                className={`w-full py-2 px-4 outline-none rounded-lg border ${
+                  editMode && !correoValido ? "border-red-500" : ""
+                } ${
+                  editMode
+                    ? "bg-white border-gray-300"
+                    : "bg-gray-200 border-gray-300"
+                }`}
+                value={correoPersonal}
+                onChange={handleCorreoChange}
+                disabled={!editMode}
+              />
+              {editMode && !correoValido && (
+                <p className="text-red-500 text-sm">
+                  Por favor, ingresa un correo válido.
+                </p>
+              )}
+            </div>
           </div>
           <div className="flex flex-col md:flex-row md:items-center gap-y-2 mb-8">
             <div className="w-full md:w-1/4">
-              <p>
-                Número de contacto 
-              </p>
+              <p>Número de contacto</p>
             </div>
             <div className="flex-1">
-          <input
-            type="tel"
-            pattern="[0-9]{10}"
-            className={`w-full py-2 px-4 outline-none rounded-lg border ${
-              (editMode && !telefonoValido) ? "border-red-500" : ""
-            } ${
-              editMode ? "bg-white border-gray-300" : "bg-gray-200 border-gray-300"
-            }`}
-            value={telefonoPersonal}
-            onChange={handleTelefonoChange}
-            disabled={!editMode}
-          />
-          {editMode && !telefonoValido && (
-            <p className="text-red-500 text-sm">Por favor, ingresa un número de teléfono válido (10 dígitos numéricos).</p>
-          )}
-        </div>
+              <input
+                type="tel"
+                pattern="[0-9]{10}"
+                className={`w-full py-2 px-4 outline-none rounded-lg border ${
+                  editMode && !telefonoValido ? "border-red-500" : ""
+                } ${editMode ? "bg-white " : "bg-gray-200 border-gray-300"}`}
+                value={telefonoPersonal}
+                onChange={handleTelefonoChange}
+                disabled={!editMode}
+              />
+              {editMode && !telefonoValido && (
+                <p className="text-red-500 text-sm">
+                  Por favor, ingresa un número de teléfono válido (10 dígitos
+                  numéricos).
+                </p>
+              )}
             </div>
+          </div>
         </form>
         <hr className="my-8 border-gray-500/30" />
         <div className="flex justify-end">
         {editMode ? (
-          <button
-            className="bg-primary/50 py-3 px-4 rounded-lg hover:bg-primary transition-colors"
-            onClick={handleGuardarClick}
-          >
-            Guardar
-          </button>
+          <>
+            <button
+              className="bg-primary/50 py-3 px-4 rounded-lg hover:bg-primary transition-colors"
+              onClick={handleGuardarClick}
+            >
+              Guardar
+            </button>
+            <button
+              className="bg-red-300 py-3 px-4 rounded-lg ml-4 hover:bg-red-400 transition-colors"
+              onClick={handleCancelarClick}
+            >
+              Cancelar
+            </button>
+          </>
         ) : (
           <button
             className="bg-primary/50 py-3 px-4 rounded-lg hover:bg-primary transition-colors"
@@ -179,7 +198,7 @@ const Configuracion = () => {
             Editar
           </button>
         )}
-        </div>
+      </div>
       </div>
       {/* Cambiar contraseña */}
       <div className="bg-secondary-50 p-8 rounded-xl mb-8">
@@ -189,7 +208,9 @@ const Configuracion = () => {
           <div className="flex flex-col md:flex-row md:items-center gap-y-4 justify-between">
             <div>
               <h5 className=" text-xl mb-1">Correo institucional</h5>
-              <p className="text-gray-500 text-sm">{perfil.correoInstitucional}</p>
+              <p className="text-gray-500 text-sm">
+                {perfil.correoInstitucional}
+              </p>
             </div>
           </div>
           <hr className="my-8 border-gray-500/30 border-dashed" />
@@ -212,11 +233,13 @@ const Configuracion = () => {
           <div className="md:col-span-6">
             <h5 className=" text-xl mb-2">Contraseña segura</h5>
             <p className="text-gray-500">
-            La contraseña debe tener al menos 6 caracteres y se recomienda incluir una combinación de letras mayúsculas, minúsculas, números y caracteres especiales para mejorar la seguridad.
+              La contraseña debe tener al menos 6 caracteres y se recomienda
+              incluir una combinación de letras mayúsculas, minúsculas, números
+              y caracteres especiales para mejorar la seguridad.
             </p>
           </div>
         </div>
-      </div> 
+      </div>
     </>
   );
 };

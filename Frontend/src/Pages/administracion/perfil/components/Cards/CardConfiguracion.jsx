@@ -3,6 +3,7 @@ import React from "react";
 import Configuracion from "../../../../layouts/components/Configuracion"
 // components
 
+
 export default function CardConfiguracion() {
 
   return (

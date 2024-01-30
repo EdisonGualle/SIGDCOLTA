@@ -12,7 +12,7 @@ const FormNuevoEmpleado = ({
     });
   };
 
-  const { validarCedulas } = useEmpleados();
+  const { validarCedulas,validarCorreo } = useEmpleados();
 
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -53,10 +53,21 @@ const FormNuevoEmpleado = ({
       }
     }
     /* Validar Cedula */
-    if (!validarCedulas(formDatosPersonales.cedula)) {
+    if (validarCedulas(formDatosPersonales.cedula)) {
       setError(true);
       setErrorMessage(
         "Esta cedula ya es de un epleado, por favor ingrese una diferente."
+      );
+      setTimeout(() => {
+        setError(false);
+      }, 3000);
+      return;
+    }
+    /* Validacion de correo */
+    if (validarCorreo(formDatosPersonales.correo)) {
+      setError(true);
+      setErrorMessage(
+        "Esta correo ya es de un empleado, por favor ingrese una diferente."
       );
       setTimeout(() => {
         setError(false);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   RiNotification3Line,
   RiArrowDownSLine,
@@ -14,12 +14,16 @@ import { Link } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import useAuthEmpleado from "../../../hooks/useAuthEmpleado";
 
-const Header = ({auth}) => {
+const Header = ({ auth }) => {
   const { cerrarSesionAuth } = useAuth();
 
-  const {obtenerMisDatosUsuario} = useAuthEmpleado();
-  const perfil = obtenerMisDatosUsuario?.perfil || {}
+  const { misDatosUsuario, obtenerMisDatosUsuario } = useAuthEmpleado();
 
+  useEffect(() => {
+     obtenerMisDatosUsuario(); 
+  },[])
+
+  const perfil = misDatosUsuario?.perfil || {};
   const handleCerrarSesion = () => {
     cerrarSesionAuth();
     localStorage.removeItem("token");
@@ -75,7 +79,7 @@ const Header = ({auth}) => {
               <RiThumbUpLine className="p-2 bg-blue-200 text-blue-700 box-content rounded-full" />
               <div className="text-sm flex flex-col">
                 <div className="flex items-center justify-between gap-4 text-blue-950">
-                  <span>Nuevo like  </span>{" "}
+                  <span>Nuevo like </span>{" "}
                   <span className="text-[8px]">04/10/2024</span>
                 </div>
                 <p className="text-gray-500 text-xs">
@@ -139,7 +143,9 @@ const Header = ({auth}) => {
               />
               <div className="flex flex-col text-sm">
                 <span className="text-sm">{perfil.usuario || ""}</span>
-                <span className="text-xs text-gray-500">{perfil.correoInstitucional || ""}</span>
+                <span className="text-xs text-gray-500">
+                  {perfil.correoInstitucional || ""}
+                </span>
               </div>
             </Link>
           </MenuItem>
