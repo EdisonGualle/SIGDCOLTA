@@ -19,46 +19,51 @@ const Configuracion = () => {
   const [correoValido, setCorreoValido] = useState(true);
   const [telefonoValido, setTelefonoValido] = useState(true);
 
+  const [intentadoGuardar, setIntentadoGuardar] = useState(false);
+  const [cancelado, setCancelado] = useState(false);
+
   const [enabled, setEnabled] = useState(false);
-
-
   const handleCorreoChange = (e) => {
     setCorreoPersonal(e.target.value);
-    // Validar el formato del correo electrónico
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     setCorreoValido(regex.test(e.target.value));
   };
 
   const handleTelefonoChange = (e) => {
     setTelefonoPersonal(e.target.value);
-    // Validar el formato del número de teléfono
     const regex = /^[0-9]{10}$/;
     setTelefonoValido(regex.test(e.target.value));
   };
 
   const handleEditarClick = () => {
+    setIntentadoGuardar(false);
+    setCancelado(false); // Reiniciar el estado cancelado
     setEditMode(true);
   };
 
   const handleGuardarClick = () => {
-    // Validar antes de guardar
+    setIntentadoGuardar(true);
     if (correoValido && telefonoValido) {
-      // Aquí deberías llamar a la función para actualizar la información
       actualizarMisDatosUsuario({ correoPersonal, telefonoPersonal });
-      // Desactivar el modo de edición después de guardar
       setEditMode(false);
     } else {
       alert("Por favor, corrige los campos antes de guardar.");
     }
   };
 
+  const handleCancelarClick = () => {
+    // Resetear los estados y desactivar el modo de edición
+    setIntentadoGuardar(false);
+    setCancelado(true);
+    setCorreoPersonal(perfil.correoPersonal || "");
+    setTelefonoPersonal(perfil.telefonoPersonal || "");
+    setEditMode(false);
+  };
+
   useEffect(() => {
-    // Actualizar el estado del correo y el teléfono cuando cambian en el perfil
     setCorreoPersonal(perfil.correoPersonal || "");
     setTelefonoPersonal(perfil.telefonoPersonal || "");
   }, [perfil.correoPersonal, perfil.telefonoPersonal]);
-
-
   return (
     <>
       {/* Profile */}
@@ -165,12 +170,20 @@ const Configuracion = () => {
         <hr className="my-8 border-gray-500/30" />
         <div className="flex justify-end">
         {editMode ? (
-          <button
-            className="bg-primary/50 py-3 px-4 rounded-lg hover:bg-primary transition-colors"
-            onClick={handleGuardarClick}
-          >
-            Guardar
-          </button>
+          <>
+            <button
+              className="bg-primary/50 py-3 px-4 rounded-lg hover:bg-primary transition-colors"
+              onClick={handleGuardarClick}
+            >
+              Guardar
+            </button>
+            <button
+              className="bg-gray-300 py-3 px-4 rounded-lg ml-4 hover:bg-gray-400 transition-colors"
+              onClick={handleCancelarClick}
+            >
+              Cancelar
+            </button>
+          </>
         ) : (
           <button
             className="bg-primary/50 py-3 px-4 rounded-lg hover:bg-primary transition-colors"
@@ -179,7 +192,7 @@ const Configuracion = () => {
             Editar
           </button>
         )}
-        </div>
+      </div>
       </div>
       {/* Cambiar contraseña */}
       <div className="bg-secondary-50 p-8 rounded-xl mb-8">
