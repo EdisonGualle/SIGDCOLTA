@@ -5,6 +5,9 @@ import "ag-grid-community/styles/ag-theme-alpine.css";
 
 import OptionsRenderer from "./OptionsRenderer";
 const TableEmpleados = ({ empleados }) => {
+
+
+  
   const [rowData, setRowData] = useState([]);
 
   useEffect(() => {
@@ -13,6 +16,10 @@ const TableEmpleados = ({ empleados }) => {
 
   const [gridOptions] = useState({
     suppressClickEdit: true,
+    onCellEditingStarted: (event) => {
+      // Accede a los datos actuales de la fila
+      const currentData = event.api.getRowNode(event.rowIndex).data;
+    },
     onCellClicked: handleCellClicked,
     onRowEditingStarted: handleRowEditingStarted,
     onRowEditingStopped: handleRowEditingStopped,
@@ -93,9 +100,9 @@ const TableEmpleados = ({ empleados }) => {
       }
 
       if (action === "delete") {
-        params.api.applyTransaction({
+        /* params.api.applyTransaction({
           remove: [params.node.data],
-        });
+        }); */
       }
 
       if (action === "update") {

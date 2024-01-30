@@ -119,7 +119,7 @@ const EmpleadosProvider = ({ children }) => {
     }
   };
 
-  const actualizarEmpleado = async (id, nuevoEmpleado) => {
+  const actualizarEmpleado = async (idEmpleado, nuevoEmpleado) => {
     try {
       const token = localStorage.getItem("token");
       if (!token) return;
@@ -131,16 +131,30 @@ const EmpleadosProvider = ({ children }) => {
         },
       };
 
-      const { data } = await clienteAxios.put(
-        `/empleados/${id}`,
+      const response = await clienteAxios.put(
+        `/empleados/${idEmpleado}`,
         nuevoEmpleado,
         config
       );
-      setEmpleados(empleados.map((e) => (e._id === id ? data.data : e)));
-      setAlerta({
-        tipo: "success",
-        mensaje: "Empleado actualizado correctamente",
-      });
+
+      if (response.status === 200) {
+        setAlerta({
+          tipo: "success",
+          mensaje: "Empleado actualizado correctamente",
+        });
+
+        // Actualizar el estado de empleados después de la actualización exitosa
+        const nuevosEmpleados = empleados.map((empleado) => {
+          if (empleado.idEmpleado === idEmpleado) {
+            return { ...empleado, ...nuevoEmpleado };
+          }
+          return empleado;
+        });
+
+        setEmpleados(nuevosEmpleados);
+      } else {
+        setAlerta({ tipo: "error", mensaje: "Error al actualizar empleado" });
+      }
     } catch (error) {
       console.log(error);
       setAlerta({ tipo: "error", mensaje: "Error al actualizar empleado" });
