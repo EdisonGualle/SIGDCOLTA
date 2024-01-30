@@ -66,8 +66,11 @@ const OptionsRenderer = (params) => {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        /*         eliminarEmpleado(data.idEmpleado);
-         */ MySwal.fire("Eliminada", "Empleado Eliminado.", "success");
+        /*         ;
+
+         */
+        eliminarEmpleado(data.idEmpleado);
+        MySwal.fire("Eliminada", "Empleado Eliminado.", "success");
       }
     });
   };
@@ -97,7 +100,7 @@ const OptionsRenderer = (params) => {
               <button
                 onClick={() => onVerClick(data)}
                 data-tippy-content="Ver"
-                title="Ver"/* VER EMPLEADO */
+                title="Ver" /* VER EMPLEADO */
               >
                 <i className="fas fa-eye mr-2 text-indigo-600"></i>
               </button>

@@ -29,7 +29,7 @@ const EmpleadosProvider = ({ children }) => {
           },
         };
         const { data } = await clienteAxios("/empleados", config);
-        console.log(data)
+        console.log(data);
         setEmpleados(data.data);
       } catch (error) {
         console.log(error);
@@ -111,6 +111,13 @@ const EmpleadosProvider = ({ children }) => {
           tipo: "success",
           mensaje: "Empleado agregado exitosamente",
         });
+
+        const nuevoUsuario = {
+          idEmpleado: data.original.empleado.idEmpleado,
+          correo: nuevoEmpleado.correo,
+          idTipoEstado: 11,
+        };
+        //agregarusuario(nuevoUsuario);
         navigate("/administracion/empleados");
 
         // La solicitud fue exitosa, puedes manejarlo de acuerdo a tus necesidades
@@ -120,6 +127,35 @@ const EmpleadosProvider = ({ children }) => {
     }
   };
 
+  const agregarusuario = async (nuevoUsuario) => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setAlerta({
+          mensaje: "Token not available. Please log in.",
+          error: true,
+        });
+        return;
+      }
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const response = await clienteAxios.post(
+        "/administrador/usuarios",
+        nuevoUsuario,
+        config
+      );
+      const { data } = response;
+      return;
+    } catch (error) {
+      console.error("Error al agregar usuario:", error);
+    }
+  };
   const actualizarEmpleado = async (idEmpleado, nuevoEmpleado) => {
     try {
       const token = localStorage.getItem("token");
