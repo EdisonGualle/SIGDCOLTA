@@ -90,23 +90,54 @@ const AuthEmpleadoProvider = ({ children }) => {
 
         const { data } = await clienteAxios("administrador/mis-datos-usuario", config);
         setObtenerMisDatosUsuario(data.datos);
-        console.log(data.datos);
+
       } catch (error) {
         console.log(error);
         // Puedes manejar errores según tus necesidades
       }
+
     };
     obtenerMisDatosUsuario(),
-    obtenerMisDatosLaborales();
+      obtenerMisDatosLaborales();
     obtenerMiCargo();
     obtenerMiInformacion();
   }, [auth]);
+
+  const actualizarMisDatosUsuario = async (nuevosDatos) => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await clienteAxios.put(
+        "administrador/actualizar-mis-datos-usuario",
+        nuevosDatos,
+        config
+      );
+
+      // Puedes manejar la respuesta según tus necesidades
+      console.log(data);
+
+      // Actualizar los datos en el estado local si es necesario
+      setObtenerMisDatosUsuario(data.datos);
+    } catch (error) {
+      console.log(error);
+      // Puedes manejar errores según tus necesidades
+    }
+  };
 
   const contextValue = {
     obtenerMiCargo,
     obtenerMiInformacion,
     obtenerMisDatosLaborales,
-    obtenerMisDatosUsuario
+    obtenerMisDatosUsuario,
+    actualizarMisDatosUsuario,
   };
 
   return (

@@ -24,6 +24,7 @@ Route::get('/mi-cargo', [EmpleadoCargoController::class, 'miCargo']);
 Route::get('/mis-datos-personales', [EmpleadoDatosController::class, 'misDatosPersonales']);
 Route::get('/mis-datos-laborales', [EmpleadoDatosController::class, 'misDatoslaborales']);
 Route::get('/mis-datos-usuario', [EmpleadoDatosController::class, 'misDatosUsuario']);
+Route::put('/actualizar-mis-datos-usuario', [EmpleadoDatosController::class, 'actualizarMisDatosUsuario']);
 
 
 //Rutas Contrato

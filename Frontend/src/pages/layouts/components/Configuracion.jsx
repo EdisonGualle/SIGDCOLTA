@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   RiEdit2Line,
   RiShieldCheckLine,
@@ -9,10 +9,42 @@ import useAuthEmpleado from "../../../hooks/useAuthEmpleado";
 
 
 const Configuracion = () => {
-  const {obtenerMisDatosUsuario} = useAuthEmpleado();
+  const {obtenerMisDatosUsuario, actualizarMisDatosUsuario} = useAuthEmpleado();
   const perfil = obtenerMisDatosUsuario?.perfil || {}
 
+
+  const [correoPersonal, setCorreoPersonal] = useState(perfil.correoPersonal || "");
+  const [telefonoPersonal, setTelefonoPersonal] = useState(perfil.telefonoPersonal || "");
+  const [editMode, setEditMode] = useState(false);
+
   const [enabled, setEnabled] = useState(false);
+
+
+  const handleCorreoChange = (e) => {
+    setCorreoPersonal(e.target.value);
+  };
+
+  const handleTelefonoChange = (e) => {
+    setTelefonoPersonal(e.target.value);
+  };
+
+  const handleEditarClick = () => {
+    setEditMode(true);
+  };
+
+  const handleGuardarClick = () => {
+    // Aquí deberías llamar a la función para actualizar la información
+    actualizarMisDatosUsuario({ correoPersonal, telefonoPersonal });
+    // Desactivar el modo de edición después de guardar
+    setEditMode(false);
+  };
+
+  useEffect(() => {
+    // Actualizar el estado del correo y el teléfono cuando cambian en el perfil
+    setCorreoPersonal(perfil.correoPersonal || "");
+    setTelefonoPersonal(perfil.telefonoPersonal || "");
+  }, [perfil.correoPersonal, perfil.telefonoPersonal]);
+
 
   return (
     <>
@@ -77,11 +109,14 @@ const Configuracion = () => {
             </div>
             <div className="flex-1">
               <input
-                type="email"
-                className="w-full py-2 px-4 outline-none rounded-lg bg-gray-200 border border-gray-300"
-                value={perfil.correoPersonal || ""}
-             
-              />
+            type="email"
+            className={`w-full py-2 px-4 outline-none rounded-lg border ${
+              editMode ? "bg-white" : "bg-gray-200"
+            }`}
+            value={correoPersonal}
+            onChange={handleCorreoChange}
+            disabled={!editMode}
+          />
             </div>
           </div>
           <div className="flex flex-col md:flex-row md:items-center gap-y-2 mb-8">
@@ -91,20 +126,36 @@ const Configuracion = () => {
               </p>
             </div>
             <div className="flex-1">
-              <input
-                type="tel"
-                pattern="[0-9]{10}"
-                className="w-full py-2 px-4 outline-none rounded-lg  bg-gray-200 border border-gray-300"
-                value={perfil.telefonoPersonal || ""}
-              />
+            <input
+            type="tel"
+            pattern="[0-9]{10}"
+            className={`w-full py-2 px-4 outline-none rounded-lg border ${
+              editMode ? "bg-white" : "bg-gray-200"
+            }`}
+            value={telefonoPersonal}
+            onChange={handleTelefonoChange}
+            disabled={!editMode}
+          />
             </div>
             </div>
         </form>
         <hr className="my-8 border-gray-500/30" />
         <div className="flex justify-end">
-          <button className=" bg-primary/50 py-3 px-4 rounded-lg hover:bg-primary transition-colors">
+        {editMode ? (
+          <button
+            className="bg-primary/50 py-3 px-4 rounded-lg hover:bg-primary transition-colors"
+            onClick={handleGuardarClick}
+          >
             Guardar
           </button>
+        ) : (
+          <button
+            className="bg-primary/50 py-3 px-4 rounded-lg hover:bg-primary transition-colors"
+            onClick={handleEditarClick}
+          >
+            Editar
+          </button>
+        )}
         </div>
       </div>
       {/* Cambiar contraseña */}
