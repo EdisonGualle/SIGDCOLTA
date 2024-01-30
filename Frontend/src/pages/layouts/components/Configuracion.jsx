@@ -25,8 +25,8 @@ const Configuracion = () => {
   const [intentadoGuardar, setIntentadoGuardar] = useState(false);
   const [cancelado, setCancelado] = useState(false);
 
-  const [enabled, setEnabled] = useState(false);
 
+  const [enabled, setEnabled] = useState(false);
   const handleCorreoChange = (e) => {
     setCorreoPersonal(e.target.value);
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -68,7 +68,6 @@ const Configuracion = () => {
     setCorreoPersonal(perfil.correoPersonal || "");
     setTelefonoPersonal(perfil.telefonoPersonal || "");
   }, [perfil.correoPersonal, perfil.telefonoPersonal]);
-
   return (
     <>
       {/* Profile */}
@@ -173,22 +172,30 @@ const Configuracion = () => {
         </form>
         <hr className="my-8 border-gray-500/30" />
         <div className="flex justify-end">
-          {editMode ? (
+        {editMode ? (
+          <>
             <button
               className="bg-primary/50 py-3 px-4 rounded-lg hover:bg-primary transition-colors"
               onClick={handleGuardarClick}
             >
               Guardar
             </button>
-          ) : (
             <button
-              className="bg-primary/50 py-3 px-4 rounded-lg hover:bg-primary transition-colors"
-              onClick={handleEditarClick}
+              className="bg-gray-300 py-3 px-4 rounded-lg ml-4 hover:bg-gray-400 transition-colors"
+              onClick={handleCancelarClick}
             >
-              Editar
+              Cancelar
             </button>
-          )}
-        </div>
+          </>
+        ) : (
+          <button
+            className="bg-primary/50 py-3 px-4 rounded-lg hover:bg-primary transition-colors"
+            onClick={handleEditarClick}
+          >
+            Editar
+          </button>
+        )}
+      </div>
       </div>
       {/* Cambiar contraseña */}
       <div className="bg-secondary-50 p-8 rounded-xl mb-8">
