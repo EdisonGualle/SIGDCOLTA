@@ -216,14 +216,14 @@ const SidebarAdministrador = () => {
               </ul>
             </li>
             {/* Evaluaciones */}
-            {/* <li>
+            <li>
               <Link
                 to="/administracion/evaluaciones"
                 className="flex  text-secondary-100 items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-100   hover:text-black transition-colors"
               >
                 <MdOutlineAssessment className="text-primary" /> Evaluaciones
               </Link>
-            </li> */}
+            </li>
 
             {/* Configuraciones */}
             <li>

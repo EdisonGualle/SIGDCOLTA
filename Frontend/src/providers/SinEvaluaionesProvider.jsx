@@ -32,7 +32,7 @@ const SinEvaluacionesProvider = ({ children }) => {
       } catch (error) {
         console.error("Error al cargar los datos:", error);
       } finally {
-        setCargando(false); // Asegúrate de ajustar el estado según tus necesidades
+        setCargandoSinEvaluaciones(false); // Corregir el nombre de la función
       }
     };
 
@@ -43,7 +43,7 @@ const SinEvaluacionesProvider = ({ children }) => {
   // Definimos el valor del contexto que será accesible por los componentes hijos
   const contextValue = {
     sinevaluaciones,
-    
+    cargandoSinEvaluaciones,
   };
 
   // Renderizamos el proveedor con el valor del contexto y los hijos
