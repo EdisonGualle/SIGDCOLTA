@@ -68,7 +68,7 @@ const FormContrato = ({
       "salario",
       "estadoContrato",
     ];
-   /*  for (const campo of camposObligatorios) {
+    for (const campo of camposObligatorios) {
       if (formContrato[campo] === "") {
         setError(true);
 
@@ -78,7 +78,7 @@ const FormContrato = ({
 
         return;
       }
-    } */
+    }
     handleNext();
   };
 

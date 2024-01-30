@@ -219,9 +219,9 @@ class EmpleadoService
             'segundoNombre' => 'required|string',
             'primerApellido' => 'required|string',
             'segundoApellido' => 'required|string',
-            'fechaNacimiento' => 'required|date|before:' . Carbon::now()->subYears(18)->format('Y-m-d'),
-            'genero' => 'required|string',
-            'telefonoPersonal' => [
+            /*             'fechaNacimiento' => 'required|date|before:' . Carbon::now()->subYears(18)->format('Y-m-d'),
+ */            'genero' => 'required|string',
+            /* 'telefonoPersonal' => [
                 'required',
                 'string',
                 'unique:empleado',
@@ -231,7 +231,7 @@ class EmpleadoService
                         $fail("El formato del teléfono personal no es válido. Debe seguir el formato '09XXXXXXXX'.");
                     }
                 },
-            ],
+            ], */
             'telefonoTrabajo' => 'required|string|unique:empleado',
             'correo' => 'required|email|unique:empleado',
             'etnia' => 'required|string',
@@ -336,14 +336,12 @@ class EmpleadoService
                 'estadousuario.tipoEstado as nombreEstado'  // Cambiado a 'tipoEstado'
             )
             ->get();
-    
+
         // Verificando si el conjunto de resultados está vacío
         if ($empleados->isEmpty()) {
             return ['successful' => false, 'error' => 'Empleados no encontrados'];
         }
-    
+
         return ['successful' => true, 'data' => $empleados];
     }
-    
-    
 }
