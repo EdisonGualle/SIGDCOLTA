@@ -1,7 +1,6 @@
-import { useNavigate } from "react-router-dom";
 import { createContext, useState, useEffect } from "react";
 import clienteAxios from "../config/clienteAxios";
-import useAuth from "../hooks/useAuth";
+
 const ContratosContext = createContext();
 
 const ContratosProvider = ({ children }) => {
@@ -11,10 +10,7 @@ const ContratosProvider = ({ children }) => {
   const [alerta, setAlerta] = useState({});
   const [contrato, setContrato] = useState({});
   const [modalEliminarContrato, setModalEliminarContrato] = useState(false);
-  // Puedes agregar más estados según tus necesidades
 
-  const { auth } = useAuth();
-  ``;
   useEffect(() => {
     const obtenerContratos = async () => {
       try {
@@ -32,17 +28,17 @@ const ContratosProvider = ({ children }) => {
 
         const { data } = await clienteAxios("/contratos2", config);
 
-        setContratos(data); // Intenta acceder a la propiedad correcta
+        setContratos(data);
       } catch (error) {
         console.error("Error al cargar los datos:", error);
       } finally {
-        setCargando(false); // Asegúrate de ajustar el estado según tus necesidades
+        setCargando(false);
       }
     };
 
     setCargando(true);
     obtenerContratos();
-  }, [auth]);
+  }, []);
 
   const getTiposContrato = async () => {
     try {
@@ -60,11 +56,11 @@ const ContratosProvider = ({ children }) => {
 
       const { data } = await clienteAxios("/tipos-contrato", config);
 
-      setTiposContratos(data.data); // Intenta acceder a la propiedad correcta
+      setTiposContratos(data.data);
     } catch (error) {
       console.error("Error al cargar los datos:", error);
     } finally {
-      setCargando(false); // Asegúrate de ajustar el estado según tus necesidades
+      setCargando(false);
     }
   };
 
@@ -72,7 +68,6 @@ const ContratosProvider = ({ children }) => {
     contratos,
     tiposContratos,
     getTiposContrato,
-    // Puedes agregar más datos al contexto según tus necesidades
   };
 
   return (

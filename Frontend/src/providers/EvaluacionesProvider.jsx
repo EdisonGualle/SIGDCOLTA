@@ -33,7 +33,7 @@ const EvaluacionesProvider = ({ children }) => {
       }
     };
     obtenerEvaluaciones();
-  }, [auth]);
+  }, []);
 
   const agregarEvaluacion = async (nuevaEvaluacion) => {
     try {

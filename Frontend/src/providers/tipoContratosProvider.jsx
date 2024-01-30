@@ -41,7 +41,7 @@ const TiposContratoProvider = ({ children }) => {
     };
 
     obtenerTiposContrato();
-  }, [auth]);
+  }, []);
 
   const contextValue = {
     tiposContrato,
