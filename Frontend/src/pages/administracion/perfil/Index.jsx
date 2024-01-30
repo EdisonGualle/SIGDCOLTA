@@ -19,12 +19,12 @@ const IndexPerfil = () => {
   );
 };
 
-const Perfil = () => {
+const Perfil = ({empleado}) => {
   return (
     <Routes>
       <Route path="/" element={<IndexPerfil />}>
         <Route path="dashboard" element={<Dashboard />} />
-        <Route path="datos-personales" element={<DatosPersonales />} />
+        <Route path="datos-personales" element={<DatosPersonales empleado={empleado} />} />
         <Route path="datos-laborales" element={<DatosLaborales />} />
         <Route path="asistencias" element={<Asistencia />} />
         <Route path="habilidades" element={<Habilidades />} />

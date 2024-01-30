@@ -97,7 +97,7 @@ const OptionsRenderer = (params) => {
               <button
                 onClick={() => onVerClick(data)}
                 data-tippy-content="Ver"
-                title="Ver"
+                title="Ver"/* VER EMPLEADO */
               >
                 <i className="fas fa-eye mr-2 text-indigo-600"></i>
               </button>
