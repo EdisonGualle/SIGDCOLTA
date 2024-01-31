@@ -31,7 +31,7 @@
     "react-modal": "^3.16.1",
     "react-router-dom": "^6.21.3",
     "socket.io-client": "^4.7.4",
-    "sweetalert2": "^11.10.4",
+    "sweetalert2": "^11.6.13",
     "sweetalert2-react-content": "^5.0.7",
     "tailwind-scrollbar-hide": "^1.1.7"
   },
