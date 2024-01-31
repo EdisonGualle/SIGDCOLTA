@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import Modal from "react-modal";
+// import Modal from "react-modal";
 // import PerfilEmpleado from "./PerfilEmpleado";
-import Tippy from "@tippyjs/react";
+// import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css"; // optional
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-// import useEmpleados from "../../../../hooks/useEmpleados";
+import useTiposCapacitaciones from "../../../../../hooks/useTiposCapacitaciones";
 
 const OptionsRenderer = (params) => {
-//   const { eliminarEmpleado, actualizarEmpleado } = useEmpleados();
+  const { eliminarTipoCapacitacion, actualizarTipoCapacitacion } = useTiposCapacitaciones();
   const MySwal = withReactContent(Swal);
   const { data } = params;
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -25,21 +25,21 @@ const OptionsRenderer = (params) => {
       zIndex: 9999, // Establece un z-index alto
     },
   };
-  const onVerClick = () => {
+ /* const onVerClick = () => {
     setModalIsOpen(true);
-  };
+  };*/
 
   const closeModal = () => {
     setModalIsOpen(false);
   };
-//   const onEditarClick = (data) => {
-//     console.log(data);
-//   };
+  const onEditarClick = (data) => {
+    console.log(data);
+  };
 
   const handleActualizar = () => {
     MySwal.fire({
       title: "¿Estás seguro?",
-      text: "Esta acción actualizará la asignación. ¿Quieres continuar?",
+      text: "Esta acción actualizará el tipo de capacitación. ¿Quieres continuar?",
       icon: "question",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -48,8 +48,8 @@ const OptionsRenderer = (params) => {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        actualizarEmpleado(data.idEmpleado, data);
-        MySwal.fire("Actualizado", "Empleado Actualizado.", "success");
+        actualizarTipoCapacitacion(data.idCapacitacion, data);
+        MySwal.fire("Actualizado", "Tipo de capacitación Actualizado.", "success");
       }
     });
   };
@@ -57,7 +57,7 @@ const OptionsRenderer = (params) => {
   const onEliminarClick = () => {
     MySwal.fire({
       title: "¿Estás seguro?",
-      text: "Esta acción eliminará el Empleado. ¿Quieres continuar?",
+      text: "Esta acción eliminará el tipo de capacitación. ¿Quieres continuar?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
@@ -66,8 +66,11 @@ const OptionsRenderer = (params) => {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        /*         eliminarEmpleado(data.idEmpleado);
-         */ MySwal.fire("Eliminada", "Empleado Eliminado.", "success");
+        /*         ;
+
+         */
+        eliminarTipoCapacitacion(data.idCapacitacion);
+        MySwal.fire("Eliminada", "Tipo de capacitación Eliminado.", "success");
       }
     });
   };
@@ -78,14 +81,14 @@ const OptionsRenderer = (params) => {
         {isCurrentRowEditing ? (
           <>
             <button
-              className="bg-blue-400 text-white px-4  mr-2"
+              className="bg-blue-400 hover:bg-blue-500 rounded-xl text-white px-2  mr-2"
               data-action="update"
               onClick={handleActualizar}
             >
               Actualizar
             </button>
             <button
-              className="bg-gray-100 text-black px-4 border border-gray-300"
+              className="bg-gray-400 hover:bg-gray-500 rounded-xl text-white px-2 "
               data-action="cancel"
             >
               Cancelar
@@ -93,16 +96,8 @@ const OptionsRenderer = (params) => {
           </>
         ) : (
           <>
-            <Tippy placement="left" content="Ver Perfil del empleado">
-              <button
-                onClick={() => onVerClick(data)}
-                data-tippy-content="Ver"
-                title="Ver"
-              >
-                <i className="fas fa-eye mr-2 text-indigo-600"></i>
-              </button>
-            </Tippy>
             <button
+              onClick={() => onEditarClick(data)}
               className="bg-green-400 hover:bg-green-500 rounded-xl text-white px-4  mr-2"
               data-action="edit"
             >
@@ -120,15 +115,6 @@ const OptionsRenderer = (params) => {
         )}
       </div>
 
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        contentLabel="Ver Empleado Modal"
-        style={customStyles}
-      >
-        {/* <PerfilEmpleado empleado={data} /> */}
-        <button onClick={closeModal}>Cerrar</button>
-      </Modal>
     </>
   );
 };

@@ -32,6 +32,7 @@ class ContratoService
         ->join('tipocontrato', 'contrato.idTipoContrato', '=', 'tipocontrato.idTipoContrato')
         ->join('estadocontrato', 'contrato.estadoContrato', '=', 'estadocontrato.estadoContrato')
         ->select(
+            'contrato.idContrato',	
             'empleado.primerNombre',
             'empleado.primerApellido',
             'empleado.segundoNombre',
