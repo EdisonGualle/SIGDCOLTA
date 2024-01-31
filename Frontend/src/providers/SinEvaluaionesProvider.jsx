@@ -10,6 +10,7 @@ const SinEvaluacionesProvider = ({ children }) => {
   // Definimos el estado para las evaluaciones y otros datos necesarios
   const [sinevaluaciones, setSinEvaluaciones] = useState([]);
   const [cargandoSinEvaluaciones, setCargandoSinEvaluaciones] = useState(false);
+  const [sinEvaluacionesCargadas, setSinEvaluacionesCargadas] = useState(false);
   const { auth } = useAuth();
 
   // Utilizamos useEffect para cargar las evaluaciones sin desempeño
@@ -28,22 +29,21 @@ const SinEvaluacionesProvider = ({ children }) => {
 
         const { data } = await clienteAxios("/sin-evaluaciones-desempeno", config);
         setSinEvaluaciones(data.data);
-        // console.log(data.data);
       } catch (error) {
         console.error("Error al cargar los datos:", error);
       } finally {
-        setCargandoSinEvaluaciones(false); // Corregir el nombre de la función
+        setCargandoSinEvaluaciones(false); // Asegúrate de ajustar el estado según tus necesidades
+        setSinEvaluacionesCargadas(true); // Marcamos que las evaluaciones sin desempeño han sido cargadas
       }
     };
 
     // Llamamos a la función para obtener las evaluaciones sin desempeño
     obtenerSinEvaluaciones();
-  }, []);
+  }, [auth]);
 
   // Definimos el valor del contexto que será accesible por los componentes hijos
   const contextValue = {
     sinevaluaciones,
-    cargandoSinEvaluaciones,
   };
 
   // Renderizamos el proveedor con el valor del contexto y los hijos
