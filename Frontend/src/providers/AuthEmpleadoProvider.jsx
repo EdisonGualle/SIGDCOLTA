@@ -62,6 +62,29 @@ const AuthEmpleadoProvider = ({ children }) => {
     }
   };
 
+  const obtenerMiCargoPorId = async (idEmpleado) => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await clienteAxios(
+        "administrador/miCargoPorId/" + idEmpleado + "",
+        config
+      );
+      setMiCargo(data.datos);
+    } catch (error) {
+      console.log(error);
+      // Puedes manejar errores según tus necesidades
+    }
+  };
+
   const actualizarMisDatosUsuario = async (nuevosDatos) => {
     try {
       const token = localStorage.getItem("token");
@@ -150,6 +173,7 @@ const AuthEmpleadoProvider = ({ children }) => {
         obtenerMisDatosLaborales,
         actualizarMisDatosUsuario,
         obtenerMisDatosUsuario,
+        obtenerMiCargoPorId
       }}
     >
       {children}

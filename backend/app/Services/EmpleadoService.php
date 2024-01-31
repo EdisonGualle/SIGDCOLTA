@@ -19,12 +19,8 @@ class EmpleadoService
 {
     public function listarEmpleados()
     {
+        $empleados = Empleado::all();
 
-        $empleados = DB::table('empleado')
-            ->join('usuario', 'empleado.idEmpleado', '=', 'usuario.idEmpleado')
-            ->join('estadousuario', 'usuario.idTipoEstado', '=', 'estadousuario.idEstado')
-            ->select('empleado.*', 'estadousuario.tipoEstado', "estadousuario.idEstado as idTipoEstado")
-            ->get();
         return ['successful' => true, 'data' => $empleados];
     }
     public function EmpleadosReporte()
@@ -255,7 +251,7 @@ class EmpleadoService
 
         $empleado = Empleado::create($request->all());
 
-      /*   // Crear una instancia de UsuarioService
+        /*   // Crear una instancia de UsuarioService
         $usuarioService = new UsuarioService();
 
         // Crear un objeto para los datos del usuario
@@ -268,7 +264,7 @@ class EmpleadoService
         // Llamar a la función para crear el nuevo usuario
         //$usuarioService->crearUsuario($request, $usuarioData);
 
-        return response()->json(['successful' => true, 'true' => 'Empleado creado', "empleado"=>$empleado], 201);
+        return response()->json(['successful' => true, 'true' => 'Empleado creado', "empleado" => $empleado], 201);
     }
 
     public function actualizarEmpleado(Request $request, $id)

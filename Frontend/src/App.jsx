@@ -61,6 +61,8 @@ import IndexCapacitacionesAdministrador from "./pages/administracion/capacitacio
 import { CapacitacionesProvider } from "./providers/CapacitacionesProvider";
 import IndexTiposCapacitacionesAdministrador from "./pages/administracion/capacitaciones/tiposCapacitaciones/Index";
 import { TiposCapacitacionesProvider } from "./providers/TiposCapacitacionesProvider";
+import CalendarioIndex from "./Pages/administracion/horarios/calendario/CalendarioIndex";
+import JornadaIndex from "./Pages/administracion/horarios/jornada/JornadaIndex";
 function App() {
   return (
     <BrowserRouter>
@@ -84,20 +86,31 @@ function App() {
                                         <TiposCapacitacionesProvider>
                                           <Routes>
                                             {/* RUTAS PAcdRA PAGINA DE INICIO SISTEMA */}
-                                            <Route path="/" element={<HomeLayout />}>
+                                            <Route
+                                              path="/"
+                                              element={<HomeLayout />}
+                                            >
                                               <Route index element={<Home />} />
 
-                                              <Route path="*" element={<NotFound />} />
+                                              <Route
+                                                path="*"
+                                                element={<NotFound />}
+                                              />
                                             </Route>
                                             {/* RUTAS PARA LOGEO ETC */}
-                                            <Route path="/" element={<AuthLayout />}>
+                                            <Route
+                                              path="/"
+                                              element={<AuthLayout />}
+                                            >
                                               <Route
                                                 path="ingresar"
                                                 element={<Login />}
                                               />
                                               <Route
                                                 path="recuperar-contraseña"
-                                                element={<RecuperarContraseña />}
+                                                element={
+                                                  <RecuperarContraseña />
+                                                }
                                               />
                                             </Route>
 
@@ -117,7 +130,10 @@ function App() {
                                               path="/administracion"
                                               element={<AdministradorLayout />}
                                             >
-                                              <Route index element={<Dashboard />} />
+                                              <Route
+                                                index
+                                                element={<Dashboard />}
+                                              />
                                               <Route
                                                 path="configuracion-perfil"
                                                 element={<Configuracion />}
@@ -125,11 +141,23 @@ function App() {
 
                                               <Route
                                                 path="asistencia"
-                                                element={<AsitenciaAdministrador />}
+                                                element={
+                                                  <AsitenciaAdministrador />
+                                                }
                                               />
 
                                               <Route
-                                                path="empleados"
+                                                path="calendarios"
+                                                element={<CalendarioIndex />}
+                                              />
+
+                                              <Route
+                                                path="jornadas"
+                                                element={<JornadaIndex/>}
+                                              />
+
+                                              <Route
+                                                path="empleados/*"
                                                 element={
                                                   <IndexEmpleadosAdministrador />
                                                 }
@@ -139,7 +167,9 @@ function App() {
                                               {/* Modulo Usuarios */}
                                               <Route
                                                 path="usuarios"
-                                                element={<IndexUsuariosAdministrador />}
+                                                element={
+                                                  <IndexUsuariosAdministrador />
+                                                }
                                               />
 
                                               {/* Modulo Posiciones Laborales */}
@@ -158,11 +188,15 @@ function App() {
                                               />
                                               <Route
                                                 path="unidades"
-                                                element={<IndexUnidadesAdministrador />}
+                                                element={
+                                                  <IndexUnidadesAdministrador />
+                                                }
                                               />
                                               <Route
                                                 path="cargos"
-                                                element={<IndexCargosAdministrador />}
+                                                element={
+                                                  <IndexCargosAdministrador />
+                                                }
                                               />
                                               <Route
                                                 path="jerarquia-cargos"
@@ -180,16 +214,51 @@ function App() {
                                                 path="perfil/*"
                                                 element={<IndexPerfil />}
                                               />
-                                              <Route path="contratos" element={<IndexContratosAdministrador />} />
-                                              <Route path="tipos-contratos" element={<IndextipoContratosAdministrador />} />
-                                              <Route path="asignar-contratos" element={<IndexAgregarContratosAdministrador />} />
+                                              <Route
+                                                path="contratos"
+                                                element={
+                                                  <IndexContratosAdministrador />
+                                                }
+                                              />
+                                              <Route
+                                                path="tipos-contratos"
+                                                element={
+                                                  <IndextipoContratosAdministrador />
+                                                }
+                                              />
+                                              <Route
+                                                path="asignar-contratos"
+                                                element={
+                                                  <IndexAgregarContratosAdministrador />
+                                                }
+                                              />
                                               {/* Modulo Evaluaciones */}
-                                              <Route path="evaluaciones" element={<IndexEvaluacionesAdministrador />} />
-                                              <Route path="sin-evaluaciones" element={<IndexSinEvaluacionesAdministrador />} />
+                                              <Route
+                                                path="evaluaciones"
+                                                element={
+                                                  <IndexEvaluacionesAdministrador />
+                                                }
+                                              />
+                                              <Route
+                                                path="sin-evaluaciones"
+                                                element={
+                                                  <IndexSinEvaluacionesAdministrador />
+                                                }
+                                              />
 
                                               {/* Modulo Capacitaciones */}
-                                              <Route path="capacitaciones" element={<IndexCapacitacionesAdministrador />} />
-                                              <Route path="tipos-capacitaciones" element={<IndexTiposCapacitacionesAdministrador />} />
+                                              <Route
+                                                path="capacitaciones"
+                                                element={
+                                                  <IndexCapacitacionesAdministrador />
+                                                }
+                                              />
+                                              <Route
+                                                path="tipos-capacitaciones"
+                                                element={
+                                                  <IndexTiposCapacitacionesAdministrador />
+                                                }
+                                              />
                                             </Route>
                                           </Routes>
                                         </TiposCapacitacionesProvider>
