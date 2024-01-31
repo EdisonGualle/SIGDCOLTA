@@ -13,23 +13,23 @@ const IndextipoContratosAdministrador = () => {
   const MySwal = withReactContent(Swal);
   
 
-  const handleEliminarTipoContratoClick = () => {
-    MySwal.fire({
-      title: "¿Estás seguro?",
-      text: "Esta acción eliminará el tipo de contrato. ¿Quieres continuar?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Sí, eliminar",
-      cancelButtonText: "Cancelar",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // Lógica para eliminar el tipo de contrato
-        MySwal.fire("Eliminado", "El tipo de contrato ha sido eliminado.", "success");
-      }
-    });
-  };
+  // const handleEliminarTipoContratoClick = () => {
+  //   MySwal.fire({
+  //     title: "¿Estás seguro?",
+  //     text: "Esta acción eliminará el tipo de contrato. ¿Quieres continuar?",
+  //     icon: "warning",
+  //     showCancelButton: true,
+  //     confirmButtonColor: "#d33",
+  //     cancelButtonColor: "#3085d6",
+  //     confirmButtonText: "Sí, eliminar",
+  //     cancelButtonText: "Cancelar",
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       // Lógica para eliminar el tipo de contrato
+  //       MySwal.fire("Eliminado", "El tipo de contrato ha sido eliminado.", "success");
+  //     }
+  //   });
+  // };
 
   const handleNuevoTipoContratoClick = () => {
     MySwal.fire({
@@ -54,12 +54,12 @@ const IndextipoContratosAdministrador = () => {
           </h1>
         </div>
         <div className="flex justify-end">
-          <button
+          {/* <button
             className="bg-red-700 text-white mx-10 py-2 px-5 rounded-lg"
             onClick={handleEliminarTipoContratoClick}
           >
             Eliminar 
-          </button>
+          </button> */}
 
           <button
             className="bg-blue-700 text-white py-2 px-5 rounded-lg"
