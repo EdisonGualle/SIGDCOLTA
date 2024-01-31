@@ -32,24 +32,24 @@ const IndextipoContratosAdministrador = () => {
     });
   };
 
-  const handleNuevoContratoClick = () => {
-    MySwal.fire({
-      title: "Nuevo Contrato",
-      html: <FormNuevoContrato tipoContrato = {tiposContrato} />, // Renderiza el formulario de nuevo empleado en el contenido del SweetAlert
-      showCancelButton: true,
-      showCloseButton: true,
-      reverseButtons: true,
-      cancelButtonColor: "#d33",
-      confirmButtonColor: "#3085d6",
-      cancelButtonText: "Cancelar",
-      confirmButtonText: "Crear",
-      width: "50%",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        MySwal.fire("Success", "Contrato creado correctamente", "success");
-      }
-    });
-  };
+  // const handleNuevoContratoClick = () => {
+  //   MySwal.fire({
+  //     title: "Nuevo Contrato",
+  //     html: <FormNuevoContrato tipoContrato = {tiposContrato} />, // Renderiza el formulario de nuevo empleado en el contenido del SweetAlert
+  //     showCancelButton: true,
+  //     showCloseButton: true,
+  //     reverseButtons: true,
+  //     cancelButtonColor: "#d33",
+  //     confirmButtonColor: "#3085d6",
+  //     cancelButtonText: "Cancelar",
+  //     confirmButtonText: "Crear",
+  //     width: "50%",
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       MySwal.fire("Success", "Contrato creado correctamente", "success");
+  //     }
+  //   });
+  // };
 
   return (
     <>
@@ -68,12 +68,12 @@ const IndextipoContratosAdministrador = () => {
           >
             Eliminar
           </button>
-          <button
+          {/* <button
             className="bg-blue-700 text-white py-2 px-5 rounded-lg"
             onClick={handleNuevoContratoClick}
           >
             Nuevo
-          </button>
+          </button> */}
 
         </div>
       </div>
