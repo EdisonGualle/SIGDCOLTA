@@ -87,11 +87,11 @@ Route::controller(CargoController::class)->group(function () {
 
 // JerarquiaPermiso routes
 Route::controller(JerarquiaPermisoController::class)->group(function () {
-    Route::get('/jerarquia-permiso', 'listarJerarquiasPermiso');
-    Route::get('/jerarquia-permiso/{idCargo}/{idCargoAprobador}', 'mostrarJerarquiaPermiso');
-    Route::post('/jerarquia-permiso', 'crearJerarquiaPermiso');
-    Route::put('/jerarquia-permiso/{idCargo}/{idCargoAprobador}', 'actualizarJerarquiaPermiso');
-    Route::delete('/jerarquia-permiso/{idCargo}/{idCargoAprobador}', 'eliminarJerarquiaPermiso');
+    Route::get('/jerarquia-cargos', 'listarJerarquiasPermiso');
+    Route::get('/jerarquia-cargos/{idCargo}/{idCargoAprobador}', 'mostrarJerarquiaPermiso');
+    Route::post('/jerarquia-cargos', 'crearJerarquiaPermiso');
+    Route::put('/jerarquia-cargos/{idCargo}/{idCargoAprobador}', 'actualizarJerarquiaPermiso');
+    Route::delete('/jerarquia-cargos/{idCargo}/{idCargoAprobador}', 'eliminarJerarquiaPermiso');
 });
 
 // Rutas para AprobacionPermiso
@@ -107,15 +107,20 @@ Route::controller(AprobacionPermisoController::class)->group(function () {
 
 // CONTRATOS routes
 Route::get('/contratos', [ContratoController::class, 'listarContratos']);
+Route::get('/contratos2', [ContratoController::class, 'listarContratos2']);
 Route::get('/contratos/{id}', [ContratoController::class, 'mostrarContrato']);
 Route::get('/contratos/empleado/cedula/{cedula}', [ContratoController::class, 'listarContratosPorCedula']);
 Route::get('/contratos/estado/{estadoContrato}', [ContratoController::class, 'listarContratosPorEstado']);
 Route::get('/contratos/empleado/id/{idEmpleado}', [ContratoController::class, 'listarContratosPorIdEmpleado']);
 Route::get('/contratos/tipo/id/{idTipoContrato}', [ContratoController::class, 'listarContratosPorIdTipoContrato']);
+Route::get('/contratos-tipo/', [ContratoController::class, 'listarContratosPorTipo']);
 Route::get('/contratos/tipo/nombre/{nombreTipoContrato}', [ContratoController::class, 'listarContratosPorNombreTipoContrato']);
 Route::post('/contratos', [ContratoController::class, 'crearContrato']);
 Route::put('/contratos/{id}', [ContratoController::class, 'actualizarContrato']);
 Route::delete('/contratos/{id}', [ContratoController::class, 'eliminarContrato']);
+
+//
+Route::get('/contratos-empleados', [ContratoController::class, 'listarEmpleadosContratos']);
 
 
 // DATOS BANCARIOS routes
@@ -152,6 +157,7 @@ Route::get('/discapacidades/empleados-por-discapacidad/id/{idDiscapacidad}', [Di
 
 
 // EMPLEADOS routes
+Route::get('/empleados-por-posicion-laboral', [EmpleadoController::class, 'listarEmpleadosPorPosicionLaboral']);
 Route::get('/empleados', [EmpleadoController::class, 'listarEmpleados']);
 Route::get('/empleadosReporte', [EmpleadoController::class, 'EmpleadosReporte']);
 Route::get('/empleados/{id}', [EmpleadoController::class, 'mostrarEmpleadoPorId']);
@@ -168,6 +174,9 @@ Route::get('/empleados/canton/{id_canton}', [EmpleadoController::class, 'listarE
 Route::post('/empleados', [EmpleadoController::class, 'crearEmpleado']);
 Route::put('/empleados/{id}', [EmpleadoController::class, 'actualizarEmpleado']);
 Route::delete('/empleados/{id}', [EmpleadoController::class, 'eliminarEmpleado']);
+//ruta para la funcion para mostar todos los empleados con sus capacitaciones
+Route::get('/empleados-con-capacitaciones', [CapacitacionController::class, 'listarEmpleadosConCapacitaciones']);
+
 
 
 // PROVINCIAS routes
@@ -189,6 +198,7 @@ Route::delete('/estados/{id}', [EstadoController::class, 'eliminarEstado']);
 
 // EVALUACIONES DESEMPEÑO routes
 Route::get('/evaluaciones-desempeno', [EvaluacionDesempenoController::class, 'listarEvaluacionesDesempeno']);
+Route::get('/sin-evaluaciones-desempeno', [EvaluacionDesempenoController::class, 'listarSinEvaluacionesDesempeno']);
 Route::get('/evaluaciones-desempeno/{id}', [EvaluacionDesempenoController::class, 'mostrarEvaluacionDesempenoPorId']);
 Route::post('/evaluaciones-desempeno', [EvaluacionDesempenoController::class, 'crearEvaluacionDesempeno']);
 Route::put('/evaluaciones-desempeno/{id}', [EvaluacionDesempenoController::class, 'actualizarEvaluacionDesempeno']);

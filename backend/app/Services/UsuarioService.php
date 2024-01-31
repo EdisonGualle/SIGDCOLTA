@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 
 
 use App\Notifications\Registro\RegistroUsuarioNotification;
@@ -19,8 +20,49 @@ class UsuarioService
 {
     public function listarUsuarios()
     {
-        $usuarios = User::all();
-        return response()->json(['successful' => true, 'data' => $usuarios]);
+        $usuarios = User::select(
+            'usuario.idUsuario',
+            'usuario.usuario',
+            'usuario.correo',
+            'usuario.idTipoEstado',
+            'usuario.idEmpleado',
+            'usuario.intentos_fallidos',
+            'usuario.bloqueado_hasta',
+            'empleado.cedula',
+            'empleado.primerNombre as primer_nombre',
+            'empleado.segundoNombre as segundo_nombre',
+            'empleado.primerApellido as primer_apellido',
+            'empleado.segundoApellido as segundo_apellido',
+            'estadousuario.tipoEstado as nombre_tipo_estado'
+        )
+        ->leftJoin('empleado', 'usuario.idEmpleado', '=', 'empleado.idEmpleado')
+        ->leftJoin('estadousuario', 'usuario.idTipoEstado', '=', 'estadousuario.idEstado')
+        ->get();
+    
+        $usuariosTransformados = $usuarios->map(function ($usuario) {
+            $roles = $usuario->getRoleNames(); // Obtener los nombres de los roles asociados a cada usuario
+    
+            return [
+                'idUsuario' => $usuario->idUsuario,
+                'usuario' => $usuario->usuario,
+                'correo' => $usuario->correo,
+                'idEmpleado' => $usuario->idEmpleado,
+                'intentos_fallidos' => $usuario->intentos_fallidos,
+                'bloqueado_hasta' => $usuario->bloqueado_hasta,
+                'empleado' => [
+                    'cedula' => $usuario->cedula,
+                    'primer_nombre' => $usuario->primer_nombre,
+                    'segundo_nombre' => $usuario->segundo_nombre,
+                    'primer_apellido' => $usuario->primer_apellido,
+                    'segundo_apellido' => $usuario->segundo_apellido,
+                ],
+                'idTipoEstado' => $usuario->idTipoEstado,
+                'estado' => $usuario->nombre_tipo_estado,
+                'rol' => $roles,
+            ];
+        });
+    
+        return $usuariosTransformados;
     }
 
     public function mostrarUsuarioPorId($id)

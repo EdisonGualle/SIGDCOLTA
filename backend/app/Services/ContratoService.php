@@ -22,9 +22,38 @@ class ContratoService
 
     public function listarContratos()
     {
-        $contratos = Contrato::all();
+        $contratos = TipoContrato::all();
         return response()->json(['successful' => true, 'data' => $contratos]);
     }
+    public function listarContratos2()
+{
+    // Obtener la información requerida utilizando Eloquent
+    $empleadosContratos = Empleado::join('contrato', 'empleado.idEmpleado', '=', 'contrato.idEmpleado')
+        ->join('tipocontrato', 'contrato.idTipoContrato', '=', 'tipocontrato.idTipoContrato')
+        ->join('estadocontrato', 'contrato.estadoContrato', '=', 'estadocontrato.estadoContrato')
+        ->select(
+            'contrato.idContrato',	
+            'empleado.primerNombre',
+            'empleado.primerApellido',
+            'empleado.segundoNombre',
+            'empleado.segundoApellido',
+            'contrato.fechaInicio',
+            'contrato.fechaFin',
+            'tipocontrato.nombre as tipoContratoNombre',
+            'contrato.archivo',
+            'contrato.salario',
+            'estadocontrato.estadoContrato'
+        )
+        ->get();
+
+    // Verificar si se encontraron registros
+    if ($empleadosContratos->isEmpty()) {
+        return ['exitoso' => false, 'error' => 'No se encontró información de empleados y contratos'];
+    }
+
+    // Devolver el resultado si se encontraron registros
+    return $empleadosContratos;
+}
 
     public function mostrarContrato($id)
     {
@@ -69,6 +98,11 @@ class ContratoService
             ->get();
 
         return response()->json(['successful' => true, 'data' => $contratos]);
+    }
+    public function listarContratosPorTipo()
+    {
+        $tipocontratos = tipoContrato::all();
+        return response()->json(['successful' => true, 'data' => $tipocontratos]);
     }
 
 
@@ -230,4 +264,14 @@ class ContratoService
 
         return response()->json(['successful' => true, 'message' => 'Contrato eliminado correctamente']);
     }
+
+    public function listarEmpleadosContratos()
+    {
+        // Obtener todos los empleados que no tienen contrato
+        $empleadosSinContrato = Empleado::whereDoesntHave('contratos')->get();
+
+        return response()->json(['successful' => true, 'data' => $empleadosSinContrato]);
+        
+    }
+
 }

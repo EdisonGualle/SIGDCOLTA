@@ -91,12 +91,17 @@ class Empleado extends Model
         return $this->belongsTo(Cargo::class, 'idCargo');
     }
 
-
+    
     //Relacion Empleado-Contratos
     public function contratos()
     {
         return $this->hasMany(Contrato::class, 'idEmpleado');
     }
+
+    public function contratoActivo()
+{
+    return $this->contratos()->where('estadoContrato', 'activo')->first();
+}
     //Relacion Empleado-Departamento ya definido
 
 
@@ -129,5 +134,15 @@ class Empleado extends Model
     public function nombresCompletos()
     {
         return $this->primerNombre . ' ' . $this->segundoNombre . ' ' . $this->primerApellido . ' ' . $this->segundoApellido;
+    }
+
+    public function provincia()
+    {
+        return $this->belongsTo(Provincia::class, 'id_provincia');
+    }
+
+    public function canton()
+    {
+        return $this->belongsTo(Canton::class, 'id_canton');
     }
 }

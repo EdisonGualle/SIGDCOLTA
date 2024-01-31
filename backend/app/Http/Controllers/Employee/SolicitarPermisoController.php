@@ -11,8 +11,6 @@ use Illuminate\Support\Carbon;
 use App\Models\AprobacionPermiso;
 use App\Models\Empleado;
 use App\Models\JerarquiaPermiso;
-use Illuminate\Validation\Rule;
-
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -22,7 +20,6 @@ class SolicitarPermisoController extends Controller
     {
         // Obtener el ID del usuario autenticado
         $idEmpleado = Auth::user()->idEmpleado;
-
 
         // Buscar el empleado que realiza la solicitud
         try {
@@ -43,40 +40,11 @@ class SolicitarPermisoController extends Controller
         $validator = Validator::make($request->all(), [
             'idTipoPermiso' => 'required|numeric|exists:tipopermiso,idTipoPermiso',
             'motivo' => 'required|string',
-            'fechaInicio' => [
-                'required',
-                'date_format:Y-m-d H:i:s',
-                'after_or_equal:now',
-                function ($attribute, $value, $fail) {
-                    $fechaInicio = Carbon::parse($value);
-                    if (!$fechaInicio->isWeekday()) {
-                        $fail('Los permisos largos deben comenzar en un día hábil.');
-                    }
-                },
-                function ($attribute, $value, $fail) use ($request) {
-                    $fechaInicio = Carbon::parse($value);
-                    $fechaFinaliza = Carbon::parse($request->fechaFinaliza);
-        
-                    // Verificar solapamiento con permisos existentes
-                    $permisosSolapados = Permiso::where('idEmpleado', $request->idEmpleado)
-                        ->where(function ($query) use ($fechaInicio, $fechaFinaliza) {
-                            $query->whereBetween('fechaInicio', [$fechaInicio, $fechaFinaliza])
-                                ->orWhereBetween('fechaFinaliza', [$fechaInicio, $fechaFinaliza]);
-                        })
-                        ->exists();
-        
-                    if ($permisosSolapados) {
-                        $fail('El permiso se solapa con otro existente.');
-                    }
-                },
-            ],
-            'fechaFinaliza' => 'required|date_format:Y-m-d H:i:s|after:fechaInicio|after_or_equal:today',
-            'tiempoPermiso' => 'required|numeric|min:1',
-            'unidadTiempo' => 'required|in:horas,dias',
+            'fechaInicio' => 'required|date_format:Y-m-d H:i:s',
+            'fechaFinaliza' => 'required|date_format:Y-m-d H:i:s',
+            'tiempoPermiso' => 'required|numeric',
             'idEstadoPermiso' => 'required|numeric|exists:estadopermiso,idEstadoPermiso',
         ]);
-
-
 
         if ($validator->fails()) {
             return response()->json(['successful' => false, 'errors' => $validator->errors()], 422);
@@ -150,5 +118,4 @@ class SolicitarPermisoController extends Controller
         // Retornar la lista de permisos en formato JSON
         return response()->json(['permisos' => $permisosTransformados], 200);
     }
-
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Employee\EmpleadoCargoController;
 use App\Http\Controllers\Employee\EmpleadoContratoController;
 use App\Http\Controllers\Employee\EmpleadoDepartamentoController;
 use App\Http\Controllers\Employee\EmpleadoDatoBancarioController;
+use App\Http\Controllers\Employee\EmpleadoDatosController;
 use App\Http\Controllers\Employee\EmpleadoEvaluaciondesempenoController;
 use App\Http\Controllers\Employee\EmpleadoExperiencialaboralController;
 use App\Http\Controllers\Employee\EmpleadoInstruccionformalController;
@@ -17,7 +18,15 @@ Route::get('mis-capacitaciones', [EmpleadoCapacitacionController::class, 'listar
 Route::get('total-capacitaciones', [EmpleadoCapacitacionController::class, 'obtenerTotalCapacitacionesPorEmpleadoAuth']);
 
 //Rutas Cargo
-Route::get('/mi-cargo', [EmpleadoCargoController::class, 'mostrarInformacionEmpleadoCargoDepartamento']);
+Route::get('/mi-cargo', [EmpleadoCargoController::class, 'miCargo']);
+Route::get('/miCargoPorId/{idEmpleado}', [EmpleadoCargoController::class, 'miCargoPorId']);
+
+// Datos Personales 
+Route::get('/mis-datos-personales', [EmpleadoDatosController::class, 'misDatosPersonales']);
+Route::get('/mis-datos-laborales', [EmpleadoDatosController::class, 'misDatoslaborales']);
+Route::get('/mis-datos-usuario', [EmpleadoDatosController::class, 'misDatosUsuario']);
+Route::put('/actualizar-mis-datos-usuario', [EmpleadoDatosController::class, 'actualizarMisDatosUsuario']);
+
 
 //Rutas Contrato
 Route::get('/mis-contratos', [EmpleadoContratoController::class, 'listarContratosPorEmpleadoAuth']);

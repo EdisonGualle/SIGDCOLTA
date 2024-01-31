@@ -20,27 +20,28 @@ class EmpleadoService
     public function listarEmpleados()
     {
         $empleados = Empleado::all();
+
         return ['successful' => true, 'data' => $empleados];
     }
     public function EmpleadosReporte()
     {
         $empleados = DB::table('empleado')
-        ->join('cargo', 'empleado.idCargo', '=', 'cargo.idCargo')
-        ->join('unidad', 'cargo.idUnidad', '=', 'unidad.idUnidad')
-        ->join('direccion', 'unidad.iddireccion', '=', 'direccion.idDireccion')
-        ->join('contrato', 'empleado.idEmpleado', '=', 'contrato.idEmpleado')
-        ->join('tipocontrato', 'contrato.idTipoContrato', '=', 'tipocontrato.idTipoContrato')
-        ->select(
-            'empleado.primerNombre',
-            'empleado.primerApellido',
-            'empleado.cedula',
-            'cargo.nombre as nombreCargo',
-            'unidad.nombre as nombreUnidad',
-            'direccion.nombre as nombreDireccion',
-            'tipocontrato.nombre as nombreTipoContrato',
-            'contrato.salario'
-        )
-        ->get();
+            ->join('cargo', 'empleado.idCargo', '=', 'cargo.idCargo')
+            ->join('unidad', 'cargo.idUnidad', '=', 'unidad.idUnidad')
+            ->join('direccion', 'unidad.iddireccion', '=', 'direccion.idDireccion')
+            ->join('contrato', 'empleado.idEmpleado', '=', 'contrato.idEmpleado')
+            ->join('tipocontrato', 'contrato.idTipoContrato', '=', 'tipocontrato.idTipoContrato')
+            ->select(
+                'empleado.primerNombre',
+                'empleado.primerApellido',
+                'empleado.cedula',
+                'cargo.nombre as nombreCargo',
+                'unidad.nombre as nombreUnidad',
+                'direccion.nombre as nombreDireccion',
+                'tipocontrato.nombre as nombreTipoContrato',
+                'contrato.salario'
+            )
+            ->get();
 
 
         // Verificando si el conjunto de resultados está vacío
@@ -99,7 +100,7 @@ class EmpleadoService
     }
 
     // Logica de cargos 
-    
+
     public function listarEmpleadosPorCargoId($idCargo)
     {
         $cargo = Cargo::find($idCargo);
@@ -112,7 +113,7 @@ class EmpleadoService
 
         return ['successful' => false, 'error' => 'Empleados no encontrados para el cargo especificado'];
     }
-    
+
     public function listarEmpleadosPorEstadoId($idEstado)
     {
         // Utilizando el constructor de consultas de Laravel para interactuar con la base de datos
@@ -122,12 +123,12 @@ class EmpleadoService
             ->where('estadousuario.idEstado', $idEstado)
             ->select('empleado.*')
             ->get();
-    
+
         // Verificando si el conjunto de resultados está vacío
         if ($empleados->isEmpty()) {
             return ['exitoso' => false, 'error' => 'Empleados no encontrados para el estado especificado'];
         }
-    
+
         // Devolviendo el resultado si se encuentran empleados
         return ['exitoso' => true, 'datos' => $empleados];
     }
@@ -160,7 +161,7 @@ class EmpleadoService
 
         return response()->json(['successful' => true, 'message' => 'Cargo asignado correctamente al empleado']);
     }
-    
+
     public function listarEmpleadosPorNacionalidad($nacionalidad)
     {
         $empleados = Empleado::where('nacionalidad', $nacionalidad)->get();
@@ -181,7 +182,7 @@ class EmpleadoService
 
         return ['successful' => true, 'data' => $empleados];
     }
-    public function listarEmpleadosPorCanton ($canton)
+    public function listarEmpleadosPorCanton($canton)
     {
         $empleados = Empleado::where('id_canton', $canton)->get();
 
@@ -201,14 +202,14 @@ class EmpleadoService
             // Si se proporciona un género específico, busca empleados con ese género
             $empleados = Empleado::where('Genero', $genero)->get();
         }
-    
+
         if ($empleados->isEmpty()) {
             return ['exitoso' => false, 'error' => 'Empleados con este género no encontrados'];
         }
-    
+
         return ['exitoso' => true, 'datos' => $empleados];
     }
-    
+
 
     public function crearEmpleado(Request $request)
     {
@@ -219,9 +220,9 @@ class EmpleadoService
             'segundoNombre' => 'required|string',
             'primerApellido' => 'required|string',
             'segundoApellido' => 'required|string',
-            'fechaNacimiento' => 'required|date|before:' . Carbon::now()->subYears(18)->format('Y-m-d'),
-            'genero' => 'required|string',
-            'telefonoPersonal' => [
+            /*             'fechaNacimiento' => 'required|date|before:' . Carbon::now()->subYears(18)->format('Y-m-d'),
+ */            'genero' => 'required|string',
+            /* 'telefonoPersonal' => [
                 'required',
                 'string',
                 'unique:empleado',
@@ -231,9 +232,9 @@ class EmpleadoService
                         $fail("El formato del teléfono personal no es válido. Debe seguir el formato '09XXXXXXXX'.");
                     }
                 },
-            ],
-            'telefonoTrabajo' => 'required|string|unique:empleado',
-            'correo' => 'required|email|unique:empleado',
+            ], */
+            /*             'telefonoTrabajo' => 'required|string|unique:empleado',
+ */            'correo' => 'required|email|unique:empleado',
             'etnia' => 'required|string',
             'estadoCivil' => 'required|string',
             'tipoSangre' => 'required|string',
@@ -248,24 +249,36 @@ class EmpleadoService
             return response()->json(['successful' => false, 'errors' => $validator->errors()], 422);
         }
 
-        // Crear el empleado
         $empleado = Empleado::create($request->all());
 
-        return response()->json(['successful' => true, 'true' => 'Empleado creado'], 201);
+        /*   // Crear una instancia de UsuarioService
+        $usuarioService = new UsuarioService();
+
+        // Crear un objeto para los datos del usuario
+        $usuarioData = (object)[
+            'idEmpleado' => $empleado->idEmpleado,
+            'correo' => $empleado->correo,
+            'idTipoEstado' => 11
+        ];
+ */
+        // Llamar a la función para crear el nuevo usuario
+        //$usuarioService->crearUsuario($request, $usuarioData);
+
+        return response()->json(['successful' => true, 'true' => 'Empleado creado', "empleado" => $empleado], 201);
     }
 
     public function actualizarEmpleado(Request $request, $id)
     {
         // Validar los datos de entrada
         $validator = Validator::make($request->all(), [
-           /* 'cedula' => 'numeric|unique:empleado,cedula,' . $id . ',idEmpleado|digits_between:10,12 ',
-            'primerNombre' => 'string',
-            'segundoNombre' => 'string',
-            'primerApellido' => 'string',
-            'segundoApellido' => 'string',
-            'fechaNacimiento' => 'date',*/
+            /* 'cedula' => 'numeric|unique:empleado,cedula,' . $id . ',idEmpleado|digits_between:10,12 ',
+             'primerNombre' => 'string',
+             'segundoNombre' => 'string',
+             'primerApellido' => 'string',
+             'segundoApellido' => 'string',
+             'fechaNacimiento' => 'date',*/
             'Genero' => 'string',
-            'telefonoPersonal' => [
+            /*  'telefonoPersonal' => [
                 'required',
                 'string',
                 'unique:empleado,telefonoPersonal,' . $id . ',idEmpleado',
@@ -275,13 +288,13 @@ class EmpleadoService
                         $fail("El formato del teléfono personal no es válido. Debe seguir el formato '09XXXXXXXX'.");
                     }
                 },
-            ],
+            ], */
             'telefonoTrabajo' => 'nullable|string',
             'correo' => 'email|unique:empleado,correo,' . $id . ',idEmpleado',
             'etnia' => 'nullable|string',
             'estadoCivil' => 'nullable|string',
             'tipoSangre' => 'nullable|string',
-           /* 'nacionalidad' => 'string',*/
+            /* 'nacionalidad' => 'string',*/
             'id_provincia' => 'nullable|numeric|exists:provincia,id_provincia',
             'id_canton' => 'nullable|numeric|exists:canton,id_canton,id_provincia,' . $request->id_provincia,
             'idCargo' => 'numeric|exists:cargo,idCargo',
@@ -316,8 +329,32 @@ class EmpleadoService
 
         return ['successful' => true, 'message' => 'Empleado eliminado correctamente'];
     }
+    public function listarEmpleadosPorPosicionLaboral()
+    {
+        $empleados = DB::table('empleado')
+            ->join('cargo', 'empleado.idCargo', '=', 'cargo.idCargo')
+            ->join('unidad', 'cargo.idUnidad', '=', 'unidad.idUnidad')
+            ->join('direccion', 'unidad.idDireccion', '=', 'direccion.idDireccion')
+            ->join('usuario', 'empleado.idEmpleado', '=', 'usuario.idEmpleado')
+            ->join('estadousuario', 'usuario.idTipoEstado', '=', 'estadousuario.idEstado')
+            ->select(
+                'empleado.cedula',
+                'empleado.primerNombre',
+                'empleado.segundoNombre',
+                'empleado.primerApellido',
+                'empleado.segundoApellido',
+                'direccion.nombre as nombreDireccion',
+                'unidad.nombre as nombreUnidad',
+                'cargo.nombre as nombreCargo',
+                'estadousuario.tipoEstado as nombreEstado'  // Cambiado a 'tipoEstado'
+            )
+            ->get();
 
-    
+        // Verificando si el conjunto de resultados está vacío
+        if ($empleados->isEmpty()) {
+            return ['successful' => false, 'error' => 'Empleados no encontrados'];
+        }
 
-    
+        return ['successful' => true, 'data' => $empleados];
+    }
 }

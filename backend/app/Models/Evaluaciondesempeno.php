@@ -42,6 +42,10 @@ class EvaluacionDesempeno extends Model
     {
         return $this->belongsTo(Empleado::class, 'idEmpleado');
     }
+    public function evaluador()
+    {
+        return $this->belongsTo(Empleado::class, 'idEvaluador');
+    }
 
 
 }
