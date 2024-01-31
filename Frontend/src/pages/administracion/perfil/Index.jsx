@@ -15,7 +15,7 @@ const Perfil = ({ empleado }) => {
       <Sidebar />
 
       <Routes>
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/" element={<Dashboard empleado={empleado}/>} />
         <Route
           path="datos-personales"
           element={<DatosPersonales empleado={empleado} />}

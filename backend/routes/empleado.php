@@ -19,6 +19,7 @@ Route::get('total-capacitaciones', [EmpleadoCapacitacionController::class, 'obte
 
 //Rutas Cargo
 Route::get('/mi-cargo', [EmpleadoCargoController::class, 'miCargo']);
+Route::get('/miCargoPorId/{idEmpleado}', [EmpleadoCargoController::class, 'miCargoPorId']);
 
 // Datos Personales 
 Route::get('/mis-datos-personales', [EmpleadoDatosController::class, 'misDatosPersonales']);
