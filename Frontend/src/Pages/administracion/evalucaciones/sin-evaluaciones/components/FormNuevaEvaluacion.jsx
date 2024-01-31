@@ -4,7 +4,8 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 
 
-const FormularioEvaluacion = ({ selectedEmployeeId, selectedEmployeeName,  }) => {
+const FormularioEvaluacion = ({ selectedEmployeeId, selectedEmployeeName }) => {
+
   const [formData, setFormData] = useState({
     idEmpleado: selectedEmployeeId || "",
     nombreEmpleado: selectedEmployeeName || "",
@@ -24,7 +25,7 @@ const FormularioEvaluacion = ({ selectedEmployeeId, selectedEmployeeName,  }) =>
   });
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
-  // const history = useHistory();
+  const [routeMessage, setRouteMessage] = useState("");
 
 
   const handleChange = (e) => {
@@ -75,6 +76,7 @@ const FormularioEvaluacion = ({ selectedEmployeeId, selectedEmployeeName,  }) =>
         text: 'La evaluación se ha creado correctamente',
       })
       console.log('Evaluación creada correctamente');
+      setRouteMessage(response.data.message);
       
       
     } catch (error) {
@@ -101,6 +103,11 @@ const FormularioEvaluacion = ({ selectedEmployeeId, selectedEmployeeName,  }) =>
         {error && (
           <div className="bg-red-500 py-1 px-3 text-white font-bold rounded-md text-center mt-2 mb-5">
             Por favor, completa todos los campos obligatorios.
+          </div>
+        )}
+        {routeMessage && (
+          <div className="bg-yellow-500 py-1 px-3 text-white font-bold rounded-md text-center mt-2 mb-5">
+            {routeMessage}
           </div>
         )}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
