@@ -129,7 +129,7 @@ function App() {
                                               />
 
                                               <Route
-                                                path="empleados"
+                                                path="empleados/*"
                                                 element={
                                                   <IndexEmpleadosAdministrador />
                                                 }

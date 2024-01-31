@@ -29,7 +29,7 @@ const EmpleadosProvider = ({ children }) => {
           },
         };
         const { data } = await clienteAxios("/empleados", config);
- 
+
         setEmpleados(data.data);
       } catch (error) {
         console.log(error);
@@ -100,27 +100,24 @@ const EmpleadosProvider = ({ children }) => {
         const errors = data.original.errors;
         Object.keys(errors).forEach((campo) => {
           const mensajesError = errors[campo].join(", ");
-          /*           console.error(`${campo}: ${mensajesError}`); */
           setAlerta({
             tipo: "error",
             mensaje: `Error al agregar el empleado: ${mensajesError}`,
           });
         });
       } else {
+        // La solicitud fue exitosa, actualiza el estado de los empleados
+        setEmpleados((empleadosActuales) => [
+          ...empleadosActuales,
+          nuevoEmpleado,
+        ]);
+
         setAlerta({
           tipo: "success",
           mensaje: "Empleado agregado exitosamente",
         });
 
-        const nuevoUsuario = {
-          idEmpleado: data.original.empleado.idEmpleado,
-          correo: nuevoEmpleado.correo,
-          idTipoEstado: 11,
-        };
-        //agregarusuario(nuevoUsuario);
         navigate("/administracion/empleados");
-
-        // La solicitud fue exitosa, puedes manejarlo de acuerdo a tus necesidades
       }
     } catch (error) {
       console.error("Error al agregar empleado:", error);

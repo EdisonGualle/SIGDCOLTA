@@ -67,7 +67,7 @@ const SidebarAdministrador = () => {
             {/* Mi Perfil */}
             <li>
               <Link
-                to="/administracion/perfil/dashboard"
+                to="/administracion/perfil"
                 className="flex  text-secondary-100 items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-100   hover:text-black transition-colors"
               >
                 <RiUser3Line className="text-primary" /> Mi Perfil
