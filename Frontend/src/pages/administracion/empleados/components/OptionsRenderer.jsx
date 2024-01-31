@@ -66,9 +66,6 @@ const OptionsRenderer = (params) => {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        /*         ;
-
-         */
         eliminarEmpleado(data.idEmpleado);
         MySwal.fire("Eliminada", "Empleado Eliminado.", "success");
       }

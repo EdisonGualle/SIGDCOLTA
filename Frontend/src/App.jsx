@@ -153,7 +153,7 @@ function App() {
 
                                               <Route
                                                 path="jornadas"
-                                                element={<JornadaIndex/>}
+                                                element={<JornadaIndex />}
                                               />
 
                                               <Route
