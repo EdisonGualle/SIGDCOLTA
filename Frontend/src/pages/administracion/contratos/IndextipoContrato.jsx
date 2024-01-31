@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 
 const IndextipoContratosAdministrador = () => {
   const { tiposContrato } = usetipoContratos();
-  console.log("IndextipoContrato:", tiposContrato);
+  // console.log("IndextipoContrato:", tiposContrato);
   const MySwal = withReactContent(Swal);
   
 
