@@ -56,8 +56,8 @@ const TableContratos = ({ contratos }) => {
     []
   );
 
-  
 
+  
   return (
     <div className="h-full">
       <div className={"ag-theme-quartz"} style={{ width: "100%", height: "90%" }}>
