@@ -3,14 +3,16 @@ import "ag-grid-community/styles/ag-theme-quartz.css";
 import { AgGridReact } from "ag-grid-react";
 import React, { useEffect, useState, useMemo } from "react";
 import Tippy from "@tippyjs/react";
-import "tippy.js/dist/tippy.css"; 
+import "tippy.js/dist/tippy.css";
 import axios from "axios";
 import { TRANSLATIONS } from "./traduccionTableGrid";
 import { LANGUAGE_OPTIONS } from "./traduccionTableGrid";
+import Swal from 'sweetalert2';
+
 
 const TableEvaluaciones = ({ evaluaciones }) => {
   const [rowData, setRowData] = useState([]);
-  const [modalVerOpen, setModalVerOpen] = useState(false);
+  const [deleteFlag, setDeleteFlag] = useState(false);
 
   useEffect(() => {
     setRowData(evaluaciones);
@@ -63,7 +65,7 @@ const TableEvaluaciones = ({ evaluaciones }) => {
     { headerName: "Reconocimientos/Logros", field: "reconocimientosLogros" },
     { headerName: "Desarrollo Profesional", field: "desarrolloProfesional" },
     { headerName: "Feedback del Empleado", field: "feedbackEmpleado" },
-], []);
+  ], []);
 
 
   const defaultColDef = useMemo(() => ({
@@ -117,31 +119,59 @@ const EstadoEvaluacionRenderer = (props) => {
 const OptionsRenderer = (props) => {
   const { data } = props.node;
   const idEvaluacionDesempeno = data.idEvaluacionDesempeno;
-
   const handleEliminarClick = async () => {
-    try {
+    // Mostrar SweetAlert2 para confirmar la eliminación
+    const confirmacion = await Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Esta acción no se puede revertir',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar evaluación'
+    });
+
+    if (confirmacion.isConfirmed) {
+      try {
         const token = localStorage.getItem("token");
         if (!token) {
-            // Maneja la situación donde el token no está disponible en localStorage
-            return;
+          // Maneja la situación donde el token no está disponible en localStorage
+          return;
         }
 
         const config = {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
         };
 
         const response = await axios.delete(`http://127.0.0.1:8000/api/administrador/evaluaciones-desempeno/${idEvaluacionDesempeno}`, config);
         console.log(`Evaluacion con id ${idEvaluacionDesempeno} eliminada`);
 
+        // Mostrar SweetAlert2 con mensaje de éxito
+        Swal.fire(
+          '¡Eliminada!',
+          'La evaluación ha sido eliminada.',
+          'success'
+        ).then(() => {
+          window.location.reload();
+        });
+
         if (response.data && response.data.message) {
-            console.log(response.data.message);
+          console.log(response.data.message);
         }
-    } catch (error) {
+      } catch (error) {
         console.error(`Error al eliminar evaluacion con id ${idEvaluacionDesempeno}:`, error);
+        // Mostrar SweetAlert2 con mensaje de error
+        Swal.fire(
+          'Error',
+          'Hubo un error al intentar eliminar la evaluación',
+          'error'
+        );
+      }
     }
-};
+  };
+
 
 
 
