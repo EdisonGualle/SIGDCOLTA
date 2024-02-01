@@ -55,7 +55,7 @@ const FormularioContrato = () => {
       });
 
     } catch (error) {
-      console.error("Error al crear la evaluacion:", error);
+      console.error("Error al crear El tipo de Contrato", error);
       console.log(
         "Detalles del error:",
         error.response?.data || "No hay detalles disponibles"
@@ -64,7 +64,7 @@ const FormularioContrato = () => {
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: `Hubo un error al crear el contrato. Detalles del error: ${error.response.data.errors.nombre[0]}`,
+        text: `Detalles del error: ${error.response.data.errors.nombre[0]}`,
       });
       
     }
