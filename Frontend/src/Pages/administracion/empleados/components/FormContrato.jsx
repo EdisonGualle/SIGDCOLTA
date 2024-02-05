@@ -9,6 +9,7 @@ const FormContrato = ({
   setFormContrato,
 }) => {
   const [error, setError] = useState(false);
+  const [mensajeError, setMensajeError] = useState("");
   const { direcciones, unidades, cargos } = useDirecciones();
   const { getTiposContrato, tiposContratos } = useContratos();
   const [unidadesFiltrados, setUnidadesFiltrados] = useState([]);
@@ -69,15 +70,51 @@ const FormContrato = ({
       "estadoContrato",
     ];
     for (const campo of camposObligatorios) {
-      if (formContrato[campo] === "") {
-        setError(true);
+      if (campo === "salario") {
+        // Additional validation for salario
+        const salarioValue = parseFloat(formContrato[campo]);
 
-        setTimeout(() => {
-          setError(false);
-        }, 3000);
+        if (isNaN(salarioValue) || salarioValue <= 450) {
+          setError(true);
+          setMensajeError("El salario debe ser un número mayor que 450 (SalarioBasico).");
 
-        return;
+          setTimeout(() => {
+            setError(false);
+          }, 3000);
+
+          return;
+        }
+      } else {
+        if (formContrato[campo] === "") {
+          setError(true);
+          setMensajeError("Por favor, completa todos los campos obligatorios.");
+
+          setTimeout(() => {
+            setError(false);
+          }, 3000);
+
+          return;
+        }
       }
+    }
+    setMensajeError("");
+
+    // Additional validation for fechaInicio and fechaFin
+    const fechaInicioValue = new Date(formContrato["fechaInicio"]);
+    const fechaFinValue = new Date(formContrato["fechaFin"]);
+
+    if (fechaInicioValue >= fechaFinValue) {
+      // If fechaInicio is not earlier than fechaFin
+      setError(true);
+      setMensajeError(
+        "La fecha de inicio de Contrato debe ser anterior a la fecha de fin."
+      );
+
+      setTimeout(() => {
+        setError(false);
+      }, 3000);
+
+      return;
     }
     handleNext();
   };
@@ -87,7 +124,7 @@ const FormContrato = ({
       <form onSubmit={handleSubmit}>
         {error && (
           <div className="bg-red-500 py-1 px-3 text-white font-bold rounded-md text-center mt-2 mb-5">
-            Por favor, completa todos los campos obligatorios.
+            {mensajeError}
           </div>
         )}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

@@ -4,9 +4,14 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 
 import OptionsRenderer from "./OptionsRenderer";
-const TableEmpleados = ({ empleados }) => {
+const TableEmpleados = ({ empleados,setSelectedRows }) => {
   const [rowData, setRowData] = useState([]);
-
+  function handleSelectionChanged() {
+    const selectedNodes = gridOptions.api.getSelectedNodes();
+    console.log(selectedNodes);
+    const selectedData = selectedNodes.map((node) => node.data);
+    setSelectedRows(selectedData);
+  }
   useEffect(() => {
     setRowData(empleados);
   }, [empleados]);
@@ -18,6 +23,7 @@ const TableEmpleados = ({ empleados }) => {
       const currentData = event.api.getRowNode(event.rowIndex).data;
     },
     onCellClicked: handleCellClicked,
+    onSelectionChanged: handleSelectionChanged,
     onRowEditingStarted: handleRowEditingStarted,
     onRowEditingStopped: handleRowEditingStopped,
     editType: "fullRow",
@@ -69,13 +75,6 @@ const TableEmpleados = ({ empleados }) => {
         field: "tipoEstado",
         suppressMenu: true,
       },
-
-      /* {
-        headerName: "Nombre Completo",
-        suppressMenu: true,
-        valueGetter: (params) =>
-          `${params.data.primerNombre} ${params.data.segundoNombre} ${params.data.primerApellido} ${params.data.segundoApellido}`,
-      }, */
 
       {
         headerName: "Fecha de Nacimiento",
@@ -165,7 +164,7 @@ const TableEmpleados = ({ empleados }) => {
         gridOptions={gridOptions}
         rowData={rowData}
         rowSelection="multiple"
-        domLayout='autoHeight'
+        domLayout="autoHeight"
       />
     </div>
   );

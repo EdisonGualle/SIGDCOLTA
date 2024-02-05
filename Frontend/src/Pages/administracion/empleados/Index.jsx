@@ -12,6 +12,7 @@ const IndexEmpleadosAdministrador = () => {
   const { empleados } = useEmpleados();
   const [modalOpen, setModalOpen] = useState(false);
   const MySwal = withReactContent(Swal);
+  const [selectedRows, setSelectedRows] = useState([]);
 
   const handleNuevoClick = () => {
     setModalOpen(true);
@@ -40,6 +41,12 @@ const IndexEmpleadosAdministrador = () => {
     });
   };
 
+  const mostrarDetallesSeleccionados = () => {
+    console.log("Filas seleccionadas:", selectedRows);
+    // Aquí puedes implementar lógica para mostrar los detalles como desees
+    // Por ejemplo, puedes abrir un modal o realizar otras acciones.
+  };
+
   return (
     <>
       {/* Seccion de encabezado */}
@@ -53,12 +60,12 @@ const IndexEmpleadosAdministrador = () => {
           </h1>
         </div>
         <div className="flex justify-end">
-          <button
+          {/* <button
             className="bg-red-700 text-white mx-10 py-2 px-5 rounded-lg"
             onClick={handleEliminarClick}
           >
             Eliminar
-          </button>
+          </button> */}
 
           <button
             className="bg-blue-700 text-white py-2 px-5 rounded-lg"
@@ -78,8 +85,11 @@ const IndexEmpleadosAdministrador = () => {
             <select
               id="menu"
               name="menu"
-              className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
             >
+              <option selected value={""} disabled>
+                --Selecione--
+              </option>
               <optgroup label="Usuario">
                 <option value="deshabilitar-usuario">
                   Deshabilitar usuario
@@ -100,10 +110,15 @@ const IndexEmpleadosAdministrador = () => {
           </div>
         </div>
       </div>
+      <button onClick={mostrarDetallesSeleccionados}>
+        Mostrar Detalles Seleccionados
+      </button>
+
       {modalOpen ? (
         <ModalComponent isOpen={modalOpen} onClose={handleCloseModal} />
       ) : (
         <TableEmpleados
+          setSelectedRows={setSelectedRows}
           isOpen={modalOpen}
           onClose={handleCloseModal}
           empleados={empleados}

@@ -20,6 +20,7 @@ const FormUbicacionDemografia = ({
   ];
 
   const [provinciaSeleccionada, setProvinciaSeleccionada] = useState("");
+  const [mensajeError, setMensajeError] = useState("");
   const [cantonesFiltrados, setCantonesFiltrados] = useState([]);
   const handleChange = (e) => {
     setFormDemografia({
@@ -57,6 +58,7 @@ const FormUbicacionDemografia = ({
     for (const campo of camposObligatorios) {
       if (formDemografia[campo].trim() === "") {
         setError(true);
+        setMensajeError("Por favor, completa todos los campos obligatorios.");
 
         setTimeout(() => {
           setError(false);
@@ -64,6 +66,22 @@ const FormUbicacionDemografia = ({
 
         return;
       }
+    }
+
+    // Additional validation for fechaNacimiento
+    const fechaNacimientoValue = new Date(formDemografia["fechaNacimiento"]);
+    const fechaLimite = new Date("2006-01-01"); // Assuming YYYY-MM-DD format
+
+    if (fechaNacimientoValue > fechaLimite) {
+      // If fechaNacimiento is greater than 2006-01-01
+      setError(true);
+
+      setTimeout(() => {
+        setError(false);
+        setMensajeError("El empleado debe ser mayor de edad");
+      }, 3000);
+
+      return;
     }
     // Llama a la función onNext para pasar al siguiente formulario
     handleNext();
@@ -74,7 +92,7 @@ const FormUbicacionDemografia = ({
       <form onSubmit={handleSubmit}>
         {error && (
           <div className="bg-red-500 py-1 px-3 text-white font-bold rounded-md text-center mt-2 mb-5">
-            Por favor, completa todos los campos obligatorios.
+            {mensajeError}
           </div>
         )}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

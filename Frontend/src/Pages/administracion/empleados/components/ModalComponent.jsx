@@ -46,7 +46,7 @@ const ModalComponent = ({ isOpen, onClose }) => {
   const [formDatosBancarios, setFormDatosBancarios] = useState({
     nombreBanco: "",
     numeroCuenta: "",
-    tipoCuenta: "",
+    tipoCuenta: "Ahorros",
   });
 
   const completarFormulario = () => {
