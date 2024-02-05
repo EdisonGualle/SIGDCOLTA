@@ -90,7 +90,7 @@ function App() {
                                               path="/"
                                               element={<HomeLayout />}
                                             >
-                                              <Route index element={<Home />} />
+                                              <Route index element={<Home/>} />
 
                                               <Route
                                                 path="*"
