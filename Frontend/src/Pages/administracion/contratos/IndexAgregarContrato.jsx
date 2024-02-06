@@ -16,9 +16,6 @@ const IndexAgregarContratosAdministrador = () => {
   const [selectedEmployeeName, setSelectedEmployeeName] = useState(null);
   const [selectedRowCount, setSelectedRowCount] = useState(0); // State for selected row count
 
-
-
-
   const handleNuevoContratoClick = () => {
     // console.log("selectedEmployeeId",selectedEmployeeId)
     // console.log("selectedRowCount",selectedRowCount)
@@ -70,7 +67,6 @@ const IndexAgregarContratosAdministrador = () => {
             Nuevo
           </button>
         </div>
-        
       </div>
 
       <div className="h-full">
