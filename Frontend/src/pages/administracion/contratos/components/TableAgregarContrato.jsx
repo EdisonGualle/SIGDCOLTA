@@ -7,7 +7,7 @@ import { LANGUAGE_OPTIONS } from "../../empleados/components/traduccionTableGrid
 
 import "tippy.js/dist/tippy.css"; // optional
 
-const TableAgregarContrato = ({ tiposContrato, setSelectedEmployeeId, setSelectedEmployeeName }) => {
+const TableAgregarContrato = ({ tiposContrato, setSelectedEmployeeId, setSelectedEmployeeName, }) => {
   const [rowData, setRowData] = useState([]);
   const [selectedRowCount, setSelectedRowCount] = useState(0);
  
@@ -74,9 +74,10 @@ const TableAgregarContrato = ({ tiposContrato, setSelectedEmployeeId, setSelecte
     }),
     []
   );
-
+  // console.log("selectedRowCount table ",selectedRowCount )
   return (
     <div className="h-full">
+      
       {selectedRowCount !== 1 && (
         <p className="text-red-500">Seleccione Solo un empleado para agregar un nuevo contrato.</p>
       )}

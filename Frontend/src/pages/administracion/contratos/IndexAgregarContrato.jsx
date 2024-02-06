@@ -20,26 +20,31 @@ const IndexAgregarContratosAdministrador = () => {
 
 
   const handleNuevoContratoClick = () => {
-    if (selectedEmployeeId === null || selectedRowCount !== 1) {
-      MySwal.fire({
-        icon: "error",
-        title: "Error",
-        text: selectedRowCount === 0 ? "Seleccione un empleado para agregar un nuevo contrato." : "Seleccione solo un empleado para agregar un nuevo contrato.",
-      });
-    } else (selectedEmployeeId === 1); {
-      MySwal.fire({
-        title: "Nuevo Tipo de Contrato",
-        html: <FormNuevoContrato selectedEmployeeId={selectedEmployeeId} selectedEmployeeName={selectedEmployeeName} />,
-        showCancelButton: true,
-        showCloseButton: true,
-        reverseButtons: true,
-        cancelButtonColor: "#d33",
-        confirmButtonColor: "#3085d6",
-        cancelButtonText: "Cancelar",
-        confirmButtonText: "Crear",
-        width: "50%",
-      });
-    }
+    // console.log("selectedEmployeeId",selectedEmployeeId)
+    // console.log("selectedRowCount",selectedRowCount)
+
+    if (selectedEmployeeId === null /*|| selectedRowCount !== 1*/) {
+  MySwal.fire({
+    icon: "error",
+    title: "Error",
+    text: selectedRowCount === 0 ? "Seleccione un empleado para agregar un nuevo contrato." : "Seleccione solo un empleado para agregar un nuevo contrato.",
+ 
+  });
+} else {
+  MySwal.fire({
+    title: "Nuevo Tipo de Contrato",
+    html: <FormNuevoContrato selectedEmployeeId={selectedEmployeeId} selectedEmployeeName={selectedEmployeeName} />,
+    showCancelButton: true,
+    showCloseButton: true,
+    reverseButtons: true,
+    cancelButtonColor: "#d33",
+    confirmButtonColor: "#3085d6",
+    cancelButtonText: "Cancelar",
+    confirmButtonText: "Crear",
+    width: "50%",
+  });
+}
+
   };
   return (
     <>
@@ -64,7 +69,11 @@ const IndexAgregarContratosAdministrador = () => {
       </div>
       
       <div className="h-full">
-        <TableAgregarContrato tiposContrato={tiposContrato} setSelectedEmployeeId={setSelectedEmployeeId} setSelectedEmployeeName={setSelectedEmployeeName} setSelectedRowCount={setSelectedRowCount}/>
+        <TableAgregarContrato 
+        tiposContrato={tiposContrato} 
+        setSelectedEmployeeId={setSelectedEmployeeId} 
+        setSelectedEmployeeName={setSelectedEmployeeName} 
+        setSelectedRowCountProp={setSelectedRowCount} />
 
       </div>
     </>

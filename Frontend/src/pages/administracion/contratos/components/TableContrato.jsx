@@ -47,7 +47,7 @@ const OptionsRenderer = (props) => {
           'El Contrato ha sido eliminada.',
           'success'
         ).then(() => {
-          window.location.reload();
+          reloadData(); 
         });
 
         if (response.data && response.data.message) {
@@ -108,12 +108,13 @@ const TableContratos = ({ contratos }) => {
 
   // Column Definitions
   const [colDefs] = useState([
-    { headerName: "ID", field: "idContrato" },
+    { headerName: "ID", field: "idContrato",
+    checkboxSelection: true,
+    headerCheckboxSelection: true,
+    suppressMenu: true, },
     {
       headerName: "Nombre", field: "nombreCompleto",
-      checkboxSelection: true,
-      headerCheckboxSelection: true,
-      suppressMenu: true,
+      
     },
     {
       headerName: "Opciones",

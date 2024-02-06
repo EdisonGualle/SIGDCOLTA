@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
@@ -14,9 +14,30 @@ const FormularioContrato = ({ selectedEmployeeId, selectedEmployeeName, Contrato
     estadoContrato: "Activo", // Estado predeterminado
   });
 
+
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const [routeMessage, setRouteMessage] = useState("");
+  const [tiposContratoR, setTiposContrato] = useState([]); // Estado para almacenar los tipos de contrato
+
+  useEffect(() => {
+    const fetchTiposContrato = async () => {
+      try {
+        const token = localStorage.getItem('token'); // Obtener el token del localStorage
+        const response = await axios.get("http://127.0.0.1:8000/api/administrador/tipos-contrato", {
+          headers: {
+            Authorization: `Bearer ${token}` // Incluir el token en la cabecera de la solicitud
+          }
+        });
+        setTiposContrato(response.data.data);
+        // Almacenar los tipos de contrato en el estado local
+      } catch (error) {
+        console.error("Error al obtener tipos de contrato:", error);
+      }
+    };
+
+    fetchTiposContrato();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -44,17 +65,17 @@ const FormularioContrato = ({ selectedEmployeeId, selectedEmployeeName, Contrato
         formData
       );
       if (response.status === 200) {
-        
+
       }
       Swal.fire({
-          icon: 'success',
-          title: 'Éxito',
-          text: 'El Contrato se ha creado correctamente',
-        }).then((result) => {
-          if (result.isConfirmed || result.isDismissed) {
-            // window.location.reload(); // Recargar la página
-          }
-        });
+        icon: 'success',
+        title: 'Éxito',
+        text: 'El Contrato se ha creado correctamente',
+      }).then((result) => {
+        if (result.isConfirmed || result.isDismissed) {
+          // window.location.reload(); // Recargar la página
+        }
+      });
     } catch (error) {
       console.error("Error al crear el Contrato", error);
       console.log(
@@ -76,11 +97,11 @@ const FormularioContrato = ({ selectedEmployeeId, selectedEmployeeName, Contrato
         icon: 'error',
         title: 'Error',
         text: `Error: ${errorMessages.join("\n")}`, // Unir los mensajes de error con saltos de línea
-  
+
       });
-      
+
     }
-}
+  }
 
   return (
     <div className="max-w-screen-md mx-auto p-4">
@@ -96,124 +117,132 @@ const FormularioContrato = ({ selectedEmployeeId, selectedEmployeeName, Contrato
           </div>
         )}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div className="mb-4">
-          <label htmlFor="nombreEmpleado" className="block text-sm font-medium text-gray-600">
-            Empleado
-          </label>
-          <input
-            type="text"
-            id="nombreEmpleado"
-            name="nombreEmpleado"
-            value={formData.nombreEmpleado}
-            onChange={handleChange}
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-            disabled // Deshabilita la entrada para que no sea modificable manualmente
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="fechaInicio" className="block text-sm font-medium text-gray-600">
-            Fecha de Inicio
-          </label>
-          <input
-            type="date"
-            id="fechaInicio"
-            name="fechaInicio"
-            value={formData.fechaInicio}
-            onChange={handleChange}
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-          />
-        </div>
+          <div className="mb-4">
+            <label htmlFor="nombreEmpleado" className="block text-sm font-medium text-gray-600">
+              Empleado
+            </label>
+            <input
+              type="text"
+              id="nombreEmpleado"
+              name="nombreEmpleado"
+              value={formData.nombreEmpleado}
+              onChange={handleChange}
+              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+              disabled // Deshabilita la entrada para que no sea modificable manualmente
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="fechaInicio" className="block text-sm font-medium text-gray-600">
+              Fecha de Inicio
+            </label>
+            <input
+              type="date"
+              id="fechaInicio"
+              name="fechaInicio"
+              value={formData.fechaInicio}
+              onChange={handleChange}
+              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+            />
+          </div>
 
-        <div className="mb-4">
-          <label htmlFor="fechaFin" className="block text-sm font-medium text-gray-600">
-            Fecha de Fin
-          </label>
-          <input
-            type="date"
-            id="fechaFin"
-            name="fechaFin"
-            value={formData.fechaFin}
-            onChange={handleChange}
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-          />
-        </div>
+          <div className="mb-4">
+            <label htmlFor="fechaFin" className="block text-sm font-medium text-gray-600">
+              Fecha de Fin
+            </label>
+            <input
+              type="date"
+              id="fechaFin"
+              name="fechaFin"
+              value={formData.fechaFin}
+              onChange={handleChange}
+              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+            />
+          </div>
 
-        <div className="mb-4">
-          <label htmlFor="idEmpleado" className="block text-sm font-medium text-gray-600">
-            ID de Empleado
-          </label>
-          <input
-            type="text"
-            id="idEmpleado"
-            name="idEmpleado"
-            value={formData.idEmpleado}
-            onChange={handleChange}
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-            disabled // Deshabilita la entrada para que no sea modificable manualmente
-          />
-
-
-        </div>
+          <div className="mb-4">
+            <label htmlFor="idEmpleado" className="block text-sm font-medium text-gray-600">
+              ID de Empleado
+            </label>
+            <input
+              type="text"
+              id="idEmpleado"
+              name="idEmpleado"
+              value={formData.idEmpleado}
+              onChange={handleChange}
+              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+              disabled // Deshabilita la entrada para que no sea modificable manualmente
+            />
 
 
+          </div>
 
-        <div className="mb-4">
-          <label htmlFor="TipoContrato" className="block text-sm font-medium text-gray-600">
-            Tipo de Contrato
-          </label>
-          <input
+
+
+          <div className="mb-4">
+            <label htmlFor="idTipoContrato" className="block text-sm font-medium text-gray-600">
+              Tipo de Contrato
+            </label>
+
+            <select
             type="number"
-            id="idTipoContrato"
-            name="idTipoContrato"
-            value={formData.idTipoContrato}
-            onChange={handleChange}
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-          />
-        </div>
+              id="idTipoContrato"
+              name="idTipoContrato"
+              value={formData.idTipoContrato}
+              onChange={handleChange}
+              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+            >
+              {tiposContratoR.map(elemento => (
+                <option key={elemento.idTipoContrato} value={elemento.idTipoContrato}>{elemento.nombre}</option>
+              ))}
+            </select>
 
-        <div className="mb-4">
-          <label htmlFor="archivo" className="block text-sm font-medium text-gray-600">
-            Archivo
-          </label>
-          <input
-            type="file"
-            id="archivo"
-            name="archivo"
-            onChange={handleChange}
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-          />
-        </div>
 
-        <div className="mb-4">
-          <label htmlFor="salario" className="block text-sm font-medium text-gray-600">
-            Salario
-          </label>
-          <input
-            type="number"
-            id="salario"
-            name="salario"
-            value={formData.salario}
-            onChange={handleChange}
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-          />
-        </div>
 
-        <div className="mb-4">
-          <label htmlFor="estadoContrato" className="block text-sm font-medium text-gray-600">
-            Estado de Contrato
-          </label>
-          <select
-            id="estadoContrato"
-            name="estadoContrato"
-            value={formData.estadoContrato}
-            onChange={handleChange}
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-            disabled // Deshabilita el desplegable
-          >
-            <option value="Activo">Activo</option>
-          </select>
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="archivo" className="block text-sm font-medium text-gray-600">
+              Archivo
+            </label>
+            <input
+              type="file"
+              id="archivo"
+              name="archivo"
+              onChange={handleChange}
+              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="salario" className="block text-sm font-medium text-gray-600">
+              Salario
+            </label>
+            <input
+              type="number"
+              id="salario"
+              name="salario"
+              value={formData.salario}
+              onChange={handleChange}
+              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="estadoContrato" className="block text-sm font-medium text-gray-600">
+              Estado de Contrato
+            </label>
+            <select
+              id="estadoContrato"
+              name="estadoContrato"
+              value={formData.estadoContrato}
+              onChange={handleChange}
+              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+              disabled // Deshabilita el desplegable
+            >
+              <option value="Activo">Activo</option>
+            </select>
+          </div>
         </div>
-      </div>
         <button
           type="submit"
           className="bg-blue-700 text-white py-2 px-5 rounded-lg"
