@@ -29,7 +29,6 @@ import { ContratosProvider } from "./providers/ContratosProvider";
 import IndextipoContratosAdministrador from "./pages/administracion/contratos/IndextipoContrato";
 import { TiposContratoProvider } from "./providers/tipoContratosProvider";
 
-import IndexAgregarContratosAdministrador from "./pages/administracion/contratos/IndexAgregarContrato";
 import { AgregarContratoProvider } from "./providers/AsignarContratosProvider";
 
 import IndexCargosAdministrador from "./pages/administracion/posicionLaboral/cargos";
@@ -63,6 +62,7 @@ import IndexTiposCapacitacionesAdministrador from "./pages/administracion/capaci
 import { TiposCapacitacionesProvider } from "./providers/TiposCapacitacionesProvider";
 import CalendarioIndex from "./Pages/administracion/horarios/calendario/CalendarioIndex";
 import JornadaIndex from "./Pages/administracion/horarios/jornada/JornadaIndex";
+import IndexAgregarContratosAdministrador from "./Pages/administracion/contratos/IndexAgregarContrato";
 function App() {
   return (
     <BrowserRouter>
@@ -90,7 +90,7 @@ function App() {
                                               path="/"
                                               element={<HomeLayout />}
                                             >
-                                              <Route index element={<Home/>} />
+                                              <Route index element={<Home />} />
 
                                               <Route
                                                 path="*"
