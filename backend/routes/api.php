@@ -75,9 +75,16 @@ Route::fallback(function () {
 
 
 //RUTAS PARA SER INSERTADAS POR ANGEL MELENDRES
+Route::get('/calendario_actividades_gad', [Calendario_actividades_gad_Controller::class, 'index']);
+Route::get('/calendario_actividades_gad/{id}', [Calendario_actividades_gad_Controller::class, 'show']);
+Route::post('/calendario_actividades_gad', [Calendario_actividades_gad_Controller::class, 'store']);
+Route::put('/calendario_actividades_gad/{id}', [Calendario_actividades_gad_Controller::class, 'update']);
+Route::delete('/calendario_actividades_gad/{id}', [Calendario_actividades_gad_Controller::class, 'destroy']);
+
 
 
 Route::get('/obtenerDiasLaboradosEmpleado', [Calendario_actividades_gad_Controller::class, 'obtenerDiasLaboradosPorEmpleado']);
 Route::get('/obtenerDiasLaborablesEmpleado', [Calendario_actividades_gad_Controller::class, 'obtenerDiasLaborablesEmpleado']);
 Route::get('/cantidadHorasAtrasoEmpleado', [RegistroAsistenciaService::class, 'cantidadHorasAtrasoEmpleado']);
 Route::post('/registrarActividadesMesesAuto', [Calendario_actividades_gad_Controller::class, 'registrarActividadesMesesAuto']);
+Route::post('/calendario_actividades_gad/registrarRangoFechas', [Calendario_actividades_gad_Controller::class, 'registrarRangoFechas']);
