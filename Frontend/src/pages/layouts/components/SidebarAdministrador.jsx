@@ -60,7 +60,7 @@ const SidebarAdministrador = () => {
                 to="/administracion"
                 className="flex text-secondary-100  items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-100   hover:text-black transition-colors"
               >
-                <RiDashboardLine className="text-primary" /> Dashboard
+                <RiDashboardLine className="text-primary" /> Panel de control
               </Link>
             </li>
 
