@@ -73,7 +73,7 @@ const FormularioContrato = ({ selectedEmployeeId, selectedEmployeeName, Contrato
         text: 'El Contrato se ha creado correctamente',
       }).then((result) => {
         if (result.isConfirmed || result.isDismissed) {
-          // window.location.reload(); // Recargar la página
+          window.location.reload(); // Recargar la página
         }
       });
     } catch (error) {
@@ -87,11 +87,11 @@ const FormularioContrato = ({ selectedEmployeeId, selectedEmployeeName, Contrato
       // Iterar sobre las claves de error y obtener los mensajes de error
       for (const key in error.response.data.errors) {
         if (Object.hasOwnProperty.call(error.response.data.errors, key)) {
-          const errorMessage = error.response.data.errors[key][0];
-          errorMessages.push(errorMessage);
+          const errorMessage = error.response.data.errors[key];
+          errorMessages.push(`${key}: ${errorMessage}`);
         }
       }
-      console.log("Respuesta del servidor:", error.response.data);
+      console.log("Respuesta del servidor:", error.response.errors);
       // Mostrar el mensaje de error en SweetAlert
       Swal.fire({
         icon: 'error',
@@ -184,7 +184,7 @@ const FormularioContrato = ({ selectedEmployeeId, selectedEmployeeName, Contrato
             </label>
 
             <select
-            type="number"
+              type="number"
               id="idTipoContrato"
               name="idTipoContrato"
               value={formData.idTipoContrato}

@@ -34,15 +34,15 @@ const IndexAgregarContratosAdministrador = () => {
   MySwal.fire({
     title: "Nuevo Tipo de Contrato",
     html: <FormNuevoContrato selectedEmployeeId={selectedEmployeeId} selectedEmployeeName={selectedEmployeeName} />,
-    showCancelButton: true,
+    showCancelButton: false,
     showCloseButton: true,
     reverseButtons: true,
-    cancelButtonColor: "#d33",
-    confirmButtonColor: "#3085d6",
-    cancelButtonText: "Cancelar",
-    confirmButtonText: "Crear",
+    // cancelButtonColor: "#d33",
+    // cancelButtonText: "Cancelar",
+    showConfirmButton: false,
     width: "50%",
-  });
+});
+
 }
 
   };

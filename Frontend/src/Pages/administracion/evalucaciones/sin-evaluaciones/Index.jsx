@@ -27,16 +27,23 @@ const IndexSinEvaluacionesAdministrador = () => {
     } else (selectedEmployeeId === 1); {
       MySwal.fire({
         title: "Evaluacion de Desempeño",
-        html: <FormularioEvaluacion selectedEmployeeId={selectedEmployeeId} selectedEmployeeName={selectedEmployeeName} />,
-        showCancelButton: true,
+        html: (
+          <div>
+            <FormularioEvaluacion 
+              selectedEmployeeId={selectedEmployeeId} 
+              selectedEmployeeName={selectedEmployeeName} 
+            />
+          </div>
+        ),
+        showCancelButton: false,
         showCloseButton: true,
-        reverseButtons: true,
-        cancelButtonColor: "#d33",
-        confirmButtonColor: "#3085d6",
-        cancelButtonText: "Cancelar",
-        confirmButtonText: "Crear",
+        reverseButtons: false,
+        showConfirmButton: false,
+        // cancelButtonColor: "#d33",
+        // cancelButtonText: "Cancelar",
         width: "50%",
       });
+      
     }
   };
 

@@ -74,7 +74,12 @@ const FormularioEvaluacion = ({ selectedEmployeeId, selectedEmployeeName }) => {
         icon: 'success',
         title: 'Éxito',
         text: 'La evaluación se ha creado correctamente',
-      })
+      }).then((result) => {
+        if (result.isConfirmed || result.isDismissed) {
+          window.location.reload(); // Recargar la página
+        }
+      });
+      
       console.log('Evaluación creada correctamente');
       setRouteMessage(response.data.message);
       

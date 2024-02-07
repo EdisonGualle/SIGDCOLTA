@@ -125,7 +125,7 @@ class ContratoService
             'idEmpleado' => 'required|numeric|exists:empleado,idEmpleado',
             'idTipoContrato' => 'required|numeric|exists:tipocontrato,idTipoContrato',
             'archivo' => 'nullable|file',
-            'salario' => 'required|numeric',
+            'salario' => 'required|numeric|min:460|max:3000',
             'estadoContrato' => [
                 'required',
                 'nullable',
