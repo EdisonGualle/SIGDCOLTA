@@ -13,9 +13,6 @@ use App\Http\Controllers\Auth\RestablecerContraseñaController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::get('/recuperar-contraseña', [RestablecerContraseñaController::class,'cargarRestablecerContraseña']);
 Route::post('/recuperar-contraseña', [RestablecerContraseñaController::class,'restablecerContraseña']);

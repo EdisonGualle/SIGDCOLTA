@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 class RestablecerContraseñaController extends Controller
 {
@@ -115,6 +116,8 @@ class RestablecerContraseñaController extends Controller
     // Funcionalidad para restablecer la contraseña
     public function restablecerContraseña(Request $request)
     {
+         // Agrega un registro de log para verificar que se reciben los datos correctamente
+         Log::info('Datos recibidos:', $request->all());
         $request->validate([
             'password' => 'required|string|min:6|confirmed'
         ]);

@@ -1,11 +1,11 @@
-import { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import clienteAxios from "../config/clienteAxios";
 
 const ContratosContext = createContext();
 
 const ContratosProvider = ({ children }) => {
   const [contratos, setContratos] = useState([]);
-  const [cargando, setCargando] = useState(false);
+  const [cargando, setCargando] = useState(true);
   const [tiposContratos, setTiposContratos] = useState([]);
   const [alerta, setAlerta] = useState({});
   const [contrato, setContrato] = useState({});
@@ -36,9 +36,10 @@ const ContratosProvider = ({ children }) => {
       }
     };
 
-    setCargando(true);
-    obtenerContratos();
-  }, []);
+    if (cargando) {
+      obtenerContratos();
+    }
+  }, [cargando]);
 
   const getTiposContrato = async () => {
     try {
@@ -63,6 +64,12 @@ const ContratosProvider = ({ children }) => {
       setCargando(false);
     }
   };
+
+  useEffect(() => {
+    if (cargando) {
+      getTiposContrato();
+    }
+  }, [cargando]);
 
   const contextValue = {
     contratos,
