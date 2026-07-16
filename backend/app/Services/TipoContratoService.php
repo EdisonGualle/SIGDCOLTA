@@ -32,6 +32,7 @@ class TipoContratoService
             'nombre' => 'required|string|max:255|unique:tipocontrato',
             'descripcion' => 'required|string',
             'clausulas' => 'string|nullable',
+            'duracionMeses' => 'required|numeric|min:6|max:36',
         ]);
 
         // Si la validación falla, retornar errores
@@ -52,6 +53,7 @@ class TipoContratoService
             'nombre' => 'string|max:255|unique:tipoContrato,nombre,' . $id . ',idTipoContrato',
             'descripcion' => 'string',
             'clausulas' => 'string|nullable',
+            'duracionMeses' => 'required|numeric|min:6|max:36',
         ]);
 
         // Si la validación falla, retornar errores

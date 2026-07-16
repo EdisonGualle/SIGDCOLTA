@@ -14,6 +14,115 @@ class Calendario_actividades_gad_Controller extends Controller
 {
 
 
+
+    /* CRUD CALENDARIO ACTIVIDADES */
+
+    // Obtener todas las actividades
+    public function index()
+    {
+        $actividades = Calendario_actividades_gad::all();
+        return response()->json(['actividades' => $actividades], 200);
+    }
+
+    // Obtener una actividad por su ID
+    public function show($id)
+    {
+        $actividad = Calendario_actividades_gad::find($id);
+        if (!$actividad) {
+            return response()->json(['message' => 'Actividad no encontrada'], 404);
+        }
+        return response()->json(['actividad' => $actividad], 200);
+    }
+
+    // Crear una nueva actividad
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'fecha' => 'required',
+            'tipoDia' => 'required',
+            'descripcion_actividad' => 'required',
+            // Agrega aquí las validaciones para los demás campos
+        ]);
+
+        $actividad = Calendario_actividades_gad::create($request->all());
+
+        return response()->json(['actividad' => $actividad], 201);
+    }
+
+    // Actualizar una actividad
+    public function update(Request $request, $id)
+    {
+        $actividad = Calendario_actividades_gad::find($id);
+        if (!$actividad) {
+            return response()->json(['message' => 'Actividad no encontrada'], 404);
+        }
+
+        $actividad->update($request->all());
+
+        return response()->json(['actividad' => $actividad], 200);
+    }
+
+    // Eliminar una actividad
+    public function destroy($id)
+    {
+        $actividad = Calendario_actividades_gad::find($id);
+        if (!$actividad) {
+            return response()->json(['message' => 'Actividad no encontrada'], 404);
+        }
+
+        $actividad->delete();
+
+        return response()->json(['message' => 'Actividad eliminada correctamente'], 200);
+    }
+
+
+    // Registrar un rango de fechas con reglas especiales
+    /*  public function registrarRangoFechas(Request $request)
+    {
+        $this->validate($request, [
+            'fecha_inicio' => 'required|date',
+            'fecha_fin' => 'required|date|after_or_equal:fecha_inicio',
+        ]);
+
+        $fechaInicio = new Carbon($request->fecha_inicio);
+        $fechaFin = new Carbon($request->fecha_fin);
+
+        $actividades = [];
+
+        while ($fechaInicio->lte($fechaFin)) {
+            $tipoDia = $fechaInicio->dayOfWeek === Carbon::SATURDAY ? 'mediaJornada' : ($fechaInicio->dayOfWeek === Carbon::SUNDAY ? 'feriado' : 'normal');
+
+            $actividades[] = Calendario_actividades_gad::create([
+                'fecha' => $fechaInicio->toDateString(),
+                'tipoDia' => $tipoDia,
+                'descripcion_actividad' => 'Actividad programada', // Puedes ajustar esta descripción según necesites
+            ]);
+
+            $fechaInicio->addDay();
+        }
+    } */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function obtenerDiasLaborablesEmpleado(request $request)
     {
 
@@ -127,11 +236,7 @@ class Calendario_actividades_gad_Controller extends Controller
         $validator = Validator::make($request->all(), [
             'fechaInicio' => 'required|date',
             'fechaFin' => 'required|date|after_or_equal:fechaInicio',
-            'tipoDia' => 'string',
         ]);
-
-        // Establecer el valor predeterminado si 'tipoDia' no está presente en la solicitud
-        $request->merge(['tipoDia' => $request->get('tipoDia', 'normal')]);
 
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 400);
@@ -142,21 +247,20 @@ class Calendario_actividades_gad_Controller extends Controller
 
         $currentDate = $inicio->copy();
         while ($currentDate <= $fin) {
-            $this->registrarActividadParaFecha($currentDate, $request->tipoDia); // Corregir aquí
-            $currentDate->addDay(); // Avanzar al siguiente día
+            $tipoDia = $currentDate->isSaturday() ? 'mediaJornada' : ($currentDate->isSunday() ? 'feriado' : 'normal');
+            $this->registrarActividadParaFecha($currentDate, $tipoDia);
+            $currentDate->addDay();
         }
-
-        // Puedes agregar aquí cualquier lógica adicional después del bucle, si es necesario
     }
 
-   
+
     private function registrarActividadParaFecha($fecha, $tipoDia)
     {
         Calendario_actividades_gad::updateOrCreate(
             ['fecha' => $fecha->format('Y-m-d')],
             [
                 'tipoDia' => $tipoDia,
-                'descripcion_actividad' => 'Actividad normal programada'
+                'descripcion_actividad' => $tipoDia === 'mediaJornada' ? 'Actividad media jornada programada' : ($tipoDia === 'feriado' ? 'Actividad feriado programada' : 'Actividad normal programada')
             ]
         );
     }

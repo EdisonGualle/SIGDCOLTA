@@ -55,16 +55,18 @@ const FormularioContrato = () => {
       });
 
     } catch (error) {
-      console.error("Error al crear la evaluacion:", error);
-      console.log(
-        "Detalles del error:",
-        error.response?.data || "No hay detalles disponibles"
-      );
-      console.log("Respuesta del servidor:", error.response.data);
+      console.error("Error al crear El tipo de Contrato", error);
+      const errors = error.response.data.errors;
+      let errorMessage = '';
+      for (const key in errors) {
+          if (errors.hasOwnProperty(key)) {
+              errorMessage += `"${key}": "${errors[key][0]}"\n`;
+          }
+      }
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: `Hubo un error al crear el contrato. Detalles del error: ${error.response.data.errors.nombre[0]}`,
+        text: `Detalles del error:\n${errorMessage}`,
       });
       
     }

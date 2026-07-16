@@ -36,6 +36,7 @@ const IndextipoContratosAdministrador = () => {
       title: "Nuevo Tipo de Contrato",
       html: <FormNuevoTipoContrato />, // Renderiza el formulario de nuevo empleado en el contenido del SweetAlert
       showCancelButton: false,
+      showCloseButton: true,
       showConfirmButton: false,
       cancelButtonColor: "#3085d6",
       cancelButtonText: "Cerrar",

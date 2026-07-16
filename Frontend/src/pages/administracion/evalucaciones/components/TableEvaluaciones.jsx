@@ -1,12 +1,13 @@
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import { AgGridReact } from "ag-grid-react";
+import { TRANSLATIONS } from "./traduccionTableGrid";
+import { LANGUAGE_OPTIONS } from "./traduccionTableGrid";
 import React, { useEffect, useState, useMemo } from "react";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import axios from "axios";
-import { TRANSLATIONS } from "./traduccionTableGrid";
-import { LANGUAGE_OPTIONS } from "./traduccionTableGrid";
+
 import Swal from 'sweetalert2';
 
 
